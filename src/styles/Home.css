@@ -1,0 +1,39 @@
+.home-container {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.HeroImg {
+  background-image: url('../assets/heroimg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.about-section,
+.services-section,
+.contact-section {
+  scroll-margin-top: 80px; /* For smooth scrolling with fixed header */
+  position: relative;
+  z-index: 1;
+}
+
+/* Add smooth scrolling to the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 100vh;
+  }
+} 

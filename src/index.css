@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.nav-link {
+  font-family: 'Poppins', sans-serif;
+}
+
+.HeroImg{
+  background-image: url(../src/assets/heroimg.png);
+}
+.Missionimg{
+  background-image: url(../src/assets/heroimg.png);
+}
+.Valueimg{
+  background-image: url(../src/assets/heroimg.png);
+}
+.Visionimg{
+  background-image: url(../src/assets/heroimg.png);
+}
+.conback{
+  background-image: url(/assets/backgroundcon.png);
+}
