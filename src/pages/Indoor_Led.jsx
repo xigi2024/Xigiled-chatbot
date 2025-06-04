@@ -1,4 +1,4 @@
-import React, { useRef, useEffect,useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import image1 from "../assets/products/img1.jpg";
@@ -7,6 +7,7 @@ import image3 from '../assets/products/img1.jpg';
 import featureImage from '../assets/Products/img1.jpg'
 import feature from '../assets/goverment.jpg'
 import featura from '../assets/heroimg.png'
+
 
 
 const showcaseItems = [
@@ -86,48 +87,47 @@ const ShowcaseSlider = () => {
   }, []);
 
   return (
-<section className="bg-blue-100 py-12">
-  <div className="container mx-auto px-4">
-    <div className="flex justify-between items-center mb-6">
-      <h2 className="text-3xl font-bold text-black">For Showcase</h2>
-      <button className="bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm">
-        View All
-      </button>
-    </div>
+    <section className="bg-blue-100 py-12">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-black">For Showcase</h2>
+          <button className="bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm">
+            View All
+          </button>
+        </div>
 
-    <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-      <div className="w-full md:w-1/3 p-15 space-y-4">
-        {showcaseItems.map((item, index) => (
-          <div
-            key={index}
-            className={`text-2xl font-medium cursor-pointer transition-colors duration-300 ${
-              index === currentIndex ? 'text-blue-700' : 'text-black'
-            }`}
-            onClick={() => setCurrentIndex(index)}
-          >
-            {item.title}
+        <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
+          <div className="w-full md:w-1/3 p-15 space-y-4">
+            {showcaseItems.map((item, index) => (
+              <div
+                key={index}
+                className={`text-2xl font-medium cursor-pointer transition-colors duration-300 ${index === currentIndex ? 'text-blue-700' : 'text-black'
+                  }`}
+                onClick={() => setCurrentIndex(index)}
+              >
+                {item.title}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="relative w-full md:w-2/3 p-6">
-        <img
-          src={showcaseItems[currentIndex].image}
-          alt={showcaseItems[currentIndex].title}
-          className="w-full h-[500px] object-cover rounded-xl"
-        />
-        <div className="mt-4">
-          <h3 className="text-xl font-bold text-black">
-            {showcaseItems[currentIndex].title}
-          </h3>
-          <p className="text-sm text-gray-700">
-            {showcaseItems[currentIndex].description}
-          </p>
+          <div className="relative w-full md:w-2/3 p-6">
+            <img
+              src={showcaseItems[currentIndex].image}
+              alt={showcaseItems[currentIndex].title}
+              className="w-full h-[500px] object-cover rounded-xl"
+            />
+            <div className="mt-4">
+              <h3 className="text-xl font-bold text-black">
+                {showcaseItems[currentIndex].title}
+              </h3>
+              <p className="text-sm text-gray-700">
+                {showcaseItems[currentIndex].description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
   );
 }
@@ -176,30 +176,30 @@ const PixelPitchScroll = () => {
 
   return (
     <section className="bg-white py-30">
-    <div className="container mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-black">Pixel Pitch</h2>
+      <div className="container mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-black">Pixel Pitch</h2>
+        </div>
+
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth px-4 md:px-16 no-scrollbar"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {fullList.map((pitch, index) => (
+            <div key={index} className="flex-shrink-0 text-center w-[160px]">
+              <img
+                src="/images/pixel.png"
+                alt={pitch}
+                className="w-full h-[130px] object-cover rounded-2xl shadow-lg"
+              />
+              <p className="mt-3 text-lg font-semibold text-black">{pitch}</p>
+            </div>
+          ))}
+        </div>
       </div>
-  
-      <div
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth px-4 md:px-16 no-scrollbar"
-        style={{ scrollbarWidth: 'none' }}
-      >
-        {fullList.map((pitch, index) => (
-          <div key={index} className="flex-shrink-0 text-center w-[160px]">
-            <img
-              src="/images/pixel.png"
-              alt={pitch}
-              className="w-full h-[130px] object-cover rounded-2xl shadow-lg"
-            />
-            <p className="mt-3 text-lg font-semibold text-black">{pitch}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-  
+    </section>
+
   );
 };
 
@@ -207,32 +207,32 @@ const Indoor_Led = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
- 
+
       {/* Banner Section */}
 
-      <div className="relative h-[60vh] w-full">
+      <div className="relative h-[65vh] w-full">
         <img
-          src="/images/industry-banner.jpg"
+          src={featura}
           alt="Industry Banner"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
-            Contact Us
+        <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
+          <h1 className="text-3xl md:text-5xl font-semibold text-white text-center">
+            Indoor LED Video Walls
           </h1>
         </div>
       </div>
 
-      <section className="py-16 px-4 md:px-12 lg:px-20 bg-white space-y-10">
+      <section className="py-35 px-4 md:px-12 lg:px-20 bg-white space-y-10">
 
         {/* Row 1 - Text Left, Image Right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
           <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-5 md:mb-7">Ultra-HD Visuals</h2>
-            <p className="text-sm md:text-md text-gray-700 mb-5 md:mb-7">
+            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">Ultra-HD Visuals</h2>
+            <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
               Immerse your audience with stunning Ultra-HD visuals that deliver exceptional clarity and detail.
             </p>
-            <button className="bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium px-5 py-2 rounded-md w-fit">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[16px] font-medium px-5 py-2 rounded-md w-fit transition-all duration-300">
               Experience Clarity
             </button>
           </div>
@@ -242,16 +242,16 @@ const Indoor_Led = () => {
         </div>
 
         {/* Row 2 - Image Left, Text Right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
           <div className="bg-[#1D4ED8] md:col-span-7 rounded-xl flex items-center justify-center p-6 md:p-8 h-auto md:h-[500px]">
             <img src={image2} alt="Seamless Screen" className="w-full max-w-[300px] md:max-w-xs drop-shadow-xl" />
           </div>
           <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-5 md:mb-7">Seamless Design</h2>
-            <p className="text-sm md:text-md text-gray-700 mb-5 md:mb-7">
+            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">Seamless Design</h2>
+            <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
               Enjoy a sleek, edge-to-edge display that blends perfectly into any environment.
             </p>
-            <button className="bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium px-5 py-2 rounded-md w-fit">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[16px] font-medium px-5 py-2 rounded-md w-fit transition-all duration-300 ">
               Experience Seamless
             </button>
           </div>
@@ -259,9 +259,9 @@ const Indoor_Led = () => {
 
       </section>
 
-      <section className="bg-[#E6F0FA] py-16 px-4 md:px-12 lg:px-20">
+      <section className="bg-[#E6F0FA] py-25 px-4 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 pb-6">
             Hanging and Stacking Installation
           </h2>
         </div>
@@ -312,77 +312,77 @@ const Indoor_Led = () => {
         </div>
       </section>
 
-    <PixelPitchScroll />
-    <ShowcaseSlider />
+      <PixelPitchScroll />
+      <ShowcaseSlider />
 
 
-    <section className="py-16 bg-white px-4 flex flex-col items-center">
-      <h2 className="text-3xl font-bold text-center mb-10">Features</h2>
+      <section className="py-16 bg-white px-4 flex flex-col items-center">
+        <h2 className="text-3xl font-bold text-center mb-10">Features</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl w-full">
-        {/* Big Left Card */}
-        <div className="md:row-span-2">
-          <div className="relative h-full  rounded-xl overflow-hidden">
-            <img
-              src={featureImage}
-              alt="High-definition"
-              className="w-full h-full object-cover rounded-xl"
-            />
-            <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-              High-definition
-            </div>
-          </div>
-        </div>
-
-        {/* Top Right - Small Cards */}
-        <div className="grid grid-cols-2 gap-4 md:col-span-2">
-          {["seamless", "wide angle", "vibrant color", "ultra-thin"].map((label, index) => (
-            <div
-              key={index}
-              className="relative h-70 rounded-xl overflow-hidden"
-            >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl w-full">
+          {/* Big Left Card */}
+          <div className="md:row-span-2">
+            <div className="relative h-full  rounded-xl overflow-hidden">
               <img
                 src={featureImage}
-                alt={label}
+                alt="High-definition"
                 className="w-full h-full object-cover rounded-xl"
               />
-              <div className="absolute bottom-4 left-3 text-white text-sm font-semibold">
-                {label}
+              <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
+                High-definition
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-  {/* Content Section */}
-  <section className="w-full bg-[#f2f2fd] py-16 px-4">
-          <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
-            
-            {/* Left Image */}
-            <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
-              <img
-                src="/your-image-path.png" // replace with actual image path
-                alt="DOOH Display"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Right Content */}
-            <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Ready to Transform Your <br className="hidden md:block" /> Advertising?
-              </h2>
-              <p className="text-gray-700 mb-6 text-base md:text-lg">
-                With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
-              </p>
-              <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
-                See Solutions for Your Industry
-              </button>
-            </div>
-            
           </div>
-        </section>
+
+          {/* Top Right - Small Cards */}
+          <div className="grid grid-cols-2 gap-4 md:col-span-2">
+            {["seamless", "wide angle", "vibrant color", "ultra-thin"].map((label, index) => (
+              <div
+                key={index}
+                className="relative h-70 rounded-xl overflow-hidden"
+              >
+                <img
+                  src={featureImage}
+                  alt={label}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+                <div className="absolute bottom-4 left-3 text-white text-sm font-semibold">
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="w-full bg-[#f2f2fd] py-16 px-4">
+        <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+
+          {/* Left Image */}
+          <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
+            <img
+              src="/your-image-path.png" // replace with actual image path
+              alt="DOOH Display"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Ready to Transform Your <br className="hidden md:block" /> Advertising?
+            </h2>
+            <p className="text-gray-700 mb-6 text-base md:text-lg">
+              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+            </p>
+            <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
+              See Solutions for Your Industry
+            </button>
+          </div>
+
+        </div>
+      </section>
 
       <Footer />
     </div>
