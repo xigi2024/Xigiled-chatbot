@@ -14,3 +14,4 @@ If you are developing a production application, we recommend using TypeScript wi
 "# Xigi-LED-Front-End" 
 "# Xigi-LED-Front-End" 
 "# led_frontend" 
+"# xigiled_frontend" 
