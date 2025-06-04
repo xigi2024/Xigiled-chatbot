@@ -16,3 +16,4 @@ If you are developing a production application, we recommend using TypeScript wi
 "# led_frontend" 
 "# xigiled_frontend" 
 "# xigiled_frontend" 
+"# xigiled_frontend" 
