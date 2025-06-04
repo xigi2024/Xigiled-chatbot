@@ -24,3 +24,6 @@ body {
 .conback{
   background-image: url(/assets/backgroundcon.png);
 }
+.container{
+  max-width: 1320px;
+}

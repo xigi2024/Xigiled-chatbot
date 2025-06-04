@@ -53,24 +53,6 @@ const showcaseItems = [
       'Interactive mall directories that guide visitors and enhance shopping experiences. Clear, responsive, and smart.',
     image: feature,
   },
-  {
-    title: 'Product screens',
-    description:
-      'Highlight your products with high-resolution display screens. Perfect for retail and product launches.',
-    image: featura,
-  },
-  {
-    title: 'Lobby welcome screens',
-    description:
-      'Create a welcoming atmosphere with beautifully designed lobby screens. Set the tone for your space.',
-    image: feature,
-  },
-  {
-    title: 'Shop inside displays',
-    description:
-      'Welcome to XIGI, where we make advertising bold and effective. Experience the future of promotion and bring your business to the next level.',
-    image: featura,
-  },
 
 
   // Add 5 more if needed
@@ -87,21 +69,22 @@ const ShowcaseSlider = () => {
   }, []);
 
   return (
-    <section className="bg-blue-100 py-12">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-black">For Showcase</h2>
-          <button className="bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm">
+    <section className="bg-blue-100 py-25">
+      <div className="container mx-auto ">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-[45px] font-semibold text-black">For Showcase</h2>
+          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white px-7 py-3 rounded-lg font-medium text-[17]">
             View All
           </button>
         </div>
 
         <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-          <div className="w-full md:w-1/3 p-15 space-y-4">
+          {/* Left Section: Titles */}
+          <div className="w-full md:w-1/3 p-15 space-y-7">
             {showcaseItems.map((item, index) => (
               <div
                 key={index}
-                className={`text-2xl font-medium cursor-pointer transition-colors duration-300 ${index === currentIndex ? 'text-blue-700' : 'text-black'
+                className={`text-[20px] font-semibold font-['DM_Sans',sans-serif] cursor-pointer transition-colors duration-300 ${index === currentIndex ? 'text-blue-700' : 'text-black'
                   }`}
                 onClick={() => setCurrentIndex(index)}
               >
@@ -110,17 +93,23 @@ const ShowcaseSlider = () => {
             ))}
           </div>
 
-          <div className="relative w-full md:w-2/3 p-6">
+          {/* Divider Line */}
+          <div className="hidden md:block w-1.5 h-130 bg-gradient-to-b from-blue-600 via-blue-500 to-blue-700 mx-5 rounded-full self-center"></div>
+
+
+
+          {/* Right Section: Image and Description */}
+          <div className="relative w-full md:w-2/3 p-15">
             <img
               src={showcaseItems[currentIndex].image}
               alt={showcaseItems[currentIndex].title}
-              className="w-full h-[500px] object-cover rounded-xl"
+              className="w-full h-[350px] object-cover rounded-xl"
             />
             <div className="mt-4">
-              <h3 className="text-xl font-bold text-black">
+              <h3 className="text-[25px] py-2 font-bold text-black">
                 {showcaseItems[currentIndex].title}
               </h3>
-              <p className="text-sm text-gray-700">
+              <p className="text-[18px] mr-25 text-gray-900 font-['DM_Sans',sans-serif]">
                 {showcaseItems[currentIndex].description}
               </p>
             </div>
@@ -128,6 +117,7 @@ const ShowcaseSlider = () => {
         </div>
       </div>
     </section>
+
 
   );
 }
@@ -175,23 +165,23 @@ const PixelPitchScroll = () => {
   const fullList = [...pixelPitches, ...pixelPitches];
 
   return (
-    <section className="bg-white py-30">
-      <div className="container mx-auto">
+    <section className="bg-white py-27">
+      <div className="container mx-auto ">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-black">Pixel Pitch</h2>
+          <h2 className="text-[45px] font-semibold text-black pb-10">Pixel Pitch</h2>
         </div>
 
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth px-4 md:px-16 no-scrollbar"
+          className="flex gap-10 overflow-x-auto scroll-smooth px-4 md:px-2 no-scrollbar"
           style={{ scrollbarWidth: 'none' }}
         >
           {fullList.map((pitch, index) => (
-            <div key={index} className="flex-shrink-0 text-center w-[160px]">
+            <div key={index} className="flex-shrink-0 text-center w-[200px]">
               <img
                 src="/images/pixel.png"
                 alt={pitch}
-                className="w-full h-[130px] object-cover rounded-2xl shadow-lg"
+                className="w-full h-[160px] object-cover rounded-2xl shadow-lg"
               />
               <p className="mt-3 text-lg font-semibold text-black">{pitch}</p>
             </div>
@@ -226,13 +216,13 @@ const Indoor_Led = () => {
       <section className="py-35 px-4 md:px-12 lg:px-20 bg-white space-y-10">
 
         {/* Row 1 - Text Left, Image Right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
+        <div className="container grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
           <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
             <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">Ultra-HD Visuals</h2>
             <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
               Immerse your audience with stunning Ultra-HD visuals that deliver exceptional clarity and detail.
             </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[16px] font-medium px-5 py-2 rounded-md w-fit transition-all duration-300">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300">
               Experience Clarity
             </button>
           </div>
@@ -242,7 +232,7 @@ const Indoor_Led = () => {
         </div>
 
         {/* Row 2 - Image Left, Text Right */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
+        <div className="container grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
           <div className="bg-[#1D4ED8] md:col-span-7 rounded-xl flex items-center justify-center p-6 md:p-8 h-auto md:h-[500px]">
             <img src={image2} alt="Seamless Screen" className="w-full max-w-[300px] md:max-w-xs drop-shadow-xl" />
           </div>
@@ -251,7 +241,7 @@ const Indoor_Led = () => {
             <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
               Enjoy a sleek, edge-to-edge display that blends perfectly into any environment.
             </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[16px] font-medium px-5 py-2 rounded-md w-fit transition-all duration-300 ">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300 ">
               Experience Seamless
             </button>
           </div>
@@ -259,23 +249,23 @@ const Indoor_Led = () => {
 
       </section>
 
-      <section className="bg-[#E6F0FA] py-25 px-4 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 pb-6">
+      <section className="bg-[#E6F0FA] py-25">
+        <div className="container mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 pb-2">
             Hanging and Stacking Installation
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto">
           {/* Card 1 */}
           <div className="bg-white rounded-xl overflow-hidden shadow-sm">
             <img
               src={image1} // Replace with your actual import
               alt="Hanging Installation"
-              className="w-full h-auto object-cover"
+              className="w-full h-[350px] object-cover"
             />
-            <div className="text-center p-4">
-              <h3 className="text-md md:text-lg font-semibold text-gray-900">
+            <div className="text-center p-4 py-7">
+              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
                 Hanging Installation
               </h3>
             </div>
@@ -286,10 +276,10 @@ const Indoor_Led = () => {
             <img
               src={image2} // Replace with your actual import
               alt="Stacking Installation"
-              className="w-full h-auto object-cover"
+              className="w-full h-[350px] object-cover"
             />
-            <div className="text-center p-4">
-              <h3 className="text-md md:text-lg font-semibold text-gray-900">
+            <div className="text-center p-4 py-7">
+              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
                 Stacking Installation
               </h3>
             </div>
@@ -300,10 +290,10 @@ const Indoor_Led = () => {
             <img
               src={image3} // Replace with your actual import
               alt="Stacking Installation Vertical"
-              className="w-full h-auto object-cover"
+              className="w-full h-[350px] object-cover"
             />
-            <div className="text-center p-4">
-              <h3 className="text-md md:text-lg font-semibold text-gray-900">
+            <div className="text-center p-4 py-7">
+              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
                 Stacking Installation <br className="md:hidden" />
                 (Vertical)
               </h3>
@@ -316,13 +306,13 @@ const Indoor_Led = () => {
       <ShowcaseSlider />
 
 
-      <section className="py-16 bg-white px-4 flex flex-col items-center">
-        <h2 className="text-3xl font-bold text-center mb-10">Features</h2>
+      <section className="py-27 bg-white px-4 flex flex-col items-center">
+        <h2 className="text-[45px] font-semibold text-center pb-10">Features</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl w-full">
-          {/* Big Left Card */}
-          <div className="md:row-span-2">
-            <div className="relative h-full  rounded-xl overflow-hidden">
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-7">
+          {/* Column 1: High-definition */}
+          <div className="space-y-7">
+            <div className="relative h-[610px] rounded-2xl overflow-hidden">
               <img
                 src={featureImage}
                 alt="High-definition"
@@ -334,49 +324,80 @@ const Indoor_Led = () => {
             </div>
           </div>
 
-          {/* Top Right - Small Cards */}
-          <div className="grid grid-cols-2 gap-4 md:col-span-2">
-            {["seamless", "wide angle", "vibrant color", "ultra-thin"].map((label, index) => (
-              <div
-                key={index}
-                className="relative h-70 rounded-xl overflow-hidden"
-              >
-                <img
-                  src={featureImage}
-                  alt={label}
-                  className="w-full h-full object-cover rounded-xl"
-                />
-                <div className="absolute bottom-4 left-3 text-white text-sm font-semibold">
-                  {label}
-                </div>
+          {/* Column 2: Seamless + Vibrant Color */}
+          <div className="space-y-7">
+            <div className="relative h-[260px] rounded-2xl overflow-hidden">
+              <img
+                src={featureImage}
+                alt="Seamless"
+                className="w-full h-full object-cover rounded-xl"
+              />
+              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                Seamless
               </div>
-            ))}
+            </div>
+            <div className="relative h-[320px] rounded-2xl overflow-hidden">
+              <img
+                src={featureImage}
+                alt="Vibrant Color"
+                className="w-full h-full object-cover rounded-xl"
+              />
+              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                Vibrant Color
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Wide Angle + Ultra-thin */}
+          <div className="space-y-7">
+            <div className="relative h-[320px] rounded-2xl overflow-hidden">
+              <img
+                src={featureImage}
+                alt="Wide Angle"
+                className="w-full h-full object-cover rounded-xl"
+              />
+              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                Wide Angle
+              </div>
+            </div>
+            <div className="relative h-[260px] rounded-2xl overflow-hidden">
+              <img
+                src={featureImage}
+                alt="Ultra-thin"
+                className="w-full h-full object-cover rounded-xl"
+              />
+              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                Ultra-thin
+              </div>
+            </div>
           </div>
         </div>
+
+
       </section>
 
       {/* Content Section */}
-      <section className="w-full bg-[#f2f2fd] py-16 px-4">
-        <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+      <section className="w-full bg-[#f2f2fd] py-27 ">
+        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center ">
 
           {/* Left Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
+          <div className="w-full md:w-1/2 ">
             <img
-              src="/your-image-path.png" // replace with actual image path
+              src={featura} // replace with actual image path
               alt="DOOH Display"
-              className="w-full h-full object-cover"
+              className="w-full h-[500px] object-cover"
             />
           </div>
 
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              Ready to Transform Your <br className="hidden md:block" /> Advertising?
+            <h2 className="text-3xl md:text-[45px] font-semibold text-black mb-4">
+              Ready to Transform Your Advertising?
             </h2>
-            <p className="text-gray-700 mb-6 text-base md:text-lg">
+            <p className="text-gray-700 mb-6 mr-4 text-base md:text-[18px]  font-normal font-['Roboto',sans-serif]">
               With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
             </p>
-            <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300 ">
               See Solutions for Your Industry
             </button>
           </div>
