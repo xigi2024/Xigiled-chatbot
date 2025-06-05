@@ -73,7 +73,7 @@ const ShowcaseSlider = () => {
       <div className="container mx-auto ">
         <div className="flex justify-between items-center mb-10">
           <h2 className="text-[45px] font-semibold text-black">For Showcase</h2>
-          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white px-7 py-3 rounded-lg font-medium text-[17]">
+          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white px-7 py-3 rounded-lg font-medium text-[17px]">
             View All
           </button>
         </div>
