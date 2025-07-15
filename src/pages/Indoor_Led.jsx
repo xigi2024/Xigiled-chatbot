@@ -1,407 +1,455 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import image1 from "../assets/products/img1.jpg";
-import image2 from "../assets/products/img1.jpg";
-import image3 from '../assets/products/img1.jpg';
-import featureImage from '../assets/Products/img1.jpg'
-import feature from '../assets/goverment.jpg'
-import featura from '../assets/heroimg.png'
+import cta from '../assets/cta.png';
+import display from '../assets/display.jpg';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link,useNavigate } from 'react-router-dom';
+import Highdefinition from '../assets/industry/High-definition.png'
+import seamless from '../assets/industry/seamless.png'
+import vibrantColor from '../assets/industry/vibrantColor.png'
+import WideAngle from '../assets/industry/WideAngle.png'
+import ultraThin from '../assets/industry/ultraThin.png'
 
-
-
-const showcaseItems = [
-  {
-    title: 'Shop inside displays',
-    description:
-      'Welcome to XIGI, where we make advertising bold and effective. Experience the future of promotion and bring your business to the next level.',
-    image: feature,
-  },
-  {
-    title: 'Digital sign boards',
-    description:
-      'Engage your audience with eye-catching digital sign boards tailored for your brand. Bright, bold, and highly visible.',
-    image: featura,
-  },
-  {
-    title: 'Mall directory',
-    description:
-      'Interactive mall directories that guide visitors and enhance shopping experiences. Clear, responsive, and smart.',
-    image: feature,
-  },
-  {
-    title: 'Product screens',
-    description:
-      'Highlight your products with high-resolution display screens. Perfect for retail and product launches.',
-    image: featura,
-  },
-  {
-    title: 'Lobby welcome screens',
-    description:
-      'Create a welcoming atmosphere with beautifully designed lobby screens. Set the tone for your space.',
-    image: feature,
-  },
-  {
-    title: 'Shop inside displays',
-    description:
-      'Welcome to XIGI, where we make advertising bold and effective. Experience the future of promotion and bring your business to the next level.',
-    image: featura,
-  },
-  {
-    title: 'Mall directory',
-    description:
-      'Interactive mall directories that guide visitors and enhance shopping experiences. Clear, responsive, and smart.',
-    image: feature,
-  },
-
-
-  // Add 5 more if needed
-];
-
-const ShowcaseSlider = () => {
+const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0) return null;
+
+  const showcaseItems = showcaseData.images.map(img => ({
+    title: img.title,
+    image: `http://127.0.0.1:8000/storage/${img.image}`,
+  }));
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? showcaseItems.length - 1 : prevIndex - 1
+    );
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [showcaseItems.length]);
 
   return (
-    <section className="bg-blue-100 py-25">
-      <div className="container mx-auto ">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-[45px] font-semibold text-black">For Showcase</h2>
-          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white px-7 py-3 rounded-lg font-medium text-[17px]">
+    <section className="bg-[#EAF1FF] py-22">
+      <div className="container mx-auto text-center px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+            {showcaseData.title || "For Showcase"}
+          </h2>
+          <Link
+            to="/gallery"
+            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
+          >
             View All
+          </Link>
+        </div>
+
+        <div className="relative rounded-2xl overflow-hidden">
+          <img
+            src={showcaseItems[currentIndex]?.image}
+            alt={showcaseItems[currentIndex]?.title}
+            className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
+          />
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
+            {showcaseItems[currentIndex]?.title}
+          </h3>
+
+          {/* Prev & Next Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronRight size={24} />
           </button>
         </div>
-
-        <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-          {/* Left Section: Titles */}
-          <div className="w-full md:w-1/3 p-15 space-y-7">
-            {showcaseItems.map((item, index) => (
-              <div
-                key={index}
-                className={`text-[20px] font-semibold font-['DM_Sans',sans-serif] cursor-pointer transition-colors duration-300 ${index === currentIndex ? 'text-blue-700' : 'text-black'
-                  }`}
-                onClick={() => setCurrentIndex(index)}
-              >
-                {item.title}
-              </div>
-            ))}
-          </div>
-
-          {/* Divider Line */}
-          <div className="hidden md:block w-1.5 h-130 bg-gradient-to-b from-blue-600 via-blue-500 to-blue-700 mx-5 rounded-full self-center"></div>
-
-
-
-          {/* Right Section: Image and Description */}
-          <div className="relative w-full md:w-2/3 p-15">
-            <img
-              src={showcaseItems[currentIndex].image}
-              alt={showcaseItems[currentIndex].title}
-              className="w-full h-[350px] object-cover rounded-xl"
-            />
-            <div className="mt-4">
-              <h3 className="text-[25px] py-2 font-bold text-black">
-                {showcaseItems[currentIndex].title}
-              </h3>
-              <p className="text-[18px] mr-25 text-gray-900 font-['DM_Sans',sans-serif]">
-                {showcaseItems[currentIndex].description}
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
-
-
-  );
-}
-
-const pixelPitches = ['P1.2', 'P1.5', 'P2', 'P2.5', 'P3', 'P4', 'P5', 'P6', 'P8', 'P10'];
-
-const PixelPitchScroll = () => {
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    let scrollInterval;
-
-    const startScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (container) {
-          container.scrollLeft += 1;
-
-          // Reset scroll position without visual jump (for seamless loop)
-          if (container.scrollLeft >= container.scrollWidth / 2) {
-            container.scrollLeft = 0;
-          }
-        }
-      }, 20); // adjust speed here
-    };
-
-    const stopScroll = () => clearInterval(scrollInterval);
-
-    if (container) {
-      container.addEventListener('mouseenter', stopScroll);
-      container.addEventListener('mouseleave', startScroll);
-      startScroll();
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('mouseenter', stopScroll);
-        container.removeEventListener('mouseleave', startScroll);
-      }
-      clearInterval(scrollInterval);
-    };
-  }, []);
-
-  // Duplicate content to simulate infinite scroll
-  const fullList = [...pixelPitches, ...pixelPitches];
-
-  return (
-    <section className="bg-white py-27">
-      <div className="container mx-auto ">
-        <div className="text-center mb-8">
-          <h2 className="text-[45px] font-semibold text-black pb-10">Pixel Pitch</h2>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className="flex gap-10 overflow-x-auto scroll-smooth px-4 md:px-2 no-scrollbar"
-          style={{ scrollbarWidth: 'none' }}
-        >
-          {fullList.map((pitch, index) => (
-            <div key={index} className="flex-shrink-0 text-center w-[200px]">
-              <img
-                src="/images/pixel.png"
-                alt={pitch}
-                className="w-full h-[160px] object-cover rounded-2xl shadow-lg"
-              />
-              <p className="mt-3 text-lg font-semibold text-black">{pitch}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
   );
 };
 
+
+
+const PixelPitchScroll = ({ pixelPitchData }) => {
+  const scrollRef = useRef(null);
+  const scrollSpeed = 1;
+  const animationRef = useRef(null);
+
+  const animateScroll = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += scrollSpeed;
+      const scrollWidth = scrollRef.current.scrollWidth;
+      const halfWidth = scrollWidth / 2;
+
+      if (scrollRef.current.scrollLeft >= halfWidth) {
+        scrollRef.current.scrollLeft = 0;
+      }
+    }
+    animationRef.current = requestAnimationFrame(animateScroll);
+  };
+
+  useEffect(() => {
+    animationRef.current = requestAnimationFrame(animateScroll);
+
+    const container = scrollRef.current;
+    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
+    const handleMouseLeave = () => animationRef.current = requestAnimationFrame(animateScroll);
+
+    if (container) {
+      container.addEventListener('mouseenter', handleMouseEnter);
+      container.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      cancelAnimationFrame(animationRef.current);
+      if (container) {
+        container.removeEventListener('mouseenter', handleMouseEnter);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+
+  if (!pixelPitchData?.images?.length) return null;
+
+  // Duplicate for seamless scroll
+  const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
+
+  return (
+    <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+      <div className="container mx-auto">
+        {/* Heading */}
+        <div className="text-center mb-12">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+            {pixelPitchData.title}
+          </h2>
+        </div>
+
+        {/* Scrollable 5-item container */}
+        <div
+          ref={scrollRef}
+          className="overflow-x-hidden relative"
+          style={{ width: '1200px', margin: '0 auto' }} // 5 * (160px + gap ~8px)
+        >
+          <div className="flex gap-10">
+            {fullList.map((pitch, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 text-center w-[160px]"
+              >
+                <img
+                  src={`http://127.0.0.1:8000/storage/${pitch.image}`}
+                  alt={pitch.title}
+                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                />
+                <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
+                  {pitch.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
 const Indoor_Led = () => {
+  const [apiData, setApiData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://127.0.0.1:8000/api/indoor-led');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setApiData(data);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Helper function to get section data by section name
+  const getSectionData = (sectionName) => {
+    return apiData.find(item => item.section === sectionName);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-lg text-red-600 mb-4">Error loading data: {error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const transformInteriorsData = getSectionData('indoor_led_section1');
+  const smartDisplayData = getSectionData('indoor_led_section2');
+  const pixelPitchData = getSectionData('indoor_led_section3');
+  const showcaseData = getSectionData('indoor_led_section4');
+  const featuresData = getSectionData('indoor_led_section5');
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
-      {/* Banner Section */}
-
-      <div className="relative h-[65vh] w-full">
+ 
+      {/* Banner Section - Keep as hardcoded */}
+      <div className="relative h-[70vh] w-full">
         <img
-          src={featura}
-          alt="Industry Banner"
+          src={display}
+          alt="Indoor Led"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
-          <h1 className="text-3xl md:text-5xl font-semibold text-white text-center">
-            Indoor LED Video Walls
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+          <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center font-['Poppins',sans-serif]">
+            Indoor LED Wall Display
           </h1>
         </div>
       </div>
 
-      <section className="py-35 px-4 md:px-12 lg:px-20 bg-white space-y-10">
+      {/* Transform Interiors Section */}
+      {transformInteriorsData && (
+        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
+          {transformInteriorsData.images.map((item, index) => (
+            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
+              {index % 2 === 0 ? (
+                <>
+                  {/* Text Left, Image Right */}
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">{item.title}</h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {item.description}
+                    </p>
+                    
+                  </div>
+                  <div className="md:col-span-7 ">
+                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded-xl drop-shadow-xl" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Image Left, Text Right */}
+                  <div className=" md:col-span-7 ">
+                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] drop-shadow-xl" />
+                  </div>
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
+                    <h2 className="text-3xl md:text-[45px] font-medium text-gray-900 mb-5 md:mb-7">{item.title}</h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {item.description}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
 
-        {/* Row 1 - Text Left, Image Right */}
-        <div className="container grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
-          <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">Ultra-HD Visuals</h2>
-            <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
-              Immerse your audience with stunning Ultra-HD visuals that deliver exceptional clarity and detail.
-            </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300">
-              Experience Clarity
-            </button>
-          </div>
-          <div className="bg-[#1D4ED8] md:col-span-7 rounded-xl flex items-center justify-center p-6 md:p-8 h-auto md:h-[500px]">
-            <img src={image1} alt="Ultra HD Screen" className="w-full max-w-[300px] md:max-w-xs drop-shadow-xl" />
+      {/* Smart Display Types Section */}
+  {smartDisplayData && (
+  <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+    <div className="text-center mb-10">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+        {smartDisplayData.title || "Smart Displays"}
+      </h2>
+      {smartDisplayData.description && (
+        <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+          {smartDisplayData.description}
+        </p>
+      )}
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {smartDisplayData.images.map((item, index) => (
+        <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
+          {/* Image with gradient overlay */}
+          <img
+            src={`http://127.0.0.1:8000/storage/${item.image}`}
+            alt={item.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-90"></div>
+          
+          {/* Content */}
+          <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+            <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+              {item.title}
+            </h3>
           </div>
         </div>
+      ))}
+    </div>
+  </section>
+)}
 
-        {/* Row 2 - Image Left, Text Right */}
-        <div className="container grid grid-cols-1 md:grid-cols-12 gap-10 max-w-7xl mx-auto">
-          <div className="bg-[#1D4ED8] md:col-span-7 rounded-xl flex items-center justify-center p-6 md:p-8 h-auto md:h-[500px]">
-            <img src={image2} alt="Seamless Screen" className="w-full max-w-[300px] md:max-w-xs drop-shadow-xl" />
-          </div>
-          <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">Seamless Design</h2>
-            <p className="text-md md:text-[19px] mr-8 text-gray-900 mb-5 md:mb-7 font-semibold font-['DM_Sans',sans-serif]">
-              Enjoy a sleek, edge-to-edge display that blends perfectly into any environment.
-            </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300 ">
-              Experience Seamless
-            </button>
-          </div>
-        </div>
+      {/* Pixel Pitch Section */}
+      <PixelPitchScroll pixelPitchData={pixelPitchData} />
 
+      {/* Showcase Section */}
+      <ShowcaseSlider showcaseData={showcaseData} />
+
+      {/* Features Section */}
+  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+          Why Event Planners Choose Xigi LED
+        </h2>
+
+          <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Column 1: High-definition */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
+                <img
+                  src={Highdefinition}
+                  alt="High-definition"
+                  className="w-full object-cover rounded-md mb-4"
+                />
+                <div>
+                  <h3 className="text-white text-xl font-bold mb-2">High-definition</h3>
+                  <p className="text-white text-sm">
+                    Crystal-clear visuals with stunning clarity ensure every detail stands out. Experience
+                    sharp, lifelike images that captivate your audience instantly.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Seamless + Vibrant Color */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+                <img
+                  src={seamless}
+                  alt="Seamless"
+                  className="mx-auto w-70 object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Seamless</h3>
+                </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+                <img
+                  src={vibrantColor}
+                  alt="Vibrant Color"
+                  className="w-full object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Vibrant Color</h3>
+                  <p className="text-white text-sm">
+                    Vibrant colors that pop with brilliance, bringing every image to life.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Ultra-thin + Wide Angle */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+                <img
+                  src={ultraThin}
+                  alt="Ultra-thin"
+                  className="w-66 object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Ultra-thin</h3>
+                </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+                <img
+                  src={WideAngle}
+                  alt="Wide Angle"
+                  className="w-full object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Wide Angle</h3>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
 
-      <section className="bg-[#E6F0FA] py-25">
-        <div className="container mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 pb-2">
-            Hanging and Stacking Installation
-          </h2>
-        </div>
-
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto">
-          {/* Card 1 */}
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
-            <img
-              src={image1} // Replace with your actual import
-              alt="Hanging Installation"
-              className="w-full h-[350px] object-cover"
-            />
-            <div className="text-center p-4 py-7">
-              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
-                Hanging Installation
-              </h3>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
-            <img
-              src={image2} // Replace with your actual import
-              alt="Stacking Installation"
-              className="w-full h-[350px] object-cover"
-            />
-            <div className="text-center p-4 py-7">
-              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
-                Stacking Installation
-              </h3>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
-            <img
-              src={image3} // Replace with your actual import
-              alt="Stacking Installation Vertical"
-              className="w-full h-[350px] object-cover"
-            />
-            <div className="text-center p-4 py-7">
-              <h3 className="text-md md:text-[20px] font-semibold text-gray-900">
-                Stacking Installation <br className="md:hidden" />
-                (Vertical)
-              </h3>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <PixelPitchScroll />
-      <ShowcaseSlider />
-
-
-      <section className="py-27 bg-white px-4 flex flex-col items-center">
-        <h2 className="text-[45px] font-semibold text-center pb-10">Features</h2>
-
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-7">
-          {/* Column 1: High-definition */}
-          <div className="space-y-7">
-            <div className="relative h-[610px] rounded-2xl overflow-hidden">
-              <img
-                src={featureImage}
-                alt="High-definition"
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-                High-definition
-              </div>
-            </div>
-          </div>
-
-          {/* Column 2: Seamless + Vibrant Color */}
-          <div className="space-y-7">
-            <div className="relative h-[260px] rounded-2xl overflow-hidden">
-              <img
-                src={featureImage}
-                alt="Seamless"
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                Seamless
-              </div>
-            </div>
-            <div className="relative h-[320px] rounded-2xl overflow-hidden">
-              <img
-                src={featureImage}
-                alt="Vibrant Color"
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                Vibrant Color
-              </div>
-            </div>
-          </div>
-
-          {/* Column 3: Wide Angle + Ultra-thin */}
-          <div className="space-y-7">
-            <div className="relative h-[320px] rounded-2xl overflow-hidden">
-              <img
-                src={featureImage}
-                alt="Wide Angle"
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                Wide Angle
-              </div>
-            </div>
-            <div className="relative h-[260px] rounded-2xl overflow-hidden">
-              <img
-                src={featureImage}
-                alt="Ultra-thin"
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                Ultra-thin
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </section>
-
-      {/* Content Section */}
-      <section className="w-full bg-[#f2f2fd] py-27 ">
-        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center ">
-
+      {/* CTA Section - Keep as hardcoded */}
+      <section className="w-full bg-[#f2f2fd] py-27 px-4">
+        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
           {/* Left Image */}
-          <div className="w-full md:w-1/2 ">
+          <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img
-              src={featura} // replace with actual image path
+              src={cta}
               alt="DOOH Display"
-              className="w-full h-[500px] object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
 
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-black mb-4">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
               Ready to Transform Your Advertising?
             </h2>
-            <p className="text-gray-700 mb-6 mr-4 text-base md:text-[18px]  font-normal font-['Roboto',sans-serif]">
+            <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
               With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
             </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white text-[17px] font-medium px-5 py-3 rounded-md w-fit transition-all duration-300 ">
-              See Solutions for Your Industry
+            <button onClick={() => navigate('/contact')}
+className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+              See Solutions for Your Products
             </button>
           </div>
-
         </div>
       </section>
 
@@ -410,4 +458,4 @@ const Indoor_Led = () => {
   )
 }
 
-export default Indoor_Led
+export default Indoor_Led;

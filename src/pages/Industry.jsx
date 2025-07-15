@@ -1,148 +1,313 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import tiger from '../assets/industry/Industry.png';
-import IndustrySolutions from '../components/IndustrySolutions';
-import IN from '../assets/IN.png'
+import { Cpu, Activity, ShieldCheck, Link2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 const Industry = () => {
+  const navigate = useNavigate();
+  const [industryData, setIndustryData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Function to convert title to URL slug
+const createSlug = (title) => {
+  // Special cases mapping
+  const specialCases = {
+    'Manfacturing and factories': 'ManfacturingAndFactories',
+    'Transport and Public Venues': 'TransportAndPublicVenues',
+    'Hospitality & Hotels': 'HospitalityHotels',
+    'Government & Civic Spaces': 'GovernmentCivicSpaces',
+    'Events & Exhibitions': 'EventsAndExhibitions',
+    'Education and Institutions': 'EducationAndInstitutions',
+    'Retail': 'Retail'
+  };
+
+  // Check if the title matches any special case
+  if (specialCases[title]) {
+    return specialCases[title];
+  }
+
+  // Default transformation
+  return title
+    .replace(/[^a-zA-Z0-9\s]/g, '') // Remove special chars
+    .split(' ') // Split into words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(''); // Join without spaces
+};
+  // Fetch data from API
+  useEffect(() => {
+    const fetchIndustryData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/industry`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Organize data by section
+        const organizedData = {};
+        data.forEach(item => {
+          organizedData[item.section] = item;
+        });
+        
+        setIndustryData(organizedData);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching industry data:', err);
+        setError('Failed to load industry data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIndustryData();
+  }, []);
+
+  // Handle card click
+  const handleCardClick = (title) => {
+    const slug = createSlug(title);
+    navigate(`/industry/${slug}`);
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#f8faff]">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading industry solutions...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#f8faff]">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const heroSection = industryData['industry_section1'];
+  const digitalImpactSection = industryData['industry_section2'];
+  const industrySection = industryData['industry_section3'];
+  const keyFeaturesSection = industryData['industry_section4'];
+  const transformSection = industryData['industry_section5'];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
-    {/* Banner Section */}
-        <div className="relative h-[60vh] w-full">
-          <img
-            src="/images/industry-banner.jpg"
-            alt="Industry Banner"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
-              Our Industry Solutions
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+        <div className="container mx-auto">
+          <div className="flex-1 text-left">
+            <h2 className="text-lg md:text-[17px] lg:text-[22px] font-medium text-white mb-2">
+              XIGI LED Display
+            </h2>
+            <h1 className="text-[30px] md:text-[35px] lg:text-[50px] text-white mb-6 leading-[1.3] font-['Poppins',sans-serif]">
+              {heroSection?.title || 'Brilliant LED Solutions for Every Sector'}
             </h1>
+            <p className="text-white/100 text-lg md:text-[15px] lg:text-xl max-w-2xl mb-4 leading-[30px] font-['Montserrat',sans-serif]">
+              {heroSection?.description || 'Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more.'}
+            </p>
           </div>
         </div>
 
-        <section className="py-16 px-4 md:px-20 bg-white">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Image */}
-        <div className="flex justify-center">
-          <img
-            src={tiger} // Change to your actual image path
-            alt="Tiger Display"
-            className="w-[700px] h-[450px] max-w-md"
-          />
+        {/* Hero Image */}
+        <div className="hidden md:block w-full md:w-auto mt-10 md:mt-0">
+          {heroSection?.images?.[0] && (
+            <img
+              src={`${API_BASE_URL.replace('/api', '')}/storage/${heroSection.images[0].image}`}
+              alt="LED Display"
+              className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
+            />
+          )}
         </div>
+      </section>
 
-        {/* Right Content */}
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Digital Impact{" "}
-            <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
-            By Industry
-            </span>
+      {/* Digital Impact by Industry Section */}
+      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Left Image */}
+          <div className="flex justify-center">
+            {digitalImpactSection?.images?.[0] && (
+              <img
+                src={`${API_BASE_URL.replace('/api', '')}/storage/${digitalImpactSection.images[0].image}`}
+                alt="Digital Impact"
+                className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+              />
+            )}
+          </div>
+
+          {/* Right Content */}
+          <div>
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
+              {digitalImpactSection?.title || 'Digital Impact by Industry'}
+            </h2>
+            <p className="text-gray-800 text-[14px] md:text-[16px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+              {digitalImpactSection?.description || 'At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment.'}
+            </p>
+            <button 
+              onClick={() => navigate('/contact')} 
+              className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[15px] md:text-[16px] font-medium transition-all duration-300"
+            >
+              Get Started Today
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Industry Solutions Section */}
+      <section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
+        <div className="container mx-auto">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+            {industrySection?.title || 'INDUSTRY SOLUTIONS'}
           </h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            At XIGI Tech, we deliver tailored digital solutions across a wide
-            range of industries — from retail and real estate to education and
-            entertainment. Our technology adapts to your unique needs, helping
-            you connect, engage, and grow in today’s fast-moving digital world.
-          </p>
-          <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded transition">
-            Experience Seamless
-          </button>
-        </div>
-      </div>
-    </section>
-        
-      <IndustrySolutions />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6">
+            {industrySection?.images?.map((card, idx) => (
+              <div
+                key={idx}
+                onClick={() => handleCardClick(card.title)}
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative cursor-pointer"
+              >
+                {/* Image with hover icon */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src={`${API_BASE_URL.replace('/api', '')}/storage/${card.image}`}
+                    alt={card.title}
+                    className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
 
- {/* Industry Applications Section */}
- <section className="relative py-20 px-4 md:px-30  text-white">
-          <div className="container mx-auto ">
-            <div className="flex flex-col md:flex-row items-center gap-10">
-              
-              {/* Content Section - Now on the left */}
-              <div className="w-full md:w-7/12 order-2 md:order-1">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-snug">
-                  One Solution. <br /> Endless Industry Applications.
-                </h2>
-
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Enhanced Communication
-                    </h3>
-                    <p className="text-gray-700">
-                      Deliver powerful messages with high-impact visuals that grab attention and improve audience engagement.
-                    </p>
+                  {/* Centered Icon on Hover for Mobile & Tab */}
+                  <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg">
+                      <Link2 className="h-6 w-6 text-[#3a4a6f]" />
+                    </span>
                   </div>
+                </div>
 
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Versatility Across Industries
-                    </h3>
-                    <p className="text-gray-700">
-                      Our solutions cater to multiple industries like retail, education, healthcare, and more with ease and flexibility.
-                    </p>
-                  </div>
+                {/* Text Content */}
+                <div className="p-4 relative">
+                  <h3 className="text-[16px] md:text-[18px] lg:text-[22px] my-2 font-medium text-gray-900 font-['Poppins',sans-serif]">
+                    {card.title}
+                  </h3>
+                  <p className="text-[15px] text-gray-700 mt-1 max-w-full md:max-w-full lg:max-w-80 font-medium font-['Montserrat',sans-serif]">
+                    {card.description}
+                  </p>
 
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Unmatched Visual Impact
-                    </h3>
-                    <p className="text-gray-700">
-                      Stunning visuals that captivate attention and elevate your brand presence in any space.
-                    </p>
-                  </div>
-
-                  {/* Highlight Text */}
-                  <div className="pt-4">
-                    <span className="text-2xl font-bold text-blue-900">Powerful. Scalable. Beautiful.</span>
+                  {/* Always show icon in bottom-right on desktop */}
+                  <div className="absolute bottom-6 right-6 hidden lg:block">
+                    <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg inline-flex items-center justify-center">
+                      <Link2 className="h-6 w-6 text-[#3a4a6f]" />
+                    </span>
                   </div>
                 </div>
               </div>
-
-              {/* Image Section - Now on the right */}
-              <div className="w-full md:w-5/12 order-1 md:order-2 flex justify-end">
-                <img 
-                  src={IN} 
-                  alt="Industry Applications"
-                  className="w-full h-auto rounded-2xl shadow-lg"
-                />
-              </div>
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Content Section */}
-        <section className="w-full bg-[#f2f2fd] py-16 px-4">
-          <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
-            
-            {/* Left Image */}
-            <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
-              <img
-                src="/your-image-path.png" // replace with actual image path
-                alt="DOOH Display"
-                className="w-full h-full object-cover"
-              />
-            </div>
+      {/* Key Features Section */}
+      <section className="bg-white py-16 md:py-16 lg:py-24">
+        <div className="">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+            {keyFeaturesSection?.title || 'Key Features of Our LED Video Walls'}
+          </h2>
 
-            {/* Right Content */}
-            <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Ready to Transform Your <br className="hidden md:block" /> Advertising?
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            {keyFeaturesSection?.images?.map((feature, idx) => (
+              <div
+                key={idx}
+                className="bg-[#f8faff] rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+              >
+                {/* Icon Top-Left */}
+                <div className="mb-4">
+                  <div className="bg-[#eef3ff] p-3 rounded-md inline-block">
+                    {feature.image && (
+                      <img
+                        src={`${API_BASE_URL.replace('/api', '')}/storage/${feature.image}`}
+                        alt={feature.title}
+                        className="w-6 h-6"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* Title + Description */}
+                <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ready to Transform Section */}
+      <section className="bg-[#f2f2fd] py-20">
+        <div className="container mx-auto">
+          <div
+            className="h-[500px] relative rounded-3xl overflow-hidden"
+            style={{
+              backgroundImage: transformSection?.images?.[0] 
+                ? `url(${API_BASE_URL.replace('/api', '')}/storage/${transformSection.images[0].image})`
+                : 'none',
+              backgroundColor: transformSection?.images?.[0] ? 'transparent' : '#1e2d3d',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            {/* Black overlay */}
+            <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+            {/* Content Over Image */}
+            <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
+                {transformSection?.title || 'Ready to Transform Your Advertising?'}
               </h2>
-              <p className="text-gray-700 mb-6 text-base md:text-lg">
-                With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+              <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+                {transformSection?.description || 'With Xigi DOOH, you\'re not just getting ad space – you\'re gaining a partner committed to elevating your brand.'}
               </p>
-              <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
+              <button 
+                onClick={() => navigate('/contact')}
+                className="bg-white w-[280px] hover:from-indigo-700 cursor-pointer text-black px-7 py-3 rounded-md shadow-md text-[16px]"
+              >
                 See Solutions for Your Industry
               </button>
             </div>
-            
           </div>
-        </section>
+        </div>
+      </section>
 
       <Footer />
     </div>

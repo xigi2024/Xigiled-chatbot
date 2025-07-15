@@ -37,3 +37,6 @@ html {
     min-height: 100vh;
   }
 } 
+.text-decoration-none:hover{
+  text-decoration: none;
+}

@@ -1,360 +1,464 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { ChevronDown } from 'lucide-react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import tiger from '../assets/industry/Industry.png'
-import IN from '../assets/IN.png'
-import installations from '../assets/about/installations.jpg'
-import city from '../assets/about/citys.jpg'
-import FAQSection from '../components/FAQSection'
-import impact from '../assets/icon/impact-icon.png'
-import reliability from '../assets/icon/reliability-icon.png'
-import roi from '../assets/icon/roi-icon.png'
-import perfor from '../assets/icon/performance-icon.png'
+import cta from '../assets/cta.png';
+import about from '../assets/about.avif';
+import { useNavigate } from 'react-router-dom';
 
+const FAQItem = ({ question, answer, isActive = false }) => {
+  const [open, setOpen] = useState(isActive);
 
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={() => setOpen(!open)}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">{question}</p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            open ? 'rotate-180' : ''
+          }`}
+        />
+      </div>
+      {open && (
+        <div className="mt-4 text-gray-600 text-[14px] md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const About = () => {
+  const [aboutData, setAboutData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/about');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setAboutData(data);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching about data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAboutData();
+  }, []);
+
+  // Helper function to get section data by section name
+  const getSectionData = (sectionName) => {
+    return aboutData.find(item => item.section === sectionName);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-600">Error: {error}</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Get specific sections
+  const aboutSection1 = getSectionData('about_section1');
+  const aboutSection2 = getSectionData('about_section2');
+  const aboutSection3 = getSectionData('about_section3');
+  const aboutSection4 = getSectionData('about_section4');
+  const aboutSection5 = getSectionData('about_section5');
+  const aboutSection6 = getSectionData('about_section6');
+  const faqSection = getSectionData('faq_section');
+  
   return (
     <div className="min-h-screen flex flex-col">
-    <Header />
-  {/* Banner Section */}
-      <div className="relative h-[60vh] w-full">
+      <Header />
+      
+      {/* Banner Section - Keep as hardcoded */}
+      <div className="relative h-[70vh] w-full">
         <img
-          src="/images/industry-banner.jpg"
-          alt="Industry Banner"
+          src={about}
+          alt="about Banner"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
-          PRODUCTS & SOLUTIONS
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+          <h1 className="text-[30px] md:text-[35px] lg:text-[50px] font-semibold text-white text-center font-['Poppins',sans-serif]">
+            From Vision to Reality
           </h1>
         </div>
       </div>
 
-
-      <section className="py-16 px-4 md:px-20 bg-white">
-<div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-  {/* Left Image */}
-  <div className="flex justify-center">
-    <img
-      src={tiger} // Change to your actual image path
-      alt="Tiger Display"
-      className="w-[700px] h-[450px] max-w-md"
-    />
-  </div>
-
-  {/* Right Content */}
-  <div>
-    <h2 className="text-3xl md:text-4xl font-bold mb-4">
-      Digital Impact{" "}
-      <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
-      By Industry
-      </span>
-    </h2>
-    <p className="text-gray-700 mb-6 leading-relaxed">
-      At XIGI Tech, we deliver tailored digital solutions across a wide
-      range of industries — from retail and real estate to education and
-      entertainment. Our technology adapts to your unique needs, helping
-      you connect, engage, and grow in today's fast-moving digital world.
-    </p>
-    <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded transition">
-      Experience Seamless
-    </button>
-  </div>
-</div>
-</section>
-
-<section class="bg-white py-12 px-4 md:px-34">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-      XIGI: Rooted in Values,<br />
-      Driven by Purpose
-    </h2>
-  </div>
-
-  {/* 2 Columns Grid */}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {/* Left Column */}
-    <div class="flex flex-col gap-6">
-      {/* Our Mission */}
-      <div class="bg-[#E8F1FF] relative bg-cover bg-center rounded-xl text-white p-6 h-64 flex flex-col justify-end">
-        <h3 class="text-[25px] text-[#000] font-semibold mb-1">Our Mission</h3>
-        <p class="text-[16px] text-[#000]">
-          We are dedicated to delivering high-quality, durable displays that drive visibility, enhance communication,
-          and create lasting impressions, all while ensuring our clients receive unparalleled support and service at
-          every step.
-        </p>
-      </div>
-
-      {/* Our Vision */}
-      <div class="bg-[#E8F1FF] relative bg-cover bg-center rounded-xl text-white p-6 h-64 flex flex-col justify-end">
-        <h3 class="text-[25px] text-[#000] font-semibold mb-1">Our Vision</h3>
-        <p class="text-[16px] text-[#000]">
-          We are dedicated to delivering high-quality, durable displays that drive visibility, enhance communication,
-          and create lasting impressions, all while ensuring our clients receive unparalleled support and service at
-          every step.
-        </p>
-      </div>
-    </div>
-
-    {/* Right Column */}
-    <div>
-      {/* Our Value */}
-      <div class="Valueimg relative bg-cover bg-center rounded-xl text-white p-6 h-full min-h-[500px] flex flex-col justify-end">
-        <h3 class="text-sm mb-1">Our Value</h3>
-        <h4 class="text-xl md:text-2xl font-bold leading-snug mb-2">
-          Unleash the Power of<br />
-          Your Brand with XIGI LED
-        </h4>
-        <p class="text-sm">
-          At XIGI LED, we uphold innovation, reliability, and customer-first excellence to deliver advanced LED Video wall
-          solutions.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="relative py-20 px-4 md:px-30 text-white">
-          <div className="container mx-auto ">
-            <div className="flex flex-col md:flex-row items-center gap-20">
-              
-              {/* Content Section - Now on the left */}
-              <div className="w-full md:w-7/12 order-2 md:order-1">
-                <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-snug">
-                  One Solution. <br /> Endless Industry Applications.
-                </h2>
-
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Enhanced Communication
-                    </h3>
-                    <p className="text-gray-700">
-                      Deliver powerful messages with high-impact visuals that grab attention and improve audience engagement.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Versatility Across Industries
-                    </h3>
-                    <p className="text-gray-700">
-                      Our solutions cater to multiple industries like retail, education, healthcare, and more with ease and flexibility.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                      Unmatched Visual Impact
-                    </h3>
-                    <p className="text-gray-700">
-                      Stunning visuals that captivate attention and elevate your brand presence in any space.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Image Section - Now on the right */}
-              <div className="w-full md:w-7/12 order-1 md:order-2 flex justify-end">
-                <img 
-                  src={IN} 
-                  alt="Industry Applications"
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-<section class="bg-white py-12 px-4 md:px-30">
-  <div class="text-center mb-10">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-      Total Solution, Start to<br class="md:hidden" />
-      Finish:
-    </h2>
-  </div>
-
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-    {/* <!-- Card 1 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <img src="/images/expert-consultation.png" alt="Expert consultation" class="w-full h-32 object-cover rounded-md mb-3" />
-      <p class="font-medium text-sm">Expert consultation</p>
-    </div>
-
-    {/* <!-- Card 2 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">lifetime support</p>
-    </div>
-
-    {/* <!-- Card 3 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">free 3D design</p>
-    </div>
-
-    {/* <!-- Card 4 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">fast delivery</p>
-    </div>
-
-    {/* <!-- Card 5 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">AMC</p>
-    </div>
-
-    {/* <!-- Card 6 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">easy finance</p>
-    </div>
-
-    {/* <!-- Card 7 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">24/7 service</p>
-    </div>
-
-    {/* <!-- Card 8 --> */}
-    <div class="bg-white border rounded-xl shadow-sm p-4 flex flex-col items-center text-center">
-      <div class="w-full h-32 bg-gray-200 rounded-md mb-3"></div>
-      <p class="font-medium text-sm">professional install</p>
-    </div>
-  </div>
-</section>
-
-<section class=" py-16 px-4 md:px-30 ">
-  <div class="grid grid-cols-1 md:grid-cols-2 p-20 gap-10 items-center bg-[#E8F1FF] rounded-[20px]" >
-    
-    {/* <!-- LEFT TEXT SECTION --> */}
-    <div>
-      <h2 class="text-3xl md:text-5xl font-bold text-[#000] mb-4 leading-tight">
-        25,000+ Trusted<br />
-        Partnership built<br />
-        on Results
-      </h2>
-      <p class="text-gray-700 text-base md:text-lg mb-6 max-w-md">
-        From retail and education to government and global brands, our work powers every sector and geography.
-      </p>
-      <button class="bg-[#1E2EFF] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#1b28d1] transition">
-        Experience Seamless
-      </button>
-    </div>
-
-    {/* <!-- RIGHT STAT + IMAGE GRID --> */}
-    <div class="grid grid-cols-2 gap-4">
-      
-      {/* <!-- Box 1 - Stat --> */}
-      <div class="bg-white rounded-xl p-6 flex flex-col  justify-center items-center text-center shadow h-70">
-        <p class="text-[#1E2EFF] font-extrabold text-[60px] mb-1">3K</p>
-        <p class="text-black text-md font-semibold">Installations</p>
-      </div>
-
-      {/* <!-- Box 2 - Image --> */}
-      <div class="bg-white rounded-xl overflow-hidden mt-20  h-50 flex items-center justify-center shadow">
-        <img src={installations} alt="Image 1" class="h-full w-full object-cover" />
-      </div>
-
-      {/* <!-- Box 3 - Image --> */}
-      <div class="bg-white rounded-xl overflow-hidden h-50 flex items-center justify-center shadow">
-        <img src={city} alt="Image 2" class="h-full w-full object-cover" />
-      </div>
-
-      {/* <!-- Box 4 - Stat --> */}
-      <div class="bg-white rounded-xl p-6 flex flex-col justify-center  items-center text-center shadow h-70">
-        <p class="text-[#1E2EFF] font-extrabold text-[50px] mb-1">50+</p>
-        <p class="text-black text-md font-semibold">Cities</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section className="bg-white py-16 px-4 md:px-30">
-  {/* Section Heading */}
-  <h2 className="text-center text-3xl font-bold mb-12">Our Promise</h2>
-
-  {/* Main Grid Layout */}
-  <div className="grid grid-cols-3 gap-6 items-center">
-    
-  {/* Left Image Block */}
-<div className="bg-[#EAF1FF] rounded-xl overflow-hidden h-[400px] shadow flex items-center justify-center">
-  <img src={installations} alt="Our Own Project" className="w-full h-full object-cover" />
-</div>
-
-    {/* Center Icon Grid */}
-    <div className="grid grid-cols-2 gap-4 justify-center ">
-      
-      {/* Box 1 */}
-      <div className="bg-[#EAF1FF] rounded-xl p-10 flex flex-col items-center justify-center text-center shadow">
-        <img src= {impact} alt="Impact" className="w-20 h-20 mb-2" />
-        <p className="text-black text-md font-semibold">impact</p>
-      </div>
-
-      {/* Box 2 */}
-      <div className="bg-[#EAF1FF] rounded-xl p-10 flex flex-col items-center justify-center text-center shadow">
-        <img src= {reliability}alt="Reliability" className="w-20 h-20 mb-2" />
-        <p className="text-black text-md font-semibold">reliability</p>
-      </div>
-
-      {/* Box 3 */}
-      <div className="bg-[#EAF1FF] rounded-xl p-10 flex flex-col items-center justify-center text-center shadow">
-        <img src={roi} alt="ROI" className="w-20 h-20 mb-2" />
-        <p className="text-black text-md font-semibold">ROI</p>
-      </div>
-
-      {/* Box 4 */}
-      <div className="bg-[#EAF1FF] rounded-xl p-10 flex flex-col items-center justify-center text-center shadow">
-        <img src= {perfor} alt="Performance" className="w-20 h-20 mb-2" />
-        <p className="text-black text-md font-semibold">performance</p>
-      </div>
-    </div>
-
-   {/* Right Image Block */}
-<div className="bg-[#EAF1FF] rounded-xl overflow-hidden h-[400px] shadow flex items-center justify-center">
-  <img src={city} alt="Build It" className="w-full h-full object-cover" />
-</div>
-
-  </div>
-</section>
-
-<FAQSection />
-
-   {/* Content Section */}
-   <section className="w-full bg-[#f2f2fd] py-16 px-4">
-          <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
-            
+      {/* About Section 1 - Main Content Section */}
+      {aboutSection1 && (
+        <section className="py-27 py-20 md:py-17 lg:py-28 px-4 md:px-5 lg:px-27 bg-white">
+          <div className="container mx-auto grid md:grid-cols-2 gap-20 items-center">
             {/* Left Image */}
-            <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
+            <div className="flex justify-center">
               <img
-                src="/your-image-path.png" // replace with actual image path
-                alt="DOOH Display"
-                className="w-full h-full object-cover"
+                src={`http://127.0.0.1:8000/storage/${aboutSection1.images[0]?.image}`}
+                alt={aboutSection1.title}
+                className="w-full h-[500px] rounded-2xl object-cover"
               />
             </div>
 
             {/* Right Content */}
-            <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Ready to Transform Your <br className="hidden md:block" /> Advertising?
+            <div>
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 font-['Poppins',sans-serif]">
+                {aboutSection1.title}
               </h2>
-              <p className="text-gray-700 mb-6 text-base md:text-lg">
-                With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+              <p className="text-gray-900 text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
+                {aboutSection1.description}
               </p>
-              <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
-                See Solutions for Your Industry
+              <button onClick={() => navigate('/contact')}
+ className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+                Connect Now
               </button>
             </div>
-            
           </div>
         </section>
+      )}
+
+      {/* About Section 2 - Values Section */}
+{aboutSection2 && (
+  <section className="bg-[#E8F1FF] py-27 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
+    <div className="text-center mb-10">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+        {aboutSection2.title}
+      </h2>
+    </div>
+
+    <div className="container grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* Left Column - Mission and Vision */}
+      <div className="flex flex-col gap-5">
+        {aboutSection2.images
+          ?.filter(item => ["Our Mission", "Our Vision"].includes(item.title))
+          .map((item, index) => (
+            <div 
+              key={index} 
+              className="relative bg-cover bg-center rounded-xl overflow-hidden h-64 flex flex-col justify-end p-6"
+              style={{ 
+                backgroundImage: `url(http://127.0.0.1:8000/storage/${item.image})` 
+              }}
+            >
+              {/* Overlay for better text visibility */}
+              <div className="absolute inset-0 bg-black/60 rounded-xl"></div>
+              
+              {/* Content */}
+              <div className="relative z-10">
+                <h3 className="text-[25px] text-white font-semibold mb-1">
+                  {item.title}
+                </h3>
+                <p className="text-[16px] text-white font-['Montserrat',sans-serif] font-medium">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      
+      {/* Right Column - Brand Power */}
+      {aboutSection2.images?.find(item => item.title === "Unleash the Power of Your Brand with XIGI LED") && (
+        <div>
+          <div 
+            className="relative bg-cover bg-center rounded-xl text-white p-6 h-full min-h-[500px] flex flex-col justify-end overflow-hidden" 
+            style={{ 
+              backgroundImage: `url(http://127.0.0.1:8000/storage/${
+                aboutSection2.images.find(img => 
+                  img.title === "Unleash the Power of Your Brand with XIGI LED"
+                )?.image
+              })` 
+            }}
+          >
+            {/* Bottom 80% overlay */}
+            <div className="absolute bottom-0 left-0 right-0 h-[80%] bg-gradient-to-t from-black/90 via-black/70 to-transparent rounded-xl"></div>
             
-            <Footer />
+            {/* Content with higher z-index */}
+            <div className="relative z-10">
+              <h3 className="text-sm mb-1">
+                {aboutSection2.images.find(img => 
+                  img.title === "Unleash the Power of Your Brand with XIGI LED"
+                )?.title}
+              </h3>
+              <h4 className="text-xl md:text-2xl font-bold leading-snug mb-2">
+                Values That Drive Us
+              </h4>
+              <p className="text-sm font-['Montserrat',sans-serif] font-medium">
+                {aboutSection2.images.find(img => 
+                  img.title === "Unleash the Power of Your Brand with XIGI LED"
+                )?.description}
+              </p>
+            </div>
+          </div>
         </div>
+      )}
+    </div>
+  </section>
+)}
+
+      {/* About Section 3 - Innovation Section */}
+      {aboutSection3 && (
+        <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white">
+          <div className="container mx-auto">
+            <div className="flex flex-col md:flex-col lg:flex-row items-center gap-20">
+              {/* Left Content Section with innovation features */}
+              <div className="w-full lg:w-6/12 order-2 md:order-1">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-6 leading-snug font-['Poppins',sans-serif]">
+                  {aboutSection3.title}
+                </h2>
+                <p className="text-gray-900 text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
+                  {aboutSection3.description}
+                </p>
+
+                <div className="space-y-6">
+                  {aboutSection3.images?.slice(1, 4).map((feature, index) => (
+                    <div key={index} className="flex w-full bg-white rounded-xl justify-center items-center p-4">
+                      <img
+                        src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                        alt="Innovation"
+                        className="w-20 h-20 object-cover rounded-lg me-4"
+                      />
+                      <p className="text-gray-900 text-[17px] font-['Montserrat',sans-serif] font-medium">
+                        {feature.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Image Section - main innovation image */}
+              {aboutSection3.images?.[0] && (
+                <div className="hidden md:flex w-full md:w-8/12 lg:w-6/12 order-1 justify-end">
+                  <img
+                    src={`http://127.0.0.1:8000/storage/${aboutSection3.images[0].image}`}
+                    alt="Innovation"
+                    className="w-full h-auto rounded-2xl"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* About Section 4 - Services Section */}
+      {aboutSection4 && (
+        <section className="bg-[#E8F1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+          <div className="text-center mb-10">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-snug font-['Poppins',sans-serif]">
+              {aboutSection4.title}
+            </h2>
+          </div>
+
+          <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {aboutSection4.images?.map((service, index) => (
+              <div key={index} className="rounded-xl shadow-sm flex flex-col items-center text-center">
+                <img 
+                  src={`http://127.0.0.1:8000/storage/${service.image}`} 
+                  alt={service.title} 
+                  className="w-full h-48 sm:h-52 md:h-60 object-cover rounded-t-[10px] mb-3" 
+                />
+                <p className="text-[18px] sm:text-[20px] py-3 font-['Montserrat',sans-serif] font-medium mb-2">
+                  {service.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* About Section 5 - Statistics Section */}
+      {aboutSection5 && (
+        <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-[#E8F1FF] rounded-[20px] p-6 sm:p-10 lg:p-20">
+            {/* LEFT TEXT SECTION */}
+            <div className='ms-10'>
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-[#000] mb-4 leading-tight font-['Poppins',sans-serif]">
+                {aboutSection5.title}
+              </h2>
+              <p className="text-gray-700 text-base md:text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
+                {aboutSection5.description}
+              </p>
+              <button onClick={() => navigate('/contact')} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+                Contact now
+              </button>
+            </div>
+
+            {/* RIGHT STAT + IMAGE GRID */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-6">
+              {aboutSection5.images?.map((stat, index) => (
+                <div key={index} className={`bg-white rounded-xl p-5 flex flex-col justify-center items-center text-center shadow h-36 sm:h-70 ${index === 1 ? 'sm:mt-12 md:mt-20' : ''}`}>
+                  <p className="text-[#1E2EFF] text-[50px] sm:text-[60px] md:text-[70px] mb-1 font-['Montserrat',sans-serif] font-medium">
+                    {stat.title}
+                  </p>
+                  <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] font-['Montserrat',sans-serif] font-semibold">
+                    {stat.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* About Section 6 - Promise Section */}
+      {aboutSection6 && (
+        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+          <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif]">
+            {aboutSection6.title}
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+            {/* Left Image Block */}
+            {aboutSection6.images?.[0] && (
+              <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(http://127.0.0.1:8000/storage/${aboutSection6.images[0].image})` }}
+                ></div>
+                {/* Bottom overlay */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                {/* Text content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <p className="text-[18px] font-['Montserrat',sans-serif] font-medium">
+                    {aboutSection6.images[0].title}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Center Icon Grid */}
+      {/* Center Icon Grid */}
+<div className="grid grid-cols-2 gap-4 justify-center">
+  {/* Find and display the specific icons in order */}
+  {aboutSection6.images
+    ?.filter(icon => 
+      ["impact", "reliability", "ROI", "performance"].includes(icon.title)
+    )
+    .sort((a, b) => {
+      // Sort them in the specific order we want
+      const order = ["impact", "reliability", "ROI", "performance"];
+      return order.indexOf(a.title) - order.indexOf(b.title);
+    })
+    .map((icon, index) => (
+      <div key={index} className="bg-white rounded-xl p-6 md:p-10 flex flex-col items-center justify-center text-center shadow">
+        <img 
+          src={`http://127.0.0.1:8000/storage/${icon.image}`} 
+          alt={icon.title} 
+          className="w-16 h-16 md:w-20 md:h-20 mb-2" 
+        />
+        <p className="text-black text-md font-['Montserrat',sans-serif] font-medium">
+          {icon.title}
+        </p>
+      </div>
+    ))
+  }
+</div>
+
+            {/* Right Image Block */}
+            {aboutSection6.images?.[5] && (
+              <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(http://127.0.0.1:8000/storage/${aboutSection6.images[5].image})` }}
+                ></div>
+                {/* Bottom overlay */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                {/* Text content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <p className="text-[18px] font-['Montserrat',sans-serif] font-medium">
+                    {aboutSection6.images[5].title}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* FAQ Section */}
+{/* FAQ Section */}
+{faqSection && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+    <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-4xl mx-auto">
+      {faqSection.faq_entries?.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={index === 0} // This will make only the first item active by default
+        />
+      ))}
+    </div>
+  </section>
+)}
+
+      {/* CTA Section - Keep as hardcoded */}
+      <section className="w-full bg-[#f2f2fd] py-27 px-4 md:px-5 lg:px-29">
+        <div className="mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+          {/* Left Image */}
+          <div className="w-full md:w-1/2 h-[300px] md:h-[550px] lg:h-[500px]">
+            <img
+              src={cta}
+              alt="DOOH Display"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif]">
+              Ready to Transform Your Advertising?
+            </h2>
+            <p className="font-['Montserrat',sans-serif] text-gray-700 mb-5 text-base md:text-[17px] w-[90%] font-medium">
+              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+            </p>
+            <button 
+              onClick={() => navigate('/contact')}
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 cursor-pointer hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+            >
+              Contact Us
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
   )
 }
 
-export default About
+export default About;

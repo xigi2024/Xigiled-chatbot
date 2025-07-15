@@ -2,31 +2,30 @@ import React, { useRef, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ledWave from '../assets/led-wave.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Link ,  } from "react-router-dom";
 import Highdefinition from '../assets/industry/High-definition.png'
 import seamless from '../assets/industry/seamless.png'
 import vibrantColor from '../assets/industry/vibrantColor.png'
 import WideAngle from '../assets/industry/WideAngle.png'
 import ultraThin from '../assets/industry/ultraThin.png'
-
 import {
   ChevronLeft,
   ChevronRight,
   Container
 } from "lucide-react";
 
-const Government = () => {
+const ManufacturingFactories = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
+   const navigate = useNavigate();
 
   // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/government-public-spaces');
+        const response = await fetch('http://127.0.0.1:8000/api/manufacturing-factories');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -63,8 +62,8 @@ const Government = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600">Error: {error}</p>
-          <button
-            onClick={() => window.location.reload()}
+          <button 
+            onClick={() => window.location.reload()} 
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
@@ -75,30 +74,30 @@ const Government = () => {
   }
 
   // Get data for different sections
-  const heroSection = getSectionData('government_public_space_section1');
-  const visibilitySection = getSectionData('government_public_space_section2');
-  const smartDisplaysSection = getSectionData('government_public_space_section3');
-  const smartFeaturesSection = getSectionData('government_public_space_section4');
-  const showcaseSection = getSectionData('government_public_space_section5');
-  const flexibleDisplaySection = getSectionData('government_public_space_section6');
-  const eventPlannersSection = getSectionData('government_public_space_section7');
-  const transformSection = getSectionData('government_public_space_section8');
+  const heroSection = getSectionData('manufacturing_factory_section1');
+  const visibilitySection = getSectionData('manufacturing_factory_section2');
+  const smartDisplaysSection = getSectionData('manufacturing_factory_section3');
+  const smartFeaturesSection = getSectionData('manufacturing_factory_section4');
+  const showcaseSection = getSectionData('manufacturing_factory_section5');
+  const flexibleDisplaySection = getSectionData('manufacturing_factory_section6');
+  const eventPlannersSection = getSectionData('manufacturing_factory_section7');
+  const transformSection = getSectionData('manufacturing_factory_section8');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
-
+      
       {/* Hero Section */}
       {heroSection && (
         <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
           <div className="container mx-auto">
             <div className="flex-1 text-left">
-              <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-2 font-['Poppins',sans-serif]">
+              <h1 className="text-lg md:text-[20px] lg:text-[20px] uppercase font-medium text-white mb-2">
                 {heroSection.title || "XIGI LED Display"}
               </h1>
 
-              <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-tight lg:w-[600px]">
-                {heroSection.description || "Brilliant LED Solutions for Every Sector"}
+              <p className="text-[30px] md:text-[30px] lg:text-[30px] text-white mb-6 leading-tight">
+                {heroSection.description || "Brilliant LED Solutions for Manufacturing Factories"}
               </p>
             </div>
           </div>
@@ -128,7 +127,7 @@ const Government = () => {
               Industry
             </Link>
             <span>›</span>
-            <span className="text-blue-600 text-decoration-none font-medium">Government & Public Spaces</span>
+            <span className="text-blue-600 text-decoration-none font-medium">Manufacturing Factories</span>
           </span>
         </div>
 
@@ -137,28 +136,29 @@ const Government = () => {
           <div className="flex justify-center w-full">
             <img
               src={visibilitySection?.images?.[0]?.image ? `http://127.0.0.1:8000/storage/${visibilitySection.images[0].image}` : ""}
-              alt="LED Display Billboard"
+              alt="LED Display in Factory"
               className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
             />
           </div>
 
           {/* Right Content */}
           <div className="w-full">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-              {visibilitySection?.title || "Designed for Visibility and Versatility"}
+            <h2 className="text-[35px] font-semibold mb-4 text-gray-900 leading-tight">
+              {visibilitySection?.title || "Designed for Manufacturing Environments"}
             </h2>
             <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
-              {visibilitySection?.description || "Our LED displays are built to perform in demanding settings. Every unit is engineered to provide excellent image clarity, easy setup, and dependable operation from start to finish."}
+              {visibilitySection?.description || "Our LED displays are built to perform in demanding factory settings. Every unit is engineered to provide excellent image clarity, easy setup, and dependable operation in industrial conditions."}
             </p>
 
             <div className="space-y-6">
               {visibilitySection?.images?.slice(1).map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <div className={`p-2 rounded-md ${index === 0 ? 'bg-blue-100 text-blue-700' :
-                      index === 1 ? 'bg-purple-100 text-purple-700' :
-                        'bg-gray-100 text-gray-700'
-                    }`}>
-                    {index === 0 ? '🌟' : index === 1 ? '🧩' : '🪶'}
+                  <div className={`p-2 rounded-md ${
+                    index === 0 ? 'bg-blue-100 text-blue-700' : 
+                    index === 1 ? 'bg-purple-100 text-purple-700' : 
+                    'bg-gray-100 text-gray-700'
+                  }`}>
+                    {index === 0 ? '🏭' : index === 1 ? '⚙️' : '🛠️'}
                   </div>
                   <p className="text-gray-900 text-base leading-relaxed">
                     <strong>{item.title}</strong>{item.description}
@@ -175,11 +175,11 @@ const Government = () => {
         <div className='container mx-auto'>
           {/* Section Heading */}
           <div className="text-center mb-10">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif] ">
-              {smartDisplaysSection?.title || "Smart Displays for Smarter Governance"}
+            <h2 className="text-[35px] font-medium mb-2">
+              {smartDisplaysSection?.title || "Smart Displays for Efficient Manufacturing"}
             </h2>
             <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium">
-              {smartDisplaysSection?.description || "A smart city project uses transparent LED in city squares for community updates and live streams"}
+              {smartDisplaysSection?.description || "Manufacturing plants use LED displays for production monitoring, safety alerts, and process visualization"}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
@@ -212,11 +212,11 @@ const Government = () => {
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left Text + Cards */}
           <div>
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
-              {flexibleDisplaySection?.title || "Flexible Display Sizes & Configurations"}
+            <h2 className="text-[35px] font-semibold text-gray-900 leading-tight mb-4">
+              {flexibleDisplaySection?.title || "Industrial-Grade Display Solutions"}
             </h2>
             <p className="text-gray-700 text-base md:text-lg mb-8 max-w-xl">
-              {flexibleDisplaySection?.description || "Choose from a range of ready-to-deploy formats or build a custom setup to suit your space and vision:"}
+              {flexibleDisplaySection?.description || "Choose from a range of rugged displays designed for factory environments:"}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-md">
@@ -233,17 +233,17 @@ const Government = () => {
           <div>
             <img
               src={flexibleDisplaySection?.images?.[0]?.image ? `http://127.0.0.1:8000/storage/${flexibleDisplaySection.images[0].image}` : ""}
-              alt="Display Sizes"
+              alt="Factory Display"
               className="rounded-xl w-full object-cover"
             />
           </div>
         </div>
       </section>
 
-      {/* Why Event Planners Choose Section */}
+      {/* Why Manufacturers Choose Section */}
       <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-          Why Event Planners Choose Xigi LED
+        <h2 className="text-[32px] md:text-[42px] font-semibold text-center mb-10">
+          Why Manufacturers Choose Xigi LED
         </h2>
 
         <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -298,7 +298,7 @@ const Government = () => {
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
                 src={ultraThin}
-                alt="Ultra-thin"semibold
+                alt="Ultra-thin"
                 className="w-66 object-cover rounded-md mb-3"
               />
               <div>
@@ -336,14 +336,17 @@ const Government = () => {
 
             {/* Content Over Image */}
             <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
-                {transformSection?.title || "Ready to Transform Your Advertising?"}
+              <h2 className="text-[30px] md:text-[40px] font-medium text-white mb-4 leading-tight">
+                {transformSection?.title || "Ready to Transform Your Manufacturing Operations?"}
               </h2>
               <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
-                {transformSection?.description || "With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand."}
+                {transformSection?.description || "With Xigi LED displays, you're not just getting screens – you're gaining a partner committed to elevating your operational efficiency."}
               </p>
-              <button onClick={() => navigate('/contact')} className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit">
-                See Solutions for Your Industry
+                <button 
+                onClick={() => navigate('/contact')}
+                className="bg-white text-[#1e2d3d] cursor-pointer hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
+              >
+                See Solutions for Your Products
               </button>
             </div>
           </div>
@@ -370,10 +373,10 @@ const SmartFeaturesSection = ({ data }) => {
       <div className="container mx-auto">
         {/* Heading */}
         <div className="text-center mb-10">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
+          <h2 className="text-[35px] font-medium text-gray-900 mb-2">
             {data.title}
           </h2>
-          <p className="text-sm md:text-base  max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
             {data.description}
           </p>
         </div>
@@ -389,10 +392,10 @@ const SmartFeaturesSection = ({ data }) => {
                 className="w-full object-cover h-[400px]  mb-4 rounded-t-xl"
               />
               <div className="p-2">
-                <h3 className="text-[20px] font-semibold text-center mb-4 font-['Poppins',sans-serif]">{indoorData.title}</h3>
+                <h3 className="text-lg font-semibold text-center mb-4">{indoorData.title}</h3>
                 <div className="space-y-3">
                   {indoorData.faqs?.map((faq, index) => (
-                    <div
+                    <div 
                       key={index}
                       onClick={() => setOpenIndoor(openIndoor === index ? null : index)}
                       className="bg-white rounded-md border-[3px] border-[#E8F1FF] p-4 cursor-pointer"
@@ -404,8 +407,9 @@ const SmartFeaturesSection = ({ data }) => {
                         </span>
                       </div>
                       <div
-                        className={`text-sm text-gray-700 transition-all duration-300 overflow-hidden ${openIndoor === index ? "mt-3 opacity-100 max-h-[500px]" : "opacity-0 max-h-0"
-                          }`}
+                        className={`text-sm text-gray-700 transition-all duration-300 overflow-hidden ${
+                          openIndoor === index ? "mt-3 opacity-100 max-h-[500px]" : "opacity-0 max-h-0"
+                        }`}
                       >
                         {faq.answer}
                       </div>
@@ -425,10 +429,10 @@ const SmartFeaturesSection = ({ data }) => {
                 className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
               />
               <div className="p-2">
-                <h3 className="text-[20px] font-semibold text-center mb-4 font-['Poppins',sans-serif]">Outdoor LED Displays</h3>
+                <h3 className="text-lg font-semibold text-center mb-4">Outdoor LED Displays</h3>
                 <div className="space-y-3">
                   {outdoorData.faqs?.map((faq, index) => (
-                    <div
+                    <div 
                       key={index}
                       onClick={() => setOpenOutdoor(openOutdoor === index ? null : index)}
                       className="bg-white rounded-md border-[3px] border-[#E8F1FF] p-4 cursor-pointer"
@@ -440,8 +444,9 @@ const SmartFeaturesSection = ({ data }) => {
                         </span>
                       </div>
                       <div
-                        className={`text-sm text-gray-700 transition-all duration-300 overflow-hidden ${openOutdoor === index ? "mt-3 opacity-100 max-h-[500px]" : "opacity-0 max-h-0"
-                          }`}
+                        className={`text-sm text-gray-700 transition-all duration-300 overflow-hidden ${
+                          openOutdoor === index ? "mt-3 opacity-100 max-h-[500px]" : "opacity-0 max-h-0"
+                        }`}
                       >
                         {faq.answer}
                       </div>
@@ -456,7 +461,7 @@ const SmartFeaturesSection = ({ data }) => {
         {/* Suggestion Note */}
         <div className="bg-[#EDF3FF] text-sm md:text-base text-gray-800 px-6 py-4 rounded-md flex items-center gap-3 mt-10">
           <span className="text-yellow-500 text-xl">💡</span>
-          <p>Suggestion: P5 to P10 is a suitable choice for applications above 50 feet.</p>
+          <p>Suggestion: P5 to P10 is a suitable choice for industrial applications.</p>
         </div>
       </div>
     </section>
@@ -494,8 +499,8 @@ const ShowcaseSlider = ({ data }) => {
   return (
     <section className="bg-[#EAF1FF] py-22 ">
       <div className="container mx-auto text-center">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-6 font-['Poppins',sans-serif]">
-          {data.title || "For Showcase"}
+        <h2 className="text-[35px] font-semibold text-gray-900 mb-6">
+          {data.title || "Manufacturing Showcase"}
         </h2>
         <div className="relative rounded-2xl overflow-hidden">
           <img
@@ -524,4 +529,4 @@ const ShowcaseSlider = ({ data }) => {
   );
 };
 
-export default Government;
+export default ManufacturingFactories;

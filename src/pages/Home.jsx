@@ -1,70 +1,56 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react';
 import '../styles/Home.css';
-import IN from '../assets/IN.png'
-import bannervid from '../assets/videos/Xigiled.mp4'
+import banner from '../assets/videos/Xigi-Banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import govIcon from '../assets/icon/goverment.png';
-import indoorImage from '../assets/goverment.jpg';
-import range from '../assets/icon/Complete_Range.gif'
-import Transparent from '../assets/icon/Transparent_Pricing.gif'
-import {
-  Heart,
-  LayoutGrid,
-  Maximize2,
-  Truck,
-  BadgeDollarSign,
-  Award, Megaphone,
-  Layers,
-  Eye
-} from 'lucide-react';
+import cta from '../assets/cta.png';
+import centerImage from '../assets/centerImage.png';
+import rightImage from '../assets/rightImage.png';
+import leftImage from '../assets/leftImage.png';
+import { Link, useNavigate } from 'react-router-dom';
+import { Megaphone, Layers, Eye, ChevronRight, ChevronLeft, Quote } from 'lucide-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-import IN1 from '../assets/IN.png';
-import IN2 from '../assets/IN.png';
-import IN3 from '../assets/IN.png';
+const IndustrySection = ({ sectionData }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const navigate = useNavigate();
 
+  if (!sectionData || !sectionData.images) {
+    return <div>Loading...</div>;
+  }
 
+  // Filter out images without titles for the features list
+  const validImages = sectionData.images.filter(img => img.title);
 
-const features = [
-  {
-    title: "Enhanced Communication",
-    desc: "Deliver powerful messages with high-impact visuals that grab attention and improve audience engagement.",
-    image: IN1,
-    icon: <Megaphone className="w-5 h-5 text-blue-700 mr-2" />,
-  },
-  {
-    title: "Versatility Across Industries",
-    desc: "Our solutions cater to multiple industries like retail, education, healthcare, and more with ease and flexibility.",
-    image: IN2,
-    icon: <Layers className="w-5 h-5 text-blue-700 mr-2" />,
-  },
-  {
-    title: "Unmatched Visual Impact",
-    desc: "Stunning visuals that captivate attention and elevate your brand presence in any space.",
-    image: IN3,
-    icon: <Eye className="w-5 h-5 text-blue-700 mr-2" />,
-  },
-];
+  // Get the image without title for the right side display
+  const rightSideImage = sectionData.images.find(img => !img.title);
 
-const IndustrySection = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const features = validImages.map((item, index) => ({
+    title: item.title,
+    desc: item.description || "Enhanced functionality and performance for your business needs.",
+    icon: index === 0 ? <Megaphone className="w-7 h-7 text-blue-700 mr-5" /> :
+      index === 1 ? <Layers className="w-7 h-7 text-blue-700 mr-5" /> :
+        <Eye className="w-7 h-7 text-blue-700 mr-5" />
+  }));
 
   return (
-    <section className="relative py-20 px-4 md:px-10 bg-white text-gray-900">
+    <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white text-gray-900">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-10">
-
           {/* Left: Text Content */}
           <div className="w-full md:w-6/12 order-2 md:order-1">
-            <h2 className="text-4xl font-bold mb-10 leading-snug">
-              One Solution. <br /> Endless Industry Applications.
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 leading-[1.2] font-['Poppins',sans-serif]">
+              {sectionData.title}
             </h2>
 
             <div className="space-y-4">
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded-xl transition-all cursor-pointer flex flex-col ${activeIndex === idx
+                  className={`p-3 rounded-xl transition-all flex flex-col ${activeIndex === idx
                     ? "bg-white shadow border-l-4 border-blue-700"
                     : "bg-transparent"
                     }`}
@@ -72,10 +58,10 @@ const IndustrySection = () => {
                 >
                   <div className="flex items-center">
                     {feature.icon}
-                    <h3 className="text-lg font-semibold text-blue-800">{feature.title}</h3>
+                    <h3 className="text-[22px] font-semibold text-blue-800">{feature.title}</h3>
                   </div>
                   {activeIndex === idx && (
-                    <p className="text-sm ml-7 text-gray-600 mt-2 font-['DM_Sans',sans-serif]">
+                    <p className="text-[17px] ml-12 text-gray-600 mt-2 font-['Montserrat',sans-serif] font-medium">
                       {feature.desc}
                     </p>
                   )}
@@ -86,58 +72,182 @@ const IndustrySection = () => {
 
           {/* Right: Image */}
           <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center">
-            <div className="w-full max-w-xl">
-              {activeIndex !== null && (
-                <img
-                  src={features[activeIndex].image}
-                  alt={features[activeIndex].title}
-                  className="w-full h-auto object-cover rounded-2xl transition-all duration-500"
-                />
-              )}
-            </div>
+            {rightSideImage ? (
+              <img
+                src={`http://127.0.0.1:8000/storage/${rightSideImage.image}`}
+                alt={sectionData.title}
+                className="w-full h-[430px] object-cover rounded-2xl"
+              />
+            ) : validImages.length > 0 ? (
+              <img
+                src={`http://127.0.0.1:8000/storage/${validImages[0].image}`}
+                alt={sectionData.title}
+                className="w-full h-auto object-cover rounded-2xl"
+              />
+            ) : null}
           </div>
-
         </div>
       </div>
     </section>
   );
 };
 
-const serviceFeatures = [
-  {
-    icon: range,
-    title: 'Nationwide Service',
-    desc: 'Delivery, installation, and 24/7 support across India',
-  },
-  {
-    icon: range,
-    title: 'Complete Range',
-    desc: 'Indoor, outdoor, truck-mounted, standees, interactive, transparent, flexible, rental, custom',
-  },
-  {
-    icon: 'icons/service3.gif',
-    title: '100% Custom-Fit',
-    desc: 'Any size, pixel pitch, or creative shape tailored to your needs',
-  },
-  {
-    icon: 'icons/service4.gif',
-    title: 'Fastest Turnaround',
-    desc: 'Quick delivery, easy finance, and comprehensive AMC plans',
-  },
-  {
-    icon: Transparent,
-    title: 'Transparent Pricing',
-    desc: 'Certified quality with clear, upfront pricing',
-  },
-  {
-    icon: 'icons/service6.gif',
-    title: 'Trusted by 3,000+',
-    desc: 'Brands, schools, institutions, and event organizers nationwide',
-  },
-];
+const MemberConnect = ({ testimonialsSection }) => {
+  const swiperRef = useRef(null);
 
+  if (!testimonialsSection || !testimonialsSection.images) {
+    return <div>Loading testimonials...</div>;
+  }
+
+  const testimonials = testimonialsSection.images.map((testimonial) => ({
+    name: testimonial.client_name || 'Client',
+    title: testimonial.title || 'Client',
+    feedback: testimonial.description || 'Great service!',
+    image: `http://127.0.0.1:8000/storage/${testimonial.image}`
+  }));
+
+  return (
+    <section className="w-full py-24 bg-gradient-to-b from-white to-[#eaf1ff] relative">
+      <div className="container mx-auto">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-12 font-['Poppins',sans-serif]">
+          {testimonialsSection.title || "Client Stories & Results"}
+        </h2>
+
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          loop={true}
+          centeredSlides={false}
+          spaceBetween={20}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            768: { slidesPerView: 1 },
+            1024: { slidesPerView: 2 },
+          }}
+          className="!items-stretch"
+        >
+          {testimonials.map((item, idx) => (
+            <SwiperSlide key={idx} className="h-full">
+              <div className="bg-white rounded-xl shadow-lg flex flex-col md:flex-row md:h-80 lg:h-80">
+                <div className="w-full md:w-2/5 h-[200px] md:h-auto overflow-hidden order-1 md:order-2">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-none md:rounded-r-xl"
+                  />
+                </div>
+
+                <div className="flex flex-col p-6 w-full md:w-3/5 order-2 md:order-1">
+                  <div className="flex gap-1 text-yellow-500 text-xl mb-2">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+                  <h4 className="font-medium text-black mb-1">
+                    {item.name}
+                    <span className="text-gray-500 font-normal text-[12px] ml-2">
+                      {item.title}
+                    </span>
+                  </h4>
+                  <p className="mt-3 text-black text-[15px] font-medium leading-relaxed">
+                    {item.feedback}
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
+};
 
 const Home = () => {
+  const [homeData, setHomeData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchHomeData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/home');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setHomeData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHomeData();
+  }, []);
+
+  const handleClick = () => {
+    const testimonialsSection = document.getElementById('testimonials-section');
+    if (testimonialsSection) {
+      testimonialsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Function to create industry slug
+  const createIndustrySlug = (title) => {
+    if (!title) return '';
+
+    // Normalize the title (remove special chars and trim extra spaces)
+    const normalizedTitle = title.replace(/&/g, 'and').replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+
+    const specialCases = {
+      'Hotels and Hospitalities': 'HospitalityHotels',
+      'Government and Public Spaces': 'GovernmentCivicSpaces',
+      'Manufacturing Factories': 'ManfacturingAndFactories',
+      'Transport and Public Venues': 'TransportAndPublicVenues',
+      'Events and Exhibitions': 'EventsAndExhibitions',
+      'Education': 'EducationAndInstitutions',
+      'Retail Environments': 'Retail'
+    };
+
+    if (specialCases[normalizedTitle]) {
+      return specialCases[normalizedTitle];
+    }
+
+    // Default fallback (title-cased and no spaces)
+    return normalizedTitle
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
+
+  // Get sections by their identifiers
+  const whyChooseSection = homeData.find(section => section.section === 'home_section1');
+  const completeRangeSection = homeData.find(section => section.section === 'home_section2');
+  const industrySection = homeData.find(section => section.section === 'home_section3');
+  const supportSection = homeData.find(section => section.section === 'home_section4');
+  const industryApplicationsSection = homeData.find(section => section.section === 'home_section5');
+  const testimonialsSection = homeData.find(section => section.section === 'home_section6');
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -151,326 +261,440 @@ const Home = () => {
             playsInline
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
           >
-            <source src={bannervid} type="video/mp4" />
+            <source src={banner} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
-          <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-black/70 z-10"></div>
 
-          <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4">
-            <h1 className="text-5xl md:text-6xl bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent font-bold py-2">
+          <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4 bg-transparent">
+            <h1 className="text-5xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
               Brighten Every Space
             </h1>
-            <p className="mt-4 max-w-2xl text-lg md:text-[18px]">
+            <p className="mt-4 max-w-2xl text-lg md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
               India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government—Xigi LED powers your brand, message, and experience everywhere.
             </p>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white mt-5 px-7 py-3 rounded-lg font-medium text-[17]">
+            <Link
+              to="/contact"
+              className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded font-semibold"
+            >
               Get Instant Quote
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* Why Choose Section */}
-        <section className="py-27 px-4 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
-          <div className="container mx-auto text-center">
-            <h2 className="text-3xl md:text-[45px] font-semibold mb-10 text-gray-900">Why Choose Xigi LED?</h2>
-            <div className="grid md:grid-cols-3 gap-10">
-              {serviceFeatures.map((feature, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition"
-                >
-                 <div className="bg-blue-100 w-14 h-14 flex items-center justify-center rounded-md mb-3">
-  <img src={feature.icon} alt={feature.title} className="w-10 h-10 object-contain" />
-</div>
-                  <h3 className="font-semibold text-[23px] text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-[17px] text-gray-800 font-['DM_Sans',sans-serif]">{feature.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10">
-              <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-md shadow-md text-sm font-medium">
-                See Our Client Stories
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* New LED Display Range Section */}
-        <section className="py-27 px-4 md:px-8 bg-[#F1F5F9]">
-          <div className="container mx-auto">
-            <h2 className="text-3xl md:text-[45px] font-semibold pb-10 text-center text-gray-900">
-              Our Complete Range
-            </h2>
-
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Left Main Column - 9/12 */}
-              <div className="w-full md:w-9/12 flex flex-col gap-4">
-
-                {/* Row 1 – 3 boxes with different widths */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/indoor-led-wall.jpg" className="w-full h-40 object-cover" alt="Indoor LED Wall" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Indoor LED Wall</h3>
-                      
-                    </div>
-                  </div>
-                  <div className="w-1/4 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/outdoor-led.jpg" className="w-full h-40 object-cover" alt="Outdoor LED Starter" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Outdoor LED Starter</h3>
-                    </div>
-                  </div>
-                  <div className="w-1/3 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/interactive-display.jpg" className="w-full h-40 object-cover" alt="Interactive LED Display" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Interactive LED Display</h3>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Row 2 – 40% + 60% */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="w-[40%] bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/transparent-led.jpg" className="w-full h-40 object-cover" alt="Transparent LED" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Transparent</h3>
-                      <p className="text-gray-600 text-sm">See-through displays for store windows</p>
-                    </div>
-                  </div>
-                  <div className="w-[60%] bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/led-standee.jpg" className="w-full h-40 object-cover" alt="LED Standee Displays" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">LED Standee Displays</h3>
-                      <p className="text-gray-600 text-sm">Freestanding displays for exhibitions and retail spaces</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Row 3 – 60% + 40% */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="w-[60%] bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/xigi-display.jpg" className="w-full h-40 object-cover" alt="Xigi LED Technology" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Xigi</h3>
-                      <p className="text-gray-600 text-sm">Our flagship high-performance LED technology</p>
-                    </div>
-                  </div>
-                  <div className="w-[40%] bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img src="/images/flexible-led.jpg" className="w-full h-40 object-cover" alt="Flexible & Curved" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Flexible & Curved</h3>
-                      <p className="text-gray-600 text-sm">Bendable displays for creative installations</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Sidebar - 3/12, Equal height with left */}
-              <div className="w-full md:w-3/12 flex flex-col gap-4">
-                <div className="flex flex-col h-full min-h-[700px] gap-4">
-                  <div className="flex-1 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img
-                      src="/images/truck-mounted.jpg"
-                      className="w-full h-40 object-cover"
-                      alt="Truck Mounted LED"
-                    />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Truck Mounted</h3>
-                      <p className="text-gray-600 text-sm">Mobile advertising displays</p>
-                    </div>
-                  </div>
-
-                  <div className="flex-1 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
-                    <img
-                      src="/images/custom-solutions.jpg"
-                      className="w-full h-40 object-cover"
-                      alt="Custom LED Solutions"
-                    />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">Custom LED Solutions</h3>
-                      <p className="text-gray-600 text-sm">Tailored displays for unique requirements</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Our Complete Range Section */}
-        <section className="w-full py-20 px-4 bg-gradient-to-br from-[#e3ecfa] to-[#c7d7f5]">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
-            {/* Left: Text Content */}
-            <div className="w-full md:w-4/12 flex flex-col justify-center">
-              <h2 className="text-[40px] font-extrabold text-gray-900 mb-4 leading-snug font-['Poppins',sans-serif]">
-                Our Complete <br /> Range
+        {whyChooseSection && (
+          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
+            <div className="container mx-auto text-center">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+                {whyChooseSection.title}
               </h2>
-              <p className="text-[17px] text-gray-800 font-['DM_Sans',sans-serif] leading-relaxed  mb-6 mr-10">
-                Creating immersive audio-visual experiences at concerts and events. AV technology blends sound and visuals for maximum impact.
-              </p>
-              <button className="bg-gradient-to-r from-blue-600 to-blue-800 text-white mr-10 py-3 rounded-xl font-semibold text-base shadow hover:from-blue-700 hover:to-blue-900 transition-all">
-                Our Products
-              </button>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-5 lg:gap-10">
+                {whyChooseSection.images.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex rounded-md mb-4">
+                      <img
+                        src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                        alt={feature.title}
+                        className="w-15 h-15x object-contain"
+                      />
+                    </div>
+                    <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-base md:text-[15px] text-gray-800 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-10">
+                <button
+                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 rounded-md shadow-md text-sm md:text-[14px] font-medium transition-all duration-300"
+                  onClick={handleClick}>
+                  See Our Client Stories
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Complete Range Section */}
+        {completeRangeSection && (
+          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#E8F1FF]">
+            <div className="container mx-auto">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
+                {completeRangeSection.title}
+              </h2>
+
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12 lg:col-span-9">
+                  <div className="grid grid-cols-9 gap-6 mb-6">
+                    {/* Indoor LED Wall */}
+                    {completeRangeSection.images[0] && (
+                      <a href="/products/indoor-led-video-walls" className="block col-span-9 md:col-span-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
+                        <div className="w-full h-full relative bg-center bg-cover rounded-xl mx-auto"
+                          style={{
+                            backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[0].image})`,
+                          }}>
+                          <div className="absolute inset-0 bg-black/40 rounded-xl z-0"></div>
+                          <div className="relative z-10 p-5 flex items-end h-full">
+                            <h3 className="text-[15px] font-semibold text-white">
+                              {completeRangeSection.images[0].title}
+                            </h3>
+                          </div>
+                        </div>
+                      </a>
+                    )}
+
+                    {/* Outdoor LED */}
+                    {completeRangeSection.images[1] && (
+                      <a href="/products/outdoor-led-video-walls" className="block col-span-9 md:col-span-3 lg:col-span-3 bg-gray-900 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[1].image}`}
+                          className="w-100 h-60 object-cover"
+                          alt={completeRangeSection.images[1].title}
+                        />
+                        <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-md">
+                          <span className="text-sm font-medium text-gray-900">Outdoor</span>
+                        </div>
+                        <div className="p-5">
+                          <h3 className="text-[15px] font-semibold text-white">
+                            {completeRangeSection.images[1].title}
+                          </h3>
+                        </div>
+                      </a>
+                    )}
+
+                    {/* truck */}
+                    {completeRangeSection.images[5] && (
+                      <a href="/products/rental-event-display" className="block col-span-9 md:col-span-2 lg:col-span-2 relative bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
+                        <div className="w-full h-full relative flex items-center justify-center">
+                          <img
+                            src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[5].image}`}
+                            className="object-cover"
+                            alt={completeRangeSection.images[5].title}
+                          />
+                          <div className="absolute bottom-5 text-center px-3">
+                            <h3 className="text-[15px] font-semibold text-blue">
+                              {completeRangeSection.images[5].title}
+                            </h3>
+                          </div>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-9 gap-6 mb-6">
+                    {/* Transparent */}
+                    {completeRangeSection.images[4] && (
+                      <a href="products/transparent-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
+                        <div className="absolute inset-0 bg-cover bg-center z-0"
+                          style={{
+                            backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[4].image})`,
+                          }}></div>
+                        <div className="absolute inset-0 bg-black/40 z-10" />
+                        <div className="relative z-20 flex items-center h-full px-6">
+                          <div className="w-full md:w-2/3">
+                            <h3 className="text-xl font-semibold text-white mb-2">
+                              {completeRangeSection.images[4].title}
+                            </h3>
+                          </div>
+                        </div>
+                      </a>
+                    )}
+
+                    {/* rental */}
+                    {completeRangeSection.images[6] && (
+                      <a href="/products/flexible-led-display" className="block col-span-9 md:col-span-4 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                        style={{
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[6].image})`,
+                        }}>
+                        <div className="w-full h-full flex items-center justify-center bg-black/30">
+                          <h3 className="text-xl font-semibold text-white text-center">
+                            {completeRangeSection.images[6].title}
+                          </h3>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-9 gap-6">
+                    {/* Flexible & Curved */}
+                    {completeRangeSection.images[7] && (
+                      <a href="/products/truck-mounted-led" className="block col-span-9 md:col-span-4 relative rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                        style={{
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[7].image})`,
+                        }}>
+                        <div className="absolute inset-0 bg-black/40 z-10" />
+                        <div className="relative z-20 flex flex-col justify-center h-full p-5">
+                          <h3 className="text-xl font-semibold text-white mx-auto">
+                            {completeRangeSection.images[7].title}
+                          </h3>
+                        </div>
+                      </a>
+                    )}
+
+                    {/* Custom LED */}
+                    {completeRangeSection.images[8] && (
+                      <a href="/products/custom-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                        style={{
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[8].image})`,
+                        }}>
+                        <div className="absolute inset-0 bg-black/20 z-10" />
+                        <div className="relative z-20 p-6 text-center flex flex-col justify-center h-full">
+                          <h3 className="text-xl font-bold text-white mb-2">
+                            {completeRangeSection.images[8].title}
+                          </h3>
+                          {completeRangeSection.images[8].description && (
+                            <p className="text-white/90 text-sm">
+                              {completeRangeSection.images[8].description}
+                            </p>
+                          )}
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="col-span-12 lg:col-span-3 flex flex-col gap-6">
+                  {/* LED Standee */}
+                  {completeRangeSection.images[3] && (
+                    <a href="/products/led-standee-display" className="block flex-1 relative rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
+                      style={{
+                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[3].image})`,
+                      }}>
+                      <div className="absolute inset-0 bg-black/30 z-10" />
+                      <div className="relative z-20 w-full text-center p-5">
+                        <h3 className="text-[18px] font-semibold text-white">
+                          {completeRangeSection.images[3].title}
+                        </h3>
+                      </div>
+                    </a>
+                  )}
+
+                  {/* interactive */}
+                  {completeRangeSection.images[2] && (
+                    <a href="/products/interactive-display" className="block flex-1 relative bg-gray-900 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
+                      style={{
+                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[2].image})`,
+                      }}>
+                      <div className="absolute inset-0 bg-black/20 z-10" />
+                      <div className="relative z-20 p-5 w-full">
+                        <h3 className="text-[18px] font-semibold text-white">
+                          {completeRangeSection.images[2].title}
+                        </h3>
+                      </div>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Stats Section */}
+        <section className="w-full py-20 px-4 bg-gradient-to-b from-white to-[#eaf1ff]">
+          <div className="max-w-[1440px] mx-auto w-full">
+            <div className="hidden md:flex w-full items-center justify-between text-left mb-12 px-4">
+              <div className="flex flex-col items-start min-w-[120px]">
+                <p className="text-[36px] font-extrabold text-black">3000+</p>
+                <p className="text-[16px] font-semibold text-black">Installations</p>
+              </div>
+
+              <div className="flex-1 text-center px-6">
+                <p className="text-xl text-black mb-2">About</p>
+                <h2 className="text-[28px] md:text-[30px] lg:text-[40px] font-medium mb-3 leading-[1.2] max-w-xl mx-auto font-['Poppins',sans-serif]">
+                  25,000+ Trusted Partnership built on Results
+                </h2>
+                <p className="text-black text-[10px] md:text-[17px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-lg mx-auto">
+                  From retail and education to government and global brands, our work powers every sector and geography.
+                </p>
+              </div>
+
+              <div className="flex flex-col items-end min-w-[100px]">
+                <p className="text-[36px] font-extrabold text-black">50+</p>
+                <p className="text-[16px] font-semibold text-black">Cities</p>
+              </div>
             </div>
 
-            {/* Right: Product Cards */}
-            <div className="w-full md:w-8/12 flex justify-center">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {[
-                  {
-                    title: "Government & Public Spaces",
-                    icon: govIcon,
-                    image: indoorImage,
-                  },
-                  {
-                    title: "Events & Exhibitions",
-                    icon: "/images/icons/outdoor.png",
-                    image: "/images/full/outdoor.png",
-                  },
-                  {
-                    title: "Retail Environments",
-                    icon: "/images/icons/truck.png",
-                    image: "/images/full/truck.png",
-                  },
-                  {
-                    title: "Corporate Offices",
-                    icon: "/images/icons/standee.png",
-                    image: "/images/full/standee.png",
-                  },
-                  {
-                    title: "Transparent LED Displays",
-                    icon: "/images/icons/transparent.png",
-                    image: "/images/full/transparent.png",
-                  },
-                  {
-                    title: "Interactive LED Displays",
-                    icon: "/images/icons/interactive.png",
-                    image: "/images/full/interactive.png",
-                  },
-                  {
-                    title: "Flexible & Curved LED Walls",
-                    icon: "/images/icons/flexible.png",
-                    image: "/images/full/flexible.png",
-                  },
-                  {
-                    title: "Flexible & Curved LED Walls",
-                    icon: "/images/icons/flexible.png",
-                    image: "/images/full/flexible.png",
-                  },
-                ].map((product, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white rounded-2xl shadow flex flex-col items-center justify-center text-center p-6 font-bold text-black text-[15px] min-h-[180px] hover:shadow-lg transition-all relative group overflow-hidden"
-                  >
-                    {/* Default Small Icon */}
-                    <img
-                      src={product.icon}
-                      alt={product.title}
-                      className="w-18 h-18 mb-5 transition-all duration-300 group-hover:opacity-0 z-20"
-                    />
-                    {/* Full Image on Hover */}
-                    <img
-                      src={product.image}
-                      alt={product.title + ' Large'}
-                      className="absolute inset-0 w-full h-full object-cover bg-black  opacity-4 group-hover:opacity-100 transition-all duration-300 z-10"
-                    />
-                    <span className="relative z-20 group-hover:text-white transition-all duration-300">
-                      {product.title}
-                    </span>
+            <div className="md:hidden text-center mb-5">
+              <p className="text-md text-black mb-2">About</p>
+              <h2 className="text-2xl font-semibold mb-3 leading-snug">
+                25,000+ Trusted Partnership built <br /> on Results
+              </h2>
+              <p className="text-black text-[15px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-3xl mx-auto mb-4">
+                From retail and education to government and global brands, our work powers every sector and geography.
+              </p>
+
+              <div className="flex items-center justify-center gap-4">
+                <div className="px-6 py-4 text-center">
+                  <p className="text-[24px] font-extrabold text-black">50+</p>
+                  <p className="text-[14px] font-semibold text-black">Cities</p>
+                </div>
+                <div className="px-6 py-4 text-center">
+                  <p className="text-[24px] font-extrabold text-black">3000+</p>
+                  <p className="text-[14px] font-semibold text-black">Installations</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="hidden md:flex w-full md:w-auto justify-center">
+                <img src={leftImage} alt="Left Panel" className="w-[300px] h-auto" />
+              </div>
+
+              <div className="w-full md:w-auto flex justify-center px-6 md:px-12">
+                <img src={centerImage} alt="Center LED" className="w-[360px] md:w-[500px] h-auto" />
+              </div>
+
+              <div className="hidden md:flex w-full md:w-auto justify-center">
+                <img src={rightImage} alt="Right Panel" className="w-[340px] h-auto" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Industry Section */}
+        {industrySection && (
+          <section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+            <div className="container mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12">
+              <div className="w-full lg:w-4/12 flex flex-col justify-center">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4 leading-snug font-['Poppins',sans-serif]">
+                  {industrySection.title}
+                </h2>
+                <p className="md:text-[15px] text-gray-800 font-['Montserrat',sans-serif] leading-relaxed mb-6 font-medium">
+                  {industrySection.description}
+                </p>
+                <button
+                  onClick={() => navigate('/industry')}
+                  className="w-fit bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+                >
+                  View All Industries
+                </button>
+
+              </div>
+
+              <div className="w-full lg:w-8/12">
+                <div className="flex justify-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
+                    {industrySection.images.map((product, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
+                        className="relative bg-[#E8F1FF] rounded-2xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-44 sm:h-48 md:h-56 cursor-pointer"
+                      >
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${product.image}`}
+                          alt={product.title + ' Large'}
+                          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+                        />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${product.image}`}
+                          alt={product.title}
+                          className="w-100 h-100 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 rounded-lg"
+                        />
+
+                        <span className="relative z-30 px-2 text-center transition-colors duration-300 group-hover:text-white">
+                          {product.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Support Section */}
+        {supportSection && (
+          <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white"
+            style={{
+              backgroundImage: supportSection.images.length > 2 && supportSection.images[2].image
+                ? `url('http://127.0.0.1:8000/storage/${supportSection.images[2].image}')`
+                : `url('../src/assets/heroimg.png')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}>
+            <div className="absolute inset-0 bg-black/50 z-0"></div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+              <div className="flex justify-between items-start mb-10 flex-wrap gap-4">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium max-w-2xl font-['Poppins',sans-serif]">
+                  {supportSection.title}
+                </h2>
+                <button
+                  onClick={() => navigate('/contact')}
+                  className="bg-white cursor-pointer text-blue-600 py-2 px-4 rounded-lg hover:bg-blue-600 hover:text-white text-[16px] font-medium transition"
+                >
+                  Get Product Help
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                {supportSection.images.slice(0, 2).map((support, index) => (
+                  <div key={index} className="bg-gradient-to-br from-[#113A79]/80 via-[#757575]/40 to-[#889CBC]/80 backdrop-blur-sm rounded-xl p-6 text-white">
+                    <div className="flex flex-col items-start gap-3">
+                      <div className="p-3 rounded-[10px]">
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${support.image}`}
+                          alt={support.title}
+                          className="w-15 h-15"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-[25px] font-medium mb-4">{support.title}</h3>
+                        <p className="text-[17px] font-['Montserrat',sans-serif] text-white/100 font-medium">
+                          {support.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-
-        {/* Support Section */}
-        <section
-          className="relative py-20 px-4 md:px-8 text-white"
-          style={{
-            backgroundImage: `url('../src/assets/heroimg.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="flex justify-between items-start mb-12 flex-wrap gap-4">
-              <h2 className="text-3xl md:text-[40px] font-semibold max-w-lg">
-                Our support team is here to assist you anytime
-              </h2>
-              <button className="bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">
-                Get Product Help
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-              {/* Card 1 */}
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-white">
-                <div className="flex flex-col items-start gap-4">
-                  <div className="bg-white/20 p-5 rounded-full">
-                    <img src={govIcon} alt="Product Support" className="w-10 h-10 " />
-                  </div>
-                  <div>
-                    <h3 className="text-[22px] font-semibold mb-2">Product Support</h3>
-                    <p className="text-[17px] font-['DM_Sans',sans-serif] text-white/100">
-                      Need help with your product? Let us provide you with the support you need to get back on track.
-                      Our team is always ready to assist you with quick and reliable solutions.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-white">
-                <div className="flex flex-col items-start gap-4">
-                  <div className="bg-white/20 p-5 rounded-full">
-                    <img src={govIcon} alt="Technical Support" className="w-10 h-10" />
-                  </div>
-                  <div>
-                    <h3 className="text-[22px] font-semibold mb-2">Technical Support</h3>
-                    <p className="text-[17px] font-['DM_Sans',sans-serif] text-white/100">
-                      Facing a technical issue? Our expert support team is here to help you troubleshoot and resolve problems quickly and efficiently. Reach out anytime for reliable assistance.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Industry Applications Section */}
-        <IndustrySection />
+        {industryApplicationsSection && (
+          <IndustrySection sectionData={industryApplicationsSection} />
+        )}
 
-        <section className="w-full bg-[#f2f2fd] py-16 px-4">
-          <div className="max-w-7xl mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+        {testimonialsSection && (
+          <div id="testimonials-section">
+            <MemberConnect testimonialsSection={testimonialsSection} />
+          </div>
+        )}
 
-            {/* Left Image */}
-            <div className="w-full md:w-1/2 h-[300px] md:h-[400px]">
-              <img
-                src="/your-image-path.png" // replace with actual image path
-                alt="DOOH Display"
-                className="w-full h-full object-cover"
-              />
+        {/* CTA Section */}
+        <section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
+          <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch">
+            <div className="w-full md:w-1/2 h-[300px] md:h-auto">
+              <img src={cta} alt="DOOH Display" className="w-full h-[500px] object-cover" />
             </div>
 
-            {/* Right Content */}
-            <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Ready to Transform Your <br className="hidden md:block" /> Advertising?
-              </h2>
-              <p className="text-gray-700 mb-6 text-base md:text-lg">
-                With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
-              </p>
-              <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl text-base md:text-lg font-semibold transition">
-                See Solutions for Your Industry
-              </button>
+            <div className="w-full md:w-1/2 bg-[#E8F1FF] flex items-center justify-center p-8 md:p-12">
+              <div className="text-center md:text-left max-w-md">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif] leading-[1.2]">
+                  Ready to Transform Your Advertising?
+                </h2>
+                <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+                  With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+                </p>
+                <button onClick={() => navigate('/industry')} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+                  See Solutions for Your Industry
+                </button>
+              </div>
             </div>
-
           </div>
         </section>
       </main>
@@ -479,4 +703,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;  

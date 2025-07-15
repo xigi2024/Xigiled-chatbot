@@ -8,23 +8,64 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Government from './pages/Government'
 import ContactUs from './pages/ContactUs'
 import Indoor_Led from './pages/Indoor_Led'
-
-
-
-
+import EventsExhibitions from './pages/EventsExhibitions'
+import RetailEnvironments from './pages/RetailEnvironments'
+import CorporateOffices from './pages/CorporateOffices'
+import EducationInstitutions from './pages/EducationInstitutions'
+import HealthcareFacilities from './pages/HealthcareFacilities'
+import TransportationHubs from './pages/TransportationHubs'
+import ManufacturingFactories from './pages/ManufacturingFactories'
+import Outdoor_Led from './pages/Outdoor_Led'
+import TruckMounted_Led from './pages/TruckMounted_Led'
+import Led_Standee from './pages/Led_Standee'
+import Interactive_display from './pages/Interactive_display'
+import Transparent_Led from './pages/Transparent_Led'
+import FlexibleLed from './pages/Flexible_Led'
+import Rental_Event_display from './pages/Rental_Event_display'
+import Custom_Led from './pages/Custom_Led'
+import Gallery from './pages/Gallery'
+import ScrollToTop from './components/ScrollToTop'
+import ScrollToTopButton from './components/ScrollToTopButton'
+import Blog from './pages/Blog'
+import BlogDetail from './pages/BlogDetail'
 
 function App() {
   return (
 
     <Router>
+      <ScrollToTopButton />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/industry" element={<Industry />} />
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />
-        <Route path="/industry/Government" element={<Government/>} /> 
-    <Route path='/contact' element={<ContactUs/>} />
-    <Route path='/products/indoor-led' element={<Indoor_Led/>} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path='/contact' element={<ContactUs />} />
+
+        /* industry routes/*
+        <Route path="/industry/:slug" element={<Industry />} />
+        <Route path="/industry/GovernmentCivicSpaces" element={<Government />} />
+        <Route path="/industry/EventsAndExhibitions" element={<EventsExhibitions />} />
+        <Route path="/industry/Retail" element={<RetailEnvironments />} />
+        <Route path="/industry/CorporateOffice" element={<CorporateOffices />} />
+        <Route path="/industry/EducationAndInstitutions" element={<EducationInstitutions />} />
+        <Route path="/industry/HospitalityHotels" element={<HealthcareFacilities />} />
+        <Route path="/industry/TransportAndPublicVenues" element={<TransportationHubs />} />
+<Route path="/industry/ManfacturingAndFactories" element={<ManufacturingFactories />} />
+
+          /* products routes/*
+        <Route path='/products/indoor-led-video-walls' element={<Indoor_Led />} />
+        <Route path='/products/outdoor-led-video-walls' element={<Outdoor_Led />} />
+        <Route path='/products/truck-mounted-led' element={<TruckMounted_Led />} />
+        <Route path='/products/led-standee-display' element={<Led_Standee />} />
+        <Route path='/products/interactive-display' element={<Interactive_display />} />
+        <Route path='/products/transparent-led-display' element={<Transparent_Led />} />
+        <Route path='/products/flexible-led-display' element={<FlexibleLed />} />
+        <Route path='/products/rental-event-display' element={<Rental_Event_display />} />
+        <Route path='/products/custom-led-display' element={<Custom_Led />} />
       </Routes>
     </Router>
   )

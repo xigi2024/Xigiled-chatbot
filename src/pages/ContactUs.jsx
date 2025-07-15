@@ -15,6 +15,7 @@ import chennaiHover from "../assets/IN.png";
 import bangaloreImg from "../assets/goverment.jpg";
 import bangaloreHover from "../assets/IN.png";
 import bgImage from '../assets/heroimg.png'
+import contact from '../assets/contact.jpg'
 import Footer from '../components/Footer';
 
 const ContactSection = () => {
@@ -27,22 +28,22 @@ const ContactSection = () => {
     return (
         <section className='bg-[#F6F6F6]'>
             <div
-                className="mx-auto w-full  bg-cover bg-gray-200 bg-center py-15 px-4 md:px-20 object-top"
+                className=" mx-auto w-full  bg-cover bg-gray-200 bg-center py-15 px-4 md:px-20 object-top"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
             >
-                <h1 className="text-center text-3xl md:text-5xl font-bold mb-12 leading-relaxed text-gray-800 ">
+                <h1 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-semibold mb-12 leading-relaxed text-gray-800 font-['Poppins',sans-serif]">
                     Xigi LED—Your Vision, Engineered <br /> to Shine
                 </h1>
             </div>
 
-            <div className="grid md:grid-cols-12 gap-4 py-5 max-w-7xl mx-auto bg-cover ">
+            <div className="container grid md:grid-cols-12 gap-10 py-27 mx-auto bg-cover ">
 
 
                 {/* LEFT BOX */}
-                <div className="bg-white/30 col-span-5 rounded-xl p-6 max-w-130 space-y-10 backdrop-blur-md rounded-xl">
+                <div className="bg-white/30 col-span-5  p-6 max-w-130 space-y-10 backdrop-blur-md rounded-xl">
                     <div>
                         <h4 className="font-semibold text-sm text-gray-500">Get in Touch</h4>
-                        <h2 className="text-xl font-bold text-gray-800">
+                        <h2 className="text-[25px] font-medium text-gray-800 font-['Poppins',sans-serif] mt-3">
                             Let's Connect and Illuminate the Future Together
                         </h2>
                     </div>
@@ -52,8 +53,8 @@ const ContactSection = () => {
                             <Mail className="text-blue-600" size={20} />
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500">EMAIL SUPPORT</p>
-                            <p className="text-sm font-semibold">info@xigiled.com</p>
+                            <p className="text-xs text-gray-500 font-['Montserrat',sans-serif] font-medium">EMAIL SUPPORT</p>
+                            <p className="text-sm  font-['Montserrat',sans-serif] font-medium">led@xigi.in</p>
                         </div>
                     </div>
 
@@ -101,7 +102,7 @@ const ContactSection = () => {
                 </div>
 
                 {/* RIGHT BOX */}
-                <div className="bg-white/30 col-span-7 rounded-xl p-10 space-y-5 backdrop-blur-md rounded-xl">
+                <div className="bg-white/30 col-span-7 p-10 space-y-5 backdrop-blur-md rounded-xl">
                     {["Name", "Company Name", "Phone Number", "Email Id"].map((placeholder, idx) => (
                         <input
                             key={idx}
@@ -137,66 +138,67 @@ const ContactUs = () => {
             <Header />
             {/* Banner Section */}
 
-            <div className="relative h-[60vh] w-full">
+            <div className="relative h-[70vh] w-full">
                 <img
-                    src="/images/industry-banner.jpg"
-                    alt="Industry Banner"
+                    src={contact}
+                    alt="contact Banner"
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
+                <div className="absolute inset-0 bg-[rgba(0,0,0,0.7)] flex items-center justify-center">
+                    <h1 className="text-[30px] md:text-[35px] lg:text-[50px] font-semibold text-white text-center font-['Poppins',sans-serif]">
                         Contact Us
                     </h1>
                 </div>
             </div>
 
-
+                                                                                                                                                                                                                                                                                                        
 
             <ContactSection />
 
             <section
-      className="relative h-[300px] w-full flex items-center justify-center"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+                className="relative h-[400px] w-full flex items-center justify-center"
+                style={{
+                    backgroundImage: `url(${bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+            >
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/60" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white space-y-2">
-        <p className="text-sm text-blue-400">Contact us</p>
-        <h2 className="text-2xl font-semibold">Smart LED Solutions</h2>
-        <h1 className="text-4xl md:text-6xl font-bold">+91 9494220622</h1>
-      </div>
-    </section>
+                {/* Content */}
+                <div className="relative z-10 text-center text-white space-y-5">
+                    <p className="text-sm text-blue-400 font-['Montserrat',sans-serif] font-medium">Contact us</p>
+                    <h1 className="text-4xl md:text-6xl font-semibold">+91 9494220622</h1>
+                    <h2 className="text-xl font-semibold">Smart LED Solutions</h2>
 
-    <section className="relative h-[500px] w-full">
-      {/* Google Map Embed */}
-      <iframe
-        title="Our Location"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.506007087825!2d76.940078!3d10.991570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8571a313a0c89%3A0x9e1b7bbad3c87e95!2sXigi%20LED!5e0!3m2!1sen!2sin!4v1682398123456"
-        width="100%"
-        height="100%"
-        allowFullScreen=""
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        className="absolute inset-0 w-full h-full border-0"
-      ></iframe>
+                </div>
+            </section>
 
-      {/* Overlay for dark effect */}
-      <div className="absolute inset-0 bg-black/60"></div>
+            <section className="relative h-[500px] w-full">
+                {/* Google Map Embed */}
+                <iframe
+                    title="Our Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.506007087825!2d76.940078!3d10.991570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8571a313a0c89%3A0x9e1b7bbad3c87e95!2sXigi%20LED!5e0!3m2!1sen!2sin!4v1682398123456"
+                    width="100%"
+                    height="100%"
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0 w-full h-full border-0"
+                ></iframe>
 
-      {/* Centered content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center space-y-2">
-        <p className="text-sm text-blue-400">Locate us</p>
-        <h2 className="text-2xl font-semibold">Visit Our Office</h2>
-        <p className="text-lg">Xigi LED, Tamil Nadu, India</p>
-      </div>
-    </section>
-    <Footer />
+                {/* Overlay for dark effect */}
+                <div className="absolute inset-0 bg-black/60"></div>
+
+                {/* Centered content */}
+                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center space-y-2">
+                    <p className="text-sm text-blue-400 font-['Montserrat',sans-serif] font-medium">Locate us</p>
+                    <h2 className="text-2xl font-semibold">Visit Our Office</h2>
+                    <p className="text-lg font-['Montserrat',sans-serif] font-medium">Xigi LED, Tamil Nadu, India</p>
+                </div>
+            </section>
+            <Footer />
         </div>
     )
 }
