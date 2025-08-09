@@ -72,23 +72,48 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Social Links</h3>
             <p className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium mb-4">
 Follow us for bright ideas, stunning installs, and LED inspiration – stay lit with Xigi!             </p>
-           <div className="flex space-x-4">
-<a
-  href="#"
-  className="text-gray-400 hover:text-white transition-colors border  px-2 py-2 rounded"
-  style={{ borderColor: '#787676' }}
->                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white border  px-2 py-2 rounded transition-colors"style={{ borderColor: '#787676' }}>
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white border  px-2 py-2 rounded transition-colors"style={{ borderColor: '#787676' }}>
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white  border  px-2 py-2 rounded transition-colors"style={{ borderColor: '#787676' }}>
-                <Linkedin size={20} />
-              </a>
-            </div>
+     <div className="flex space-x-4">
+  <a
+    href="https://www.facebook.com/people/Xigi-LED/61567250657888/?rdid=oQBREpIxCMyRCuZI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FhT6fLQSr%2F"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
+    style={{ borderColor: '#787676' }}
+  >
+    <Facebook size={20} />
+  </a>
+
+  <a
+    href="https://twitter.com/yourprofile"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
+    style={{ borderColor: '#787676' }}
+  >
+    <Twitter size={20} />
+  </a>
+
+  <a
+    href="https://www.instagram.com/xigiled/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
+    style={{ borderColor: '#787676' }}
+  >
+    <Instagram size={20} />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/company/xigi/?originalSubdomain=in"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
+    style={{ borderColor: '#787676' }}
+  >
+    <Linkedin size={20} />
+  </a>
+</div>
+
           </div>
         </div>
 

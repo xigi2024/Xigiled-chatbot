@@ -16,7 +16,7 @@ const GalleryFilter = () => {
 
   // Fetch from API
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/gallery")
+    axios.get("https://xigiled.in/api/gallery")
       .then(res => {
         const data = res.data.data;
         setImages(data);
@@ -33,7 +33,7 @@ const GalleryFilter = () => {
   // Flatten images array to handle multiple images per item
   const flattenedImages = images.flatMap(item =>
     item.image.map(imgPath => ({
-      src: `http://127.0.0.1:8000/storage/${imgPath}`,
+      src: `https://xigiled.in/storage/${imgPath}`,
       title: item.title,
       imgPath: imgPath
     }))

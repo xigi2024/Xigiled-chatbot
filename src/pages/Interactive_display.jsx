@@ -15,7 +15,7 @@ const Interactive_display = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/interactive-led-displays');
+        const response = await fetch('https://xigiled.in/api/interactive-led-displays');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -118,7 +118,7 @@ const Interactive_display = () => {
               </div>
               <div className={` md:col-span-7  ${index % 2 === 0 ? '' : 'md:col-start-1'}`}>
                 <img
-                  src={`http://127.0.0.1:8000/storage/${imageData.image}`}
+                  src={`https://xigiled.in/storage/${imageData.image}`}
                   alt={imageData.title}
                   className="w-full h-[400px] drop-shadow-xl rounded-lg"
                 />
@@ -141,7 +141,7 @@ const Interactive_display = () => {
             {section2.images && section2.images.map((imageData, index) => (
               <div key={index} className="bg-[#fff] rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${imageData.image}`}
+                  src={`https://xigiled.in/storage/${imageData.image}`}
                   alt={imageData.title}
                   className="w-full h-64 md:h-70 lg:h-100 object-cover"
                 />
@@ -175,7 +175,7 @@ const Interactive_display = () => {
             {section5.images[0] && (
               <div className="relative h-[600px] rounded-xl overflow-hidden">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${section5.images[0].image}`}
+                  src={`https://xigiled.in/storage/${section5.images[0].image}`}
                   alt={section5.images[0].title}
                   className="w-full h-full object-cover rounded-xl"
                   loading="lazy"
@@ -191,7 +191,7 @@ const Interactive_display = () => {
               {section5.images[1] && (
                 <div className="relative h-[250px] rounded-xl overflow-hidden">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${section5.images[1].image}`}
+                    src={`https://xigiled.in/storage/${section5.images[1].image}`}
                     alt={section5.images[1].title}
                     className="w-full h-full object-cover rounded-xl"
                     loading="lazy"
@@ -204,7 +204,7 @@ const Interactive_display = () => {
               {section5.images[2] && (
                 <div className="relative h-[330px] rounded-xl overflow-hidden">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${section5.images[2].image}`}
+                    src={`https://xigiled.in/storage/${section5.images[2].image}`}
                     alt={section5.images[2].title}
                     className="w-full h-full object-cover rounded-xl"
                     loading="lazy"
@@ -221,7 +221,7 @@ const Interactive_display = () => {
               {section5.images[3] && (
                 <div className="relative h-[330px] rounded-xl overflow-hidden">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${section5.images[3].image}`}
+                    src={`https://xigiled.in/storage/${section5.images[3].image}`}
                     alt={section5.images[3].title}
                     className="w-full h-full object-cover rounded-xl"
                     loading="lazy"
@@ -234,7 +234,7 @@ const Interactive_display = () => {
               {section5.images[4] && (
                 <div className="relative h-[250px] rounded-xl overflow-hidden">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${section5.images[4].image}`}
+                    src={`https://xigiled.in/storage/${section5.images[4].image}`}
                     alt={section5.images[4].title}
                     className="w-full h-full object-cover rounded-xl"
                     loading="lazy"
@@ -336,7 +336,7 @@ const PixelPitchScroll = ({ data }) => {
           {fullList.map((item, index) => (
             <div key={index} className="flex-shrink-0 text-center w-[140px] md:w-[160px]">
               <img
-                src={`http://127.0.0.1:8000/storage/${item.image}`}
+                src={`https://xigiled.in/storage/${item.image}`}
                 alt={item.title}
                 className="w-full h-[120px] md:h-[130px] object-cover rounded-2xl shadow-md"
               />
@@ -399,7 +399,7 @@ const ShowcaseSlider = ({ data }) => {
 
           <div className="relative w-full md:w-2/3 p-10">
             <img
-              src={`http://127.0.0.1:8000/storage/${data.images[currentIndex].image}`}
+              src={`https://xigiled.in/storage/${data.images[currentIndex].image}`}
               alt={data.images[currentIndex].title}
               className="w-full h-[400px] object-cover rounded-xl"
             />

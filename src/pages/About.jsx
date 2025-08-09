@@ -40,7 +40,7 @@ const About = () => {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/about');
+        const response = await fetch('https://xigiled.in/api/about');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -125,7 +125,7 @@ const About = () => {
             {/* Left Image */}
             <div className="flex justify-center">
               <img
-                src={`http://127.0.0.1:8000/storage/${aboutSection1.images[0]?.image}`}
+                src={`https://xigiled.in/storage/${aboutSection1.images[0]?.image}`}
                 alt={aboutSection1.title}
                 className="w-full h-[500px] rounded-2xl object-cover"
               />
@@ -167,7 +167,7 @@ const About = () => {
               key={index} 
               className="relative bg-cover bg-center rounded-xl overflow-hidden h-64 flex flex-col justify-end p-6"
               style={{ 
-                backgroundImage: `url(http://127.0.0.1:8000/storage/${item.image})` 
+                backgroundImage: `url(https://xigiled.in/storage/${item.image})` 
               }}
             >
               {/* Overlay for better text visibility */}
@@ -193,7 +193,7 @@ const About = () => {
           <div 
             className="relative bg-cover bg-center rounded-xl text-white p-6 h-full min-h-[500px] flex flex-col justify-end overflow-hidden" 
             style={{ 
-              backgroundImage: `url(http://127.0.0.1:8000/storage/${
+              backgroundImage: `url(https://xigiled.in/storage/${
                 aboutSection2.images.find(img => 
                   img.title === "Unleash the Power of Your Brand with XIGI LED"
                 )?.image
@@ -244,7 +244,7 @@ const About = () => {
                   {aboutSection3.images?.slice(1, 4).map((feature, index) => (
                     <div key={index} className="flex w-full bg-white rounded-xl justify-center items-center p-4">
                       <img
-                        src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                        src={`https://xigiled.in/storage/${feature.image}`}
                         alt="Innovation"
                         className="w-20 h-20 object-cover rounded-lg me-4"
                       />
@@ -260,7 +260,7 @@ const About = () => {
               {aboutSection3.images?.[0] && (
                 <div className="hidden md:flex w-full md:w-8/12 lg:w-6/12 order-1 justify-end">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${aboutSection3.images[0].image}`}
+                    src={`https://xigiled.in/storage/${aboutSection3.images[0].image}`}
                     alt="Innovation"
                     className="w-full h-auto rounded-2xl"
                   />
@@ -284,7 +284,7 @@ const About = () => {
             {aboutSection4.images?.map((service, index) => (
               <div key={index} className="rounded-xl shadow-sm flex flex-col items-center text-center">
                 <img 
-                  src={`http://127.0.0.1:8000/storage/${service.image}`} 
+                  src={`https://xigiled.in/storage/${service.image}`} 
                   alt={service.title} 
                   className="w-full h-48 sm:h-52 md:h-60 object-cover rounded-t-[10px] mb-3" 
                 />
@@ -344,7 +344,7 @@ const About = () => {
               <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(http://127.0.0.1:8000/storage/${aboutSection6.images[0].image})` }}
+                  style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[0].image})` }}
                 ></div>
                 {/* Bottom overlay */}
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -373,7 +373,7 @@ const About = () => {
     .map((icon, index) => (
       <div key={index} className="bg-white rounded-xl p-6 md:p-10 flex flex-col items-center justify-center text-center shadow">
         <img 
-          src={`http://127.0.0.1:8000/storage/${icon.image}`} 
+          src={`https://xigiled.in/storage/${icon.image}`} 
           alt={icon.title} 
           className="w-16 h-16 md:w-20 md:h-20 mb-2" 
         />
@@ -390,7 +390,7 @@ const About = () => {
               <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(http://127.0.0.1:8000/storage/${aboutSection6.images[5].image})` }}
+                  style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[5].image})` }}
                 ></div>
                 {/* Bottom overlay */}
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>

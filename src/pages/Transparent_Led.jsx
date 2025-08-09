@@ -5,7 +5,7 @@ import cta from '../assets/cta.png';
 import transparent from '../assets/transparent.jpg';
 import { Link,useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'https://xigiled.in/';
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -164,7 +164,7 @@ const Transparent_Led = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/transparent-led-displays');
+        const response = await fetch('https://xigiled.in/api/transparent-led-displays');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

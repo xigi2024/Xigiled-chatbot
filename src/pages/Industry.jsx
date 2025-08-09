@@ -2,42 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Cpu, Activity, ShieldCheck, Link2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link2 } from 'lucide-react';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://xigiled.in/api';
 
 const Industry = () => {
   const navigate = useNavigate();
-  const [industryData, setIndustryData] = useState({});
+  const [industryData, setIndustryData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Function to convert title to URL slug
-const createSlug = (title) => {
-  // Special cases mapping
-  const specialCases = {
-    'Manfacturing and factories': 'ManfacturingAndFactories',
-    'Transport and Public Venues': 'TransportAndPublicVenues',
-    'Hospitality & Hotels': 'HospitalityHotels',
-    'Government & Civic Spaces': 'GovernmentCivicSpaces',
-    'Events & Exhibitions': 'EventsAndExhibitions',
-    'Education and Institutions': 'EducationAndInstitutions',
-    'Retail': 'Retail'
+  const createSlug = (title) => {
+    const specialCases = {
+      'Manfacturing and factories': 'ManfacturingAndFactories',
+      'Transport and Public Venues': 'TransportAndPublicVenues',
+      'Hospitality & Hotels': 'HospitalityHotels',
+      'Government & Civic Spaces': 'GovernmentCivicSpaces',
+      'Events & Exhibitions': 'EventsAndExhibitions',
+      'Education and Institutions': 'EducationAndInstitutions',
+      'Retail': 'Retail'
+    };
+
+    if (specialCases[title]) {
+      return specialCases[title];
+    }
+
+    return title
+      .replace(/[^a-zA-Z0-9\s]/g, '')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
   };
 
-  // Check if the title matches any special case
-  if (specialCases[title]) {
-    return specialCases[title];
-  }
-
-  // Default transformation
-  return title
-    .replace(/[^a-zA-Z0-9\s]/g, '') // Remove special chars
-    .split(' ') // Split into words
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(''); // Join without spaces
-};
   // Fetch data from API
   useEffect(() => {
     const fetchIndustryData = async () => {
@@ -49,15 +46,9 @@ const createSlug = (title) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        const data = await response.json();
-        
-        // Organize data by section
-        const organizedData = {};
-        data.forEach(item => {
-          organizedData[item.section] = item;
-        });
-        
-        setIndustryData(organizedData);
+        const result = await response.json();
+        const data = Array.isArray(result) ? result : (result.data ? result.data : []);
+        setIndustryData(data);
         setError(null);
       } catch (err) {
         console.error('Error fetching industry data:', err);
@@ -113,18 +104,24 @@ const createSlug = (title) => {
     );
   }
 
-  const heroSection = industryData['industry_section1'];
-  const digitalImpactSection = industryData['industry_section2'];
-  const industrySection = industryData['industry_section3'];
-  const keyFeaturesSection = industryData['industry_section4'];
-  const transformSection = industryData['industry_section5'];
+  // Organize data by section
+  const organizedData = {};
+  industryData.forEach(item => {
+    organizedData[item.section] = item;
+  });
+
+  const heroSection = organizedData['industry_section1'];
+  const digitalImpactSection = organizedData['industry_section2'];
+  const industrySection = organizedData['industry_section3'];
+  const keyFeaturesSection = organizedData['industry_section4'];
+  const transformSection = organizedData['industry_section5'];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] pr-[100px] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
             <h2 className="text-lg md:text-[17px] lg:text-[22px] font-medium text-white mb-2">
@@ -217,7 +214,7 @@ const createSlug = (title) => {
                   <h3 className="text-[16px] md:text-[18px] lg:text-[22px] my-2 font-medium text-gray-900 font-['Poppins',sans-serif]">
                     {card.title}
                   </h3>
-                  <p className="text-[15px] text-gray-700 mt-1 max-w-full md:max-w-full lg:max-w-80 font-medium font-['Montserrat',sans-serif]">
+                  <p className="text-[15px] pb-3 text-gray-700 mt-1 pr-[15px] max-w-full pr-[10px] md:max-w-full lg:max-w-80 font-medium font-['Montserrat',sans-serif]">
                     {card.description}
                   </p>
 
@@ -254,7 +251,7 @@ const createSlug = (title) => {
                       <img
                         src={`${API_BASE_URL.replace('/api', '')}/storage/${feature.image}`}
                         alt={feature.title}
-                        className="w-6 h-6"
+                        className="w-10 h-10"
                       />
                     )}
                   </div>
@@ -291,7 +288,7 @@ const createSlug = (title) => {
             <div className="absolute inset-0 bg-black/40 z-0"></div>
 
             {/* Content Over Image */}
-            <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
+            <div className="relative z-10 h-full flex flex-col bg-black/30 justify-center px-6 sm:px-10 max-w-xl">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
                 {transformSection?.title || 'Ready to Transform Your Advertising?'}
               </h2>
@@ -300,7 +297,7 @@ const createSlug = (title) => {
               </p>
               <button 
                 onClick={() => navigate('/contact')}
-                className="bg-white w-[280px] hover:from-indigo-700 cursor-pointer text-black px-7 py-3 rounded-md shadow-md text-[16px]"
+                className="bg-white w-[280px] text-semibold hover:from-indigo-700 cursor-pointer px-7 py-3 rounded-md shadow-md text-[16px]"
               >
                 See Solutions for Your Industry
               </button>

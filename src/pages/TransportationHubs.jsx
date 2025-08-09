@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import cta from '../assets/cta.png';
 import transport from '../assets/transport.webp';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api/transport-public-venues';
+const API_BASE_URL = 'https://xigiled.in/api/transport-public-venues';
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,7 +55,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
           {/* Right Content */}
           <div className="relative w-full md:w-2/3 p-10">
             <img
-              src={`http://127.0.0.1:8000/storage/${showcaseData.images[currentIndex].image}`}
+              src={`https://xigiled.in/storage/${showcaseData.images[currentIndex].image}`}
               alt={showcaseData.images[currentIndex].title}
               className="w-full h-[400px] object-cover rounded-xl"
             />
@@ -159,7 +159,7 @@ const TransportationHubs = () => {
             {/* Left Image */}
             <div className="flex justify-center">
               <img
-                src={`http://127.0.0.1:8000/storage/${section1Data.images[0].image}`}
+                src={`https://xigiled.in/storage/${section1Data.images[0].image}`}
                 alt={section1Data.title}
                 className="w-full h-[300px] md:h-[500px] lg:h-[500px] rounded-2xl"
               />
@@ -199,7 +199,7 @@ const TransportationHubs = () => {
             {section2Data.images.slice(0, 4).map((item, index) => (
               <div key={index} className="bg-black rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-[230px] object-cover"
                 />
@@ -229,7 +229,7 @@ const TransportationHubs = () => {
             {section3Data.images.map((item, index) => (
               <div key={index} className="bg-[#EAF1FF] rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-64 md:h-70 lg:h-100 object-cover"
                 />
@@ -258,7 +258,7 @@ const TransportationHubs = () => {
         <div className="space-y-5">
           <div className="relative h-[600px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${section5Data.images[0].image}`}
+              src={`https://xigiled.in/storage/${section5Data.images[0].image}`}
               alt={section5Data.images[0].title}
               className="w-full h-full object-cover rounded-xl"
             />
@@ -276,7 +276,7 @@ const TransportationHubs = () => {
           {section5Data.images[1] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5Data.images[1].image}`}
+                src={`https://xigiled.in/storage/${section5Data.images[1].image}`}
                 alt={section5Data.images[1].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -290,7 +290,7 @@ const TransportationHubs = () => {
           {section5Data.images[2] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5Data.images[2].image}`}
+                src={`https://xigiled.in/storage/${section5Data.images[2].image}`}
                 alt={section5Data.images[2].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -309,7 +309,7 @@ const TransportationHubs = () => {
           {section5Data.images[3] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5Data.images[3].image}`}
+                src={`https://xigiled.in/storage/${section5Data.images[3].image}`}
                 alt={section5Data.images[3].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -323,7 +323,7 @@ const TransportationHubs = () => {
           {section5Data.images[4] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5Data.images[4].image}`}
+                src={`https://xigiled.in/storage/${section5Data.images[4].image}`}
                 alt={section5Data.images[4].title}
                 className="w-full h-full object-cover rounded-xl"
               />

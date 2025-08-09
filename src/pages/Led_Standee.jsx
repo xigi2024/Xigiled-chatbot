@@ -5,7 +5,7 @@ import { Link ,useNavigate} from 'react-router-dom';
 import cta from '../assets/cta.png';
 import standee from '../assets/standee.jpg';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/storage/';
+const API_BASE_URL = 'https://xigiled.in/storage/';
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -164,7 +164,7 @@ const Led_Standee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/led-standee-displays');
+        const response = await fetch('https://xigiled.in/api/led-standee-displays');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

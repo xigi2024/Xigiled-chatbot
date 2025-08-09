@@ -13,7 +13,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/blog/${id}`);
+        const response = await fetch(`https://xigiled.in/api/blog/${id}`);
         if (!response.ok) {
           throw new Error('Blog not found');
         }
@@ -48,7 +48,7 @@ const BlogDetail = () => {
 
           {/* Main Image */}
           <img
-            src={blog.image ? `http://127.0.0.1:8000/storage/${blog.image}` : Indoor}
+            src={blog.image ? `https://xigiled.in/storage/${blog.image}` : Indoor}
             alt={blog.title}
             className="rounded-xl mb-10 w-full h-[400px] object-cover shadow-md"
           />

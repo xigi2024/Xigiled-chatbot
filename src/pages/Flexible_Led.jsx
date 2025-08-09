@@ -55,7 +55,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
           {/* Right Content */}
           <div className="relative w-full md:w-2/3 p-10">
             <img
-              src={`http://127.0.0.1:8000/storage/${showcaseData[currentIndex].image}`}
+              src={`https://xigiled.in/storage/${showcaseData[currentIndex].image}`}
               alt={showcaseData[currentIndex].title}
               className="w-full h-[400px] object-cover rounded-xl"
             />
@@ -83,7 +83,7 @@ const FlexibleLed = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/flexible-curved-led-walls');
+        const response = await fetch('https://xigiled.in/api/flexible-curved-led-walls');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -116,7 +116,7 @@ const FlexibleLed = () => {
           {images[0] && (
             <div className="relative h-[600px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${images[0].image}`}
+                src={`https://xigiled.in/storage/${images[0].image}`}
                 alt={images[0].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -132,7 +132,7 @@ const FlexibleLed = () => {
           {images[1] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${images[1].image}`}
+                src={`https://xigiled.in/storage/${images[1].image}`}
                 alt={images[1].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -144,7 +144,7 @@ const FlexibleLed = () => {
           {images[2] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${images[2].image}`}
+                src={`https://xigiled.in/storage/${images[2].image}`}
                 alt={images[2].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -160,7 +160,7 @@ const FlexibleLed = () => {
           {images[3] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${images[3].image}`}
+                src={`https://xigiled.in/storage/${images[3].image}`}
                 alt={images[3].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -172,7 +172,7 @@ const FlexibleLed = () => {
           {images[4] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${images[4].image}`}
+                src={`https://xigiled.in/storage/${images[4].image}`}
                 alt={images[4].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -262,7 +262,7 @@ const FlexibleLed = () => {
             <div className=" md:col-span-7 ">
               {section1Data.images && section1Data.images[0] && (
                 <img 
-                  src={`http://127.0.0.1:8000/storage/${section1Data.images[0].image}`} 
+                  src={`https://xigiled.in/storage/${section1Data.images[0].image}`} 
                   alt={section1Data.images[0].title} 
                   className="w-full h-[450px] rounded drop-shadow-xl" 
                 />
@@ -275,7 +275,7 @@ const FlexibleLed = () => {
             <div className="container grid grid-cols-1 md:grid-cols-12 gap-10 mx-auto">
               <div className=" md:col-span-7">
                 <img 
-                  src={`http://127.0.0.1:8000/storage/${section1Data.images[1].image}`} 
+                  src={`https://xigiled.in/storage/${section1Data.images[1].image}`} 
                   alt={section1Data.images[1].title} 
                   className="w-full h-[450px] rounded drop-shadow-xl" 
                 />
@@ -307,7 +307,7 @@ const FlexibleLed = () => {
             {section2Data.images && section2Data.images.map((item, index) => (
               <div key={index} className="bg-[#ffff] rounded-xl overflow-hidden shadow-sm">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-90 object-cover"
                 />
@@ -335,7 +335,7 @@ const FlexibleLed = () => {
             {section3Data.images && section3Data.images.map((item, index) => (
               <div key={index} className="bg-[#f8f9fa] rounded-xl overflow-hidden shadow-sm">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-90 object-cover"
                 />

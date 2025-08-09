@@ -1,28 +1,62 @@
-import React from 'react'
-import Header from '../components/Header'
+import React, { useRef, useState } from 'react';
+import Header from '../components/Header';
 import backgroundImage from "../assets/backgroundcon.png";
-import {
-    Mail,
-    Facebook,
-    Twitter,
-    Instagram,
-    Linkedin,
-} from "lucide-react";
-import theniImg from "../assets/goverment.jpg";
-import theniHover from "../assets/IN.png";
-import chennaiImg from "../assets/goverment.jpg";
-import chennaiHover from "../assets/IN.png";
-import bangaloreImg from "../assets/goverment.jpg";
-import bangaloreHover from "../assets/IN.png";
+import { Mail, Facebook, Twitter, Instagram, Linkedin, } from "lucide-react";
+import theniImg from "../assets/theniImg.jpeg";
+import chennaiImg from "../assets/chennaiImg.jpeg";
+import bangaloreImg from "../assets/bangaloreImg.jpeg";
 import bgImage from '../assets/heroimg.png'
 import contact from '../assets/contact.jpg'
 import Footer from '../components/Footer';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
+    const form = useRef();
+    const [formData, setFormData] = useState({
+        name: '',
+        company: '',
+        phone: '',
+        email: '',
+        option: '',
+        message: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm(
+            'service_t7eqw1h',
+            'template_ldbi4e8',
+            form.current,
+            'UoyMKta3ZuKjqGlsV'
+        ).then(
+            (result) => {
+                alert('✅ Message sent successfully!');
+                setFormData({
+                    name: '',
+                    company: '',
+                    phone: '',
+                    email: '',
+                    option: '',
+                    message: '',
+                });
+            },
+            (error) => {
+                alert('❌ Failed to send message. Try again.');
+                console.error(error.text);
+            }
+        );
+    };
+
     const locations = [
-        { name: "Theni", img: theniImg, hoverImg: theniHover },
-        { name: "Chennai", img: chennaiImg, hoverImg: chennaiHover },
-        { name: "Bangalore", img: bangaloreImg, hoverImg: bangaloreHover },
+        { name: "Theni", img: theniImg},
+        { name: "Chennai", img: chennaiImg },
+        { name: "Bangalore", img: bangaloreImg},
     ];
 
     return (
@@ -70,13 +104,9 @@ const ContactSection = () => {
                                     <img
                                         src={loc.img}
                                         alt={loc.name}
-                                        className="absolute inset-0 w-full h-full object-cover group-hover:hidden"
+                                        className="absolute inset-0 w-full h-full object-contain "
                                     />
-                                    <img
-                                        src={loc.hoverImg}
-                                        alt={`${loc.name} hover`}
-                                        className="absolute inset-0 w-full h-full object-cover hidden group-hover:block"
-                                    />
+                                  
                                     <div className="absolute bottom-1 w-full text-center text-white text-xs font-semibold bg-black bg-opacity-50">
                                         {loc.name}
                                     </div>
@@ -88,44 +118,109 @@ const ContactSection = () => {
                     {/* SOCIAL ICONS */}
                     <div>
                         <h4 className="font-bold text-sm text-gray-600 mb-3">SOCIAL NETWORK</h4>
-                        <div className="flex gap-4">
-                            {[Facebook, Twitter, Instagram, Linkedin].map((Icon, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
-                                >
-                                    <Icon size={20} />
-                                </div>
-                            ))}
-                        </div>
+                       <div className="flex gap-4">
+    <a
+        href="https://www.facebook.com/people/Xigi-LED/61567250657888/?rdid=oQBREpIxCMyRCuZI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FhT6fLQSr%2F"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+    >
+        <Facebook size={20} />
+    </a>
+    <a
+        href="https://twitter.com/yourprofile"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+    >
+        <Twitter size={20} />
+    </a>
+    <a
+        href="https://www.instagram.com/xigiled/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+    >
+        <Instagram size={20} />
+    </a>
+    <a
+        href="https://www.linkedin.com/company/xigi/?originalSubdomain=in"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+    >
+        <Linkedin size={20} />
+    </a>
+</div>
+
                     </div>
                 </div>
 
-                {/* RIGHT BOX */}
-                <div className="bg-white/30 col-span-7 p-10 space-y-5 backdrop-blur-md rounded-xl">
-                    {["Name", "Company Name", "Phone Number", "Email Id"].map((placeholder, idx) => (
-                        <input
-                            key={idx}
-                            type="text"
-                            placeholder={placeholder}
-                            className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    ))}
-                    <select className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
-                        <option>How are you looking to work with us</option>
-                        <option>Partnership</option>
-                        <option>Distributor</option>
-                        <option>Customer</option>
-                    </select>
-                    <textarea
-                        placeholder="Message"
-                        rows={4}
+
+                {/* RIGHT BOX - FORM */}
+                <form ref={form} onSubmit={sendEmail} className="bg-white/30 col-span-7 p-10 space-y-5 backdrop-blur-md rounded-xl">
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Name"
+                        required
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <button className="bg-blue-700 text-white py-2 px-6 rounded-md hover:bg-blue-800 transition">
+                    <input
+                        type="text"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Company Name"
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                        type="text"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Phone Number"
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Email Id"
+                        required
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <select
+                        name="option"
+                        value={formData.option}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    >
+                        <option value="">How are you looking to work with us</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Distributor">Distributor</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                    <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Message"
+                        rows={4}
+                        required
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        type="submit"
+                        className="bg-blue-700 cursor-pointer text-white py-2 px-6 rounded-md hover:bg-blue-800 transition"
+                    >
                         Send Message
                     </button>
-                </div>
+                </form>
             </div>
         </section>
     );
@@ -150,8 +245,6 @@ const ContactUs = () => {
                     </h1>
                 </div>
             </div>
-
-                                                                                                                                                                                                                                                                                                        
 
             <ContactSection />
 
@@ -179,7 +272,7 @@ const ContactUs = () => {
                 {/* Google Map Embed */}
                 <iframe
                     title="Our Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.506007087825!2d76.940078!3d10.991570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8571a313a0c89%3A0x9e1b7bbad3c87e95!2sXigi%20LED!5e0!3m2!1sen!2sin!4v1682398123456"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.438777950685!2d77.48925157503092!3d9.980566690123833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d3b668ef83050a9%3A0x5cbd565a248a84d7!2sXigi%20Tech!5e0!3m2!1sen!2sin!4v1754655032238!5m2!1sen!2sin"
                     width="100%"
                     height="100%"
                     allowFullScreen=""
@@ -188,15 +281,7 @@ const ContactUs = () => {
                     className="absolute inset-0 w-full h-full border-0"
                 ></iframe>
 
-                {/* Overlay for dark effect */}
-                <div className="absolute inset-0 bg-black/60"></div>
 
-                {/* Centered content */}
-                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center space-y-2">
-                    <p className="text-sm text-blue-400 font-['Montserrat',sans-serif] font-medium">Locate us</p>
-                    <h2 className="text-2xl font-semibold">Visit Our Office</h2>
-                    <p className="text-lg font-['Montserrat',sans-serif] font-medium">Xigi LED, Tamil Nadu, India</p>
-                </div>
             </section>
             <Footer />
         </div>

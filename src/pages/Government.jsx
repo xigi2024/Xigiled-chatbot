@@ -26,7 +26,7 @@ const Government = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/government-public-spaces');
+        const response = await fetch('https://xigiled.in/api/government-public-spaces');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -106,7 +106,7 @@ const Government = () => {
           <div className="hidden md:block w-full md:w-auto mt-10 md:mt-0">
             {heroSection.images?.[0]?.image && (
               <img
-                src={`http://127.0.0.1:8000/storage/${heroSection.images[0].image}`}
+                src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
                 alt="LED Display"
                 className="w-full md:w-[600px] h-[400px] lg:w-[600px] drop-shadow-2xl mx-auto"
               />
@@ -136,7 +136,7 @@ const Government = () => {
           {/* Left Image */}
           <div className="flex justify-center w-full">
             <img
-              src={visibilitySection?.images?.[0]?.image ? `http://127.0.0.1:8000/storage/${visibilitySection.images[0].image}` : ""}
+              src={visibilitySection?.images?.[0]?.image ? `https://xigiled.in/storage/${visibilitySection.images[0].image}` : ""}
               alt="LED Display Billboard"
               className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
             />
@@ -186,7 +186,7 @@ const Government = () => {
             {smartDisplaysSection?.images?.map((item, index) => (
               <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px]">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -232,7 +232,7 @@ const Government = () => {
           {/* Right Image */}
           <div>
             <img
-              src={flexibleDisplaySection?.images?.[0]?.image ? `http://127.0.0.1:8000/storage/${flexibleDisplaySection.images[0].image}` : ""}
+              src={flexibleDisplaySection?.images?.[0]?.image ? `https://xigiled.in/storage/${flexibleDisplaySection.images[0].image}` : ""}
               alt="Display Sizes"
               className="rounded-xl w-full object-cover"
             />
@@ -298,7 +298,7 @@ const Government = () => {
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
                 src={ultraThin}
-                alt="Ultra-thin"semibold
+                alt="Ultra-thin"
                 className="w-66 object-cover rounded-md mb-3"
               />
               <div>
@@ -326,7 +326,7 @@ const Government = () => {
           <div
             className="h-[500px] relative rounded-3xl overflow-hidden"
             style={{
-              backgroundImage: transformSection?.images?.[0]?.image ? `url(http://127.0.0.1:8000/storage/${transformSection.images[0].image})` : '',
+              backgroundImage: transformSection?.images?.[0]?.image ? `url(https://xigiled.in/storage/${transformSection.images[0].image})` : '',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -384,7 +384,7 @@ const SmartFeaturesSection = ({ data }) => {
           {indoorData && (
             <div className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${indoorData.image}`}
+                src={`https://xigiled.in/storage/${indoorData.image}`}
                 alt="Indoor LED"
                 className="w-full object-cover h-[400px]  mb-4 rounded-t-xl"
               />
@@ -420,7 +420,7 @@ const SmartFeaturesSection = ({ data }) => {
           {outdoorData && (
             <div className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${outdoorData.image}`}
+                src={`https://xigiled.in/storage/${outdoorData.image}`}
                 alt="Outdoor LED"
                 className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
               />
@@ -471,7 +471,7 @@ const ShowcaseSlider = ({ data }) => {
 
   const showcaseItems = data.images.map(img => ({
     title: img.title,
-    image: `http://127.0.0.1:8000/storage/${img.image}`
+    image: `https://xigiled.in/storage/${img.image}`
   }));
 
   const nextSlide = () => {

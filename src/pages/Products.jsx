@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { Cpu, Activity, ShieldCheck, Link2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'https://xigiled.in/';
 
 // Helper function to construct image URL
 const getImageUrl = (imagePath) => {

@@ -55,7 +55,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
           {/* Right Content */}
           <div className="relative w-full md:w-2/3 p-10">
             <img
-              src={`http://127.0.0.1:8000/storage/${showcaseData[currentIndex].image}`}
+              src={`https://xigiled.in/storage/${showcaseData[currentIndex].image}`}
               alt={showcaseData[currentIndex].title}
               className="w-full h-[400px] object-cover rounded-xl"
             />
@@ -83,7 +83,7 @@ const RetailEnvironments = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/retails');
+        const response = await fetch('https://xigiled.in/api/retails');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -139,7 +139,7 @@ const RetailEnvironments = () => {
             {/* Left Image */}
             <div className="flex justify-center">
               <img
-                src={`http://127.0.0.1:8000/storage/${section1.images[0].image}`}
+                src={`https://xigiled.in/storage/${section1.images[0].image}`}
                 alt={section1.title}
                 className="w-full h-[300px] md:h-[500px] lg:h-[500px] rounded-2xl"
               />
@@ -179,7 +179,7 @@ const RetailEnvironments = () => {
             {section2.images.map((item, index) => (
               <div key={index} className="bg-black rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-[230px] object-cover"
                 />
@@ -209,7 +209,7 @@ const RetailEnvironments = () => {
             {section3.images.map((item, index) => (
               <div key={index} className="bg-[#EAF1FF] rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-64 md:h-70 lg:h-100 object-cover"
                 />
@@ -240,7 +240,7 @@ const RetailEnvironments = () => {
         <div className="space-y-5">
           <div className="relative h-[600px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${section5.images[0].image}`}
+              src={`https://xigiled.in/storage/${section5.images[0].image}`}
               alt={section5.images[0].title}
               className="w-full h-full object-cover rounded-xl"
             />
@@ -259,7 +259,7 @@ const RetailEnvironments = () => {
           {section5.images[1] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5.images[1].image}`}
+                src={`https://xigiled.in/storage/${section5.images[1].image}`}
                 alt={section5.images[1].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -273,7 +273,7 @@ const RetailEnvironments = () => {
           {section5.images[2] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5.images[2].image}`}
+                src={`https://xigiled.in/storage/${section5.images[2].image}`}
                 alt={section5.images[2].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -293,7 +293,7 @@ const RetailEnvironments = () => {
           {section5.images[3] && (
             <div className="relative h-[330px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5.images[3].image}`}
+                src={`https://xigiled.in/storage/${section5.images[3].image}`}
                 alt={section5.images[3].title}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -307,7 +307,7 @@ const RetailEnvironments = () => {
           {section5.images[4] && (
             <div className="relative h-[250px] rounded-xl overflow-hidden">
               <img
-                src={`http://127.0.0.1:8000/storage/${section5.images[4].image}`}
+                src={`https://xigiled.in/storage/${section5.images[4].image}`}
                 alt={section5.images[4].title}
                 className="w-full h-full object-cover rounded-xl"
               />

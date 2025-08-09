@@ -15,7 +15,7 @@ const TruckMounted_Led = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/truck-mounted-led');
+        const response = await fetch('https://xigiled.in/api/truck-mounted-led');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -89,7 +89,7 @@ const TruckMounted_Led = () => {
             {/* Right Content */}
             <div className="relative w-full md:w-2/3 p-10">
               <img
-                src={`http://127.0.0.1:8000/storage/${showcaseData.images[currentIndex].image}`}
+                src={`https://xigiled.in/storage/${showcaseData.images[currentIndex].image}`}
                 alt={showcaseData.images[currentIndex].title}
                 className="w-full h-[400px] object-cover rounded-xl"
               />
@@ -167,7 +167,7 @@ const TruckMounted_Led = () => {
             {fullList.map((item, index) => (
               <div key={index} className="flex-shrink-0 text-center w-[140px] md:w-[160px]">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-[120px] md:h-[130px] object-cover rounded-2xl shadow-md"
                 />
@@ -249,13 +249,13 @@ const TruckMounted_Led = () => {
                     
                   </div>
                   <div className="md:col-span-7 ">
-                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded drop-shadow-xl" />
+                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded drop-shadow-xl" />
                   </div>
                 </>
               ) : (
                 <>
                   <div className=" md:col-span-7 ">
-                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded drop-shadow-xl" />
+                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded drop-shadow-xl" />
                   </div>
                   <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
                     <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">{item.title}</h2>
@@ -284,7 +284,7 @@ const TruckMounted_Led = () => {
             {section2Data.images.map((item, index) => (
               <div key={index} className="bg-[#fff] rounded-xl overflow-hidden shadow-md">
                 <img
-                  src={`http://127.0.0.1:8000/storage/${item.image}`}
+                  src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
                   className="w-full h-64 md:h-70 lg:h-100 object-cover"
                 />
@@ -316,7 +316,7 @@ const TruckMounted_Led = () => {
         <div className="space-y-5">
           <div className="relative h-[600px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${featuresData.images[0].image}`}
+              src={`https://xigiled.in/storage/${featuresData.images[0].image}`}
               alt={featuresData.images[0].title}
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"
@@ -333,7 +333,7 @@ const TruckMounted_Led = () => {
         {featuresData.images[1] && (
           <div className="relative h-[250px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${featuresData.images[1].image}`}
+              src={`https://xigiled.in/storage/${featuresData.images[1].image}`}
               alt={featuresData.images[1].title}
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"
@@ -346,7 +346,7 @@ const TruckMounted_Led = () => {
         {featuresData.images[2] && (
           <div className="relative h-[330px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${featuresData.images[2].image}`}
+              src={`https://xigiled.in/storage/${featuresData.images[2].image}`}
               alt={featuresData.images[2].title}
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"
@@ -363,7 +363,7 @@ const TruckMounted_Led = () => {
         {featuresData.images[3] && (
           <div className="relative h-[330px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${featuresData.images[3].image}`}
+              src={`https://xigiled.in/storage/${featuresData.images[3].image}`}
               alt={featuresData.images[3].title}
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"
@@ -376,7 +376,7 @@ const TruckMounted_Led = () => {
         {featuresData.images[4] && (
           <div className="relative h-[250px] rounded-xl overflow-hidden">
             <img
-              src={`http://127.0.0.1:8000/storage/${featuresData.images[4].image}`}
+              src={`https://xigiled.in/storage/${featuresData.images[4].image}`}
               alt={featuresData.images[4].title}
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"

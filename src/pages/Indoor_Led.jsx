@@ -18,7 +18,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   const showcaseItems = showcaseData.images.map(img => ({
     title: img.title,
-    image: `http://127.0.0.1:8000/storage/${img.image}`,
+    image: `https://xigiled.in/storage/${img.image}`,
   }));
 
   const nextSlide = () => {
@@ -151,7 +151,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
                 className="flex-shrink-0 text-center w-[160px]"
               >
                 <img
-                  src={`http://127.0.0.1:8000/storage/${pitch.image}`}
+                  src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
                   className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
                 />
@@ -179,7 +179,7 @@ const Indoor_Led = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/api/indoor-led');
+        const response = await fetch('https://xigiled.in/api/indoor-led');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -278,14 +278,14 @@ const Indoor_Led = () => {
                     
                   </div>
                   <div className="md:col-span-7 ">
-                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded-xl drop-shadow-xl" />
+                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded-xl drop-shadow-xl" />
                   </div>
                 </>
               ) : (
                 <>
                   {/* Image Left, Text Right */}
                   <div className=" md:col-span-7 ">
-                    <img src={`http://127.0.0.1:8000/storage/${item.image}`} alt={item.title} className="w-full h-[400px] drop-shadow-xl" />
+                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] drop-shadow-xl" />
                   </div>
                   <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
                     <h2 className="text-3xl md:text-[45px] font-medium text-gray-900 mb-5 md:mb-7">{item.title}</h2>
@@ -319,7 +319,7 @@ const Indoor_Led = () => {
         <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
           {/* Image with gradient overlay */}
           <img
-            src={`http://127.0.0.1:8000/storage/${item.image}`}
+            src={`https://xigiled.in/storage/${item.image}`}
             alt={item.title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
