@@ -3,12 +3,11 @@ import '../styles/Home.css';
 import banner from '../assets/videos/led banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import cta from '../assets/cta.png';
+import cta from '../assets/led-display-lifetime.jpg';
 import centerImage from '../assets/centerImage.png';
 import rightImage from '../assets/rightImage.png';
 import leftImage from '../assets/leftImage.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { Megaphone, Layers, Eye, ChevronRight, ChevronLeft, Quote } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -28,59 +27,67 @@ const IndustrySection = ({ sectionData }) => {
   // Get the image without title for the right side display
   const rightSideImage = sectionData.images.find(img => !img.title);
 
-  const features = validImages.map((item, index) => ({
+  const features = validImages.map(item => ({
     title: item.title,
     desc: item.description || "Enhanced functionality and performance for your business needs.",
-    icon: index === 0 ? <Megaphone className="w-7 h-7 text-blue-700 mr-5" /> :
-      index === 1 ? <Layers className="w-7 h-7 text-blue-700 mr-5" /> :
-        <Eye className="w-7 h-7 text-blue-700 mr-5" />
+    image: item.image
   }));
+
 
   return (
     <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white text-gray-900">
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center mx-auto  font-medium mb-15 leading-[1.2] font-['Poppins',sans-serif]">
+          {sectionData.title}
+        </h2>
+        <div className="flex flex-col md:flex-row  gap-10">
           {/* Left: Text Content */}
           <div className="w-full md:w-6/12 order-2 md:order-1">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 leading-[1.2] font-['Poppins',sans-serif]">
-              {sectionData.title}
-            </h2>
 
             <div className="space-y-4">
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded-xl transition-all flex flex-col ${activeIndex === idx
-                    ? "bg-white shadow border-l-4 border-blue-700"
-                    : "bg-transparent"
-                    }`}
+             className={`p-3 rounded-xl transition-all transform duration-300 ease-in-out flex items-start gap-4 ${
+  activeIndex === idx ? "bg-white scale-105" : "scale-95 "
+}`}
+
                   onMouseEnter={() => setActiveIndex(idx)}
                 >
-                  <div className="flex items-center">
-                    {feature.icon}
+                  {/* Image Left */}
+                  <img
+                    src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                    alt={feature.title}
+                    className="bg-[#e8f1ff] me-3 px-[13px] pt-[10px] pb-[6px] rounded-xl w-[62px] h-[62px] object-contain"
+                  />
+
+                  <div className="flex flex-col">
                     <h3 className="text-[22px] font-semibold text-blue-800">{feature.title}</h3>
+                    {activeIndex === idx && (
+                      <p className="text-[17px] text-gray-600 mt-2 font-[Montserrat] font-medium">
+                        {feature.desc}
+                      </p>
+                    )}
                   </div>
-                  {activeIndex === idx && (
-                    <p className="text-[17px] ml-12 text-gray-600 mt-2 font-['Montserrat',sans-serif] font-medium">
-                      {feature.desc}
-                    </p>
-                  )}
                 </div>
+
               ))}
             </div>
+
+
           </div>
 
           {/* Right: Image */}
           <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center">
             {rightSideImage ? (
               <img
-                src={`https://xigiled.in/storage/${rightSideImage.image}`}
+                src={`http://127.0.0.1:8000/storage/${rightSideImage.image}`}
                 alt={sectionData.title}
-                className="w-full h-[430px] object-cover rounded-2xl"
+                className="w-[90%] h-[400px] object-cover rounded-2xl"
               />
             ) : validImages.length > 0 ? (
               <img
-                src={`https://xigiled.in/storage/${validImages[0].image}`}
+                src={`http://127.0.0.1:8000/storage/${validImages[0].image}`}
                 alt={sectionData.title}
                 className="w-full h-auto object-cover rounded-2xl"
               />
@@ -93,67 +100,44 @@ const IndustrySection = ({ sectionData }) => {
 };
 
 const MemberConnect = ({ testimonialsSection }) => {
-  const swiperRef = useRef(null);
+  if (!testimonialsSection?.images) return null;
 
-  if (!testimonialsSection || !testimonialsSection.images) {
-    return <div>Loading testimonials...</div>;
-  }
-
+  // Client details + image mapping
   const testimonials = testimonialsSection.images.map((testimonial) => ({
-    name: testimonial.client_name || 'Client',
-    title: testimonial.title || 'Client',
-    feedback: testimonial.description || 'Great service!',
-    image: `https://xigiled.in/storage/${testimonial.image}`
+    name: testimonial.client_name?.trim() || "Client",
+    title: testimonial.title || "Client",
+    feedback: testimonial.description || "Great service!",
+    image: `http://127.0.0.1:8000/storage/${testimonial.image}`,
   }));
 
   return (
-    <section className="w-full py-24 bg-gradient-to-b from-white to-[#eaf1ff] relative">
-      <div className="container mx-auto">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-12 font-['Poppins',sans-serif]">
-          {testimonialsSection.title || "Client Stories & Results"}
-        </h2>
+    <section className="py-10 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold text-center mb-6">Our Clients</h2>
 
         <Swiper
-          modules={[Autoplay, Pagination]}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          loop={true}
-          centeredSlides={false}
+          modules={[Autoplay]}
           spaceBetween={20}
+          slidesPerView={4}
+          centeredSlides={true} // ✅ Slides center la varum
+          loop={true}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
           breakpoints={{
-            0: { slidesPerView: 1 },
-            768: { slidesPerView: 1 },
-            1024: { slidesPerView: 2 },
+            320: { slidesPerView: 2, centeredSlides: true },
+            640: { slidesPerView: 3, centeredSlides: true },
+            1024: { slidesPerView: 5, centeredSlides: true },
           }}
-          className="!items-stretch"
         >
           {testimonials.map((item, idx) => (
-            <SwiperSlide key={idx} className="h-full">
-              <div className="bg-white rounded-xl shadow-lg flex flex-col md:flex-row md:h-80 lg:h-80">
-                <div className="w-full md:w-2/5 h-[200px] md:h-auto overflow-hidden order-1 md:order-2">
+            <SwiperSlide key={idx}>
+              <div className="flex flex-col items-center">
+                {/* Logo in Circle */}
+                <div className="flex justify-center items-center bg-white rounded-full shadow-sm overflow-hidden h-40 w-40 mx-auto mb-3">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-none md:rounded-r-xl"
+                    className="object-cover h-full w-full"
                   />
-                </div>
-
-                <div className="flex flex-col p-6 w-full md:w-3/5 order-2 md:order-1">
-                  <div className="flex gap-1 text-yellow-500 text-xl mb-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-                  <h4 className="font-medium text-black mb-1">
-                    {item.name}
-                    <span className="text-gray-500 font-normal text-[12px] ml-2">
-                      {item.title}
-                    </span>
-                  </h4>
-                  <p className="mt-3 text-black text-[15px] font-medium leading-relaxed">
-                    {item.feedback}
-                  </p>
                 </div>
               </div>
             </SwiperSlide>
@@ -164,6 +148,8 @@ const MemberConnect = ({ testimonialsSection }) => {
   );
 };
 
+
+
 const Home = () => {
   const [homeData, setHomeData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -173,7 +159,7 @@ const Home = () => {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch('https://xigiled.in/api/home');
+        const response = await fetch('http://127.0.0.1:8000/api/home');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -232,14 +218,13 @@ const Home = () => {
     );
   }
 
-  if (error) {
+  if (error) { 
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-xl text-red-600">Error: {error}</div>
       </div>
     );
   }
-
   // Get sections by their identifiers
   const whyChooseSection = homeData.find(section => section.section === 'home_section1');
   const completeRangeSection = homeData.find(section => section.section === 'home_section2');
@@ -265,7 +250,7 @@ const Home = () => {
             Your browser does not support the video tag.
           </video>
 
-          <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-black/70 z-10"></div>
 
           <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4 bg-transparent">
             <h1 className="text-5xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
@@ -276,7 +261,7 @@ const Home = () => {
             </p>
             <Link
               to="/contact"
-              className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded font-semibold"
+              className="mt-6 inline-block bg-blue-600 text-[15px] hover:bg-blue-700 text-white px-6 py-3 rounded font-semibold"
             >
               Get Instant Quote
             </Link>
@@ -287,7 +272,7 @@ const Home = () => {
         {whyChooseSection && (
           <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
             <div className="container mx-auto text-center">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+              <h2 className="text-[28px] md:text-[32px] lg:t ext-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
                 {whyChooseSection.title}
               </h2>
 
@@ -299,7 +284,7 @@ const Home = () => {
                   >
                     <div className="flex rounded-md mb-4">
                       <img
-                        src={`https://xigiled.in/storage/${feature.image}`}
+                        src={`http://127.0.0.1:8000/storage/${feature.image}`}
                         alt={feature.title}
                         className="w-15 h-15x object-contain"
                       />
@@ -307,7 +292,7 @@ const Home = () => {
                     <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-base md:text-[15px] text-gray-800 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                    <p className="text-base md:text-[17px] text-gray-800 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -316,7 +301,7 @@ const Home = () => {
 
               <div className="mt-10">
                 <button
-                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 rounded-md shadow-md text-sm md:text-[14px] font-medium transition-all duration-300"
+                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 rounded-md shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
                   onClick={handleClick}>
                   See Our Client Stories
                 </button>
@@ -327,7 +312,7 @@ const Home = () => {
 
         {/* Complete Range Section */}
         {completeRangeSection && (
-          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#E8F1FF]">
+          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#f3f7ff]">
             <div className="container mx-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
                 {completeRangeSection.title}
@@ -338,32 +323,31 @@ const Home = () => {
                   <div className="grid grid-cols-9 gap-6 mb-6">
                     {/* Indoor LED Wall */}
                     {completeRangeSection.images[0] && (
-                      <a href="/products/indoor-led-video-walls" className="block col-span-9 md:col-span-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
-                        <div className="w-full h-full relative bg-center bg-cover rounded-xl mx-auto"
-                          style={{
-                            backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[0].image})`,
-                          }}>
-                          <div className="absolute inset-0 bg-black/40 rounded-xl z-0"></div>
-                          <div className="relative z-10 p-5 flex items-end h-full">
-                            <h3 className="text-[15px] font-semibold text-white">
-                              {completeRangeSection.images[0].title}
-                            </h3>
-                          </div>
+                      <a
+                        href="/products/indoor-led-video-walls"
+                        className="block col-span-9 md:col-span-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden"
+                      >
+                        <div className="w-full ">
+                          <img
+                            src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[0].image}`}
+                            alt={completeRangeSection.images[0].title}
+                            className="w-50 h-60  pb-[10px] object-cover mx-auto"
+                          />
+
                         </div>
                       </a>
                     )}
 
+
                     {/* Outdoor LED */}
                     {completeRangeSection.images[1] && (
-                      <a href="/products/outdoor-led-video-walls" className="block col-span-9 md:col-span-3 lg:col-span-3 bg-gray-900 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
+                      <a href="/products/outdoor-led-video-walls" className="block col-span-9 md:col-span-3 lg:col-span-3 bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
                         <img
-                          src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
-                          className="w-100 h-60 object-cover"
+                          src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[1].image}`}
+                          className="w-100 h-60 object-contain"
                           alt={completeRangeSection.images[1].title}
                         />
-                        <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-md">
-                          <span className="text-sm font-medium text-gray-900">Outdoor</span>
-                        </div>
+
                         <div className="p-5">
                           <h3 className="text-[15px] font-semibold text-white">
                             {completeRangeSection.images[1].title}
@@ -374,10 +358,10 @@ const Home = () => {
 
                     {/* truck */}
                     {completeRangeSection.images[5] && (
-                      <a href="/products/rental-event-display" className="block col-span-9 md:col-span-2 lg:col-span-2 relative bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
+                      <a href="/products/rental-event-display" className="block col-span-9 md:col-span-2 lg:col-span-2 relative bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
                         <div className="w-full h-full relative flex items-center justify-center">
                           <img
-                            src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
+                            src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[5].image}`}
                             className="object-cover"
                             alt={completeRangeSection.images[5].title}
                           />
@@ -394,10 +378,10 @@ const Home = () => {
                   <div className="grid grid-cols-9 gap-6 mb-6">
                     {/* Transparent */}
                     {completeRangeSection.images[4] && (
-                      <a href="products/transparent-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
+                      <a href="products/transparent-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
                         <div className="absolute inset-0 bg-cover bg-center z-0"
                           style={{
-                            backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[4].image})`,
+                            backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[4].image})`,
                           }}></div>
                         <div className="absolute inset-0 bg-black/40 z-10" />
                         <div className="relative z-20 flex items-center h-full px-6">
@@ -412,12 +396,12 @@ const Home = () => {
 
                     {/* rental */}
                     {completeRangeSection.images[6] && (
-                      <a href="/products/flexible-led-display" className="block col-span-9 md:col-span-4 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                      <a href="/products/flexible-led-display" className="block col-span-9 md:col-span-4 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[6].image})`,
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[6].image})`,
                         }}>
-                        <div className="w-full h-full flex items-center justify-center bg-black/30">
-                          <h3 className="text-xl font-semibold text-white text-center">
+                        <div className="w-full h-full flex items-center justify-center ">
+                          <h3 className="text-xl font-semibold text-dark text-center">
                             {completeRangeSection.images[6].title}
                           </h3>
                         </div>
@@ -428,13 +412,12 @@ const Home = () => {
                   <div className="grid grid-cols-9 gap-6">
                     {/* Flexible & Curved */}
                     {completeRangeSection.images[7] && (
-                      <a href="/products/truck-mounted-led" className="block col-span-9 md:col-span-4 relative rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                      <a href="/products/truck-mounted-led" className="block col-span-9 md:col-span-4 relative rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[7].image})`,
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[7].image})`,
                         }}>
-                        <div className="absolute inset-0 bg-black/40 z-10" />
                         <div className="relative z-20 flex flex-col justify-center h-full p-5">
-                          <h3 className="text-xl font-semibold text-white mx-auto">
+                          <h3 className="text-xl  font-semibold pt-[100px] text-dark mx-auto">
                             {completeRangeSection.images[7].title}
                           </h3>
                         </div>
@@ -443,9 +426,9 @@ const Home = () => {
 
                     {/* Custom LED */}
                     {completeRangeSection.images[8] && (
-                      <a href="/products/custom-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
+                      <a href="/products/custom-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[8].image})`,
+                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[8].image})`,
                         }}>
                         <div className="absolute inset-0 bg-black/20 z-10" />
                         <div className="relative z-20 p-6 text-center flex flex-col justify-center h-full">
@@ -466,13 +449,12 @@ const Home = () => {
                 <div className="col-span-12 lg:col-span-3 flex flex-col gap-6">
                   {/* LED Standee */}
                   {completeRangeSection.images[3] && (
-                    <a href="/products/led-standee-display" className="block flex-1 relative rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
+                    <a href="/products/led-standee-display" className="block flex-1 relative rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
                       style={{
-                        backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[3].image})`,
+                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[3].image})`,
                       }}>
-                      <div className="absolute inset-0 bg-black/30 z-10" />
                       <div className="relative z-20 w-full text-center p-5">
-                        <h3 className="text-[18px] font-semibold text-white">
+                        <h3 className="text-[18px] font-semibold text-dark">
                           {completeRangeSection.images[3].title}
                         </h3>
                       </div>
@@ -481,16 +463,12 @@ const Home = () => {
 
                   {/* interactive */}
                   {completeRangeSection.images[2] && (
-                    <a href="/products/interactive-display" className="block flex-1 relative bg-gray-900 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
+                    <a href="/products/interactive-display" className="block flex-1 relative bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
                       style={{
-                        backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[2].image})`,
+                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[2].image})`,
                       }}>
                       <div className="absolute inset-0 bg-black/20 z-10" />
-                      <div className="relative z-20 p-5 w-full">
-                        <h3 className="text-[18px] font-semibold text-white">
-                          {completeRangeSection.images[2].title}
-                        </h3>
-                      </div>
+
                     </a>
                   )}
                 </div>
@@ -502,31 +480,29 @@ const Home = () => {
         {/* Stats Section */}
         <section className="w-full py-20 px-4 bg-gradient-to-b from-white to-[#eaf1ff]">
           <div className="max-w-[1440px] mx-auto w-full">
-            <div className="hidden md:flex w-full items-center justify-between text-left mb-12 px-4">
-              <div className="flex flex-col items-start min-w-[120px]">
-                <p className="text-[36px] font-extrabold text-black">3000+</p>
+            <div className="hidden md:flex w-full items-center justify-between text-left mb-12 px-20">
+              <div className="flex flex-col items-start min-w-[120px] pl-[100px]">
+                <p className="text-[36px] font-bold text-black">3000+</p>
                 <p className="text-[16px] font-semibold text-black">Installations</p>
               </div>
 
-              <div className="flex-1 text-center px-6">
-                <p className="text-xl text-black mb-2">About</p>
+              <div className="flex-1 text-center px-6 ">
                 <h2 className="text-[28px] md:text-[30px] lg:text-[40px] font-medium mb-3 leading-[1.2] max-w-xl mx-auto font-['Poppins',sans-serif]">
-                  25,000+ Trusted Partnership built on Results
+                  3,000+ Trusted Partnership built on Results
                 </h2>
                 <p className="text-black text-[10px] md:text-[17px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-lg mx-auto">
                   From retail and education to government and global brands, our work powers every sector and geography.
                 </p>
               </div>
 
-              <div className="flex flex-col items-end min-w-[100px]">
-                <p className="text-[36px] font-extrabold text-black">50+</p>
+              <div className="flex flex-col items-end min-w-[100px] pr-[100px]">
+                <p className="text-[36px] font-bold text-black">50+</p>
                 <p className="text-[16px] font-semibold text-black">Cities</p>
               </div>
             </div>
 
-            <div className="md:hidden text-center mb-5">
-              <p className="text-md text-black mb-2">About</p>
-              <h2 className="text-2xl font-semibold mb-3 leading-snug">
+            <div className="md:hidden text-center mb-5 ">
+              <h2 className="text-2xl font-semibold mb-3 leading-[1.2]">
                 25,000+ Trusted Partnership built <br /> on Results
               </h2>
               <p className="text-black text-[15px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-3xl mx-auto mb-4">
@@ -534,7 +510,7 @@ const Home = () => {
               </p>
 
               <div className="flex items-center justify-center gap-4">
-                <div className="px-6 py-4 text-center">
+                <div className="px-4 py-4 text-center pr-20">
                   <p className="text-[24px] font-extrabold text-black">50+</p>
                   <p className="text-[14px] font-semibold text-black">Cities</p>
                 </div>
@@ -545,7 +521,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="w-full px-20 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="hidden md:flex w-full md:w-auto justify-center">
                 <img src={leftImage} alt="Left Panel" className="w-[300px] h-auto" />
               </div>
@@ -566,17 +542,17 @@ const Home = () => {
           <section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
             <div className="container mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12">
               <div className="w-full lg:w-4/12 flex flex-col justify-center">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4 leading-snug font-['Poppins',sans-serif]">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4 leading-[1.2]] font-['Poppins',sans-serif]">
                   {industrySection.title}
                 </h2>
-                <p className="md:text-[15px] text-gray-800 font-['Montserrat',sans-serif] leading-relaxed mb-6 font-medium">
+                <p className="md:text-[17px] text-gray-800 font-['Montserrat',sans-serif] leading-relaxed mb-6 font-medium">
                   {industrySection.description}
                 </p>
                 <button
                   onClick={() => navigate('/industry')}
-                  className="w-fit bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+                  className="w-fit bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white text-[15px] px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
                 >
-                  View All Industries
+                  See all Solutions for your Industry
                 </button>
 
               </div>
@@ -588,22 +564,22 @@ const Home = () => {
                       <div
                         key={idx}
                         onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
-                        className="relative bg-[#E8F1FF] rounded-2xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-44 sm:h-48 md:h-56 cursor-pointer"
+                        className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-44 sm:h-48 md:h-56 cursor-pointer"
                       >
                         <img
-                          src={`https://xigiled.in/storage/${product.image}`}
+                          src={`http://127.0.0.1:8000/storage/${product.image}`}
                           alt={product.title + ' Large'}
                           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
                         <img
-                          src={`https://xigiled.in/storage/${product.image}`}
+                          src={`http://127.0.0.1:8000/storage/${product.image}`}
                           alt={product.title}
                           className="w-100 h-100 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 rounded-lg"
                         />
 
-                        <span className="relative z-30 px-2 text-center transition-colors duration-300 group-hover:text-white">
+                        <span className="relative z-30 px-2 text-center text-[17px] transition-colors duration-300 group-hover:text-white">
                           {product.title}
                         </span>
                       </div>
@@ -620,34 +596,34 @@ const Home = () => {
           <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white"
             style={{
               backgroundImage: supportSection.images.length > 2 && supportSection.images[2].image
-                ? `url('https://xigiled.in/storage/${supportSection.images[2].image}')`
-                : `url('../src/assets/heroimg.png')`,
+                ? `url('http://127.0.0.1:8000/storage/${supportSection.images[2].image}')`
+                : `url('../src/assets/cta.jpeg')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}>
             <div className="absolute inset-0 bg-black/50 z-0"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
-              <div className="flex justify-between items-start mb-10 flex-wrap gap-4">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium max-w-2xl font-['Poppins',sans-serif]">
+              <div className="flex justify-between items-start mb-15 flex-wrap gap-4">
+                <h2 className="text-[28px] md:text-[32px] leading-[1.4] lg:text-[40px] font-medium max-w-2xl font-['Poppins',sans-serif]">
                   {supportSection.title}
                 </h2>
                 <button
                   onClick={() => navigate('/contact')}
-                  className="bg-white cursor-pointer text-blue-600 py-2 px-4 rounded-lg hover:bg-blue-600 hover:text-white text-[16px] font-medium transition"
+                  className="bg-white cursor-pointer text-[#2f45ff] py-2 px-4 rounded-md hover:bg-blue-600 hover:text-white text-[16px] font-medium transition"
                 >
                   Get Product Help
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {supportSection.images.slice(0, 2).map((support, index) => (
-                  <div key={index} className="bg-gradient-to-br from-[#113A79]/80 via-[#757575]/40 to-[#889CBC]/80 backdrop-blur-sm rounded-xl p-6 text-white">
+                  <div key={index} className="bg-gradient-to-br from-[#113A79]/80 h-[300px] via-[#757575]/40 to-[#889CBC]/80 backdrop-blur-sm rounded-xl p-6 text-white">
                     <div className="flex flex-col items-start gap-3">
                       <div className="p-3 rounded-[10px]">
                         <img
-                          src={`https://xigiled.in/storage/${support.image}`}
+                          src={`http://127.0.0.1:8000/storage/${support.image}`}
                           alt={support.title}
-                          className="w-15 h-15"
+                          className="w-15 h-15 "
                         />
                       </div>
                       <div>
@@ -678,13 +654,13 @@ const Home = () => {
         {/* CTA Section */}
         <section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
           <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch">
-            <div className="w-full md:w-1/2 h-[300px] md:h-auto">
+            <div className="w-full md:w-5/12 h-[300px] md:h-auto">
               <img src={cta} alt="DOOH Display" className="w-full h-[500px] object-cover" />
             </div>
 
-            <div className="w-full md:w-1/2 bg-[#E8F1FF] flex items-center justify-center p-8 md:p-12">
-              <div className="text-center md:text-left max-w-md">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif] leading-[1.2]">
+            <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
+              <div className="text-center md:text-left px-10">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif] leading-[1.3]">
                   Ready to Transform Your Advertising?
                 </h2>
                 <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
@@ -703,4 +679,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;  

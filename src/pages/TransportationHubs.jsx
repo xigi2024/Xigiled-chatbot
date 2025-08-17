@@ -1,104 +1,30 @@
 import React, { useRef, useEffect, useState } from 'react'
-import {  useNavigate } from "react-router-dom";
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronRight } from "lucide-react";
 import cta from '../assets/cta.png';
 import transport from '../assets/transport.webp';
-
-const API_BASE_URL = 'https://xigiled.in/api/transport-public-venues';
-
-const ShowcaseSlider = ({ showcaseData }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (showcaseData?.images?.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseData.images.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [showcaseData]);
-
-  if (!showcaseData?.images?.length) return null;
-
-  return (
-    <section className="bg-blue-100 py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-[45px] font-semibold text-black">{showcaseData.title}</h2>
-          <button className="bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm">
-            View All
-          </button>
-        </div>
-
-        <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-          {/* Left Menu */}
-          <div className="w-full md:w-1/3 p-10 space-y-4">
-            {showcaseData.images.map((item, index) => (
-              <div
-                key={index}
-                className={`text-[20px] font-medium cursor-pointer transition-colors duration-300 ${
-                  index === currentIndex ? 'text-blue-700' : 'text-black'
-                }`}
-                onClick={() => setCurrentIndex(index)}
-              >
-                {item.title}
-              </div>
-            ))}
-          </div>
-
-          {/* Vertical Divider Line */}
-          <div className="hidden md:flex items-center justify-center ">
-            <div className="w-[8px] h-125 rounded-2xl bg-blue-400"></div>
-          </div>
-
-          {/* Right Content */}
-          <div className="relative w-full md:w-2/3 p-10">
-            <img
-              src={`https://xigiled.in/storage/${showcaseData.images[currentIndex].image}`}
-              alt={showcaseData.images[currentIndex].title}
-              className="w-full h-[400px] object-cover rounded-xl"
-            />
-            <div className="mt-4">
-              <h3 className="text-[22px] font-semibold text-black">
-                {showcaseData.images[currentIndex].title}
-              </h3>
-              {showcaseData.images[currentIndex].description && (
-                <p className="text-[17px] text-gray-900 mb-3 font-['Montserrat',sans-serif] font-medium">
-                  {showcaseData.images[currentIndex].description}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const TransportationHubs = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openFaqs, setOpenFaqs] = useState(null);
   const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-
+  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(API_BASE_URL);
+        const response = await fetch('https://xigiled.in/api/transport-public-venues');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const result = await response.json();
-        if (result.status === 'success') {
-          setApiData(result.data);
-        } else {
-          throw new Error('API returned error status');
-        }
+        const data = await response.json();
+        setApiData(data.data);
       } catch (err) {
         setError(err.message);
-        console.error('Error fetching data:', err);
       } finally {
         setLoading(false);
       }
@@ -107,15 +33,32 @@ const TransportationHubs = () => {
     fetchData();
   }, []);
 
-  // Helper function to get section data by section name
+  const toggleFaq = (imageIndex, faqIndex) => {
+    const key = `${imageIndex}-${faqIndex}`;
+    const isOpen = openFaqs === key;
+    setOpenFaqs(prev => (prev === key ? null : key));
+  };
+
+  // Get section data by section name
   const getSectionData = (sectionName) => {
     return apiData.find(item => item.section === sectionName);
   };
 
+  // Initialize first FAQ as open when apiData is loaded
+  useEffect(() => {
+    const smartFeaturesSection = getSectionData('transport_public_venue_section4');
+    if (smartFeaturesSection?.images?.length > 0 && smartFeaturesSection.images[0]?.faqs?.length > 0) {
+      setOpenFaqs('0-0'); // Open the first FAQ
+    }
+  }, [apiData]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -123,26 +66,37 @@ const TransportationHubs = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl text-red-600">Error: {error}</div>
+        <div className="text-center">
+          <p className="text-red-600">Error: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
-  const section1Data = getSectionData('transport_public_venue_section1');
-  const section2Data = getSectionData('transport_public_venue_section2');
-  const section3Data = getSectionData('transport_public_venue_section3');
-  const section4Data = getSectionData('transport_public_venue_section4');
-  const section5Data = getSectionData('transport_public_venue_section5');
+  // Get data for different sections
+  const heroSection = getSectionData('transport_public_venue_section1');
+  const excellenceSection = getSectionData('transport_public_venue_section2');
+  const smartDisplaysSection = getSectionData('transport_public_venue_section3');
+  const smartFeaturesSection = getSectionData('transport_public_venue_section4');
+  const flexibleDisplaySection = getSectionData('transport_public_venue_section6');
+  const chooseXigiSection = getSectionData('transport_public_venue_section7');
+  const transformSection = getSectionData('transport_public_venue_section8');
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
-      
-      {/* Banner Section */}
+
+      {/* Hero Section */}
       <div className="relative h-[70vh] w-full">
         <img
           src={transport}
-          alt="Industry Banner"
+          alt="Transportation Hubs Banner"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
@@ -152,218 +106,301 @@ const TransportationHubs = () => {
         </div>
       </div>
 
-      {/* Section 1 - Main Content */}
-      {section1Data && (
-        <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white">
-          <div className="container mx-auto grid md:grid-cols-2 gap-20 items-center">
-            {/* Left Image */}
-            <div className="flex justify-center">
-              <img
-                src={`https://xigiled.in/storage/${section1Data.images[0].image}`}
-                alt={section1Data.title}
-                className="w-full h-[300px] md:h-[500px] lg:h-[500px] rounded-2xl"
-              />
-            </div>
+      {/* Excellence Section */}
+      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
+        {/* Breadcrumb */}
+        <div className="container text-sm text-gray-500 mb-10">
+          <span className="inline-flex items-center gap-2">
+            <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+              🏠 Home
+            </Link>
+            <span>›</span>
+            <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+              Industry
+            </Link>
+            <span>›</span>
+            <span className="text-blue-600 text-decoration-none font-medium">Transportation Hubs</span>
+          </span>
+        </div>
 
-            {/* Right Content */}
-            <div>
-              <h2 className="text-3xl md:text-[45px] font-semibold mb-4">
-                {section1Data.title}
-              </h2>
-              <p className="text-gray-900 text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
-                {section1Data.description}
-              </p>
-          
+        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
+          {/* Left Image */}
+          <div className="flex justify-center w-full">
+            <img
+              src={excellenceSection?.images?.[0]?.image ? `https://xigiled.in/storage/${excellenceSection.images[0].image}` : ""}
+              alt="LED Display in Transportation"
+              className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div className="w-full">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+              {excellenceSection?.title || "Designed for Transportation Hubs"}
+            </h2>
+            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+              {excellenceSection?.description?.split('\n')[0] || "Our LED displays are built to perform in demanding transportation environments."}
+            </p>
+
+            <div className="space-y-6">
+              {[
+                excellenceSection?.images?.[0]?.description]
+                .filter(Boolean)
+                .join('\n\n')
+                .split('\n\n')
+                .filter(item => item.trim())
+                .map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+                      ✓
+                    </div>
+                    <p className="text-gray-900 text-base leading-relaxed">
+                      {item}
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Section 2 - Smart Display Types */}
-      {section2Data && (
-        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
+      {/* Smart Displays Section */}
+      <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-24">
+        <div className='container mx-auto'>
           {/* Section Heading */}
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-[45px] font-semibold mb-2">
-              {section2Data.title}
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+              {smartDisplaysSection?.title || "Smart Displays for Transportation"}
             </h2>
-            {section2Data.description && (
-              <p className="text-gray-900 max-w-2xl text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium">
-                {section2Data.description}
-              </p>
-            )}
+            <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium">
+              {smartDisplaysSection?.description || "Enhancing transportation environments with cutting-edge LED technology"}
+            </p>
           </div>
-
-          {/* Display Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {section2Data.images.slice(0, 4).map((item, index) => (
-              <div key={index} className="bg-black rounded-xl overflow-hidden shadow-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
+            {smartDisplaysSection?.images?.map((item, index) => (
+              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px]">
                 <img
                   src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
-                  className="w-full h-[230px] object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="text-center py-4">
-                  <p className="text-white font-['Montserrat',sans-serif] font-medium">
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent flex items-end justify-center pb-4">
+                  <p className="text-white text-[20px] font-['Montserrat',sans-serif] font-medium text-center">
                     {item.title}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-        </section>
-      )}
-
-      {/* Section 3 - Mounting Installation */}
-      {section3Data && (
-        <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-          {/* Section Heading */}
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900">
-              {section3Data.title}
-            </h2>
-          </div>
-
-          {/* Card Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {section3Data.images.map((item, index) => (
-              <div key={index} className="bg-[#EAF1FF] rounded-xl overflow-hidden shadow-md">
-                <img
-                  src={`https://xigiled.in/storage/${item.image}`}
-                  alt={item.title}
-                  className="w-full h-64 md:h-70 lg:h-100 object-cover"
-                />
-                <div className="text-center p-4">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900">
-                    {item.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Section 4 - Showcase Slider */}
-      {section4Data && <ShowcaseSlider showcaseData={section4Data} />}
-
-      {/* Section 5 - Features */}
-   {section5Data && (
-  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white flex flex-col items-center">
-    <h2 className="text-[45px] font-semibold text-center mb-5">{section5Data.title}</h2>
-
-    <div className="container grid grid-cols-1 md:grid-cols-3 gap-5">
-      {/* First feature - always large (600px) */}
-      {section5Data.images[0] && (
-        <div className="space-y-5">
-          <div className="relative h-[600px] rounded-xl overflow-hidden">
-            <img
-              src={`https://xigiled.in/storage/${section5Data.images[0].image}`}
-              alt={section5Data.images[0].title}
-              className="w-full h-full object-cover rounded-xl"
-            />
-            <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-              {section5Data.images[0].title}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Middle column - alternating heights */}
-      {section5Data.images.length > 1 && (
-        <div className="space-y-5">
-          {/* Second feature - medium (250px) */}
-          {section5Data.images[1] && (
-            <div className="relative h-[250px] rounded-xl overflow-hidden">
-              <img
-                src={`https://xigiled.in/storage/${section5Data.images[1].image}`}
-                alt={section5Data.images[1].title}
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                {section5Data.images[1].title}
-              </div>
-            </div>
-          )}
-
-          {/* Third feature - tall (330px) */}
-          {section5Data.images[2] && (
-            <div className="relative h-[330px] rounded-xl overflow-hidden">
-              <img
-                src={`https://xigiled.in/storage/${section5Data.images[2].image}`}
-                alt={section5Data.images[2].title}
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                {section5Data.images[2].title}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Right column - alternating heights */}
-      {section5Data.images.length > 3 && (
-        <div className="space-y-5">
-          {/* Fourth feature - tall (330px) */}
-          {section5Data.images[3] && (
-            <div className="relative h-[330px] rounded-xl overflow-hidden">
-              <img
-                src={`https://xigiled.in/storage/${section5Data.images[3].image}`}
-                alt={section5Data.images[3].title}
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                {section5Data.images[3].title}
-              </div>
-            </div>
-          )}
-
-          {/* Fifth feature - medium (250px) */}
-          {section5Data.images[4] && (
-            <div className="relative h-[250px] rounded-xl overflow-hidden">
-              <img
-                src={`https://xigiled.in/storage/${section5Data.images[4].image}`}
-                alt={section5Data.images[4].title}
-                className="w-full h-full object-cover rounded-xl"
-              />
-              <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                {section5Data.images[4].title}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  </section>
-)}
-      {/* CTA Section */}
-      <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
-          {/* Left Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
-            <img
-              src={cta}
-              alt="DOOH Display"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Right Content */}
-          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-black mb-2">
-              Ready to Transform Your Advertising?
-            </h2>
-            <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
-            </p>
-            <button onClick={() => navigate('/contact')}
-className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
-              See Solutions for Your Industry
-            </button>
-          </div>
         </div>
       </section>
+
+      {/* Smart Features Section - FAQ Section */}
+      {smartFeaturesSection && (
+        <section className="bg-white py-20">
+          <div className="container mx-auto">
+            {/* Heading */}
+            <div className="text-center mb-10">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
+                {smartFeaturesSection.title || "Precision Display, Clear Messaging"}
+              </h2>
+              {smartFeaturesSection.description && (
+                <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+                  {smartFeaturesSection.description}
+                </p>
+              )}
+            </div>
+
+            {/* Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {smartFeaturesSection.images?.map((imageItem, imageIndex) => (
+                <div key={imageIndex} className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
+                  {imageItem.image && (
+                    <img
+                      src={`https://xigiled.in/storage/${imageItem.image}`}
+                      alt={imageItem.title || "LED Display"}
+                      className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
+                    />
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-[20px] font-semibold text-center mb-4 font-['Poppins',sans-serif]">
+                      {imageItem.title}
+                    </h3>
+                    <div className="space-y-3">
+                      {imageItem.faqs?.map((faq, faqIndex) => {
+                        const key = `${imageIndex}-${faqIndex}`;
+                        const isOpen = openFaqs === key;
+                        return (
+                          <div
+                            key={faqIndex}
+                            className="bg-white rounded-md border-[3px] border-[#E8F1FF] overflow-hidden transition-all duration-200 hover:shadow-md"
+                          >
+                            <div 
+                              className="font-semibold flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50"
+                              onClick={() => toggleFaq(imageIndex, faqIndex)}
+                            >
+                              <span className="text-blue-700">{faq.question}</span>
+                              <ChevronRight 
+                                className={`w-5 h-5 text-blue-700 transition-transform duration-200 ${
+                                  isOpen ? 'rotate-90' : ''
+                                }`}
+                              />
+                            </div>
+                            <div className={`overflow-hidden transition-all duration-300 ${
+                              isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                            }`}>
+                              <div className="px-4 pb-4 text-sm text-gray-700 leading-relaxed border-t border-gray-100">
+                                <div className="pt-3">
+                                  {faq.answer}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }) || (
+                        <p className="text-gray-500 text-center">No FAQs available for this display type.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )) || (
+                <div className="col-span-2 text-center text-gray-500">
+                  <p>No display information available.</p>
+                </div>
+              )}
+            </div>
+
+            {/* Suggestion Note */}
+            <div className="bg-[#EDF3FF] text-sm md:text-base text-gray-800 px-6 py-4 rounded-md flex items-center gap-3 mt-10">
+              <span className="text-yellow-500 text-xl">💡</span>
+              <p>Suggestion: P5 to P10 is a suitable choice for applications above 50 feet.</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Flexible Display Sizes Section */}
+      {flexibleDisplaySection && (
+        <section className="bg-white py-22 px-4 md:px-10 lg:px-28">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left Text + Cards */}
+            <div>
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
+                {flexibleDisplaySection.title || "Flexible Display Sizes & Configurations"}
+              </h2>
+              <p className="text-gray-700 text-base md:text-lg mb-8 max-w-xl">
+                {flexibleDisplaySection.description || "Choose from a range of ready-to-install formats or build a custom setup to suit your transportation space:"}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-md">
+                {flexibleDisplaySection.images?.filter(img => img.description).map((item, index) => (
+                  <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md">
+                    <h2 className='text-blue-700 text-[19px] mb-4'>{item.title}</h2>
+                    <p className="text-gray-800 text-sm">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div>
+              {flexibleDisplaySection.images?.find(img => img.image) && (
+                <img
+                  src={`https://xigiled.in/storage/${flexibleDisplaySection.images.find(img => img.image).image}`}
+                  alt="Display Sizes"
+                  className="rounded-xl w-full h-[350px] object-cover"
+                />
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Why Choose Xigi Section */}
+      {chooseXigiSection && (
+        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+          <div className="container mx-auto">
+            {/* Heading */}
+            <div className="text-center mb-12">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+                {chooseXigiSection.title || "Why Choose Xigi LED?"}
+              </h2>
+              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
+                {chooseXigiSection.description || "Trusted solutions for transportation hubs"}
+              </p>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {chooseXigiSection.images?.map((item, index) => (
+                <div
+                  key={index}
+                  className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100"
+                >
+                  {/* Image Wrapper */}
+                  <div className="h-48 overflow-hidden relative">
+                    <img
+                      src={`https://xigiled.in/storage/${item.image}`}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-6">
+                    <h3 className="font-semibold mb-3 group-hover:text-blue-700 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    {item.description && (
+                      <p className="text-sm">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Ready to Transform Section */}
+      {transformSection && (
+        <section className="bg-[#f2f2fd] py-20">
+          <div className="container mx-auto">
+            <div 
+              className="h-[500px] relative rounded-3xl overflow-hidden"
+              style={{
+                backgroundImage: transformSection.images?.[0]?.image 
+                  ? `url(https://xigiled.in/storage/${transformSection.images[0].image})`
+                  : 'linear-gradient(to bottom right, #000000, #010150, #000000)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              {/* Dark overlay for better text contrast */}
+              <div className="absolute inset-0 bg-black/55 z-0"></div>
+
+              {/* Content Over Image */}
+              <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
+                  {transformSection.title || "Ready to Transform Your Transportation Hub?"}
+                </h2>
+                <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+                  {transformSection.description || "With Xigi LED, you're not just getting displays – you're gaining a partner committed to enhancing transportation experiences."}
+                </p>
+                <button 
+                  onClick={() => navigate('/contact')} 
+                  className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
+                >
+                  See Solutions for Your Hub
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

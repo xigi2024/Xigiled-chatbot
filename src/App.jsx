@@ -28,11 +28,12 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
-
+import WhatsAppFloating from './components/WhatsAppFloating'
 function App() {
   return (
 
     <Router>
+      <WhatsAppFloating/>
       <ScrollToTopButton />
       <ScrollToTop />
       <Routes>

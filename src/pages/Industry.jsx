@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link2 } from 'lucide-react';
 
-const API_BASE_URL = 'https://xigiled.in/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 const Industry = () => {
   const navigate = useNavigate();
