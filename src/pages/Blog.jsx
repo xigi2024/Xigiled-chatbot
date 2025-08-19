@@ -83,7 +83,7 @@ const BlogCards = () => {
               >
                 <div className="relative overflow-hidden">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${blog.image}`} // Updated path
+                    src={`https://xigiled.in/storage/${blog.image}`} // Updated path
                     alt={blog.title}
                     className="h-52 w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
                   />

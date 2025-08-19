@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../styles/Home.css';
-import banner from '../assets/videos/led banner.mp4';
+import banner from '../assets/videos/XIGI Led Banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import cta from '../assets/led-display-lifetime.jpg';
@@ -56,7 +56,7 @@ const IndustrySection = ({ sectionData }) => {
                 >
                   {/* Image Left */}
                   <img
-                    src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                    src={`https://xigiled.in/storage/${feature.image}`}
                     alt={feature.title}
                     className="bg-[#e8f1ff] me-3 px-[13px] pt-[10px] pb-[6px] rounded-xl w-[62px] h-[62px] object-contain"
                   />
@@ -81,13 +81,13 @@ const IndustrySection = ({ sectionData }) => {
           <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center">
             {rightSideImage ? (
               <img
-                src={`http://127.0.0.1:8000/storage/${rightSideImage.image}`}
+                src={`https://xigiled.in/storage/${rightSideImage.image}`}
                 alt={sectionData.title}
                 className="w-[90%] h-[400px] object-cover rounded-2xl"
               />
             ) : validImages.length > 0 ? (
               <img
-                src={`http://127.0.0.1:8000/storage/${validImages[0].image}`}
+                src={`https://xigiled.in/storage/${validImages[0].image}`}
                 alt={sectionData.title}
                 className="w-full h-auto object-cover rounded-2xl"
               />
@@ -107,7 +107,7 @@ const MemberConnect = ({ testimonialsSection }) => {
     name: testimonial.client_name?.trim() || "Client",
     title: testimonial.title || "Client",
     feedback: testimonial.description || "Great service!",
-    image: `http://127.0.0.1:8000/storage/${testimonial.image}`,
+    image: `https://xigiled.in/storage/${testimonial.image}`,
   }));
 
   return (
@@ -159,7 +159,7 @@ const Home = () => {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/home');
+        const response = await fetch('https://xigiled.in/api/home');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -284,7 +284,7 @@ const Home = () => {
                   >
                     <div className="flex rounded-md mb-4">
                       <img
-                        src={`http://127.0.0.1:8000/storage/${feature.image}`}
+                        src={`https://xigiled.in/storage/${feature.image}`}
                         alt={feature.title}
                         className="w-15 h-15x object-contain"
                       />
@@ -329,7 +329,7 @@ const Home = () => {
                       >
                         <div className="w-full ">
                           <img
-                            src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[0].image}`}
+                            src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
                             alt={completeRangeSection.images[0].title}
                             className="w-50 h-60  pb-[10px] object-cover mx-auto"
                           />
@@ -343,7 +343,7 @@ const Home = () => {
                     {completeRangeSection.images[1] && (
                       <a href="/products/outdoor-led-video-walls" className="block col-span-9 md:col-span-3 lg:col-span-3 bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
                         <img
-                          src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[1].image}`}
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
                           className="w-100 h-60 object-contain"
                           alt={completeRangeSection.images[1].title}
                         />
@@ -361,7 +361,7 @@ const Home = () => {
                       <a href="/products/rental-event-display" className="block col-span-9 md:col-span-2 lg:col-span-2 relative bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
                         <div className="w-full h-full relative flex items-center justify-center">
                           <img
-                            src={`http://127.0.0.1:8000/storage/${completeRangeSection.images[5].image}`}
+                            src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
                             className="object-cover"
                             alt={completeRangeSection.images[5].title}
                           />
@@ -381,7 +381,7 @@ const Home = () => {
                       <a href="products/transparent-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60">
                         <div className="absolute inset-0 bg-cover bg-center z-0"
                           style={{
-                            backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[4].image})`,
+                            backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[4].image})`,
                           }}></div>
                         <div className="absolute inset-0 bg-black/40 z-10" />
                         <div className="relative z-20 flex items-center h-full px-6">
@@ -398,7 +398,7 @@ const Home = () => {
                     {completeRangeSection.images[6] && (
                       <a href="/products/flexible-led-display" className="block col-span-9 md:col-span-4 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[6].image})`,
+                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[6].image})`,
                         }}>
                         <div className="w-full h-full flex items-center justify-center ">
                           <h3 className="text-xl font-semibold text-dark text-center">
@@ -414,7 +414,7 @@ const Home = () => {
                     {completeRangeSection.images[7] && (
                       <a href="/products/truck-mounted-led" className="block col-span-9 md:col-span-4 relative rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[7].image})`,
+                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[7].image})`,
                         }}>
                         <div className="relative z-20 flex flex-col justify-center h-full p-5">
                           <h3 className="text-xl  font-semibold pt-[100px] text-dark mx-auto">
@@ -428,7 +428,7 @@ const Home = () => {
                     {completeRangeSection.images[8] && (
                       <a href="/products/custom-led-display" className="block col-span-9 md:col-span-5 relative text-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[8].image})`,
+                          backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[8].image})`,
                         }}>
                         <div className="absolute inset-0 bg-black/20 z-10" />
                         <div className="relative z-20 p-6 text-center flex flex-col justify-center h-full">
@@ -451,7 +451,7 @@ const Home = () => {
                   {completeRangeSection.images[3] && (
                     <a href="/products/led-standee-display" className="block flex-1 relative rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
                       style={{
-                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[3].image})`,
+                        backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[3].image})`,
                       }}>
                       <div className="relative z-20 w-full text-center p-5">
                         <h3 className="text-[18px] font-semibold text-dark">
@@ -465,7 +465,7 @@ const Home = () => {
                   {completeRangeSection.images[2] && (
                     <a href="/products/interactive-display" className="block flex-1 relative bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60 bg-cover bg-center flex items-end"
                       style={{
-                        backgroundImage: `url(http://127.0.0.1:8000/storage/${completeRangeSection.images[2].image})`,
+                        backgroundImage: `url(https://xigiled.in/storage/${completeRangeSection.images[2].image})`,
                       }}>
                       <div className="absolute inset-0 bg-black/20 z-10" />
 
@@ -477,7 +477,7 @@ const Home = () => {
           </section>
         )}
 
-        {/* Stats Section */}
+        {/* Stats Section
         <section className="w-full py-20 px-4 bg-gradient-to-b from-white to-[#eaf1ff]">
           <div className="max-w-[1440px] mx-auto w-full">
             <div className="hidden md:flex w-full items-center justify-between text-left mb-12 px-20">
@@ -535,7 +535,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Industry Section */}
         {industrySection && (
@@ -567,14 +567,14 @@ const Home = () => {
                         className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-44 sm:h-48 md:h-56 cursor-pointer"
                       >
                         <img
-                          src={`http://127.0.0.1:8000/storage/${product.image}`}
+                          src={`https://xigiled.in/storage/${product.image}`}
                           alt={product.title + ' Large'}
                           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
                         <img
-                          src={`http://127.0.0.1:8000/storage/${product.image}`}
+                          src={`https://xigiled.in/storage/${product.image}`}
                           alt={product.title}
                           className="w-100 h-100 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 rounded-lg"
                         />
@@ -596,7 +596,7 @@ const Home = () => {
           <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white"
             style={{
               backgroundImage: supportSection.images.length > 2 && supportSection.images[2].image
-                ? `url('http://127.0.0.1:8000/storage/${supportSection.images[2].image}')`
+                ? `url('https://xigiled.in/storage/${supportSection.images[2].image}')`
                 : `url('../src/assets/cta.jpeg')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
@@ -621,7 +621,7 @@ const Home = () => {
                     <div className="flex flex-col items-start gap-3">
                       <div className="p-3 rounded-[10px]">
                         <img
-                          src={`http://127.0.0.1:8000/storage/${support.image}`}
+                          src={`https://xigiled.in/storage/${support.image}`}
                           alt={support.title}
                           className="w-15 h-15 "
                         />
@@ -679,4 +679,4 @@ const Home = () => {
   );
 };
 
-export default Home;  
+export default Home;

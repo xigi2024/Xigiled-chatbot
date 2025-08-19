@@ -6,23 +6,23 @@ import cta from '../assets/cta.png';
 import about from '../assets/about.avif';
 import { useNavigate } from 'react-router-dom';
 
-const FAQItem = ({ question, answer, isActive = false }) => {
-  const [open, setOpen] = useState(isActive);
-
+const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
     <div
       className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
-      onClick={() => setOpen(!open)}
+      onClick={onClick}
     >
       <div className="flex justify-between items-center">
-        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">{question}</p>
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
         <ChevronDown
           className={`w-5 h-5 text-gray-500 transform transition-transform ${
-            open ? 'rotate-180' : ''
+            isActive ? "rotate-180" : ""
           }`}
         />
       </div>
-      {open && (
+      {isActive && (
         <div className="mt-4 text-gray-600 text-[14px] md:text-[16px] font-['Montserrat',sans-serif] font-medium">
           {answer}
         </div>
@@ -31,10 +31,13 @@ const FAQItem = ({ question, answer, isActive = false }) => {
   );
 };
 
+
+
 const About = () => {
   const [aboutData, setAboutData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+    const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -407,25 +410,27 @@ const About = () => {
       )}
 
       {/* FAQ Section */}
-{/* FAQ Section */}
-{faqSection && (
-  <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
-    <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
-      {faqSection.title}
-    </h2>
-    <div className="max-w-4xl mx-auto">
-      {faqSection.faq_entries?.map((faq, index) => (
-        <FAQItem
-          key={index}
-          question={faq.question}
-          answer={faq.answer}
-          isActive={index === 0} // This will make only the first item active by default
-        />
-      ))}
-    </div>
-  </section>
-)}
-
+     {/* FAQ Section */}
+      {faqSection && (
+        <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+          <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+            {faqSection.title}
+          </h2>
+          <div className="max-w-4xl mx-auto">
+            {faqSection.faq_entries?.map((faq, index) => (
+              <FAQItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isActive={activeIndex === index}
+                onClick={() =>
+                  setActiveIndex(activeIndex === index ? null : index)
+                }
+              />
+            ))}
+          </div>
+        </section>
+      )}
       {/* CTA Section - Keep as hardcoded */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4 md:px-5 lg:px-29">
         <div className="mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">

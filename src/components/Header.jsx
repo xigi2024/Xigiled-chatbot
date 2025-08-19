@@ -57,12 +57,12 @@ const Header = () => {
             >
               Products
             </Link>
-            <Link
+            {/* <Link
               to="/gallery"
               className={`text-[18px] transition-colors ${currentPath === '/gallery' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
             >
               Gallery
-            </Link>
+            </Link> */}
             <Link
               to="/blog"
               className={`text-[18px] transition-colors ${currentPath === '/blog' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}

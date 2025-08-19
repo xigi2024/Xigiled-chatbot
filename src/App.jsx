@@ -33,7 +33,7 @@ function App() {
   return (
 
     <Router>
-      <WhatsAppFloating/>
+      <WhatsAppFloating />
       <ScrollToTopButton />
       <ScrollToTop />
       <Routes>
@@ -46,30 +46,31 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path='/contact' element={<ContactUs />} />
 
-        /* industry routes/*
-        <Route path="/industry/:slug" element={<Industry />} />
-        <Route path="/industry/GovernmentCivicSpaces" element={<Government />} />
-        <Route path="/industry/EventsAndExhibitions" element={<EventsExhibitions />} />
-        <Route path="/industry/Retail" element={<RetailEnvironments />} />
-        <Route path="/industry/CorporateOffice" element={<CorporateOffices />} />
-        <Route path="/industry/EducationAndInstitutions" element={<EducationInstitutions />} />
-        <Route path="/industry/HospitalityHotels" element={<HealthcareFacilities />} />
-        <Route path="/industry/TransportAndPublicVenues" element={<TransportationHubs />} />
-<Route path="/industry/ManfacturingAndFactories" element={<ManufacturingFactories />} />
+/* industry routes/*
+<Route path="/industry/:slug" element={<Industry />} />
+<Route path="/industry/GovernmentPublicSpaces" element={<Government />} />
+<Route path="/industry/EventsAndExhibitions" element={<EventsExhibitions />} />
+<Route path="/industry/Retail" element={<RetailEnvironments />} />
+<Route path="/industry/CorporateOffice" element={<CorporateOffices />} />
+<Route path="/industry/EducationAndInstitutions" element={<EducationInstitutions />} />
+<Route path="/industry/HospitalityAndHotels" element={<HealthcareFacilities />} />
+<Route path="/industry/TransportPublicVenues" element={<TransportationHubs />} />
+<Route path="/industry/ManufacturingAndFactories" element={<ManufacturingFactories />} />
 
-          /* products routes/*
-        <Route path='/products/indoor-led-video-walls' element={<Indoor_Led />} />
-        <Route path='/products/outdoor-led-video-walls' element={<Outdoor_Led />} />
-        <Route path='/products/truck-mounted-led' element={<TruckMounted_Led />} />
-        <Route path='/products/led-standee-display' element={<Led_Standee />} />
-        <Route path='/products/interactive-display' element={<Interactive_display />} />
-        <Route path='/products/transparent-led-display' element={<Transparent_Led />} />
-        <Route path='/products/flexible-led-display' element={<FlexibleLed />} />
-        <Route path='/products/rental-event-display' element={<Rental_Event_display />} />
-        <Route path='/products/custom-led-display' element={<Custom_Led />} />
-      </Routes>
-    </Router>
-  )
+  /* products routes/*
+<Route path='/products/indoor-led-video-walls' element={<Indoor_Led />} />
+<Route path='/products/outdoor-led-video-walls' element={<Outdoor_Led />} />
+<Route path='/products/truck-mounted-displays' element={<TruckMounted_Led />} />
+<Route path='/products/led-standee-display' element={<Led_Standee />} />
+<Route path='/products/interactive-displays' element={<Interactive_display />} />
+<Route path='/products/transparent-led-display' element={<Transparent_Led />} />
+<Route path='/products/flexibile-curved-led-walls' element={<FlexibleLed />} />
+<Route path='/products/rental-event-display' element={<Rental_Event_display />} />
+<Route path='/products/custom-led-display' element={<Custom_Led />} />
+
+</Routes>
+</Router>
+)
 }
 
 export default App;

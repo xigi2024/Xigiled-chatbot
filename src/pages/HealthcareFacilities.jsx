@@ -122,7 +122,6 @@ const HealthcareFacilities = () => {
 
       {/* Excellence Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
-        {/* Breadcrumb */}
         <div className="container text-sm text-gray-500 mb-10">
           <span className="inline-flex items-center gap-2">
             <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
@@ -133,46 +132,51 @@ const HealthcareFacilities = () => {
               Industry
             </Link>
             <span>›</span>
-            <span className="text-blue-600 text-decoration-none font-medium">Healthcare Facilities</span>
+            <span className="text-blue-600 text-decoration-none font-medium">Hospitality & Hotels
+            </span>
           </span>
         </div>
 
         <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
-          {/* Left Image */}
-          <div className="flex justify-center w-full">
-            <img
-              src={excellenceSection?.images?.[0]?.image ? `https://xigiled.in/storage/${excellenceSection.images[0].image}` : ""}
-              alt="LED Display in Healthcare"
-              className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-            />
-          </div>
+          {/* Left Image - Only show if image exists */}
+          {excellenceSection?.images?.some(img => img.image) && (
+            <div className="flex justify-center w-full">
+              <img
+                src={`https://xigiled.in/storage/${excellenceSection.images.find(img => img.image).image}`}
+                alt="LED Display in Healthcare"
+                className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
 
           {/* Right Content */}
           <div className="w-full">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
               {excellenceSection?.title || "Designed for Healthcare Excellence"}
             </h2>
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
-              {excellenceSection?.description?.split('\n')[0] || "Our LED displays are built to perform in demanding healthcare settings."}
-            </p>
+            
+            {/* Description */}
+            {excellenceSection?.description && (
+              <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+                {excellenceSection.description}
+              </p>
+            )}
 
             <div className="space-y-6">
-              {[
-                excellenceSection?.images?.[0]?.description]
-                .filter(Boolean)
-                .join('\n\n')
-                .split('\n\n')
-                .filter(item => item.trim())
-                .map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
-                      ✓
-                    </div>
-                    <p className="text-gray-900 text-base leading-relaxed">
-                      {item}
-                    </p>
+              {/* Show image titles as bullet points if they exist */}
+              {excellenceSection?.images?.filter(img => img.title).map((item, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+                    ✓
                   </div>
-                ))}
+                  <p className="text-gray-900 text-base leading-relaxed">
+                    {item.title}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

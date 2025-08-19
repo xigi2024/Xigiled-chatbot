@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link2 } from 'lucide-react';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://xigiled.in/api';
 
 const Industry = () => {
   const navigate = useNavigate();
@@ -15,20 +15,25 @@ const Industry = () => {
   // Function to convert title to URL slug
   const createSlug = (title) => {
     const specialCases = {
-      'Manfacturing and factories': 'ManfacturingAndFactories',
+      'Events & Exhibitions': 'EventsAndExhibitions',
+      'Manufacturing & Factories': 'ManufacturingAndFactories',
       'Transport and Public Venues': 'TransportAndPublicVenues',
       'Hospitality & Hotels': 'HospitalityHotels',
       'Government & Civic Spaces': 'GovernmentCivicSpaces',
-      'Events & Exhibitions': 'EventsAndExhibitions',
       'Education and Institutions': 'EducationAndInstitutions',
-      'Retail': 'Retail'
+      'Retail': 'Retail',
+      'Rental LED': 'RentalLED',
+      'Corporate Office': 'CorporateOffice'
     };
 
+    // Return predefined slug if exists
     if (specialCases[title]) {
       return specialCases[title];
     }
 
+    // Default conversion for other cases
     return title
+      .trim()
       .replace(/[^a-zA-Z0-9\s]/g, '')
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -61,10 +66,17 @@ const Industry = () => {
     fetchIndustryData();
   }, []);
 
-  // Handle card click
+  // Handle card click with error handling
   const handleCardClick = (title) => {
-    const slug = createSlug(title);
-    navigate(`/industry/${slug}`);
+    try {
+      const slug = createSlug(title);
+      console.log(`Navigating to: /industry/${slug}`);
+      navigate(`/industry/${slug}`);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Fallback to generic industry page if route fails
+      navigate('/industry');
+    }
   };
 
   // Loading state
@@ -140,9 +152,10 @@ const Industry = () => {
         <div className="hidden md:block w-full md:w-auto mt-10 md:mt-0">
           {heroSection?.images?.[0] && (
             <img
-              src={`${API_BASE_URL.replace('/api', '')}/storage/${heroSection.images[0].image}`}
+              src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
               alt="LED Display"
               className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
+              loading="lazy"
             />
           )}
         </div>
@@ -155,9 +168,10 @@ const Industry = () => {
           <div className="flex justify-center">
             {digitalImpactSection?.images?.[0] && (
               <img
-                src={`${API_BASE_URL.replace('/api', '')}/storage/${digitalImpactSection.images[0].image}`}
+                src={`https://xigiled.in/storage/${digitalImpactSection.images[0].image}`}
                 alt="Digital Impact"
                 className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+                loading="lazy"
               />
             )}
           </div>
@@ -187,124 +201,129 @@ const Industry = () => {
             {industrySection?.title || 'INDUSTRY SOLUTIONS'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6">
-            {industrySection?.images?.map((card, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleCardClick(card.title)}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative cursor-pointer"
-              >
-                {/* Image with hover icon */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={`${API_BASE_URL.replace('/api', '')}/storage/${card.image}`}
-                    alt={card.title}
-                    className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+            {industrySection?.images?.map((card, idx) => {
+              // Clean up title and description
+              const cleanTitle = card.title?.trim() || 'Industry Solution';
+              const cleanDescription = card.description?.replace(/\n/g, '<br />') || '';
 
-                  {/* Centered Icon on Hover for Mobile & Tab */}
-                  <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg">
-                      <Link2 className="h-6 w-6 text-[#3a4a6f]" />
-                    </span>
+              return (
+                <div
+                  key={idx}
+                  onClick={() => handleCardClick(cleanTitle)}
+                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative cursor-pointer h-full"
+                >
+                  {/* Image with hover icon */}
+                  <div className="relative overflow-hidden h-48">
+                    <img
+                      src={`https://xigiled.in/storage/${card.image}`}
+                      alt={cleanTitle}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
+                      <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg">
+                        <Link2 className="h-6 w-6 text-[#3a4a6f]" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="p-4 relative h-[calc(100%-12rem)]">
+                    <h3 className="text-[16px] md:text-[18px] lg:text-[22px] my-2 font-medium text-gray-900 font-['Poppins',sans-serif]">
+                      {cleanTitle}
+                    </h3>
+                    <div 
+                      className="text-[15px] pb-3 text-gray-700 mt-1 font-medium font-['Montserrat',sans-serif]"
+                      dangerouslySetInnerHTML={{ __html: cleanDescription }}
+                    />
+
+                    {/* Always show icon in bottom-right on desktop */}
+                    <div className="absolute bottom-4 right-4 hidden lg:block">
+                      <span className="bg-[#e6ecf6] p-3 rounded-[5px] shadow-lg inline-flex items-center justify-center">
+                        <Link2 className="h-5 w-5 text-[#3a4a6f]" />
+                      </span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Text Content */}
-                <div className="p-4 relative">
-                  <h3 className="text-[16px] md:text-[18px] lg:text-[22px] my-2 font-medium text-gray-900 font-['Poppins',sans-serif]">
-                    {card.title}
-                  </h3>
-                  <p className="text-[15px] pb-3 text-gray-700 mt-1 pr-[15px] max-w-full pr-[10px] md:max-w-full lg:max-w-80 font-medium font-['Montserrat',sans-serif]">
-                    {card.description}
-                  </p>
-
-                  {/* Always show icon in bottom-right on desktop */}
-                  <div className="absolute bottom-6 right-6 hidden lg:block">
-                    <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg inline-flex items-center justify-center">
-                      <Link2 className="h-6 w-6 text-[#3a4a6f]" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Key Features Section */}
-      <section className="bg-white py-16 md:py-16 lg:py-24">
-        <div className="">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-            {keyFeaturesSection?.title || 'Key Features of Our LED Video Walls'}
-          </h2>
+      {keyFeaturesSection && (
+        <section className="bg-white py-16 md:py-16 lg:py-24">
+          <div className="container mx-auto">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+              {keyFeaturesSection.title || 'Key Features of Our LED Video Walls'}
+            </h2>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            {keyFeaturesSection?.images?.map((feature, idx) => (
-              <div
-                key={idx}
-                className="bg-[#f8faff] rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
-              >
-                {/* Icon Top-Left */}
-                <div className="mb-4">
-                  <div className="bg-[#eef3ff] p-3 rounded-md inline-block">
-                    {feature.image && (
-                      <img
-                        src={`${API_BASE_URL.replace('/api', '')}/storage/${feature.image}`}
-                        alt={feature.title}
-                        className="w-10 h-10"
-                      />
-                    )}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {keyFeaturesSection.images?.map((feature, idx) => (
+                <div
+                  key={idx}
+                  className="bg-[#f8faff] rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 h-full"
+                >
+                  <div className="mb-4">
+                    <div className="bg-[#eef3ff] p-3 rounded-md inline-block">
+                      {feature.image && (
+                        <img
+                          src={`https://xigiled.in/storage/${feature.image}`}
+                          alt={feature.title}
+                          className="w-10 h-10"
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
                   </div>
+                  <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                    {feature.description}
+                  </p>
                 </div>
-
-                {/* Title + Description */}
-                <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ready to Transform Section */}
-      <section className="bg-[#f2f2fd] py-20">
-        <div className="container mx-auto">
-          <div
-            className="h-[500px] relative rounded-3xl overflow-hidden"
-            style={{
-              backgroundImage: transformSection?.images?.[0] 
-                ? `url(${API_BASE_URL.replace('/api', '')}/storage/${transformSection.images[0].image})`
-                : 'none',
-              backgroundColor: transformSection?.images?.[0] ? 'transparent' : '#1e2d3d',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            {/* Black overlay */}
-            <div className="absolute inset-0 bg-black/40 z-0"></div>
-
-            {/* Content Over Image */}
-            <div className="relative z-10 h-full flex flex-col bg-black/30 justify-center px-6 sm:px-10 max-w-xl">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
-                {transformSection?.title || 'Ready to Transform Your Advertising?'}
-              </h2>
-              <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
-                {transformSection?.description || 'With Xigi DOOH, you\'re not just getting ad space – you\'re gaining a partner committed to elevating your brand.'}
-              </p>
-              <button 
-                onClick={() => navigate('/contact')}
-                className="bg-white w-[280px] text-semibold hover:from-indigo-700 cursor-pointer px-7 py-3 rounded-md shadow-md text-[16px]"
-              >
-                See Solutions for Your Industry
-              </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Ready to Transform Section */}
+      {transformSection && (
+        <section className="bg-[#f2f2fd] py-20">
+          <div className="container mx-auto">
+            <div
+              className="h-[500px] relative rounded-3xl overflow-hidden"
+              style={{
+                backgroundImage: transformSection.images?.[0]?.image 
+                  ? `url(https://xigiled.in/storage/${transformSection.images[0].image})`
+                  : 'none',
+                backgroundColor: transformSection.images?.[0]?.image ? 'transparent' : '#1e2d3d',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="absolute inset-0 bg-black/40 z-0"></div>
+              <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
+                  {transformSection.title || 'Ready to Transform Your Advertising?'}
+                </h2>
+                <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+                  {transformSection.description || 'With Xigi DOOH, you\'re not just getting ad space – you\'re gaining a partner committed to elevating your brand.'}
+                </p>
+                <button 
+                  onClick={() => navigate('/contact')}
+                  className="bg-white w-[280px] text-semibold hover:from-indigo-700 cursor-pointer px-7 py-3 rounded-md shadow-md text-[16px]"
+                >
+                  See Solutions for Your Industry
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

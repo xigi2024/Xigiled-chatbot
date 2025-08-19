@@ -3,8 +3,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight } from "lucide-react";
-import cta from '../assets/cta.png';
-import led from '../assets/Retail banner.png';
+
 
 const RetailEnvironments = () => {
   const [apiData, setApiData] = useState([]);
@@ -122,64 +121,71 @@ const RetailEnvironments = () => {
           </div>
         </section>
       )}
+{/* Excellence Section */}
+<section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
+  {/* Breadcrumb */}
+  <div className="container text-sm text-gray-500 mb-10">
+    <span className="inline-flex items-center gap-2">
+      <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+        🏠 Home
+      </Link>
+      <span>›</span>
+      <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+        Industry
+      </Link>
+      <span>›</span>
+      <span className="text-blue-600 text-decoration-none font-medium">Retail</span>
+    </span>
+  </div>
 
-      {/* Excellence Section */}
-      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
-        {/* Breadcrumb */}
-        <div className="container text-sm text-gray-500 mb-10">
-          <span className="inline-flex items-center gap-2">
-            <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
-              🏠 Home
-            </Link>
-            <span>›</span>
-            <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
-              Industry
-            </Link>
-            <span>›</span>
-            <span className="text-blue-600 text-decoration-none font-medium">Retail Environments</span>
-          </span>
-        </div>
+  <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
+    {/* Left Image - Only show if image exists */}
+    {excellenceSection?.images?.some(img => img.image) && (
+      <div className="flex justify-center w-full">
+        <img
+          src={excellenceSection.images.find(img => img.image)?.image 
+            ? `https://xigiled.in/storage/${excellenceSection.images.find(img => img.image).image}`
+            : ""}
+          alt="LED Display in Retail"
+          className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+          onError={(e) => {
+            e.target.style.display = 'none';
+          }}
+        />
+      </div>
+    )}
 
-        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
-          {/* Left Image */}
-          <div className="flex justify-center w-full">
-            <img
-              src={excellenceSection?.images?.[0]?.image ? `https://xigiled.in/storage/${excellenceSection.images[0].image}` : ""}
-              alt="LED Display in Retail"
-              className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-            />
-          </div>
+    {/* Right Content */}
+    <div className="w-full">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+        {excellenceSection?.title || "Designed for Retail Excellence"}
+      </h2>
+      
+      {/* Description - split by newlines */}
+      {excellenceSection?.description && (
+        <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+          {excellenceSection.description.split('\n')[0]}
+        </p>
+      )}
 
-          {/* Right Content */}
-          <div className="w-full">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-              {excellenceSection?.title || "Designed for Retail Excellence"}
-            </h2>
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
-              {excellenceSection?.description?.split('\n')[0] || "Our LED displays are built to perform in demanding retail environments."}
-            </p>
-
-            <div className="space-y-6">
-              {[
-                excellenceSection?.images?.[0]?.description]
-                .filter(Boolean)
-                .join('\n\n')
-                .split('\n\n')
-                .filter(item => item.trim())
-                .map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
-                      ✓
-                    </div>
-                    <p className="text-gray-900 text-base leading-relaxed">
-                      {item}
-                    </p>
-                  </div>
-                ))}
+      <div className="space-y-6">
+        {/* Show image titles if they exist */}
+        {excellenceSection?.images?.map((item, index) => (
+          item.title && (
+            <div key={index} className="flex items-start gap-3">
+              <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+                ✓
+              </div>
+              <p className="text-gray-900 text-base leading-relaxed">
+                {item.title}
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
+          )
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Smart Displays Section */}
       <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-24">
@@ -411,7 +417,7 @@ const RetailEnvironments = () => {
                   onClick={() => navigate('/contact')} 
                   className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
                 >
-                  See Solutions for Your Business
+                 Get a Custom Quote Today 
                 </button>
               </div>
             </div>

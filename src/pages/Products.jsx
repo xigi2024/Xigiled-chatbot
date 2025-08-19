@@ -5,7 +5,77 @@ import Footer from '../components/Footer';
 import { Cpu, Activity, ShieldCheck, Link2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+// Updated API base URL
+const API_BASE_URL = 'https://xigiled.in/api';
+
+// Fallback data structure
+const FALLBACK_DATA = [
+  {
+    section: "product_section1",
+    title: "XIGI LED Display",
+    description: "Brilliant LED Solutions for Every Sector",
+    images: [
+      {
+        image: "",
+        title: "Brilliant LED Solutions for Every Sector",
+        description: "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."
+      }
+    ]
+  },
+  {
+    section: "product_section2",
+    title: "Digital Impact by product",
+    description: "At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment. Our technology adapts to your unique needs, helping you connect, engage, and grow in today's fast-moving digital world.",
+    images: [
+      {
+        image: "",
+        title: null,
+        description: null
+      }
+    ]
+  },
+  {
+    section: "product_section3",
+    title: "Products & Solutions",
+    description: null,
+    images: [
+      {
+        image: "",
+        title: "Indoor Led",
+        description: "Transform Interiors—Ultra-HD Visuals, Seamless Design"
+      },
+      {
+        image: "",
+        title: "Outdoor Led",
+        description: "Rule the Outdoors—All-Weather, Daylight-Bright Displays"
+      }
+    ]
+  },
+  {
+    section: "product_section4",
+    title: "Key Features of Our LED Video Walls",
+    description: null,
+    images: [
+      {
+        image: "",
+        title: "Ultra-High Resolution & Clarity",
+        description: "Crystal-clear visuals for displaying products with sharp detail, attracting customers' attention even from a distance."
+      }
+    ]
+  },
+  {
+    section: "product_section5",
+    title: "Ready to Transform Your Advertising?",
+    description: "With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand.",
+    images: [
+      {
+        image: "",
+        title: null,
+        description: null
+      }
+    ]
+  }
+];
 
 // Helper function to construct image URL
 const getImageUrl = (imagePath) => {
@@ -22,7 +92,7 @@ const getImageUrl = (imagePath) => {
   // Add 'storage/' prefix if not already present
   const finalPath = cleanPath.startsWith('storage/') ? cleanPath : `storage/${cleanPath}`;
   
-  return `${API_BASE_URL}/${finalPath}`;
+  return `https://xigiled.in/${finalPath}`;
 };
 
 // Helper function to generate URL slug from title
@@ -50,26 +120,11 @@ const getRouteFromTitle = (title) => {
   if (titleLower.includes('outdoor') && titleLower.includes('led')) {
     return '/products/outdoor-led-video-walls';
   }
-  if (titleLower.includes('events') && titleLower.includes('exhibitions')) {
-    return '/products/events-exhibitions';
+  if (titleLower.includes('interactive') && titleLower.includes('display')) {
+    return '/products/interactive-displays';
   }
-  if (titleLower.includes('manufacturing') || titleLower.includes('factories')) {
-    return '/products/manufacturing-factories';
-  }
-  if (titleLower.includes('education') && titleLower.includes('institutions')) {
-    return '/products/education-institutions';
-  }
-  if (titleLower.includes('transport') && titleLower.includes('public')) {
-    return '/products/transport-public-venues';
-  }
-  if (titleLower.includes('hospitality') && titleLower.includes('hotels')) {
-    return '/products/hospitality-hotels';
-  }
-  if (titleLower.includes('government') && titleLower.includes('civic')) {
-    return '/products/government-civic-spaces';
-  }
-  if (titleLower.includes('retail')) {
-    return '/products/retail';
+  if (titleLower.includes('truck') && titleLower.includes('mounted')) {
+    return '/products/truck-mounted-displays';
   }
   
   // Default: generate route from title
@@ -97,14 +152,9 @@ const ProductSolutions = ({ sectionData }) => {
               {/* Image with hover icon for mobile/tab */}
               <div className="relative overflow-hidden">
                 <img
-                  src={getImageUrl(item.image)}
+                  src={getImageUrl(item.image) || 'https://via.placeholder.com/300x200?text=Product+Image'}
                   alt={item.title || 'Product Image'}
                   className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    console.error('Image failed to load:', item.image);
-                    console.error('Attempted URL:', e.target.src);
-                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjNmNGY2Ii8+Cjx0ZXh0IHg9IjE1MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2YjcyODAiPkltYWdlIG5vdCBmb3VuZDwvdGV4dD4KPHN2Zz4='; // Base64 placeholder
-                  }}
                 />
 
                 {/* Centered Icon on Hover for Mobile & Tab */}
@@ -202,18 +252,20 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/api/products`);
+        const response = await fetch(`${API_BASE_URL}/products`);
         
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`Failed to fetch products: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log('API Response:', data); // Debug log
+        console.log('API Response:', data);
         setApiData(data);
       } catch (err) {
         console.error('Error fetching products:', err);
         setError(err.message);
+        // Use fallback data if API fails
+        setApiData(FALLBACK_DATA);
       } finally {
         setLoading(false);
       }
@@ -224,7 +276,8 @@ const Products = () => {
 
   // Helper function to get section data by section name
   const getSectionData = (sectionName) => {
-    return apiData.find(item => item.section === sectionName);
+    return apiData.find(item => item.section === sectionName) || 
+      FALLBACK_DATA.find(item => item.section === sectionName);
   };
 
   // Loading state
@@ -236,27 +289,6 @@ const Products = () => {
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
             <p className="text-gray-600">Loading products...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="min-h-screen flex flex-col bg-[#f8faff]">
-        <Header />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-red-600 mb-4">Error loading products: {error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-            >
-              Retry
-            </button>
           </div>
         </div>
         <Footer />
@@ -285,29 +317,18 @@ const Products = () => {
               {heroSection?.title || "Brilliant LED Solutions for Every Sector"}
             </h1>
             <p className="text-white/100 text-lg md:text-[15px] lg:text-xl max-w-2xl mb-4 leading-[30px]">
-              {heroSection?.description || "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."}
+              {heroSection?.images?.[0]?.description || "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."}
             </p>
           </div>
         </div>
 
         {/* Hero Image */}
         <div className="hidden md:block w-full md:w-auto mt-10 md:mt-0">
-          {heroSection?.images?.[0] ? (
-            <img
-              src={getImageUrl(heroSection.images[0].image)}
-              alt="LED Display"
-              className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
-              onError={(e) => {
-                console.error('Hero image failed to load:', heroSection.images[0].image);
-                console.error('Attempted URL:', e.target.src);
-                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjZjNmNGY2Ii8+Cjx0ZXh0IHg9IjI1MCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM2YjcyODAiPkhlcm8gSW1hZ2UgTm90IEZvdW5kPC90ZXh0Pgo8L3N2Zz4=';
-              }}
-            />
-          ) : (
-            <div className="w-full md:w-[700px] lg:w-[1000px] h-64 bg-gray-300 rounded-lg flex items-center justify-center">
-              <p className="text-gray-600">Hero Image Loading...</p>
-            </div>
-          )}
+          <img
+            src={getImageUrl(heroSection?.images?.[0]?.image) || 'https://via.placeholder.com/1000x600?text=XIGI+LED+Display'}
+            alt="LED Display"
+            className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
+          />
         </div>
       </section>
 
@@ -316,22 +337,11 @@ const Products = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left Image */}
           <div className="flex justify-center">
-            {digitalImpactSection?.images?.[0] ? (
-              <img
-                src={getImageUrl(digitalImpactSection.images[0].image)}
-                alt={digitalImpactSection.title}
-                className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
-                onError={(e) => {
-                  console.error('Digital impact image failed to load:', digitalImpactSection.images[0].image);
-                  console.error('Attempted URL:', e.target.src);
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjZjNmNGY2Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM2YjcyODAiPkltYWdlIE5vdCBGb3VuZDwvdGV4dD4KPHN2Zz4=';
-                }}
-              />
-            ) : (
-              <div className="h-64 bg-gray-300 rounded-xl w-full max-w-md md:max-w-full flex items-center justify-center">
-                <p className="text-gray-600">Image Loading...</p>
-              </div>
-            )}
+            <img
+              src={getImageUrl(digitalImpactSection?.images?.[0]?.image) || 'https://via.placeholder.com/600x400?text=Digital+Impact'}
+              alt={digitalImpactSection?.title}
+              className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+            />
           </div>
 
           {/* Right Content */}
@@ -364,9 +374,7 @@ const Products = () => {
           <div
             className="h-[500px] relative rounded-3xl overflow-hidden"
             style={{
-              backgroundImage: transformSection?.images?.[0] ? 
-                `url(${getImageUrl(transformSection.images[0].image)})` : 
-                'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
+              backgroundImage: `url(${getImageUrl(transformSection?.images?.[0]?.image) || 'https://via.placeholder.com/1200x500?text=Transform+Your+Advertising'})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

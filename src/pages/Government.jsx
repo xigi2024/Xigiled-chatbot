@@ -91,74 +91,85 @@ const Government = () => {
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
 
-      {/* Hero Section */}
-      {heroSection && (
-        <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-36 px-[10px] md:px-[40px] lg:px-[100px]">
-          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex-1 text-left">
-              <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-2 font-['Poppins',sans-serif]">
-                {heroSection.title || "XIGI LED Display for Government"}
-              </h1>
-              <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-tight">
-                {heroSection.description || "Brilliant LED Solutions for Government & Public Spaces"}
-              </p>
-            </div>
-            <div className="flex-1 flex justify-center">
-              {heroSection.images?.[0]?.image && (
-                <img
-                  src={`https://xigiled.in/storage/${heroSection.images.image}`}
-                  alt="LED Display"
-                  className="w-full max-w-[600px] h-[400px] object-cover drop-shadow-2xl rounded-lg"
-                />
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+   {/* Hero Section */}
+{heroSection && (
+  <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-36 px-[10px] md:px-[40px] lg:px-[100px]">
+    <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="flex-1 text-left">
+        <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-2 font-['Poppins',sans-serif]">
+          {heroSection.title || "XIGI LED Display for Government"}
+        </h1>
+        <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-tight">
+          {heroSection.description || "Brilliant LED Solutions for Government & Public Spaces"}
+        </p>
+      </div>
+      <div className="flex-1 flex justify-center">
+        {heroSection.images?.[0]?.image && (
+          <img
+            src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
+            alt="LED Display"
+            className="w-full max-w-[600px] h-[400px] object-cover drop-shadow-2xl rounded-lg"
+          />
+        )}
+      </div>
+    </div>
+  </section>
+)}
 
-      {/* Visibility & Versatility Section */}
-      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
-        <div className="container text-sm text-gray-500 mb-10">
-          <span className="inline-flex items-center gap-2">
-            <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
-              🏠 Home
-            </Link>
-            <span>›</span>
-            <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
-              Industry
-            </Link>
-            <span>›</span>
-            <span className="text-blue-600 text-decoration-none font-medium">Government & Public Spaces</span>
-          </span>
-        </div>
-        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
-          <div className="flex justify-center w-full">
-            <img
-              src={visibilitySection?.images?.[0]?.image ? `https://xigiled.in/storage/${visibilitySection.images.image}` : ""}
-              alt="LED Display Billboard"
-              className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-            />
-          </div>
-          <div className="w-full">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-              {visibilitySection?.title || "Designed for Visibility and Versatility"}
-            </h2>
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
-              {visibilitySection?.description || "Our LED displays are built to perform in demanding settings. Every unit is engineered to provide excellent image clarity, easy setup, and dependable operation from start to finish."}
+{/* Visibility & Versatility Section */}
+<section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
+  <div className="container text-sm text-gray-500 mb-10">
+    <span className="inline-flex items-center gap-2">
+      <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+        🏠 Home
+      </Link>
+      <span>›</span>
+      <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+        Industry
+      </Link>
+      <span>›</span>
+      <span className="text-blue-600 text-decoration-none font-medium">Government & Public Spaces</span>
+    </span>
+  </div>
+  <div className="container mx-auto flex flex-col lg:flex-row gap-10 items-center">
+    {/* Image on left - using find() to get the first image that exists */}
+    <div className="w-full lg:w-1/2 order-first">
+      {visibilitySection?.images?.find(img => img.image) && (
+        <img
+          src={`https://xigiled.in/storage/${visibilitySection.images.find(img => img.image).image}`}
+          alt="Government LED Display"
+          className="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-lg"
+        />
+      )}
+    </div>
+
+    {/* Content on right */}
+    <div className="w-full lg:w-1/2">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+        {visibilitySection?.title || "Designed for Public Impact"}
+      </h2>
+      <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+        {visibilitySection?.description}
+      </p>
+      
+      {/* List items without tick icons */}
+      <div className="space-y-4">
+        {visibilitySection?.images
+          ?.filter(item => item.title) // Only show items with titles
+          .map((item, index) => (
+                  <div  className="flex items-start gap-3">
+                    <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+                      ✓
+                    </div>
+            <p key={index} className="text-gray-900 text-base leading-relaxed">
+              {item.title}
             </p>
-            <div className="space-y-6">
-              {visibilitySection?.images?.slice(1).map((item, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">✓</div>
-                  <p className="text-gray-900 text-base leading-relaxed">
-                    <strong>{item.title}</strong> {item.description}
-                  </p>
-                </div>
-              ))}
             </div>
-          </div>
-        </div>
-      </section>
+          ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
@@ -335,39 +346,38 @@ const Government = () => {
       )}
 
       {/* Ready to Transform Section */}
-      {transformSection && (
-        <section className="bg-[#f2f2fd] py-20">
-          <div className="container mx-auto">
-            <div
-              className="h-[500px] relative rounded-3xl overflow-hidden"
-              style={{
-                backgroundImage: transformSection.images?.[0]?.image
-                  ? `url(https://xigiled.in/storage/${transformSection.images.image})`
-                  : 'linear-gradient(to bottom right, #000000, #010150, #000000)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <div className="absolute inset-0 bg-black/55 z-0"></div>
-              <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
-                  {transformSection.title || "Ready to Transform Your Government Space?"}
-                </h2>
-                <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
-                  {transformSection.description || "With Xigi LED, you're not just getting displays - you're gaining a partner committed to enhancing communication for public spaces."}
-                </p>
-                <button
-                  onClick={() => navigate('/contact')}
-                  className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
-                >
-                  Get Your Custom Quote
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-      
+   {transformSection && (
+  <section className="bg-[#f2f2fd] py-20">
+    <div className="container mx-auto">
+      <div
+        className="h-[500px] relative rounded-3xl overflow-hidden"
+        style={{
+          backgroundImage: transformSection.images?.[0]?.image
+            ? `url(https://xigiled.in/storage/${transformSection.images[0].image})`
+            : 'linear-gradient(to bottom right, #000000, #010150, #000000)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-black/55 z-0"></div>
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
+            {transformSection.title || "Ready to Transform Your Government Space?"}
+          </h2>
+          <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+            {transformSection.description || "With Xigi LED, you're not just getting displays - you're gaining a partner committed to enhancing communication for public spaces."}
+          </p>
+          <button
+            onClick={() => navigate('/contact')}
+            className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
+          >
+            Request a Custom Quote Today 
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
       <Footer />
     </div>
   );

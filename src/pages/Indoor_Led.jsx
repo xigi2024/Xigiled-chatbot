@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import cta from '../assets/cta.png';
+import cta from '../assets/indoor.jpg';
 import display from '../assets/display.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link,useNavigate } from 'react-router-dom';
@@ -81,8 +81,6 @@ const ShowcaseSlider = ({ showcaseData }) => {
     </section>
   );
 };
-
-
 
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
@@ -166,8 +164,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     </section>
   );
 };
-
-
 
 const Indoor_Led = () => {
   const [apiData, setApiData] = useState([]);
@@ -262,43 +258,54 @@ const Indoor_Led = () => {
         </div>
       </div>
 
-      {/* Transform Interiors Section */}
-      {transformInteriorsData && (
-        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          {transformInteriorsData.images.map((item, index) => (
-            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-              {index % 2 === 0 ? (
-                <>
-                  {/* Text Left, Image Right */}
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">{item.title}</h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {item.description}
-                    </p>
-                    
-                  </div>
-                  <div className="md:col-span-7 ">
-                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] rounded-xl drop-shadow-xl" />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Image Left, Text Right */}
-                  <div className=" md:col-span-7 ">
-                    <img src={`https://xigiled.in/storage/${item.image}`} alt={item.title} className="w-full h-[400px] drop-shadow-xl" />
-                  </div>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-                    <h2 className="text-3xl md:text-[45px] font-medium text-gray-900 mb-5 md:mb-7">{item.title}</h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {item.description}
-                    </p>
-                  </div>
-                </>
-              )}
+{/* Transform Interiors Section */}
+{transformInteriorsData && (
+  <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
+    {transformInteriorsData.images.map((item, index) => (
+      <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
+        {/* Text Left, Image Right - for even indexes */}
+        {index % 2 === 0 ? (
+          <>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {transformInteriorsData.title || "Indoor Video Walls"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                {transformInteriorsData.description || "Indoor LED video walls bring life to interiors with ultra-HD visuals and seamless design..."}
+              </p>
             </div>
-          ))}
-        </section>
-      )}
+            <div className="md:col-span-7">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={transformInteriorsData.title || "Indoor LED Display"} 
+                className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image Left, Text Right - for odd indexes */}
+            <div className="md:col-span-7">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={transformInteriorsData.title || "Indoor LED Display"} 
+                className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {transformInteriorsData.title || "Indoor Video Walls"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                {transformInteriorsData.description || "Indoor LED video walls bring life to interiors with ultra-HD visuals and seamless design..."}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </section>
+)}
 
       {/* Smart Display Types Section */}
   {smartDisplayData && (
@@ -427,7 +434,7 @@ const Indoor_Led = () => {
 
       {/* CTA Section - Keep as hardcoded */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center"style={{padding:"0px !important"}}>
           {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img

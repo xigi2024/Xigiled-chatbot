@@ -3,27 +3,190 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/cta.png';
 import interactive from '../assets/interactive.webp';
-import { Link,useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import Highdefinition from '../assets/industry/High-definition.png'
+import seamless from '../assets/industry/seamless.png'
+import vibrantColor from '../assets/industry/vibrantColor.png'
+import WideAngle from '../assets/industry/WideAngle.png'
+import ultraThin from '../assets/industry/ultraThin.png'
+
+const ShowcaseSlider = ({ showcaseData }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0) return null;
+
+  const showcaseItems = showcaseData.images.map(img => ({
+    title: img.title,
+    image: `https://xigiled.in/storage/${img.image}`,
+  }));
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? showcaseItems.length - 1 : prevIndex - 1
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [showcaseItems.length]);
+
+  return (
+    <section className="bg-[#EAF1FF] py-22">
+      <div className="container mx-auto text-center px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+            {showcaseData.title || "For Showcase"}
+          </h2>
+          <Link
+            to="/gallery"
+            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
+          >
+            View All
+          </Link>
+        </div>
+
+        <div className="relative rounded-2xl overflow-hidden">
+          <img
+            src={showcaseItems[currentIndex]?.image}
+            alt={showcaseItems[currentIndex]?.title}
+            className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
+          />
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
+            {showcaseItems[currentIndex]?.title}
+          </h3>
+
+          {/* Prev & Next Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const PixelPitchScroll = ({ pixelPitchData }) => {
+  const scrollRef = useRef(null);
+  const scrollSpeed = 1;
+  const animationRef = useRef(null);
+
+  const animateScroll = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += scrollSpeed;
+      const scrollWidth = scrollRef.current.scrollWidth;
+      const halfWidth = scrollWidth / 2;
+
+      if (scrollRef.current.scrollLeft >= halfWidth) {
+        scrollRef.current.scrollLeft = 0;
+      }
+    }
+    animationRef.current = requestAnimationFrame(animateScroll);
+  };
+
+  useEffect(() => {
+    animationRef.current = requestAnimationFrame(animateScroll);
+
+    const container = scrollRef.current;
+    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
+    const handleMouseLeave = () => animationRef.current = requestAnimationFrame(animateScroll);
+
+    if (container) {
+      container.addEventListener('mouseenter', handleMouseEnter);
+      container.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      cancelAnimationFrame(animationRef.current);
+      if (container) {
+        container.removeEventListener('mouseenter', handleMouseEnter);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+
+  if (!pixelPitchData?.images?.length) return null;
+
+  // Duplicate for seamless scroll
+  const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
+
+  return (
+    <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+      <div className="container mx-auto">
+        {/* Heading */}
+        <div className="text-center mb-12">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+            {pixelPitchData.title}
+          </h2>
+        </div>
+
+        {/* Scrollable 5-item container */}
+        <div
+          ref={scrollRef}
+          className="overflow-x-hidden relative"
+          style={{ width: '1200px', margin: '0 auto' }}
+        >
+          <div className="flex gap-10">
+            {fullList.map((pitch, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 text-center w-[160px]"
+              >
+                <img
+                  src={`https://xigiled.in/storage/${pitch.image}`}
+                  alt={pitch.title}
+                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                />
+                <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
+                  {pitch.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Interactive_display = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch('https://xigiled.in/api/interactive-led-displays');
+        
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
         const data = await response.json();
         setApiData(data);
-        setLoading(false);
       } catch (err) {
         setError(err.message);
+        console.error('Error fetching data:', err);
+      } finally {
         setLoading(false);
       }
     };
@@ -36,15 +199,14 @@ const Interactive_display = () => {
     return apiData.find(item => item.section === sectionName);
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-600 border-t-transparent"></div>
-            <p className="mt-4 text-gray-600">Loading...</p>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600">Loading...</p>
           </div>
         </div>
         <Footer />
@@ -52,14 +214,19 @@ const Interactive_display = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-red-600">Error: {error}</p>
+            <p className="text-lg text-red-600 mb-4">Error loading data: {error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+              Retry
+            </button>
           </div>
         </div>
         <Footer />
@@ -69,14 +236,14 @@ const Interactive_display = () => {
 
   const section1 = getSectionData('interactive_led_section1');
   const section2 = getSectionData('interactive_led_section2');
-  const section3 = getSectionData('interactive_led_section3');
-  const section4 = getSectionData('interactive_led_section4');
-  const section5 = getSectionData('interactive_led_section5');
+  const pixelPitchData = getSectionData('interactive_led_section3');
+  const showcaseData = getSectionData('interactive_led_section4');
+  const featuresData = getSectionData('interactive_led_section5');
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
+ 
       {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
@@ -84,9 +251,9 @@ const Interactive_display = () => {
           alt="Interactive Led Display"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-[rgba(0,0,0,0.7)] flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-semibold text-white text-center">
-            Interactive LED display
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+          <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center font-['Poppins',sans-serif]">
+            Interactive LED Display
           </h1>
         </div>
       </div>
@@ -94,35 +261,47 @@ const Interactive_display = () => {
       {/* Section 1 - Touch the Future */}
       {section1 && (
         <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          <div className="container mx-auto text-center mb-10">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5">
-              {section1.title}
-            </h2>
-            <p className="text-sm md:text-[17px] text-gray-700 font-['Montserrat',sans-serif] font-medium max-w-4xl mx-auto">
-              {section1.description}
-            </p>
-          </div>
-
-          {section1.images && section1.images.map((imageData, index) => (
-            <div key={index} className={`container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto ${index % 2 === 0 ? '' : 'md:grid-flow-col-dense'}`}>
-              <div className={`bg-[#F1F5F9] md:col-span-5 h-[400px] rounded-xl p-8 flex flex-col justify-center ${index % 2 === 0 ? '' : 'md:col-start-8'}`}>
-                <h3 className="text-3xl md:text-[40px] font-semibold text-gray-900 mb-5 md:mb-7">
-                  {imageData.title}
-                </h3>
-                {imageData.description && (
-                  <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                    {imageData.description}
-                  </p>
-                )}
-
-              </div>
-              <div className={` md:col-span-7  ${index % 2 === 0 ? '' : 'md:col-start-1'}`}>
-                <img
-                  src={`https://xigiled.in/storage/${imageData.image}`}
-                  alt={imageData.title}
-                  className="w-full h-[400px] drop-shadow-xl rounded-lg"
-                />
-              </div>
+          {section1.images.map((item, index) => (
+            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
+              {/* Text Left, Image Right - for even indexes */}
+              {index % 2 === 0 ? (
+                <>
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {section1.title || "Interactive LED Displays"}
+                    </h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {section1.description || "Interactive LED displays revolutionize engagement with touch-sensitive technology..."}
+                    </p>
+                  </div>
+                  <div className="md:col-span-7">
+                    <img 
+                      src={`https://xigiled.in/storage/${item.image}`} 
+                      alt={section1.title || "Interactive LED Display"} 
+                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Image Left, Text Right - for odd indexes */}
+                  <div className="md:col-span-7">
+                    <img 
+                      src={`https://xigiled.in/storage/${item.image}`} 
+                      alt={section1.title || "Interactive LED Display"} 
+                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+                    />
+                  </div>
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {section1.title || "Interactive LED Displays"}
+                    </h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {section1.description || "Interactive LED displays revolutionize engagement with touch-sensitive technology..."}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </section>
@@ -132,22 +311,33 @@ const Interactive_display = () => {
       {section2 && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900">
-              {section2.title}
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+              {section2.title || "Interactive Display Types"}
             </h2>
+            {section2.description && (
+              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+                {section2.description}
+              </p>
+            )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {section2.images && section2.images.map((imageData, index) => (
-              <div key={index} className="bg-[#fff] rounded-xl overflow-hidden shadow-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {section2.images.map((item, index) => (
+              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
+                {/* Image with gradient overlay */}
                 <img
-                  src={`https://xigiled.in/storage/${imageData.image}`}
-                  alt={imageData.title}
-                  className="w-full h-64 md:h-70 lg:h-100 object-cover"
+                  src={`https://xigiled.in/storage/${item.image}`}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="text-center p-4">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900">
-                    {imageData.title}
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-90"></div>
+                
+                {/* Content */}
+                <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+                  <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+                    {item.title}
                   </h3>
                 </div>
               </div>
@@ -156,116 +346,111 @@ const Interactive_display = () => {
         </section>
       )}
 
-      {/* Section 3 - Screen Sizes */}
-      {section3 && (
-        <PixelPitchScroll data={section3} />
-      )}
+      {/* Pixel Pitch Section */}
+      <PixelPitchScroll pixelPitchData={pixelPitchData} />
 
-      {/* Section 4 - Showcase */}
-      {section4 && (
-        <ShowcaseSlider data={section4} />
-      )}
+      {/* Showcase Section */}
+      <ShowcaseSlider showcaseData={showcaseData} />
 
-      {section5 && (
-        <section className="py-16 bg-white px-4 flex flex-col items-center">
-          <h2 className="text-[45px] font-semibold text-center mb-5">{section5.title}</h2>
+      {/* Features Section */}
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+          Why Choose Xigi Interactive LED
+        </h2>
 
-          <div className="container grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Column 1 - Single tall item (600px) */}
-            {section5.images[0] && (
-              <div className="relative h-[600px] rounded-xl overflow-hidden">
-                <img
-                  src={`https://xigiled.in/storage/${section5.images[0].image}`}
-                  alt={section5.images[0].title}
-                  className="w-full h-full object-cover rounded-xl"
-                  loading="lazy"
-                />
-                <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-                  {section5.images[0].title}
-                </div>
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Column 1: High-definition */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
+              <img
+                src={Highdefinition}
+                alt="High-definition"
+                className="w-full object-cover rounded-md mb-4"
+              />
+              <div>
+                <h3 className="text-white text-xl font-bold mb-2">High-definition</h3>
+                <p className="text-white text-sm">
+                  Crystal-clear visuals with stunning clarity ensure every detail stands out. Experience
+                  sharp, lifelike images that captivate your audience instantly.
+                </p>
               </div>
-            )}
-
-            {/* Column 2 - Stacked items (250px + 330px) */}
-            <div className="space-y-5">
-              {section5.images[1] && (
-                <div className="relative h-[250px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${section5.images[1].image}`}
-                    alt={section5.images[1].title}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {section5.images[1].title}
-                  </div>
-                </div>
-              )}
-              {section5.images[2] && (
-                <div className="relative h-[330px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${section5.images[2].image}`}
-                    alt={section5.images[2].title}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {section5.images[2].title}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Column 3 - Stacked items (330px + 250px) */}
-            <div className="space-y-5">
-              {section5.images[3] && (
-                <div className="relative h-[330px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${section5.images[3].image}`}
-                    alt={section5.images[3].title}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {section5.images[3].title}
-                  </div>
-                </div>
-              )}
-              {section5.images[4] && (
-                <div className="relative h-[250px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${section5.images[4].image}`}
-                    alt={section5.images[4].title}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {section5.images[4].title}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
-        </section>
-      )}
+
+          {/* Column 2: Seamless + Vibrant Color */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={seamless}
+                alt="Seamless"
+                className="mx-auto w-70 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Seamless</h3>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={vibrantColor}
+                alt="Vibrant Color"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Vibrant Color</h3>
+                <p className="text-white text-sm">
+                  Vibrant colors that pop with brilliance, bringing every image to life.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Ultra-thin + Wide Angle */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={ultraThin}
+                alt="Ultra-thin"
+                className="w-66 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Ultra-thin</h3>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={WideAngle}
+                alt="Wide Angle"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Wide Angle</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
+          {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img
               src={cta}
-              alt="DOOH Display"
+              alt="Interactive Display"
               className="w-full h-full object-cover"
             />
           </div>
 
+          {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-black mb-2">
-              Ready to Transform Your Advertising?
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
+              Ready to Transform Your Interactive Experience?
             </h2>
             <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+              With Xigi Interactive Displays, you're not just getting a screen – you're gaining a partner committed to elevating your engagement
             </p>
             <button onClick={() => navigate('/contact')}
               className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
@@ -279,145 +464,5 @@ const Interactive_display = () => {
     </div>
   )
 }
-
-// Modified PixelPitchScroll component to use API data
-const PixelPitchScroll = ({ data }) => {
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    let scrollInterval;
-
-    const startScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (container) {
-          container.scrollLeft += 1;
-          if (container.scrollLeft >= container.scrollWidth / 2) {
-            container.scrollLeft = 0;
-          }
-        }
-      }, 20);
-    };
-
-    const stopScroll = () => clearInterval(scrollInterval);
-
-    if (container) {
-      container.addEventListener('mouseenter', stopScroll);
-      container.addEventListener('mouseleave', startScroll);
-      startScroll();
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('mouseenter', stopScroll);
-        container.removeEventListener('mouseleave', startScroll);
-      }
-      clearInterval(scrollInterval);
-    };
-  }, []);
-
-  if (!data || !data.images) return null;
-
-  // Duplicate content for infinite scroll
-  const fullList = [...data.images, ...data.images];
-
-  return (
-    <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-      <div className="container mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-[45px] font-semibold text-black">{data.title}</h2>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar pb-2"
-          style={{ scrollbarWidth: 'none' }}
-        >
-          {fullList.map((item, index) => (
-            <div key={index} className="flex-shrink-0 text-center w-[140px] md:w-[160px]">
-              <img
-                src={`https://xigiled.in/storage/${item.image}`}
-                alt={item.title}
-                className="w-full h-[120px] md:h-[130px] object-cover rounded-2xl shadow-md"
-              />
-              <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
-                {item.title}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// Modified ShowcaseSlider component to use API data
-const ShowcaseSlider = ({ data }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (data && data.images) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % data.images.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [data]);
-
-  if (!data || !data.images) return null;
-
-  return (
-    <section className="bg-blue-100 py-27">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-[45px] font-semibold text-black">For {data.title}</h2>
-          <Link
-            to="/gallery"
-            className="inline-block bg-blue-900 text-white px-4 py-2 w-[30%] md:w-[15%] lg:w-[10%] rounded-lg font-medium text-sm text-center"
-          >
-            View All
-          </Link>
-        </div>
-
-        <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-          <div className="w-full md:w-1/3 p-10 space-y-4">
-            {data.images.map((item, index) => (
-              <div
-                key={index}
-                className={`text-[20px] font-medium cursor-pointer transition-colors duration-300 ${index === currentIndex ? 'text-blue-700' : 'text-black'
-                  }`}
-                onClick={() => setCurrentIndex(index)}
-              >
-                {item.title}
-              </div>
-            ))}
-          </div>
-
-          <div className="hidden md:flex items-center justify-center">
-            <div className="w-[8px] h-125 rounded-2xl bg-blue-400"></div>
-          </div>
-
-          <div className="relative w-full md:w-2/3 p-10">
-            <img
-              src={`https://xigiled.in/storage/${data.images[currentIndex].image}`}
-              alt={data.images[currentIndex].title}
-              className="w-full h-[400px] object-cover rounded-xl"
-            />
-            <div className="mt-4">
-              <h3 className="text-[22px] font-semibold text-black">
-                {data.images[currentIndex].title}
-              </h3>
-              {data.images[currentIndex].description && (
-                <p className="text-[17px] text-gray-900 mb-3 font-['Montserrat',sans-serif] font-medium">
-                  {data.images[currentIndex].description}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 export default Interactive_display;
