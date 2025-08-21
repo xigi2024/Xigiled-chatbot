@@ -147,7 +147,7 @@ const ProductSolutions = ({ sectionData }) => {
             <Link
               to={getRouteFromTitle(item.title)}
               key={idx}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative"
+              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col"
             >
               {/* Image with hover icon for mobile/tab */}
               <div className="relative overflow-hidden">
@@ -156,28 +156,21 @@ const ProductSolutions = ({ sectionData }) => {
                   alt={item.title || 'Product Image'}
                   className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-
-                {/* Centered Icon on Hover for Mobile & Tab */}
-                <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg">
-                    <Link2 className="h-6 w-6 text-[#3a4a6f]" />
-                  </span>
-                </div>
               </div>
 
               {/* Text Content */}
-              <div className="p-4 relative">
+              <div className="p-4 relative flex-1 flex flex-col">
                 <h3 className="text-[16px] md:text-[18px] lg:text-[20px] font-medium my-2 text-gray-900 font-['Poppins',sans-serif]">
                   {item.title || 'Product Title'}
                 </h3>
-                <p className="text-[15px] text-gray-700 mt-1 max-w-full md:max-w-full lg:max-w-80 font-medium font-['Montserrat',sans-serif]">
+                <p className="text-[15px] text-gray-700 mt-1 flex-1 font-medium font-['Montserrat',sans-serif] pr-[10px] mb-4">
                   {item.description || 'Product description not available'}
                 </p>
 
                 {/* Always show icon in bottom-right on desktop */}
-                <div className="absolute bottom-6 right-6 hidden lg:block">
-                  <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg inline-flex items-center justify-center">
-                    <Link2 className="h-6 w-6 text-[#3a4a6f]" />
+                <div style={{marginTop:"-18px"}}>
+                  <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center float-right">
+                    <Link2 className="h-5 w-5 text-[#3a4a6f]" />
                   </span>
                 </div>
               </div>
@@ -193,45 +186,36 @@ const ProductSolutions = ({ sectionData }) => {
 const KeyFeatures = ({ sectionData }) => {
   if (!sectionData || !sectionData.images) return null;
 
-  // Icon mapping for the key features
-  const getIcon = (title) => {
-    if (title?.toLowerCase().includes('energy')) {
-      return <Cpu className="w-6 h-6 text-[#2a4eff]" />;
-    } else if (title?.toLowerCase().includes('outdoor')) {
-      return <Activity className="w-6 h-6 text-[#2a4eff]" />;
-    } else if (title?.toLowerCase().includes('maintenance')) {
-      return <ShieldCheck className="w-6 h-6 text-[#2a4eff]" />;
-    } else {
-      return <Cpu className="w-6 h-6 text-[#2a4eff]" />;
-    }
-  };
-
   return (
     <section className="bg-white py-16 md:py-16 lg:py-24">
-      <div className="">
+      <div className="container mx-auto">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-          {sectionData.title}
+          {sectionData.title || 'Key Features of Our LED Video Walls'}
         </h2>
 
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {sectionData.images.map((feature, idx) => (
             <div
               key={idx}
-              className="bg-[#f8faff] rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+              className="bg-[#f8faff] rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 h-full"
             >
-              {/* Icon Top-Left */}
               <div className="mb-4">
                 <div className="bg-[#eef3ff] p-3 rounded-md inline-block">
-                  {getIcon(feature.title)}
+                  {feature.image && (
+                    <img
+                      src={getImageUrl(feature.image)}
+                      alt={feature.title}
+                      className="w-10 h-10"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
               </div>
-
-              {/* Title + Description */}
               <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
                 {feature.title}
               </h3>
-              <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
-                {feature.description || 'Our video walls enhance engagement by delivering clear, impactful messaging that resonates with your audience.'}
+              <p className="text-gray-700 text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                {feature.description}
               </p>
             </div>
           ))}
@@ -310,9 +294,7 @@ const Products = () => {
       <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
-            <h2 className="text-lg md:text-[17px] lg:text-[22px] font-medium text-white mb-2 ">
-              XIGI LED Display
-            </h2>
+      
             <h1 className="text-[30px] md:text-[35px] lg:text-[50px] text-white mb-6 leading-tight font-medium font-['Poppins',sans-serif]">
               {heroSection?.title || "Brilliant LED Solutions for Every Sector"}
             </h1>
@@ -340,7 +322,7 @@ const Products = () => {
             <img
               src={getImageUrl(digitalImpactSection?.images?.[0]?.image) || 'https://via.placeholder.com/600x400?text=Digital+Impact'}
               alt={digitalImpactSection?.title}
-              className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+              className="h-[400px] rounded-xl shadow-xl w-full max-w-md md:max-w-full"
             />
           </div>
 

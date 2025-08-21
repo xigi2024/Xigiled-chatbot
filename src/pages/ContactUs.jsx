@@ -1,16 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Header from '../components/Header';
 import backgroundImage from "../assets/backgroundcon.png";
-import { Mail, Facebook, Twitter, Instagram, Linkedin, } from "lucide-react";
+import { Mail, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import theniImg from "../assets/theniImg.jpeg";
 import chennaiImg from "../assets/chennaiImg.jpeg";
 import bangaloreImg from "../assets/bangaloreImg.jpeg";
-import bgImage from '../assets/heroimg.png'
-import contact from '../assets/contact.jpg'
+import bgImage from '../assets/heroimg.png';
+import contact from '../assets/contact.jpg';
 import Footer from '../components/Footer';
 import emailjs from '@emailjs/browser';
 
-const ContactSection = () => {
+// ContactSection component now accepts contactFormRef as a prop
+const ContactSection = ({ contactFormRef }) => {
     const form = useRef();
     const [formData, setFormData] = useState({
         name: '',
@@ -54,27 +55,26 @@ const ContactSection = () => {
     };
 
     const locations = [
-        { name: "Theni", img: theniImg},
+        { name: "Theni", img: theniImg },
         { name: "Chennai", img: chennaiImg },
-        { name: "Bangalore", img: bangaloreImg},
+        { name: "Bangalore", img: bangaloreImg },
     ];
 
     return (
         <section className='bg-[#F6F6F6]'>
-            <div
-                className=" mx-auto w-full  bg-cover bg-gray-200 bg-center py-15 px-4 md:px-20 object-top"
-                style={{ backgroundImage: `url(${backgroundImage})` }}
-            >
-                <h1 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-semibold mb-12 leading-relaxed text-gray-800 font-['Poppins',sans-serif]">
-                    Xigi LED—Your Vision, Engineered <br /> to Shine
-                </h1>
-            </div>
+     <div 
+  className="mx-auto w-full bg-cover bg-gray-200 bg-center object-top min-h-[200px] md:min-h-[250px] flex items-center justify-center py-10"
+  style={{ backgroundImage: `url(${backgroundImage})` }}
+>
+  <h1 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-semibold leading-relaxed text-gray-800 font-['Poppins',sans-serif]">
+    Let's Build Your Vision Together
+  </h1>
+</div>
 
-            <div className="container grid md:grid-cols-12 gap-10 py-27 mx-auto bg-cover ">
-
+            <div className="container grid md:grid-cols-12 gap-10  pb-10 mx-auto bg-cover ">
 
                 {/* LEFT BOX */}
-                <div className="bg-white/30 col-span-5  p-6 max-w-130 space-y-10 backdrop-blur-md rounded-xl">
+                <div className="bg-white/30 col-span-5  p-6 max-w-130 space-y-10 rounded-xl">
                     <div>
                         <h4 className="font-semibold text-sm text-gray-500">Get in Touch</h4>
                         <h2 className="text-[25px] font-medium text-gray-800 font-['Poppins',sans-serif] mt-3">
@@ -88,7 +88,7 @@ const ContactSection = () => {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 font-['Montserrat',sans-serif] font-medium">EMAIL SUPPORT</p>
-                            <p className="text-sm  font-['Montserrat',sans-serif] font-medium">led@xigi.in</p>
+                            <p className="text-sm  font-['Montserrat',sans-serif] font-medium">info@xigiled.com</p>
                         </div>
                     </div>
 
@@ -118,47 +118,49 @@ const ContactSection = () => {
                     {/* SOCIAL ICONS */}
                     <div>
                         <h4 className="font-bold text-sm text-gray-600 mb-3">SOCIAL NETWORK</h4>
-                       <div className="flex gap-4">
-    <a
-        href="https://www.facebook.com/people/Xigi-LED/61567250657888/?rdid=oQBREpIxCMyRCuZI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FhT6fLQSr%2F"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
-    >
-        <Facebook size={20} />
-    </a>
-    <a
-        href="https://twitter.com/yourprofile"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
-    >
-        <Twitter size={20} />
-    </a>
-    <a
-        href="https://www.instagram.com/xigiled/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
-    >
-        <Instagram size={20} />
-    </a>
-    <a
-        href="https://www.linkedin.com/company/xigi/?originalSubdomain=in"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
-    >
-        <Linkedin size={20} />
-    </a>
-</div>
-
+                        <div className="flex gap-4">
+                            <a
+                                href="https://www.facebook.com/people/Xigi-LED/61567250657888/?rdid=oQBREpIxCMyRCuZI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FhT6fLQSr%2F"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+                            >
+                                <Facebook size={20} />
+                            </a>
+                            <a
+                                href="https://www.youtube.com/@Xigitech"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+                            >
+                                <Youtube size={20} />
+                            </a>
+                            <a
+                                href="https://www.instagram.com/xigiled/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+                            >
+                                <Instagram size={20} />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/company/xigi/?originalSubdomain=in"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow"
+                            >
+                                <Linkedin size={20} />
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-
                 {/* RIGHT BOX - FORM */}
-                <form ref={form} onSubmit={sendEmail} className="bg-white/30 col-span-7 p-10 space-y-5 backdrop-blur-md rounded-xl">
+                <form 
+                    ref={contactFormRef} // Use the passed ref here
+                    onSubmit={sendEmail} 
+                    className="bg-white/30 col-span-7 p-10 space-y-5 backdrop-blur-md rounded-xl"
+                >
                     <input
                         type="text"
                         name="name"
@@ -166,7 +168,8 @@ const ContactSection = () => {
                         onChange={handleChange}
                         placeholder="Name"
                         required
-                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500 "
+                        style={{borderColor:"#ddd"}}
                     />
                     <input
                         type="text"
@@ -175,6 +178,7 @@ const ContactSection = () => {
                         onChange={handleChange}
                         placeholder="Company Name"
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{borderColor:"#ddd"}}
                     />
                     <input
                         type="text"
@@ -183,6 +187,7 @@ const ContactSection = () => {
                         onChange={handleChange}
                         placeholder="Phone Number"
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{borderColor:"#ddd"}}
                     />
                     <input
                         type="email"
@@ -192,6 +197,7 @@ const ContactSection = () => {
                         placeholder="Email Id"
                         required
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{borderColor:"#ddd"}}
                     />
                     <select
                         name="option"
@@ -199,6 +205,7 @@ const ContactSection = () => {
                         onChange={handleChange}
                         required
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                        style={{borderColor:"#ddd"}}
                     >
                         <option value="">How are you looking to work with us</option>
                         <option value="Partnership">Partnership</option>
@@ -213,6 +220,7 @@ const ContactSection = () => {
                         rows={4}
                         required
                         className="w-full p-3 border rounded-md shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{borderColor:"#ddd"}}
                     />
                     <button
                         type="submit"
@@ -226,13 +234,32 @@ const ContactSection = () => {
     );
 };
 
-
 const ContactUs = () => {
+    const contactFormRef = useRef(null);
+
+    useEffect(() => {
+        // Check if we need to scroll to the form
+        const shouldScroll = sessionStorage.getItem('scrollToContactForm');
+        
+        if (shouldScroll === 'true' && contactFormRef.current) {
+            // Add a small delay to ensure the page is fully loaded
+            setTimeout(() => {
+                contactFormRef.current.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 300);
+            
+            // Remove the flag
+            sessionStorage.removeItem('scrollToContactForm');
+        }
+    }, []);
+
     return (
         <div className="min-h-screen flex flex-col">
             <Header />
+            
             {/* Banner Section */}
-
             <div className="relative h-[70vh] w-full">
                 <img
                     src={contact}
@@ -246,7 +273,8 @@ const ContactUs = () => {
                 </div>
             </div>
 
-            <ContactSection />
+            {/* Pass the ref to ContactSection */}
+            <ContactSection contactFormRef={contactFormRef} />
 
             <section
                 className="relative h-[400px] w-full flex items-center justify-center"
@@ -264,7 +292,6 @@ const ContactUs = () => {
                     <p className="text-sm text-blue-400 font-['Montserrat',sans-serif] font-medium">Contact us</p>
                     <h1 className="text-4xl md:text-6xl font-semibold">+91 9494220622</h1>
                     <h2 className="text-xl font-semibold">Smart LED Solutions</h2>
-
                 </div>
             </section>
 
@@ -280,12 +307,11 @@ const ContactUs = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                     className="absolute inset-0 w-full h-full border-0"
                 ></iframe>
-
-
             </section>
+            
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default ContactUs
+export default ContactUs;

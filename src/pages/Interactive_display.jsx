@@ -1,15 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import cta from '../assets/cta.png';
-import interactive from '../assets/interactive.webp';
+import cta from '../assets/indoor.jpg';
+import display from '../assets/interactive.webp';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import Highdefinition from '../assets/industry/High-definition.png'
-import seamless from '../assets/industry/seamless.png'
-import vibrantColor from '../assets/industry/vibrantColor.png'
-import WideAngle from '../assets/industry/WideAngle.png'
-import ultraThin from '../assets/industry/ultraThin.png'
+import TouchResponse from '../assets/TouchResponse.jpg'
+import MultiTouch from '../assets/multi-touch.jpg'
+import HighBrightness from '../assets/HighBrightness.jpeg'
+import LowLatency from '../assets/low-latency.avif'
+import DurableSurface from '../assets/end-to-end-service.webp'
+
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,7 +44,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
       <div className="container mx-auto text-center px-4">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-            {showcaseData.title || "For Showcase"}
+            {showcaseData.title || "Interactive Showcase"}
           </h2>
           <Link
             to="/gallery"
@@ -234,8 +235,8 @@ const Interactive_display = () => {
     );
   }
 
-  const section1 = getSectionData('interactive_led_section1');
-  const section2 = getSectionData('interactive_led_section2');
+  const transformInteriorsData = getSectionData('interactive_led_section1');
+  const smartDisplayData = getSectionData('interactive_led_section2');
   const pixelPitchData = getSectionData('interactive_led_section3');
   const showcaseData = getSectionData('interactive_led_section4');
   const featuresData = getSectionData('interactive_led_section5');
@@ -247,8 +248,8 @@ const Interactive_display = () => {
       {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
-          src={interactive}
-          alt="Interactive Led Display"
+          src={display}
+          alt="Interactive LED Display"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
@@ -258,71 +259,70 @@ const Interactive_display = () => {
         </div>
       </div>
 
-      {/* Section 1 - Touch the Future */}
-      {section1 && (
-        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          {section1.images.map((item, index) => (
-            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-              {/* Text Left, Image Right - for even indexes */}
-              {index % 2 === 0 ? (
-                <>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {section1.title || "Interactive LED Displays"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {section1.description || "Interactive LED displays revolutionize engagement with touch-sensitive technology..."}
-                    </p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={section1.title || "Interactive LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Image Left, Text Right - for odd indexes */}
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={section1.title || "Interactive LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {section1.title || "Interactive LED Displays"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {section1.description || "Interactive LED displays revolutionize engagement with touch-sensitive technology..."}
-                    </p>
-                  </div>
-                </>
-              )}
+{/* Transform Interiors Section */}
+{transformInteriorsData && (
+  <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
+    {transformInteriorsData.images.map((item, index) => (
+      <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
+        {/* Text Left, Image Right - for even indexes */}
+        {index % 2 === 0 ? (
+          <>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-6 md:p-8 flex flex-col justify-center h-auto min-h-[400px]">
+              <h2 className="text-[24px] md:text-[28px] lg:text-[36px] font-medium text-gray-900 mb-4 md:mb-5 font-['Poppins',sans-serif] leading-tight">
+                {item.title || transformInteriorsData.title || "Interactive Experiences"}
+              </h2>
+              <p className="text-sm md:text-[16px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {item.description || transformInteriorsData.description || "Engage your audience with cutting-edge interactive LED displays that respond to touch and gestures."}
+              </p>
             </div>
-          ))}
-        </section>
-      )}
-
-      {/* Section 2 - Smart Display Types */}
-      {section2 && (
+            <div className="md:col-span-7">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={item.title || transformInteriorsData.title || "Interactive LED Display"} 
+                className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image Left, Text Right - for odd indexes */}
+            <div className="md:col-span-7">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={item.title || transformInteriorsData.title || "Interactive LED Display"} 
+                className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-6 md:p-8 flex flex-col justify-center h-auto min-h-[400px]">
+              <h2 className="text-[24px] md:text-[28px] lg:text-[36px] font-medium text-gray-900 mb-4 md:mb-5 font-['Poppins',sans-serif] leading-tight">
+                {item.title || transformInteriorsData.title || "Interactive Experiences"}
+              </h2>
+              <p className="text-sm md:text-[16px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {item.description || transformInteriorsData.description || "Engage your audience with cutting-edge interactive LED displays that respond to touch and gestures."}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </section>
+)}
+      {/* Smart Display Types Section */}
+      {smartDisplayData && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="text-center mb-10">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-              {section2.title || "Interactive Display Types"}
+              {smartDisplayData.title || "Interactive Solutions"}
             </h2>
-            {section2.description && (
+            {smartDisplayData.description && (
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
-                {section2.description}
+                {smartDisplayData.description}
               </p>
             )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {section2.images.map((item, index) => (
+            {smartDisplayData.images.map((item, index) => (
               <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
                 {/* Image with gradient overlay */}
                 <img
@@ -355,77 +355,85 @@ const Interactive_display = () => {
       {/* Features Section */}
       <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-          Why Choose Xigi Interactive LED
+          Why Choose Interactive Displays
         </h2>
 
         <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Column 1: High-definition */}
+          {/* Column 1: Touch Response */}
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
               <img
-                src={Highdefinition}
-                alt="High-definition"
+                src={TouchResponse}
+                alt="Touch Response"
                 className="w-full object-cover rounded-md mb-4"
               />
               <div>
-                <h3 className="text-white text-xl font-bold mb-2">High-definition</h3>
+                <h3 className="text-white text-xl font-bold mb-2">Touch Response</h3>
                 <p className="text-white text-sm">
-                  Crystal-clear visuals with stunning clarity ensure every detail stands out. Experience
-                  sharp, lifelike images that captivate your audience instantly.
+                  Instant, accurate touch response for seamless interaction. Our displays recognize even the lightest touches with precision.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Column 2: Seamless + Vibrant Color */}
+          {/* Column 2: Multi-Touch + High Brightness */}
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={seamless}
-                alt="Seamless"
+                src={MultiTouch}
+                alt="Multi-Touch"
                 className="mx-auto w-70 object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Seamless</h3>
+                <h3 className="text-white text-lg font-semibold">Multi-Touch</h3>
+                <p className="text-white text-sm">
+                  Supports multiple simultaneous touch points for collaborative experiences.
+                </p>
               </div>
             </div>
 
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={vibrantColor}
-                alt="Vibrant Color"
+                src={HighBrightness}
+                alt="High Brightness"
                 className="w-full object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Vibrant Color</h3>
+                <h3 className="text-white text-lg font-semibold">High Brightness</h3>
                 <p className="text-white text-sm">
-                  Vibrant colors that pop with brilliance, bringing every image to life.
+                  Crystal clear visibility even in brightly lit environments.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Column 3: Ultra-thin + Wide Angle */}
+          {/* Column 3: Low Latency + Durable Surface */}
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={ultraThin}
-                alt="Ultra-thin"
+                src={LowLatency}
+                alt="Low Latency"
                 className="w-66 object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Ultra-thin</h3>
+                <h3 className="text-white text-lg font-semibold">Low Latency</h3>
+                <p className="text-white text-sm">
+                  Near-instant response time for natural, fluid interactions.
+                </p>
               </div>
             </div>
 
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={WideAngle}
-                alt="Wide Angle"
+                src={DurableSurface}
+                alt="Durable Surface"
                 className="w-full object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Wide Angle</h3>
+                <h3 className="text-white text-lg font-semibold">Durable Surface</h3>
+                <p className="text-white text-sm">
+                  Scratch-resistant and built to withstand heavy daily use.
+                </p>
               </div>
             </div>
           </div>
@@ -447,10 +455,10 @@ const Interactive_display = () => {
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
-              Ready to Transform Your Interactive Experience?
+              Ready to Transform Your Displays?
             </h2>
             <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi Interactive Displays, you're not just getting a screen – you're gaining a partner committed to elevating your engagement
+              With Xigi Interactive Displays, you're not just getting technology – you're gaining a partner committed to elevating your interactive experience
             </p>
             <button onClick={() => navigate('/contact')}
               className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">

@@ -3,15 +3,13 @@ import '../styles/Home.css';
 import banner from '../assets/videos/XIGI Led Banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import cta from '../assets/led-display-lifetime.jpg';
-import centerImage from '../assets/centerImage.png';
-import rightImage from '../assets/rightImage.png';
-import leftImage from '../assets/leftImage.png';
+import cta from '../assets/cta1.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+
 
 const IndustrySection = ({ sectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -58,11 +56,12 @@ const IndustrySection = ({ sectionData }) => {
                   <img
                     src={`https://xigiled.in/storage/${feature.image}`}
                     alt={feature.title}
-                    className="bg-[#e8f1ff] me-3 px-[13px] pt-[10px] pb-[6px] rounded-xl w-[62px] h-[62px] object-contain"
+                    className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
                   />
 
                   <div className="flex flex-col">
-                    <h3 className="text-[22px] font-semibold text-blue-800">{feature.title}</h3>
+<h3 className="text-[22px] font-semibold text-[#0000ff]">
+                      {feature.title}</h3>
                     {activeIndex === idx && (
                       <p className="text-[17px] text-gray-600 mt-2 font-[Montserrat] font-medium">
                         {feature.desc}
@@ -113,7 +112,7 @@ const MemberConnect = ({ testimonialsSection }) => {
   return (
     <section className="py-10 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-center mb-6">Our Clients</h2>
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-bold text-center mb-6">Trusted Clients</h2>
 
         <Swiper
           modules={[Autoplay]}
@@ -155,6 +154,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchHomeData = async () => {
@@ -174,6 +174,15 @@ const Home = () => {
 
     fetchHomeData();
   }, []);
+
+const handleCtaClick = () => {
+    // Navigate to contact page first
+    navigate('/contact');
+    
+    // Store the intent to scroll to form in session storage
+    sessionStorage.setItem('scrollToContactForm', 'true');
+};
+
 
   const handleClick = () => {
     const testimonialsSection = document.getElementById('testimonials-section');
@@ -257,14 +266,19 @@ const Home = () => {
               Brighten Every Space
             </h1>
             <p className="mt-4 max-w-2xl text-lg md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
-              India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government—Xigi LED powers your brand, message, and experience everywhere.
+              India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
             </p>
-            <Link
-              to="/contact"
-              className="mt-6 inline-block bg-blue-600 text-[15px] hover:bg-blue-700 text-white px-6 py-3 rounded font-semibold"
-            >
-              Get Instant Quote
-            </Link>
+          <a
+  href="https://wa.me/9494220622?text=Hi, I want an instant quote"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-5 bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+             hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 
+             rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
+>
+  Get Instant Quote
+</a>
+
           </div>
         </div>
 
@@ -272,23 +286,23 @@ const Home = () => {
         {whyChooseSection && (
           <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
             <div className="container mx-auto text-center">
-              <h2 className="text-[28px] md:text-[32px] lg:t ext-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
                 {whyChooseSection.title}
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-5 lg:gap-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
                 {whyChooseSection.images.map((feature, index) => (
                   <div
                     key={index}
                     className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
                   >
                     <div className="flex rounded-md mb-4">
-                      <img
-                        src={`https://xigiled.in/storage/${feature.image}`}
-                        alt={feature.title}
-                        className="w-15 h-15x object-contain"
-                      />
-                    </div>
+  <img
+    src={`https://xigiled.in/storage/${feature.image}`}
+    alt={feature.title}
+    className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+  />
+</div>
                     <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
                       {feature.title}
                     </h3>
@@ -300,11 +314,11 @@ const Home = () => {
               </div>
 
               <div className="mt-10">
-                <button
+                {/* <button
                   className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 rounded-md shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
                   onClick={handleClick}>
                   See Our Client Stories
-                </button>
+                </button> */}
               </div>
             </div>
           </section>
@@ -325,7 +339,7 @@ const Home = () => {
                     {completeRangeSection.images[0] && (
                       <a
                         href="/products/indoor-led-video-walls"
-                        className="block col-span-9 md:col-span-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden"
+                        className="block col-span-9 md:col-span-4 bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden"
                       >
                         <div className="w-full ">
                           <img
@@ -341,7 +355,7 @@ const Home = () => {
 
                     {/* Outdoor LED */}
                     {completeRangeSection.images[1] && (
-                      <a href="/products/outdoor-led-video-walls" className="block col-span-9 md:col-span-3 lg:col-span-3 bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
+                      <a href="/products/outdoor-led-video-walls" className="block col-span-9  md:col-span-3 lg:col-span-3 bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden relative h-60">
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
                           className="w-100 h-60 object-contain"
@@ -557,36 +571,43 @@ const Home = () => {
 
               </div>
 
-              <div className="w-full lg:w-8/12">
-                <div className="flex justify-center">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
-                    {industrySection.images.map((product, idx) => (
-                      <div
-                        key={idx}
-                        onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
-                        className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-44 sm:h-48 md:h-56 cursor-pointer"
-                      >
-                        <img
-                          src={`https://xigiled.in/storage/${product.image}`}
-                          alt={product.title + ' Large'}
-                          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
-                        />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+         <div className="w-full lg:w-8/12">
+  <div className="flex justify-center">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
+      {industrySection.images.map((product, idx) => (
+        <div
+          key={idx}
+          onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
+          className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-50 sm:h-48 md:h-60 cursor-pointer"
+        >
+          {/* Hover Image (Second Image) */}
+          {product.image && product.image[1] && (
+            <img
+              src={`https://xigiled.in/storage/${product.image[0]}`}
+              alt={product.title + ' Hover'}
+              className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+            />
+          )}
+          
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
-                        <img
-                          src={`https://xigiled.in/storage/${product.image}`}
-                          alt={product.title}
-                          className="w-100 h-100 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 rounded-lg"
-                        />
+          {/* Default Image (First Image) */}
+          {product.image && product.image[0] && (
+            <img
+              src={`https://xigiled.in/storage/${product.image[1]}`}
+              alt={product.title}
+              className="w-90 h-90 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 "
+            />
+          )}
 
-                        <span className="relative z-30 px-2 text-center text-[17px] transition-colors duration-300 group-hover:text-white">
-                          {product.title}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          <span className="relative z-30 px-2 text-center text-[17px] transition-colors duration-300 group-hover:text-white">
+            {product.title}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
             </div>
           </section>
         )}
@@ -610,7 +631,9 @@ const Home = () => {
                 </h2>
                 <button
                   onClick={() => navigate('/contact')}
-                  className="bg-white cursor-pointer text-[#2f45ff] py-2 px-4 rounded-md hover:bg-blue-600 hover:text-white text-[16px] font-medium transition"
+                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+             hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-5 py-3 
+             rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
                 >
                   Get Product Help
                 </button>
@@ -623,12 +646,12 @@ const Home = () => {
                         <img
                           src={`https://xigiled.in/storage/${support.image}`}
                           alt={support.title}
-                          className="w-15 h-15 "
+                             className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
                         />
                       </div>
                       <div>
-                        <h3 className="text-[25px] font-medium mb-4">{support.title}</h3>
-                        <p className="text-[17px] font-['Montserrat',sans-serif] text-white/100 font-medium">
+                        <h3 className="text-[22px] font-medium mb-4">{support.title}</h3>
+                        <p className="text-[17px] font-['Montserrat',sans-serif] text-white/100 font-medium leading-relaxed">
                           {support.description}
                         </p>
                       </div>
@@ -645,34 +668,41 @@ const Home = () => {
           <IndustrySection sectionData={industryApplicationsSection} />
         )}
 
-        {testimonialsSection && (
+        {/* {testimonialsSection && (
           <div id="testimonials-section">
             <MemberConnect testimonialsSection={testimonialsSection} />
           </div>
-        )}
+        )} */}
 
         {/* CTA Section */}
-        <section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
-          <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch">
-            <div className="w-full md:w-5/12 h-[300px] md:h-auto">
-              <img src={cta} alt="DOOH Display" className="w-full h-[500px] object-cover" />
-            </div>
+<section className="w-full py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
+  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+    <div className="w-full md:w-5/12">
+      <img
+        src={cta}
+        alt="DOOH Display"
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-            <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
-              <div className="text-center md:text-left px-10">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif] leading-[1.3]">
-                  Ready to Transform Your Advertising?
-                </h2>
-                <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-                  With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
-                </p>
-                <button onClick={() => navigate('/industry')} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
-                  See Solutions for Your Industry
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
+      <div className="text-center md:text-left px-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px]  font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
+          Ready to Transform Your Advertising?
+        </h2>
+        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+          With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand
+        </p>
+        <button
+onClick={handleCtaClick}          
+          className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+        >
+          See Solutions for Your Industry
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
       </main>
       <Footer />
     </div>

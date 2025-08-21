@@ -5,18 +5,12 @@ import cta from '../assets/cta.png';
 import standee from '../assets/standee.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-// Import feature images for LED Standee (you'll need to add these)
-// import PortableDesign from '../assets/standee/portable-design.png'
-// import HighBrightness from '../assets/standee/high-brightness.png'
-// import TouchScreen from '../assets/standee/touch-screen.png'
-// import SlimProfile from '../assets/standee/slim-profile.png'
-// import EasyContent from '../assets/standee/easy-content.png'
+import PortableDesign from '../assets/PortableDesign.webp'
+import HighBrightness from '../assets/HighBrightness.jpeg'
+import TouchScreen from '../assets/multi-touch.jpg'
+import SlimProfile from '../assets/SlimProfile.webp'
+import EasyContent from '../assets/DurableConstruction.png'
 
-import Highdefinition from '../assets/industry/High-definition.png'
-import seamless from '../assets/industry/seamless.png'
-import vibrantColor from '../assets/industry/vibrantColor.png'
-import WideAngle from '../assets/industry/WideAngle.png'
-import ultraThin from '../assets/industry/ultraThin.png'
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,7 +20,6 @@ const ShowcaseSlider = ({ showcaseData }) => {
   const showcaseItems = showcaseData.images.map(img => ({
     title: img.title,
     image: `https://xigiled.in/storage/${img.image}`,
-    description: img.description
   }));
 
   const nextSlide = () => {
@@ -67,7 +60,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
             alt={showcaseItems[currentIndex]?.title}
             className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
           />
-          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg">
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
             {showcaseItems[currentIndex]?.title}
           </h3>
 
@@ -252,7 +245,7 @@ const Led_Standee = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
  
-      {/* Banner Section - Keep as hardcoded */}
+      {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
           src={standee}
@@ -279,7 +272,7 @@ const Led_Standee = () => {
                       {standeeDisplayData.title || "Portable LED Displays"}
                     </h2>
                     <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events..."}
+                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events."}
                     </p>
                   </div>
                   <div className="md:col-span-7">
@@ -305,7 +298,7 @@ const Led_Standee = () => {
                       {standeeDisplayData.title || "Portable LED Displays"}
                     </h2>
                     <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events..."}
+                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events."}
                     </p>
                   </div>
                 </>
@@ -371,12 +364,12 @@ const Led_Standee = () => {
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
               <img
-                src={Highdefinition}
+                src={PortableDesign}
                 alt="Portable Design"
                 className="w-full object-cover rounded-md mb-4"
               />
               <div>
-                <h3 className="text-white text-xl font-bold mb-2">High definition</h3>
+                <h3 className="text-white text-xl font-bold mb-2">Portable Design</h3>
                 <p className="text-white text-sm">
                   Lightweight and easy to move, perfect for retail environments, trade shows,
                   and events that require flexible display positioning.
@@ -389,23 +382,26 @@ const Led_Standee = () => {
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={seamless}
+                src={HighBrightness}
                 alt="High Brightness"
                 className="mx-auto w-70 object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Seamless</h3>
+                <h3 className="text-white text-lg font-semibold">High Brightness</h3>
+                <p className="text-white text-sm">
+                  Crystal clear visibility even in brightly lit retail environments.
+                </p>
               </div>
             </div>
 
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={vibrantColor}
+                src={TouchScreen}
                 alt="Touch Screen"
                 className="w-full object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">VibrantColor</h3>
+                <h3 className="text-white text-lg font-semibold">Touch Screen</h3>
                 <p className="text-white text-sm">
                   Interactive touch functionality for enhanced customer engagement and experience.
                 </p>
@@ -417,37 +413,43 @@ const Led_Standee = () => {
           <div className="space-y-6">
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={WideAngle}
+                src={SlimProfile}
                 alt="Slim Profile"
                 className="w-66 object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Wide Angle</h3>
+                <h3 className="text-white text-lg font-semibold">Slim Profile</h3>
+                <p className="text-white text-sm">
+                  Space-saving design that fits perfectly in any retail environment.
+                </p>
               </div>
             </div>
 
             <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
               <img
-                src={ultraThin}
+                src={EasyContent}
                 alt="Easy Content"
                 className="w-full object-cover rounded-md mb-3"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">Ultra Thin</h3>
+                <h3 className="text-white text-lg font-semibold">Easy Content</h3>
+                <p className="text-white text-sm">
+                  Simple content management system for quick updates and changes.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Keep as hardcoded */}
+      {/* CTA Section */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4">
         <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
           {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img
               src={cta}
-              alt="DOOH Display"
+              alt="LED Standee Display"
               className="w-full h-full object-cover"
             />
           </div>
@@ -455,10 +457,10 @@ const Led_Standee = () => {
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
-              Ready to Transform Your Advertising?
+              Ready to Transform Your Retail Experience?
             </h2>
             <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+              With Xigi LED Standees, you're not just getting a display – you're gaining a partner committed to elevating your customer engagement
             </p>
             <button onClick={() => navigate('/contact')}
               className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">

@@ -4,7 +4,12 @@ import Footer from '../components/Footer'
 import cta from '../assets/cta.png';
 import transparent from '../assets/transparent.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import HighTransparency from '../assets/high-transparency.png'
+import EnergyEfficient from '../assets/energy-efficient.avif'
+import TailoredSolutions from '../assets/tailored-solutions.jpg'
+import WideViewing from '../assets/wide-viewing.jpg'
+import EasyInstallation from '../assets/EasyInstallation.jpg'
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -135,7 +140,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
         <div
           ref={scrollRef}
           className="overflow-x-hidden relative"
-          style={{ width: '1200px', margin: '0 auto' }} // 5 * (160px + gap ~8px)
+          style={{ width: '1200px', margin: '0 auto' }}
         >
           <div className="flex gap-10">
             {fullList.map((pitch, index) => (
@@ -229,7 +234,7 @@ const Transparent_Led = () => {
     );
   }
 
-  const seethroughBrillianceData = getSectionData('transparent_led_section1');
+  const seeThroughBrillianceData = getSectionData('transparent_led_section1');
   const smartDisplayData = getSectionData('transparent_led_section2');
   const pixelPitchData = getSectionData('transparent_led_section3');
   const showcaseData = getSectionData('transparent_led_section4');
@@ -239,7 +244,7 @@ const Transparent_Led = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
  
-      {/* Banner Section - Keep as hardcoded */}
+      {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
           src={transparent}
@@ -253,61 +258,61 @@ const Transparent_Led = () => {
         </div>
       </div>
 
-      {/* See Through Brilliance Section */}
-      {seethroughBrillianceData && (
-        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          {seethroughBrillianceData.images.map((item, index) => (
-            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-              {/* Text Left, Image Right - for even indexes */}
-              {index % 2 === 0 ? (
-                <>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {seethroughBrillianceData.title || "See Through Brilliance"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {seethroughBrillianceData.description || "Experience crystal-clear transparency with stunning visual clarity..."}
-                    </p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={seethroughBrillianceData.title || "Transparent LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Image Left, Text Right - for odd indexes */}
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={seethroughBrillianceData.title || "Transparent LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {seethroughBrillianceData.title || "See Through Brilliance"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {seethroughBrillianceData.description || "Experience crystal-clear transparency with stunning visual clarity..."}
-                    </p>
-                  </div>
-                </>
-              )}
+   {/* See Through Brilliance Section */}
+{seeThroughBrillianceData && (
+  <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
+    {seeThroughBrillianceData.images.map((item, index) => (
+      <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto items-stretch">
+        {/* Text Left, Image Right - for even indexes */}
+        {index % 2 === 0 ? (
+          <>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-6 md:p-8 flex flex-col justify-center h-full">
+              <h2 className="text-[24px] md:text-[28px] lg:text-[36px] font-medium text-gray-900 mb-4 md:mb-5 font-['Poppins',sans-serif] leading-tight">
+                {item.title || seeThroughBrillianceData.title || "See Through Brilliance"}
+              </h2>
+              <p className="text-sm md:text-[16px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {item.description || seeThroughBrillianceData.description || "Experience crystal-clear transparency with stunning visual clarity and seamless integration."}
+              </p>
             </div>
-          ))}
-        </section>
-      )}
+            <div className="md:col-span-7 h-full">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={item.title || seeThroughBrillianceData.title || "Transparent LED Display"} 
+                className="w-full h-full max-h-[500px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image Left, Text Right - for odd indexes */}
+            <div className="md:col-span-7 h-full">
+              <img 
+                src={`https://xigiled.in/storage/${item.image}`} 
+                alt={item.title || seeThroughBrillianceData.title || "Transparent LED Display"} 
+                className="w-full h-full max-h-[500px] rounded-xl drop-shadow-xl object-cover" 
+              />
+            </div>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-6 md:p-8 flex flex-col justify-center h-full">
+              <h2 className="text-[24px] md:text-[28px] lg:text-[36px] font-medium text-gray-900 mb-4 md:mb-5 font-['Poppins',sans-serif] leading-tight">
+                {item.title || seeThroughBrillianceData.title || "See Through Brilliance"}
+              </h2>
+              <p className="text-sm md:text-[16px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {item.description || seeThroughBrillianceData.description || "Experience crystal-clear transparency with stunning visual clarity and seamless integration."}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </section>
+)}
 
       {/* Smart Display Types Section */}
       {smartDisplayData && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="text-center mb-10">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-              {smartDisplayData.title || "Smart Displays"}
+              {smartDisplayData.title || "Transparent Display Types"}
             </h2>
             {smartDisplayData.description && (
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
@@ -348,42 +353,102 @@ const Transparent_Led = () => {
       <ShowcaseSlider showcaseData={showcaseData} />
 
       {/* Features Section */}
-      {featuresData && (
-        <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-            {featuresData.title || "Why Choose Xigi Transparent LED"}
-          </h2>
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+          Why Choose Transparent LED Displays
+        </h2>
 
-          <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuresData.images.map((feature, index) => (
-              <div key={index} className="space-y-6">
-                <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
-                  <img
-                    src={`https://xigiled.in/storage/${feature.image}`}
-                    alt={feature.title}
-                    className="w-full object-cover rounded-md mb-4"
-                  />
-                  <div>
-                    <h3 className="text-white text-xl font-bold mb-2">{feature.title}</h3>
-                    <p className="text-white text-sm">
-                      {feature.description || "Experience the excellence of transparent display technology with superior quality and performance."}
-                    </p>
-                  </div>
-                </div>
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Column 1: High Transparency */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
+              <img
+                src={HighTransparency}
+                alt="High Transparency"
+                className="w-full object-cover rounded-md mb-4"
+              />
+              <div>
+                <h3 className="text-white text-xl font-bold mb-2">High Transparency</h3>
+                <p className="text-white text-sm">
+                  Up to 85% transparency allows natural light to pass through while maintaining
+                  brilliant display quality for stunning visual experiences.
+                </p>
               </div>
-            ))}
+            </div>
           </div>
-        </section>
-      )}
 
-      {/* CTA Section - Keep as hardcoded */}
+          {/* Column 2: Energy Efficient + Slim Design */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={EnergyEfficient}
+                alt="Energy Efficient"
+                className="mx-auto w-70 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Energy Efficient</h3>
+                <p className="text-white text-sm">
+                  Low power consumption with high brightness output for eco-friendly operation.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={TailoredSolutions}
+                alt="Slim Design"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Slim Design</h3>
+                <p className="text-white text-sm">
+                  Ultra-thin profile for seamless integration into various architectural elements.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Wide Viewing + Easy Installation */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={WideViewing}
+                alt="Wide Viewing"
+                className="w-66 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Wide Viewing</h3>
+                <p className="text-white text-sm">
+                  160-degree wide viewing angle ensures excellent visibility from any perspective.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={EasyInstallation}
+                alt="Easy Installation"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Easy Installation</h3>
+                <p className="text-white text-sm">
+                  Modular design allows for quick and flexible installation in various environments.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center"style={{padding:"0px !important"}}>
+        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
           {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img
               src={cta}
-              alt="DOOH Display"
+              alt="Transparent LED Display"
               className="w-full h-full object-cover"
             />
           </div>
@@ -391,13 +456,13 @@ const Transparent_Led = () => {
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
-              Ready to Transform Your Advertising?
+              Ready to Transform Your Space?
             </h2>
             <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+              With Xigi Transparent LED Displays, you're not just getting technology – you're gaining a partner committed to elevating your visual experience
             </p>
             <button onClick={() => navigate('/contact')}
-className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
               See Solutions for Your Products
             </button>
           </div>

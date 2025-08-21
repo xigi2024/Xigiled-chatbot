@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin,Youtube } from 'lucide-react';
 import logo from '../assets/Xigilogo.png'
 
 const Footer = () => {
   return (
     <footer className="bg-black/95 text-white">
-      <div className="container mx-auto px-4 py-12 md:py-10">
+      <div className="container  px-4 py-12 md:py-10">
         <div className="grid grid-cols-1 pt-10 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <a href='/'><img src={logo} alt="XIGI LED" className="h-20 w-auto mb-4 " /></a>
-            <p className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+            <a href='/'><img src={logo} alt="XIGI LED" className="h-25  mb-4 " /></a>
+            <p className="text-white  text-sm md:text-base font-['Montserrat',sans-serif] ">
               Transforming spaces with innovative LED display solutions for businesses worldwide.
             </p>
            
@@ -22,27 +22,27 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+                <Link to="/" className="text-white hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] ">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+                <Link to="/about" className="text-white hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] ">
                   About
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="text-gray-400 hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+                <Link to="/products" className="text-white hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] ">
                   Products
                 </Link>
               </li>
               <li>
-                <Link to="/industry" className="text-gray-400 hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+                <Link to="/industry" className="text-white hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] ">
                   Industry
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+                <Link to="/contact" className="text-white hover:text-white transition-colors text-sm md:text-base font-['Montserrat',sans-serif]">
                   Contact
                 </Link>
               </li>
@@ -53,16 +53,17 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-2">
-              <li className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
-                <span className="block">Theni</span>
-                <span className="block">Chennai</span>
-                <span className="block">Bangalore</span>
+              <li className="text-white text-sm md:text-base font-['Montserrat',sans-serif] ">
+                <span className="block mb-2">Theni</span>
+                <span className="block mb-2">Chennai</span>
+                <span className="block mb-2">Bangalore</span>
+                <span className="block mb-2">Coimbatore</span>
               </li>
-              <li className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+              <li className="text-white text-sm md:text-base font-['Montserrat',sans-serif] ">
                 Phone: +91 9494220622
               </li>
-              <li className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
-                Email: led@xigi.in
+              <li className="text-white text-sm md:text-base font-['Montserrat',sans-serif] ">
+                Email: info@xigiled.com
               </li>
             </ul>
           </div>
@@ -70,7 +71,7 @@ const Footer = () => {
           {/* Social Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Social Links</h3>
-            <p className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium mb-4">
+            <p className="text-white text-sm md:text-base font-['Montserrat',sans-serif]  mb-4">
 Follow us for bright ideas, stunning installs, and LED inspiration – stay lit with Xigi!             </p>
      <div className="flex space-x-4">
   <a
@@ -84,14 +85,14 @@ Follow us for bright ideas, stunning installs, and LED inspiration – stay lit 
   </a>
 
   <a
-    href="https://twitter.com/yourprofile"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
-    style={{ borderColor: '#787676' }}
-  >
-    <Twitter size={20} />
-  </a>
+      href="https://www.youtube.com/@Xigitech"  // YouTube profile URL
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition-colors border px-2 py-2 rounded"
+      style={{ borderColor: '#787676' }}
+    >
+      <Youtube size={20} />
+    </a>
 
   <a
     href="https://www.instagram.com/xigiled/"
@@ -120,7 +121,7 @@ Follow us for bright ideas, stunning installs, and LED inspiration – stay lit 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <a href="https://xigi.in" target="_blank" rel="noopener noreferrer">
-  <p className="text-gray-400 text-sm md:text-base font-['Montserrat',sans-serif] font-medium">
+  <p className="text-white text-sm md:text-base font-['Montserrat',sans-serif] ">
     Copyright © 2025 XigiLed Powered by Xigi Tech Pvt. Ltd.
   </p>
 </a>

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import cta from '../assets/cta.png';
-import about from '../assets/about.avif';
+import cta from '../assets/about cta.jpeg';
+import about from '../assets/about img.jpg';
 import { useNavigate } from 'react-router-dom';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -151,84 +151,90 @@ const About = () => {
         </section>
       )}
 
-      {/* About Section 2 - Values Section */}
+{/* About Section 2 - Values Section */}
 {aboutSection2 && (
-  <section className="bg-[#E8F1FF] py-27 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28">
+  <section className="bg-[#E8F1FF] py-16 md:py-12 lg:py-16 px-4 md:px-5 lg:px-16">
     <div className="text-center mb-10">
       <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
         {aboutSection2.title}
       </h2>
     </div>
 
-    <div className="container grid grid-cols-1 md:grid-cols-2 gap-5">
-      {/* Left Column - Mission and Vision */}
-      <div className="flex flex-col gap-5">
-        {aboutSection2.images
-          ?.filter(item => ["Our Mission", "Our Vision"].includes(item.title))
-          .map((item, index) => (
-            <div 
-              key={index} 
-              className="relative bg-cover bg-center rounded-xl overflow-hidden h-64 flex flex-col justify-end p-6"
-              style={{ 
-                backgroundImage: `url(https://xigiled.in/storage/${item.image})` 
-              }}
-            >
-              {/* Overlay for better text visibility */}
-              <div className="absolute inset-0 bg-black/60 rounded-xl"></div>
-              
-              {/* Content */}
-              <div className="relative z-10">
-                <h3 className="text-[25px] text-white font-semibold mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-[16px] text-white font-['Montserrat',sans-serif] font-medium">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-      
-      {/* Right Column - Brand Power */}
-      {aboutSection2.images?.find(item => item.title === "Unleash the Power of Your Brand with XIGI LED") && (
-        <div>
-          <div 
-            className="relative bg-cover bg-center rounded-xl text-white p-6 h-full min-h-[500px] flex flex-col justify-end overflow-hidden" 
-            style={{ 
-              backgroundImage: `url(https://xigiled.in/storage/${
-                aboutSection2.images.find(img => 
-                  img.title === "Unleash the Power of Your Brand with XIGI LED"
-                )?.image
-              })` 
-            }}
-          >
-            {/* Bottom 80% overlay */}
-            <div className="absolute bottom-0 left-0 right-0 h-[80%] bg-gradient-to-t from-black/90 via-black/70 to-transparent rounded-xl"></div>
-            
-            {/* Content with higher z-index */}
-            <div className="relative z-10">
-              <h3 className="text-sm mb-1">
-                {aboutSection2.images.find(img => 
-                  img.title === "Unleash the Power of Your Brand with XIGI LED"
-                )?.title}
+   <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+  {/* Left Column - Mission and Vision */}
+  <div className="flex flex-col gap-6 h-full">
+    {aboutSection2.images
+      ?.filter(item => ["Our Mission", "Our Vision"].includes(item.title))
+      .map((item, index) => (
+        <div
+          key={index}
+          className={`bg-white rounded-xl overflow-hidden shadow-lg h-full`}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 h-full">
+            {/* Text Content - Left side (7/12) */}
+            <div className="md:col-span-7 p-6 flex flex-col">
+              <h3 className="text-[22px] text-dark font-semibold mb-3">
+                {item.title}
               </h3>
-              <h4 className="text-xl md:text-2xl font-bold leading-snug mb-2">
-                Values That Drive Us
-              </h4>
-              <p className="text-sm font-['Montserrat',sans-serif] font-medium">
-                {aboutSection2.images.find(img => 
-                  img.title === "Unleash the Power of Your Brand with XIGI LED"
-                )?.description}
+              <p className="text-[16px] text-dark font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {item.description}
               </p>
+            </div>
+
+            {/* Image - Right side (5/12) */}
+            <div className="md:col-span-5 flex items-center justify-center">
+              <img
+                src={`https://xigiled.in/storage/${item.image}`}
+                alt={item.title}
+                className={`object-contain ${
+                  item.title === "Our Mission"
+                    ? "w-100 h-[290px]"
+                    : "w-full h-[240px]"
+                }`}
+              />
             </div>
           </div>
         </div>
-      )}
+      ))}
+  </div>
+
+  {/* Right Column - Brand Power */}
+  {aboutSection2.images?.find(
+    (item) => item.title === "Unleash the Power of Your Brand with XIGI LED"
+  ) && (
+    <div className="flex flex-col h-full">
+      <div className="bg-white rounded-xl p-8 flex flex-col h-full shadow-lg">
+        {/* Image at the top */}
+        <img
+          src={`https://xigiled.in/storage/${
+            aboutSection2.images.find(
+              (img) => img.title === "Unleash the Power of Your Brand with XIGI LED"
+            )?.image
+          }`}
+          alt="Brand Power"
+          className="w-full h-64 object-cover rounded-lg mb-8"
+        />
+
+        {/* Content */}
+        <div>
+          <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
+            Our Value
+          </h3>
+          <h4 className="text-[30px] leading-[1.3] text-gray-900 w-[488px] mb-4 font-['Poppins',sans-serif]">
+            Unleash the Power of Your Brand with XIGI LED
+          </h4>
+          <p className="text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+            At XIGI LED, we uphold innovation, reliability, and customer-first
+            excellence to deliver advanced LED Video wall solutions.
+          </p>
+        </div>
+      </div>
     </div>
+  )}
+</div>
+
   </section>
 )}
-
       {/* About Section 3 - Innovation Section */}
       {aboutSection3 && (
         <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white">
@@ -236,22 +242,23 @@ const About = () => {
             <div className="flex flex-col md:flex-col lg:flex-row items-center gap-20">
               {/* Left Content Section with innovation features */}
               <div className="w-full lg:w-6/12 order-2 md:order-1">
-                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-6 leading-snug font-['Poppins',sans-serif]">
+                <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4  font-['Poppins',sans-serif]">
                   {aboutSection3.title}
                 </h2>
-                <p className="text-gray-900 text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
+                <p className="text-gray-900 text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
                   {aboutSection3.description}
                 </p>
 
-                <div className="space-y-6">
+                <div className="pt-4">
                   {aboutSection3.images?.slice(1, 4).map((feature, index) => (
-                    <div key={index} className="flex w-full bg-white rounded-xl justify-center items-center p-4">
-                      <img
-                        src={`https://xigiled.in/storage/${feature.image}`}
-                        alt="Innovation"
-                        className="w-20 h-20 object-cover rounded-lg me-4"
-                      />
-                      <p className="text-gray-900 text-[17px] font-['Montserrat',sans-serif] font-medium">
+                    <div key={index} className="flex w-full bg-white rounded-xl  items-center  pb-4">
+                     <img
+  src={`https://xigiled.in/storage/${feature.image}`}
+  alt="Innovation"
+  className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain me-4"
+/>
+
+                      <p className="text-gray-900 text-[17px] leading-relaxed  w-[500px] font-['Montserrat',sans-serif] font-medium">
                         {feature.description}
                       </p>
                     </div>
@@ -324,7 +331,7 @@ const About = () => {
                   <p className="text-[#1E2EFF] text-[50px] sm:text-[60px] md:text-[70px] mb-1 font-['Montserrat',sans-serif] font-medium">
                     {stat.title}
                   </p>
-                  <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] font-['Montserrat',sans-serif] font-semibold">
+                  <p className="text-[18px] sm:text-[20px] py-3 font-['Montserrat',sans-serif] font-medium mb-2">
                     {stat.description}
                   </p>
                 </div>
@@ -336,7 +343,8 @@ const About = () => {
 
       {/* About Section 6 - Promise Section */}
       {aboutSection6 && (
-        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+        <div className='bg-[#EAF1FF] py-2'>
+        <section className=" container">
           <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif]">
             {aboutSection6.title}
           </h2>
@@ -353,14 +361,13 @@ const About = () => {
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
                 {/* Text content */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <p className="text-[18px] font-['Montserrat',sans-serif] font-medium">
+                  <p className="text-[18px] sm:text-[20px] py-3 font-['Montserrat',sans-serif] font-medium mb-2">
                     {aboutSection6.images[0].title}
                   </p>
                 </div>
               </div>
             )}
 
-            {/* Center Icon Grid */}
       {/* Center Icon Grid */}
 <div className="grid grid-cols-2 gap-4 justify-center">
   {/* Find and display the specific icons in order */}
@@ -407,6 +414,7 @@ const About = () => {
             )}
           </div>
         </section>
+        </div>
       )}
 
       {/* FAQ Section */}
@@ -445,10 +453,10 @@ const About = () => {
 
           {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif]">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.3] text-black mb-4 font-['Poppins',sans-serif]">
               Ready to Transform Your Advertising?
             </h2>
-            <p className="font-['Montserrat',sans-serif] text-gray-700 mb-5 text-base md:text-[17px] w-[90%] font-medium">
+            <p className="font-['Montserrat',sans-serif] text-gray-700 mb-6 leading-relaxed text-base md:text-[17px] w-[90%] font-medium">
               With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
             </p>
             <button 

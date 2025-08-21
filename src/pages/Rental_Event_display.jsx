@@ -3,150 +3,162 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/cta.png';
 import rental from '../assets/rental.jpg';
-import { Link,useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import PortableDesign from '../assets/PortableDesign.webp'
+import QuickSetup from '../assets/QuickSetup.webp'
+import HighBrightness from '../assets/HighBrightness.jpeg'
+import DurableConstruction from '../assets/DurableConstruction.png'
+import VersatileMounting from '../assets/versatile-mounting..jpg'
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    if (showcaseData && showcaseData.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseData.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [showcaseData]);
+  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0) return null;
 
-  if (!showcaseData || showcaseData.length === 0) {
-    return <div>Loading showcase...</div>;
-  }
+  const showcaseItems = showcaseData.images.map(img => ({
+    title: img.title,
+    image: `https://xigiled.in/storage/${img.image}`,
+  }));
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? showcaseItems.length - 1 : prevIndex - 1
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [showcaseItems.length]);
 
   return (
-    <section className="bg-blue-100 py-27">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-[45px] font-semibold text-black">For Showcase</h2>
+    <section className="bg-[#EAF1FF] py-22">
+      <div className="container mx-auto text-center px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+            {showcaseData.title || "For Showcase"}
+          </h2>
           <Link
             to="/gallery"
-            className="inline-block bg-blue-900 text-white px-4 py-2 w-[30%] md:w-[15%] lg:w-[10%] rounded-lg font-medium text-sm text-center"
+            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
           >
             View All
           </Link>
         </div>
 
-        <div className="flex flex-col md:flex-row bg-blue-200 rounded-xl overflow-hidden">
-          {/* Left Menu */}
-          <div className="w-full md:w-1/3 p-10 space-y-4">
-            {showcaseData.map((item, index) => (
-              <div
-                key={index}
-                className={`text-[20px] font-medium cursor-pointer transition-colors duration-300 ${
-                  index === currentIndex ? 'text-blue-700' : 'text-black'
-                }`}
-                onClick={() => setCurrentIndex(index)}
-              >
-                {item.title}
-              </div>
-            ))}
-          </div>
+        <div className="relative rounded-2xl overflow-hidden">
+          <img
+            src={showcaseItems[currentIndex]?.image}
+            alt={showcaseItems[currentIndex]?.title}
+            className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
+          />
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
+            {showcaseItems[currentIndex]?.title}
+          </h3>
 
-          {/* Vertical Divider Line */}
-          <div className="hidden md:flex items-center justify-center ">
-            <div className="w-[8px] h-125 rounded-2xl bg-blue-400"></div>
-          </div>
-
-          {/* Right Content */}
-          <div className="relative w-full md:w-2/3 p-10">
-            <img
-              src={`https://xigiled.in/storage/${showcaseData[currentIndex].image}`}
-              alt={showcaseData[currentIndex].title}
-              className="w-full h-[400px] object-cover rounded-xl"
-            />
-            <div className="mt-4">
-              <h3 className="text-[22px] font-semibold text-black">
-                {showcaseData[currentIndex].title}
-              </h3>
-              <p className="text-[17px] text-gray-900 mb-3 font-['Montserrat',sans-serif] font-medium">
-                {showcaseData[currentIndex].description || 'Description not available'}
-              </p>
-            </div>
-          </div>
+          {/* Prev & Next Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-const PixelPitchScroll = ({ panelsData }) => {
+const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
+  const scrollSpeed = 1;
+  const animationRef = useRef(null);
+
+  const animateScroll = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += scrollSpeed;
+      const scrollWidth = scrollRef.current.scrollWidth;
+      const halfWidth = scrollWidth / 2;
+
+      if (scrollRef.current.scrollLeft >= halfWidth) {
+        scrollRef.current.scrollLeft = 0;
+      }
+    }
+    animationRef.current = requestAnimationFrame(animateScroll);
+  };
 
   useEffect(() => {
+    animationRef.current = requestAnimationFrame(animateScroll);
+
     const container = scrollRef.current;
-    let scrollInterval;
-
-    const startScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (container) {
-          container.scrollLeft += 1;
-
-          // Reset scroll position without visual jump (for seamless loop)
-          if (container.scrollLeft >= container.scrollWidth / 2) {
-            container.scrollLeft = 0;
-          }
-        }
-      }, 20);
-    };
-
-    const stopScroll = () => clearInterval(scrollInterval);
+    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
+    const handleMouseLeave = () => animationRef.current = requestAnimationFrame(animateScroll);
 
     if (container) {
-      container.addEventListener('mouseenter', stopScroll);
-      container.addEventListener('mouseleave', startScroll);
-      startScroll();
+      container.addEventListener('mouseenter', handleMouseEnter);
+      container.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {
+      cancelAnimationFrame(animationRef.current);
       if (container) {
-        container.removeEventListener('mouseenter', stopScroll);
-        container.removeEventListener('mouseleave', startScroll);
+        container.removeEventListener('mouseenter', handleMouseEnter);
+        container.removeEventListener('mouseleave', handleMouseLeave);
       }
-      clearInterval(scrollInterval);
     };
   }, []);
 
-  if (!panelsData || panelsData.length === 0) {
-    return <div>Loading panels...</div>;
-  }
+  if (!pixelPitchData?.images?.length) return null;
 
-  // Duplicate content to simulate infinite scroll
-  const fullList = [...panelsData, ...panelsData];
+  // Duplicate for seamless scroll
+  const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
 
   return (
     <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
       <div className="container mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-[45px] font-semibold text-black">Panels</h2>
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+            {pixelPitchData.title}
+          </h2>
         </div>
 
-        {/* Scrollable List */}
+        {/* Scrollable 5-item container */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar pb-2"
-          style={{ scrollbarWidth: 'none' }}
+          className="overflow-x-hidden relative"
+          style={{ width: '1200px', margin: '0 auto' }}
         >
-          {fullList.map((panel, index) => (
-            <div key={index} className="flex-shrink-0 text-center w-[140px] md:w-[160px]">
-              <img
-                src={`https://xigiled.in/storage/${panel.image}`}
-                alt={panel.title}
-                className="w-full h-[120px] md:h-[130px] object-cover rounded-2xl shadow-md"
-              />
-              <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
-                {panel.title}
-              </p>
-            </div>
-          ))}
+          <div className="flex gap-10">
+            {fullList.map((pitch, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 text-center w-[160px]"
+              >
+                <img
+                  src={`https://xigiled.in/storage/${pitch.image}`}
+                  alt={pitch.title}
+                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                />
+                <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
+                  {pitch.title}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -157,16 +169,18 @@ const Rental_Event_display = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch('https://xigiled.in/api/rental-event-series');
+        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
         const data = await response.json();
         setApiData(data);
       } catch (err) {
@@ -180,82 +194,149 @@ const Rental_Event_display = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // Helper function to get section data by section name
+  const getSectionData = (sectionName) => {
+    return apiData.find(item => item.section === sectionName);
+  };
 
-  // Organize data by sections
-  const sectionData = apiData.reduce((acc, item) => {
-    acc[item.section] = item;
-    return acc;
-  }, {});
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
-  const rentalEventSection = sectionData['rental_event_series_section1'];
-  const mountingSection = sectionData['rental_event_series_section2'];
-  const panelsSection = sectionData['rental_event_series_section3'];
-  const showcaseSection = sectionData['rental_event_series_section4'];
-  const featuresSection = sectionData['rental_event_series_section5'];
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-lg text-red-600 mb-4">Error loading data: {error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const rentalEventData = getSectionData('rental_event_series_section1');
+  const mountingInstallationData = getSectionData('rental_event_series_section2');
+  const pixelPitchData = getSectionData('rental_event_series_section3');
+  const showcaseData = getSectionData('rental_event_series_section4');
+  const featuresData = getSectionData('rental_event_series_section5');
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
+ 
       {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
           src={rental}
-          alt="Rental and Event Banner"
+          alt="Rental & Event Display"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-semibold text-white text-center">
+          <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center font-['Poppins',sans-serif]">
             Rental & Event Series
           </h1>
         </div>
       </div>
 
-      {/* Main Content Section */}
-      {rentalEventSection && (
+      {/* Rental Event Section */}
+      {rentalEventData && (
         <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          <div className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[500px]">
-              <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900 mb-5 md:mb-7">
-                {rentalEventSection.images[0]?.title || rentalEventSection.title}
-              </h2>
-              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                {rentalEventSection.images[0]?.description || rentalEventSection.description}
-              </p>
-              
+          {rentalEventData.images.map((item, index) => (
+            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
+              {/* Text Left, Image Right - for even indexes */}
+              {index % 2 === 0 ? (
+                <>
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {rentalEventData.title || "Rental & Event Solutions"}
+                    </h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {rentalEventData.description || "Professional rental displays for events, concerts, exhibitions, and corporate functions."}
+                    </p>
+                  </div>
+                  <div className="md:col-span-7">
+                    <img 
+                      src={`https://xigiled.in/storage/${item.image}`} 
+                      alt={rentalEventData.title || "Rental & Event Display"} 
+                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Image Left, Text Right - for odd indexes */}
+                  <div className="md:col-span-7">
+                    <img 
+                      src={`https://xigiled.in/storage/${item.image}`} 
+                      alt={rentalEventData.title || "Rental & Event Display"} 
+                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
+                    />
+                  </div>
+                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {rentalEventData.title || "Rental & Event Solutions"}
+                    </h2>
+                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
+                      {rentalEventData.description || "Professional rental displays for events, concerts, exhibitions, and corporate functions."}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
-            <div className="bg-[#1D4ED8] md:col-span-7 rounded-xl flex items-center justify-center p-6 md:p-8 h-auto md:h-[500px]">
-              <img 
-                src={`https://xigiled.in/storage/${rentalEventSection.images[0]?.image}`} 
-                alt={rentalEventSection.images[0]?.title} 
-                className="w-full max-w-[300px] md:max-w-xs drop-shadow-xl rounded-lg" 
-              />
-            </div>
-          </div>
+          ))}
         </section>
       )}
 
-      {/* Mounting Section */}
-      {mountingSection && (
+      {/* Mounting Installation Section */}
+      {mountingInstallationData && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-gray-900">
-              {mountingSection.title}
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+              {mountingInstallationData.title || "Mounting Options"}
             </h2>
+            {mountingInstallationData.description && (
+              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+                {mountingInstallationData.description}
+              </p>
+            )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {mountingSection.images.map((item, index) => (
-              <div key={index} className="bg-[#fff] rounded-xl overflow-hidden shadow-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {mountingInstallationData.images.map((item, index) => (
+              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
+                {/* Image with gradient overlay */}
                 <img
                   src={`https://xigiled.in/storage/${item.image}`}
                   alt={item.title}
-                  className="w-full h-64 md:h-70 lg:h-100 object-cover"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="text-center p-4">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900">
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-90"></div>
+                
+                {/* Content */}
+                <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+                  <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
                     {item.title}
                   </h3>
                 </div>
@@ -265,120 +346,123 @@ const Rental_Event_display = () => {
         </section>
       )}
 
-      {/* Panels Section */}
-      {panelsSection && (
-        <PixelPitchScroll panelsData={panelsSection.images} />
-      )}
+      {/* Pixel Pitch Section */}
+      <PixelPitchScroll pixelPitchData={pixelPitchData} />
 
       {/* Showcase Section */}
-      {showcaseSection && (
-        <ShowcaseSlider showcaseData={showcaseSection.images} />
-      )}
+      <ShowcaseSlider showcaseData={showcaseData} />
 
       {/* Features Section */}
-      {featuresSection && (
-        <section className="py-16 bg-white px-4 flex flex-col items-center">
-          <h2 className="text-[45px] font-semibold text-center mb-5">
-            {featuresSection.title}
-          </h2>
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+          Why Event Planners Choose Xigi Rental Displays
+        </h2>
 
-          <div className="container grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Column 1: First feature (tall) */}
-            <div className="space-y-5">
-              {featuresSection.images[0] && (
-                <div className="relative h-[600px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${featuresSection.images[0].image}`}
-                    alt={featuresSection.images[0].title}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-                    {featuresSection.images[0].title}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Column 2: Second and third features */}
-            <div className="space-y-5">
-              {featuresSection.images[1] && (
-                <div className="relative h-[250px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${featuresSection.images[1].image}`}
-                    alt={featuresSection.images[1].title}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {featuresSection.images[1].title}
-                  </div>
-                </div>
-              )}
-              {featuresSection.images[2] && (
-                <div className="relative h-[330px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${featuresSection.images[2].image}`}
-                    alt={featuresSection.images[2].title}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {featuresSection.images[2].title}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Column 3: Fourth and fifth features */}
-            <div className="space-y-5">
-              {featuresSection.images[3] && (
-                <div className="relative h-[330px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${featuresSection.images[3].image}`}
-                    alt={featuresSection.images[3].title}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {featuresSection.images[3].title}
-                  </div>
-                </div>
-              )}
-              {featuresSection.images[4] && (
-                <div className="relative h-[250px] rounded-xl overflow-hidden">
-                  <img
-                    src={`https://xigiled.in/storage/${featuresSection.images[4].image}`}
-                    alt={featuresSection.images[4].title}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                    {featuresSection.images[4].title}
-                  </div>
-                </div>
-              )}
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Column 1: Portable Design */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
+              <img
+                src={PortableDesign}
+                alt="Portable Design"
+                className="w-full object-cover rounded-md mb-4"
+              />
+              <div>
+                <h3 className="text-white text-xl font-bold mb-2">Portable Design</h3>
+                <p className="text-white text-sm">
+                  Lightweight and easy to transport, perfect for events that require setup and teardown efficiency.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
-      )}
+
+          {/* Column 2: Quick Setup + High Brightness */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={QuickSetup}
+                alt="Quick Setup"
+                className="mx-auto w-70 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Quick Setup</h3>
+                <p className="text-white text-sm">
+                  Modular design allows for fast installation and dismantling to meet tight event schedules.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={HighBrightness}
+                alt="High Brightness"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">High Brightness</h3>
+                <p className="text-white text-sm">
+                  Excellent visibility even in brightly lit event environments and outdoor settings.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Durable Construction + Versatile Mounting */}
+          <div className="space-y-6">
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={DurableConstruction}
+                alt="Durable Construction"
+                className="w-66 object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Durable Construction</h3>
+                <p className="text-white text-sm">
+                  Built to withstand the rigors of frequent transportation and event setups.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
+              <img
+                src={VersatileMounting}
+                alt="Versatile Mounting"
+                className="w-full object-cover rounded-md mb-3"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">Versatile Mounting</h3>
+                <p className="text-white text-sm">
+                  Multiple mounting options for stage backdrops, truss systems, and custom installations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
+          {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
             <img
               src={cta}
-              alt="CTA Display"
+              alt="Rental & Event Display"
               className="w-full h-full object-cover"
             />
           </div>
 
+          {/* Right Content */}
           <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-3xl md:text-[45px] font-semibold text-black mb-2">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
               Ready to Transform Your Event?
             </h2>
             <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With our Rental & Event Series, you're not just getting displays – you're gaining a partner committed to making your event unforgettable.
+              With Xigi Rental & Event Displays, you're not just getting equipment – you're gaining a partner committed to making your event unforgettable
             </p>
             <button onClick={() => navigate('/contact')}
-className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
-              See Solutions for Your Products
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+              See Solutions for Your Events
             </button>
           </div>
         </div>
@@ -386,7 +470,7 @@ className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:fro
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
 export default Rental_Event_display;

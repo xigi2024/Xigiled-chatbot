@@ -170,7 +170,7 @@ const Industry = () => {
               <img
                 src={`https://xigiled.in/storage/${digitalImpactSection.images[0].image}`}
                 alt="Digital Impact"
-                className="h-auto md:h-120 lg:h-auto rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+                className=" h-[400px] rounded-xl shadow-xl w-full max-w-md md:max-w-full"
                 loading="lazy"
               />
             )}
@@ -186,7 +186,8 @@ const Industry = () => {
             </p>
             <button 
               onClick={() => navigate('/contact')} 
-              className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[15px] md:text-[16px] font-medium transition-all duration-300"
+              className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700
+               text-white px-6 py-3 rounded-md shadow-md text-[15px] md:text-[16px] font-medium transition-all duration-300"
             >
               Get Started Today
             </button>
@@ -233,13 +234,13 @@ const Industry = () => {
                       {cleanTitle}
                     </h3>
                     <div 
-                      className="text-[15px] pb-3 text-gray-700 mt-1 font-medium font-['Montserrat',sans-serif]"
+  className="text-[15px] pb-3 text-gray-700 mt-1 font-medium font-['Montserrat',sans-serif] pr-[30px]"
                       dangerouslySetInnerHTML={{ __html: cleanDescription }}
                     />
 
                     {/* Always show icon in bottom-right on desktop */}
                     <div className="absolute bottom-4 right-4 hidden lg:block">
-                      <span className="bg-[#e6ecf6] p-3 rounded-[5px] shadow-lg inline-flex items-center justify-center">
+                      <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center">
                         <Link2 className="h-5 w-5 text-[#3a4a6f]" />
                       </span>
                     </div>
@@ -259,7 +260,7 @@ const Industry = () => {
               {keyFeaturesSection.title || 'Key Features of Our LED Video Walls'}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
               {keyFeaturesSection.images?.map((feature, idx) => (
                 <div
                   key={idx}
@@ -280,7 +281,7 @@ const Industry = () => {
                   <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                  <p className="text-gray-700 text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
                     {feature.description}
                   </p>
                 </div>
@@ -305,7 +306,7 @@ const Industry = () => {
                 backgroundPosition: 'center',
               }}
             >
-              <div className="absolute inset-0 bg-black/40 z-0"></div>
+              <div className="absolute inset-0 bg-black/65 z-0"></div>
               <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
                   {transformSection.title || 'Ready to Transform Your Advertising?'}
@@ -315,7 +316,9 @@ const Industry = () => {
                 </p>
                 <button 
                   onClick={() => navigate('/contact')}
-                  className="bg-white w-[280px] text-semibold hover:from-indigo-700 cursor-pointer px-7 py-3 rounded-md shadow-md text-[16px]"
+                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+    hover:from-indigo-700 hover:to-blue-700 text-white text-[18px] py-2 rounded-[5px] text-sm font-medium w-[300px] transition-all duration-300
+   "
                 >
                   See Solutions for Your Industry
                 </button>

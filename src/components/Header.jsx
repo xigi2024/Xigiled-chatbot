@@ -75,16 +75,17 @@ const Header = () => {
             >
               About
             </Link>
-            <Link
-              to="/contact"
-              className={`px-5 text-[18px] py-2 rounded-[5px] text-sm font-medium transition-all duration-300 ${
-                currentPath === '/contact'
-                  ? 'bg-blue-800 text-white'
-                  : 'bg-blue-700 hover:bg-blue-800 text-white'
-              }`}
-            >
-              Contact
-            </Link>
+                      <Link
+  to="/contact"
+  className={` bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+    hover:from-indigo-700 hover:to-blue-700 text-white px-5 text-[16px] py-2 rounded-[5px] text-sm font-medium transition-all duration-300
+    ${currentPath === '/contact' 
+      ? 'bg-blue-800 text-white' 
+      : 'bg-blue-700 hover:bg-blue-800 text-white'
+    }`}
+>
+  Contact
+</Link>
           </div>
 
           {/* Mobile + Tablet Menu Button: visible below lg */}
