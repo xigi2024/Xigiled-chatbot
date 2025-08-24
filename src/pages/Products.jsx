@@ -137,48 +137,48 @@ const ProductSolutions = ({ sectionData }) => {
   if (!sectionData || !sectionData.images) return null;
 
   return (
-    <section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
-      <div className="container mx-auto">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-          {sectionData.title || "PRODUCT SOLUTIONS"}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
-          {sectionData.images.map((item, idx) => (
-            <Link
-              to={getRouteFromTitle(item.title)}
-              key={idx}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col"
-            >
-              {/* Image with hover icon for mobile/tab */}
-              <div className="relative overflow-hidden">
-                <img
-                  src={getImageUrl(item.image) || 'https://via.placeholder.com/300x200?text=Product+Image'}
-                  alt={item.title || 'Product Image'}
-                  className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
+<section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
+  <div className="container mx-auto">
+    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      {sectionData.title || "PRODUCT SOLUTIONS"}
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
+      {sectionData.images.map((item, idx) => (
+        <Link
+          to={getRouteFromTitle(item.title)}
+          key={idx}
+          className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col"
+        >
+          {/* Image with hover icon for mobile/tab */}
+          <div className="relative overflow-hidden">
+            <img
+              src={getImageUrl(item.image) || 'https://via.placeholder.com/300x200?text=Product+Image'}
+              alt={item.title || 'Product Image'}
+              className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
 
-              {/* Text Content */}
-              <div className="p-4 relative flex-1 flex flex-col">
-                <h3 className="text-[16px] md:text-[18px] lg:text-[20px] font-medium my-2 text-gray-900 font-['Poppins',sans-serif]">
-                  {item.title || 'Product Title'}
-                </h3>
-                <p className="text-[15px] text-gray-700 mt-1 flex-1 font-medium font-['Montserrat',sans-serif] pr-[10px] mb-4">
-                  {item.description || 'Product description not available'}
-                </p>
-
-                {/* Always show icon in bottom-right on desktop */}
-                <div style={{marginTop:"-18px"}}>
-                  <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center float-right">
-                    <Link2 className="h-5 w-5 text-[#3a4a6f]" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+          {/* Text Content */}
+          <div className="p-4 relative flex-1 flex flex-col">
+            <h3 className="text-[16px] md:text-[18px] lg:text-[20px] font-medium my-2 text-gray-900 font-['Poppins',sans-serif]">
+              {item.title || 'Product Title'}
+            </h3>
+            
+            {/* Description and icon in the same row */}
+            <div className="flex justify-between items-end">
+              <p className="text-[15px] text-gray-700 flex-1 font-medium font-['Montserrat',sans-serif] pr-2 mb-0">
+                {item.description || 'Product description not available'}
+              </p>
+              <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center flex-shrink-0">
+                <Link2 className="h-5 w-5 text-[#3a4a6f]" />
+              </span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 
@@ -291,7 +291,7 @@ const Products = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] pr-[100px]  bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
       
@@ -331,7 +331,7 @@ const Products = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
               {digitalImpactSection?.title || "Digital Impact by product"}
             </h2>
-            <p className="text-gray-800 text-[14px] md:text-[16px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+            <p className="text-gray-800 text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
               {digitalImpactSection?.description || "At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment. Our technology adapts to your unique needs, helping you connect, engage, and grow in today's fast-moving digital world."}
             </p>
             <button 

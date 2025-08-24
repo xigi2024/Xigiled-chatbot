@@ -3,11 +3,6 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight } from "lucide-react";
-import Highdefinition from '../assets/industry/High-definition.png'
-import seamless from '../assets/industry/seamless.png'
-import vibrantColor from '../assets/industry/vibrantColor.png'
-import WideAngle from '../assets/industry/WideAngle.png'
-import ultraThin from '../assets/industry/ultraThin.png'
 
 const ManufacturingFactories = () => {
   const [apiData, setApiData] = useState([]);
@@ -79,15 +74,14 @@ const ManufacturingFactories = () => {
     );
   }
 
-// Get data for different sections
-const heroSection = getSectionData('manufacturing_factory_section1');
-const excellenceSection = getSectionData('manufacturing_factory_section2');
-const smartDisplaysSection = getSectionData('manufacturing_factory_section3');
-const smartFeaturesSection = getSectionData('manufacturing_factory_section4');
-const flexibleDisplaySection = getSectionData('manufacturing_factory_section6');
-const chooseXigiSection = getSectionData('manufacturing_factory_section7');
-const transformSection = getSectionData('manufacturing_factory_section8');
-
+  // Get data for different sections
+  const heroSection = getSectionData('manufacturing_factory_section1');
+  const excellenceSection = getSectionData('manufacturing_factory_section2');
+  const smartDisplaysSection = getSectionData('manufacturing_factory_section3');
+  const smartFeaturesSection = getSectionData('manufacturing_factory_section4');
+  const flexibleDisplaySection = getSectionData('manufacturing_factory_section6');
+  const chooseXigiSection = getSectionData('manufacturing_factory_section7');
+  const transformSection = getSectionData('manufacturing_factory_section8');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
@@ -95,15 +89,15 @@ const transformSection = getSectionData('manufacturing_factory_section8');
 
       {/* Hero Section */}
       {heroSection && (
-        <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-36 px-[10px] md:px-[40px] lg:px-[100px]">
+        <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[80vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-30 px-[10px] md:px-[40px] lg:px-[40px]">
           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Left Text Column */}
             <div className="flex-1 text-left">
               <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-2 font-['Poppins',sans-serif]">
-                {heroSection.title || "XIGI LED Display"}
+                {heroSection.title || "LED Displays for Manufacturing Factories"}
               </h1>
 
-              <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-tight">
+              <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-relaxed">
                 {heroSection.description || "Brilliant LED Solutions for Manufacturing Factories"}
               </p>
             </div>
@@ -123,7 +117,7 @@ const transformSection = getSectionData('manufacturing_factory_section8');
       )}
 
       {/* Excellence Section */}
-      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-24">
+      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
         {/* Breadcrumb */}
         <div className="container text-sm text-gray-500 mb-10">
           <span className="inline-flex items-center gap-2">
@@ -139,72 +133,54 @@ const transformSection = getSectionData('manufacturing_factory_section8');
           </span>
         </div>
 
-        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 items-center">
+        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
           {/* Left Image */}
           <div className="flex justify-center w-full">
-            <img
-              src={excellenceSection?.images?.[0]?.image ? `https://xigiled.in/storage/${excellenceSection.images[0].image}` : ""}
-              alt="LED Display in Manufacturing"
-              className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-            />
+            {excellenceSection?.images?.[0]?.image && (
+              <img
+                src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
+                alt="LED Display for Manufacturing"
+                className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+              />
+            )}
           </div>
 
           {/* Right Content */}
-          <div className="w-full">
+          <div className="w-full  flex flex-col justify-center">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-              {excellenceSection?.title || "Designed for Manufacturing Excellence"}
+              {excellenceSection?.title || "LED Displays for Manufacturing Factories"}
             </h2>
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
-              {excellenceSection?.description?.split('\n')[0] || "Our LED displays are built to perform in demanding manufacturing settings."}
+            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
+              {excellenceSection?.description || 
+                "Our LED displays are built to perform in demanding manufacturing settings, providing clear visibility and reliable operation in industrial environments."}
             </p>
-
-            <div className="space-y-6">
-              {[
-                excellenceSection?.images?.[0]?.description]
-                .filter(Boolean)
-                .join('\n\n')
-                .split('\n\n')
-                .filter(item => item.trim())
-                .map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
-                      ✓
-                    </div>
-                    <p className="text-gray-900 text-base leading-relaxed">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-            </div>
           </div>
         </div>
       </section>
 
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
-        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-24">
-          <div className='container mx-auto'>
-            {/* Section Heading */}
+        <section className="bg-white py-15">
+          <div className="container mx-auto">
             <div className="text-center mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
-                {smartDisplaysSection.title || "Smart Displays for Manufacturing"}
+                {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
               </h2>
-              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium">
-                {smartDisplaysSection.description || "Enhancing manufacturing environments with cutting-edge LED technology"}
+              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
+                {smartDisplaysSection.description || "Deliver more than visuals — deliver efficiency"}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {smartDisplaysSection.images?.map((item, index) => (
-                <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px]">
+                <div key={index} className="relative rounded-xl overflow-hidden h-70">
                   <img
                     src={`https://xigiled.in/storage/${item.image}`}
                     alt={item.title}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent flex items-end justify-center pb-4">
-                    <p className="text-white text-[20px] font-['Montserrat',sans-serif] font-medium text-center">
-                      {item.title}
-                    </p>
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/100 to-transparent flex items-end p-4">
+                    <p className="text-white text-[17px] font-medium">{item.title}</p>
                   </div>
                 </div>
               ))}
@@ -213,23 +189,21 @@ const transformSection = getSectionData('manufacturing_factory_section8');
         </section>
       )}
 
-      {/* Smart Features Section - FAQ Section */}
+      {/* Smart Features Section with FAQs */}
       {smartFeaturesSection && (
-        <section className="bg-white py-20">
+        <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            {/* Heading */}
             <div className="text-center mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
-                {smartFeaturesSection.title || "Precision Display for Manufacturing"}
+                {smartFeaturesSection.title || "LED Display Options"}
               </h2>
               {smartFeaturesSection.description && (
-                <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed">
+                <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed max-w-3xl mx-auto">
                   {smartFeaturesSection.description}
                 </p>
               )}
             </div>
 
-            {/* Columns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {smartFeaturesSection.images?.map((imageItem, imageIndex) => (
                 <div key={imageIndex} className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
@@ -240,75 +214,69 @@ const transformSection = getSectionData('manufacturing_factory_section8');
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
                   )}
-                  <div className="p-6">
-                    <h3 className="text-[20px] font-semibold text-center mb-4 font-['Poppins',sans-serif]">
-                      {imageItem.title}
-                    </h3>
-                    <div className="space-y-3">
-                      {imageItem.faqs?.map((faq, faqIndex) => {
-                        const key = `${imageIndex}-${faqIndex}`;
-                        const isOpen = openFaqs === key;
-                        return (
+                  <div className="space-y-3 p-3">
+                    {imageItem.faqs?.map((faq, faqIndex) => {
+                      const key = `${imageIndex}-${faqIndex}`;
+                      const isOpen = openFaqs === key;
+                      return (
+                        <div
+                          key={faqIndex}
+                          className="rounded-md overflow-hidden transition-all duration-200 hover:shadow-md"
+                        >
                           <div
-                            key={faqIndex}
-                            className="bg-white rounded-md border-[3px] border-[#E8F1FF] overflow-hidden transition-all duration-200 hover:shadow-md"
+                            className="font-semibold flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50"
+                            onClick={() => toggleFaq(imageIndex, faqIndex)}
                           >
-                            <div 
-                              className="font-semibold flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50"
-                              onClick={() => toggleFaq(imageIndex, faqIndex)}
-                            >
-                              <span className="text-blue-700">{faq.question}</span>
-                              <ChevronRight 
-                                className={`w-5 h-5 text-blue-700 transition-transform duration-200 ${
-                                  isOpen ? 'rotate-90' : ''
+                            <span className="text-blue-700">{faq.question}</span>
+                            <ChevronRight
+                              className={`w-5 h-5 text-blue-700 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''
                                 }`}
-                              />
-                            </div>
-                            <div className={`overflow-hidden transition-all duration-300 ${
-                              isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                            />
+                          </div>
+                          <hr className=" border-gray-300" />
+                          <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                             }`}>
-                              <div className="px-4 pb-4 text-sm text-gray-700 leading-relaxed border-t border-gray-100">
-                                <div className="pt-3">
-                                  {faq.answer}
-                                </div>
+                            <div className="px-4 pb-4 text-sm text-gray-700 leading-relaxed border-t border-gray-100">
+                              <div className="pt-3">
+                                {faq.answer}
                               </div>
                             </div>
                           </div>
-                        );
-                      })}
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Suggestion Note */}
-            <div className="bg-[#EDF3FF] text-sm md:text-base text-gray-800 px-6 py-4 rounded-md flex items-center gap-3 mt-10">
+            {/* Suggestion Note - Moved inside container */}
+            <div className="bg-[#EDF3FF] text-sm md:text-base text-gray-800 px-6 py-4 rounded-md flex items-center gap-3 mt-10 max-w-3xl mx-auto">
               <span className="text-yellow-500 text-xl">💡</span>
-              <p>Suggestion: P5 to P10 is a suitable choice for industrial applications.</p>
+              <p>Suggestion: P5 to P10 is a suitable choice for industrial applications above 50 feet.</p>
             </div>
           </div>
         </section>
       )}
 
-      {/* Flexible Display Sizes Section */}
+      {/* Flexible Display Section */}
       {flexibleDisplaySection && (
-        <section className="bg-white py-22 px-4 md:px-10 lg:px-28">
+        <section className="bg-white py-20 px-4 md:px-10 lg:px-28">
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left Text + Cards */}
             <div>
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
-                {flexibleDisplaySection.title || "Industrial Display Solutions"}
+                {flexibleDisplaySection.title || "Flexible Display Solutions"}
               </h2>
               <p className="text-gray-700 text-base md:text-lg mb-8 max-w-xl">
-                {flexibleDisplaySection.description || "Choose from rugged displays designed for factory environments:"}
+                {flexibleDisplaySection.description || "Choose from a range of ready-to-deploy formats or build a custom setup to suit your manufacturing environment"}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-md">
                 {flexibleDisplaySection.images?.filter(img => img.description).map((item, index) => (
                   <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md">
-                    <h2 className='text-blue-700 text-[19px] mb-4'>{item.title}</h2>
-                    <p className="text-gray-800 text-sm">{item.description}</p>
+                    <h2 className='text-blue-700 text-[22px] mb-4 '>{item.title}</h2>
+                    <p className="text-gray-800 text-sm ">{item.description}</p>
                   </div>
                 ))}
               </div>
@@ -319,7 +287,7 @@ const transformSection = getSectionData('manufacturing_factory_section8');
               {flexibleDisplaySection.images?.find(img => img.image) && (
                 <img
                   src={`https://xigiled.in/storage/${flexibleDisplaySection.images.find(img => img.image).image}`}
-                  alt="Industrial Displays"
+                  alt="Flexible Display"
                   className="rounded-xl w-full h-[400px] object-cover"
                 />
               )}
@@ -332,25 +300,22 @@ const transformSection = getSectionData('manufacturing_factory_section8');
       {chooseXigiSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            {/* Heading */}
             <div className="text-center mb-12">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {chooseXigiSection.title || "Why Manufacturers Choose Xigi LED"}
               </h2>
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
-                {chooseXigiSection.description || "Trusted solutions for industrial applications"}
+                {chooseXigiSection.description || "Trusted solutions for manufacturing and industrial applications"}
               </p>
             </div>
 
-            {/* Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {chooseXigiSection.images?.map((item, index) => (
                 <div
                   key={index}
                   className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100"
                 >
-                  {/* Image Wrapper */}
-                  <div className="h-48 overflow-hidden relative">
+                  <div className="h-60 overflow-hidden relative">
                     <img
                       src={`https://xigiled.in/storage/${item.image}`}
                       alt={item.title}
@@ -359,56 +324,46 @@ const transformSection = getSectionData('manufacturing_factory_section8');
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
 
-                  {/* Card Content */}
-                  <div className="p-6">
-                    <h3 className="font-semibold mb-3 group-hover:text-blue-700 transition-colors duration-300">
+                  <div className="p-3">
+                    <h3 className=" mt-6 mb-3 group-hover:text-blue-700 text-[22px] font-medium  transition-colors duration-300 text-center font-['Montserrat',sans-serif]     ">
                       {item.title}
                     </h3>
-                    {item.description && (
-                      <p className="text-sm">
-                        {item.description}
-                      </p>
-                    )}
                   </div>
                 </div>
               ))}
             </div>
-
-   
           </div>
         </section>
       )}
 
-      {/* Ready to Transform Section */}
+      {/* Transform Section */}
       {transformSection && (
         <section className="bg-[#f2f2fd] py-20">
           <div className="container mx-auto">
-            <div 
+            <div
               className="h-[500px] relative rounded-3xl overflow-hidden"
               style={{
-                backgroundImage: transformSection.images?.[0]?.image 
+                backgroundImage: transformSection.images?.[0]?.image
                   ? `url(https://xigiled.in/storage/${transformSection.images[0].image})`
                   : 'linear-gradient(to bottom right, #000000, #010150, #000000)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
             >
-              {/* Dark overlay for better text contrast */}
               <div className="absolute inset-0 bg-black/55 z-0"></div>
-
-              {/* Content Over Image */}
               <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 max-w-xl">
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
-                  {transformSection.title || "Ready to Transform Your Manufacturing Facility?"}
+                  {transformSection.title || "Transform Your Manufacturing Facility with Xigi LED"}
                 </h2>
                 <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
-                  {transformSection.description || "With Xigi LED, you're not just getting displays – you're gaining a partner committed to enhancing manufacturing efficiency."}
+                  {transformSection.description || "Ready to enhance your manufacturing operations with cutting-edge LED displays? Contact us for a custom solution."}
                 </p>
-                <button 
-                  onClick={() => navigate('/contact')} 
-                  className="bg-white cursor-pointer text-[#1e2d3d] hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
+                <button
+                  onClick={() => navigate('/contact')}
+                  className=" bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+    hover:from-indigo-700 hover:to-blue-700 text-white px-5 w-[300px] text-[17px]  py-3 rounded-[5px] text-sm font-medium transition-all duration-300"
                 >
-                  See Solutions for Your Factory
+                  Get Factory Demo
                 </button>
               </div>
             </div>

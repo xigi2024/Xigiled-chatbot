@@ -154,7 +154,7 @@ const Industry = () => {
             <img
               src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
               alt="LED Display"
-              className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
+              className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl h-[400px] mx-auto"
               loading="lazy"
             />
           )}
@@ -181,7 +181,7 @@ const Industry = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
               {digitalImpactSection?.title || 'Digital Impact by Industry'}
             </h2>
-            <p className="text-gray-800 text-[14px] md:text-[16px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+            <p className="text-gray-800 text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
               {digitalImpactSection?.description || 'At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment.'}
             </p>
             <button 
@@ -195,62 +195,57 @@ const Industry = () => {
         </div>
       </section>
 
-      {/* Industry Solutions Section */}
-      <section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
-        <div className="container mx-auto">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-            {industrySection?.title || 'INDUSTRY SOLUTIONS'}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6">
-            {industrySection?.images?.map((card, idx) => {
-              // Clean up title and description
-              const cleanTitle = card.title?.trim() || 'Industry Solution';
-              const cleanDescription = card.description?.replace(/\n/g, '<br />') || '';
+{/* Industry Solutions Section */}
+<section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
+  <div className="container mx-auto">
+    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      {industrySection?.title || 'INDUSTRY SOLUTIONS'}
+    </h2>
 
-              return (
-                <div
-                  key={idx}
-                  onClick={() => handleCardClick(cleanTitle)}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative cursor-pointer h-full"
-                >
-                  {/* Image with hover icon */}
-                  <div className="relative overflow-hidden h-48">
-                    <img
-                      src={`https://xigiled.in/storage/${card.image}`}
-                      alt={cleanTitle}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center lg:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-                      <span className="bg-[#e6ecf6] p-4 rounded-[5px] shadow-lg">
-                        <Link2 className="h-6 w-6 text-[#3a4a6f]" />
-                      </span>
-                    </div>
-                  </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
+      {industrySection?.images?.map((card, idx) => {
+        const cleanTitle = card.title?.trim() || 'Industry Solution';
+        const cleanDescription =
+          card.description?.replace(/\n/g, '') || 'Description not available';
 
-                  {/* Text Content */}
-                  <div className="p-4 relative h-[calc(100%-12rem)]">
-                    <h3 className="text-[16px] md:text-[18px] lg:text-[22px] my-2 font-medium text-gray-900 font-['Poppins',sans-serif]">
-                      {cleanTitle}
-                    </h3>
-                    <div 
-  className="text-[15px] pb-3 text-gray-700 mt-1 font-medium font-['Montserrat',sans-serif] pr-[30px]"
-                      dangerouslySetInnerHTML={{ __html: cleanDescription }}
-                    />
+        return (
+          <div
+            key={idx}
+            onClick={() => handleCardClick(cleanTitle)}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col cursor-pointer"
+          >
+            {/* Image */}
+            <div className="relative overflow-hidden">
+              <img
+                src={`https://xigiled.in/storage/${card.image}`}
+                alt={cleanTitle}
+                className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
 
-                    {/* Always show icon in bottom-right on desktop */}
-                    <div className="absolute bottom-4 right-4 hidden lg:block">
-                      <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center">
-                        <Link2 className="h-5 w-5 text-[#3a4a6f]" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {/* Text Content */}
+            <div className="p-4 relative flex-1 flex flex-col">
+              <h3 className="text-[17px] md:text-[18px] lg:text-[20px] font-medium my-2 text-gray-900 font-['Poppins',sans-serif]">
+                {cleanTitle}
+              </h3>
+              
+              {/* Description and icon in the same row */}
+              <div className="flex justify-between items-end ">
+                <p className="text-[15px] text-gray-700 flex-1 font-medium font-['Montserrat',sans-serif] pr-2 mb-0">
+                  {cleanDescription}
+                </p>
+                <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center flex-shrink-0">
+                  <Link2 className="h-5 w-5 text-[#3a4a6f]" />
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* Key Features Section */}
       {keyFeaturesSection && (

@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import cta from '../assets/cta.png';
-import outdoor from '../assets/outdoor.jpg';
+import cta from '../assets/cta2.jpg';
+import outdoor from '../assets/outdoor led display.png';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 // Import feature images for outdoor (you'll need to add these)
-import Weatherproof from '../assets/weatherproof.jpg'
+import Weatherproof from '../assets/outdoor.avif'
 import BrightDisplay from '../assets/bright-display.webp'
 import EnergyEfficient from '../assets/energy-efficient.avif'
 import RemoteControl from '../assets/remote-control.avif'
@@ -43,16 +43,16 @@ const ShowcaseSlider = ({ showcaseData }) => {
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+        <div className="flex justify-center items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
-          <Link
+          {/* <Link
             to="/gallery"
             className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
           >
             View All
-          </Link>
+          </Link> */}
         </div>
 
         <div className="relative rounded-2xl overflow-hidden">
@@ -61,7 +61,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
             alt={showcaseItems[currentIndex]?.title}
             className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
           />
-          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg">
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
             {showcaseItems[currentIndex]?.title}
           </h3>
 
@@ -86,41 +86,52 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
-  const scrollSpeed = 1;
   const animationRef = useRef(null);
+  const scrollSpeed = 1; // pixels per frame
 
   const animateScroll = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft += scrollSpeed;
-      const scrollWidth = scrollRef.current.scrollWidth;
-      const halfWidth = scrollWidth / 2;
+    const el = scrollRef.current;
+    if (el) {
+      // move right
+      el.scrollLeft += scrollSpeed;
 
-      if (scrollRef.current.scrollLeft >= halfWidth) {
-        scrollRef.current.scrollLeft = 0;
+      // full scrollable width minus visible width = max offset
+      const maxOffset = el.scrollWidth - el.clientWidth;
+
+      // when we reach the end, jump back to start
+      if (el.scrollLeft >= maxOffset) {
+        el.scrollLeft = 0;
       }
     }
     animationRef.current = requestAnimationFrame(animateScroll);
   };
 
   useEffect(() => {
+    // start animation
     animationRef.current = requestAnimationFrame(animateScroll);
 
-    const container = scrollRef.current;
-    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
-    const handleMouseLeave = () => animationRef.current = requestAnimationFrame(animateScroll);
+    const el = scrollRef.current;
+    const handleMouseEnter = () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+    const handleMouseLeave = () => {
+      animationRef.current = requestAnimationFrame(animateScroll);
+    };
 
-    if (container) {
-      container.addEventListener('mouseenter', handleMouseEnter);
-      container.addEventListener('mouseleave', handleMouseLeave);
+    if (el) {
+      el.addEventListener("mouseenter", handleMouseEnter);
+      el.addEventListener("mouseleave", handleMouseLeave);
     }
 
+    // cleanup
     return () => {
-      cancelAnimationFrame(animationRef.current);
-      if (container) {
-        container.removeEventListener('mouseenter', handleMouseEnter);
-        container.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (el) {
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!pixelPitchData?.images?.length) return null;
@@ -142,14 +153,11 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
         <div
           ref={scrollRef}
           className="overflow-x-hidden relative"
-          style={{ width: '1200px', margin: '0 auto' }}
+          style={{ width: "1200px", margin: "0 auto" }} // 5 * (160px + gap ~8-10px)
         >
           <div className="flex gap-10">
             {fullList.map((pitch, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 text-center w-[160px]"
-              >
+              <div key={index} className="flex-shrink-0 text-center w-[160px]">
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
@@ -260,54 +268,76 @@ const Outdoor_Led = () => {
         </div>
       </div>
 
-      {/* Rule the Outdoors Section */}
-      {ruleOutdoorsData && (
-        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          {ruleOutdoorsData.images.map((item, index) => (
-            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-              {/* Text Left, Image Right - for even indexes */}
-              {index % 2 === 0 ? (
-                <>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {ruleOutdoorsData.title || "Rule the Outdoors"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {ruleOutdoorsData.description || "Outdoor LED displays designed for maximum visibility and durability..."}
-                    </p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={ruleOutdoorsData.title || "Outdoor LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Image Left, Text Right - for odd indexes */}
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={ruleOutdoorsData.title || "Outdoor LED Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {ruleOutdoorsData.title || "Rule the Outdoors"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {ruleOutdoorsData.description || "Outdoor LED displays designed for maximum visibility and durability..."}
-                    </p>
-                  </div>
-                </>
-              )}
+      <div className=" pt-14  container text-sm text-gray-500 mb-10 space-y-5 md:space-y-5 lg:space-y-10">
+  <span className="inline-flex items-center gap-2">
+    <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+      🏠 Home
+    </Link>
+    <span>›</span>
+    <Link to="/products" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+      Products
+    </Link>
+    <span>›</span>
+    <span className="text-blue-600 text-decoration-none font-medium">Outdoor Video Walls</span>
+  </span>
+</div>
+{/* Rule the Outdoors Section */}
+{ruleOutdoorsData && (
+  <section className=" pb-30 px-4 md:px-12 lg:px-20 bg-white ">
+    {ruleOutdoorsData.images.map((item, index) => (
+      <div
+        key={index}
+        className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto "
+      >
+        {/* Text Left, Image Right - for even indexes */}
+        {index % 2 === 0 ? (
+          <>
+            {/* Text box */}
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 h-[500px] flex flex-col justify-center">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {ruleOutdoorsData.title || "Rule the Outdoors"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {ruleOutdoorsData.description || "Outdoor LED displays designed for maximum visibility and durability..."}
+              </p>
             </div>
-          ))}
-        </section>
-      )}
+
+            {/* Image box */}
+            <div className="md:col-span-7 h-[500px]">
+              <img
+                src={`https://xigiled.in/storage/${item.image}`}
+                alt={ruleOutdoorsData.title || "Outdoor LED Display"}
+                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image Left */}
+            <div className="md:col-span-7 h-full flex">
+              <img
+                src={`https://xigiled.in/storage/${item.image}`}
+                alt={ruleOutdoorsData.title || "Outdoor LED Display"}
+                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+              />
+            </div>
+
+            {/* Text Right */}
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-full">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {ruleOutdoorsData.title || "Rule the Outdoors"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {ruleOutdoorsData.description || "Outdoor LED displays designed for maximum visibility and durability..."}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </section>
+)}
+
 
       {/* Smart Display Types Section */}
       {smartDisplayData && (
@@ -325,7 +355,7 @@ const Outdoor_Led = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {smartDisplayData.images.map((item, index) => (
-              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
+              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[350px] group">
                 {/* Image with gradient overlay */}
                 <img
                   src={`https://xigiled.in/storage/${item.image}`}
@@ -334,7 +364,7 @@ const Outdoor_Led = () => {
                 />
                 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-90"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
                 
                 {/* Content */}
                 <div className="absolute inset-x-0 bottom-0 p-4 text-center">
@@ -360,107 +390,110 @@ const Outdoor_Led = () => {
           Why Outdoor Advertisers Choose Xigi LED
         </h2>
 
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Column 1: Weatherproof */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
-              <img
-                src={Weatherproof}
-                alt="Weatherproof"
-                className="w-full object-cover rounded-md mb-4"
-              />
-              <div>
-                <h3 className="text-white text-xl font-bold mb-2">Weatherproof</h3>
-                <p className="text-white text-sm">
-                  Built to withstand harsh weather conditions with IP65 rating. Rain or shine,
-                  your display continues to perform at peak efficiency.
-                </p>
+          <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Column 1: Weatherproof */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
+                <img
+                  src={Weatherproof}
+                  alt="Weatherproof"
+                  className="w-full object-cover rounded-md mb-4"
+                />
+                <div>
+                  <h3 className="text-white text-xl font-bold mb-2">Weatherproof</h3>
+                  <p className="text-white text-sm">
+                    Built to withstand harsh weather conditions with IP65 rating. Rain or shine,
+                    your display continues to perform at peak efficiency.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Bright Display + Energy Efficient */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[303px] p-5 shadow-lg">
+                <img
+                  src={BrightDisplay}
+                  alt="Bright Display"
+                  className="mx-auto w-70 object-cover h-50 rounded-md mb-4"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Bright Display</h3>
+                </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D]  h-[278px] p-5 shadow-lg">
+                <img
+                  src={EnergyEfficient}
+                  alt="Energy Efficient"
+                  className="w-full object-cover h-50 rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Energy Efficient</h3>
+                
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Remote Control + Durable Design */}
+            <div className="space-y-6">
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[278px] p-5 shadow-lg">
+                <img
+                  src={RemoteControl}
+                  alt="Remote Control"
+                  className="w-66 object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Remote Control</h3>
+                </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[303px] p-5 shadow-lg">
+                <img
+                  src={DurableDesign}
+                  alt="Durable Design"
+                  className="w-full object-cover rounded-md mb-3"
+                />
+                <div>
+                  <h3 className="text-white text-lg font-semibold">Durable Design</h3>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Column 2: Bright Display + Energy Efficient */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={BrightDisplay}
-                alt="Bright Display"
-                className="mx-auto w-70 object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Bright Display</h3>
-              </div>
-            </div>
-
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={EnergyEfficient}
-                alt="Energy Efficient"
-                className="w-full object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Energy Efficient</h3>
-                <p className="text-white text-sm">
-                  Advanced LED technology reduces power consumption while maintaining maximum brightness.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 3: Remote Control + Durable Design */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={RemoteControl}
-                alt="Remote Control"
-                className="w-66 object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Remote Control</h3>
-              </div>
-            </div>
-
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={DurableDesign}
-                alt="Durable Design"
-                className="w-full object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Durable Design</h3>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
+{/* CTA Section - Hardcoded */}
+<section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
+  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+    
+    {/* Left Image */}
+    <div className="w-full md:w-5/12">
+      <img
+        src={cta}
+        alt="DOOH Display"
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-      {/* CTA Section - Keep as hardcoded */}
-      <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
-          {/* Left Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
-            <img
-              src={cta}
-              alt="DOOH Display"
-              className="w-full h-full object-cover"
-            />
-          </div>
+    {/* Right Content */}
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
+      <div className="text-center md:text-left px-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
+          Ready to Transform Your Advertising?
+        </h2>
+        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+          With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+        </p>
+        <button
+          onClick={() => navigate('/contact')}
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+        >
+          Book Outdoor Site Visit
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
-          {/* Right Content */}
-          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
-              Ready to Transform Your Advertising?
-            </h2>
-            <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
-            </p>
-            <button onClick={() => navigate('/contact')}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
-              See Solutions for Your Products
-            </button>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>

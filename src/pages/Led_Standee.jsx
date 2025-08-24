@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import cta from '../assets/cta.png';
+import cta from '../assets/cta7.jpg';
 import standee from '../assets/standee.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ import HighBrightness from '../assets/HighBrightness.jpeg'
 import TouchScreen from '../assets/multi-touch.jpg'
 import SlimProfile from '../assets/SlimProfile.webp'
 import EasyContent from '../assets/DurableConstruction.png'
-
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,16 +41,16 @@ const ShowcaseSlider = ({ showcaseData }) => {
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+        <div className="flex justify-center items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
-          <Link
+          {/* <Link
             to="/gallery"
             className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
           >
             View All
-          </Link>
+          </Link> */}
         </div>
 
         <div className="relative rounded-2xl overflow-hidden">
@@ -85,41 +84,52 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
-  const scrollSpeed = 1;
   const animationRef = useRef(null);
+  const scrollSpeed = 1; // pixels per frame
 
   const animateScroll = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft += scrollSpeed;
-      const scrollWidth = scrollRef.current.scrollWidth;
-      const halfWidth = scrollWidth / 2;
+    const el = scrollRef.current;
+    if (el) {
+      // move right
+      el.scrollLeft += scrollSpeed;
 
-      if (scrollRef.current.scrollLeft >= halfWidth) {
-        scrollRef.current.scrollLeft = 0;
+      // full scrollable width minus visible width = max offset
+      const maxOffset = el.scrollWidth - el.clientWidth;
+
+      // when we reach the end, jump back to start
+      if (el.scrollLeft >= maxOffset) {
+        el.scrollLeft = 0;
       }
     }
     animationRef.current = requestAnimationFrame(animateScroll);
   };
 
   useEffect(() => {
+    // start animation
     animationRef.current = requestAnimationFrame(animateScroll);
 
-    const container = scrollRef.current;
-    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
-    const handleMouseLeave = () => animationRef.current = requestAnimationFrame(animateScroll);
+    const el = scrollRef.current;
+    const handleMouseEnter = () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+    const handleMouseLeave = () => {
+      animationRef.current = requestAnimationFrame(animateScroll);
+    };
 
-    if (container) {
-      container.addEventListener('mouseenter', handleMouseEnter);
-      container.addEventListener('mouseleave', handleMouseLeave);
+    if (el) {
+      el.addEventListener("mouseenter", handleMouseEnter);
+      el.addEventListener("mouseleave", handleMouseLeave);
     }
 
+    // cleanup
     return () => {
-      cancelAnimationFrame(animationRef.current);
-      if (container) {
-        container.removeEventListener('mouseenter', handleMouseEnter);
-        container.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (el) {
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!pixelPitchData?.images?.length) return null;
@@ -141,14 +151,11 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
         <div
           ref={scrollRef}
           className="overflow-x-hidden relative"
-          style={{ width: '1200px', margin: '0 auto' }}
+          style={{ width: "1200px", margin: "0 auto" }} // 5 * (160px + gap ~8-10px)
         >
           <div className="flex gap-10">
             {fullList.map((pitch, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 text-center w-[160px]"
-              >
+              <div key={index} className="flex-shrink-0 text-center w-[160px]">
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
@@ -245,11 +252,11 @@ const Led_Standee = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
  
-      {/* Banner Section */}
+      {/* Banner Section - Keep as hardcoded */}
       <div className="relative h-[70vh] w-full">
         <img
           src={standee}
-          alt="LED Standee"
+          alt="LED Standee Display"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
@@ -258,94 +265,112 @@ const Led_Standee = () => {
           </h1>
         </div>
       </div>
+            <div className=" pt-14  container text-sm text-gray-500 mb-10 space-y-5 md:space-y-5 lg:space-y-10">
+        <span className="inline-flex items-center gap-2">
+          <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+            🏠 Home
+          </Link>
+          <span>›</span>
+          <Link to="/products" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+            Products
+          </Link>
+          <span>›</span>
+          <span className="text-blue-600 text-decoration-none font-medium">Standee LED Displays  </span>
+        </span>
+      </div>
 
-      {/* Standee Display Section */}
-      {standeeDisplayData && (
-        <section className="py-27 px-4 md:px-12 lg:px-20 bg-white space-y-5 md:space-y-5 lg:space-y-10">
-          {standeeDisplayData.images.map((item, index) => (
-            <div key={index} className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto">
-              {/* Text Left, Image Right - for even indexes */}
-              {index % 2 === 0 ? (
-                <>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {standeeDisplayData.title || "Portable LED Displays"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events."}
-                    </p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={standeeDisplayData.title || "LED Standee Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Image Left, Text Right - for odd indexes */}
-                  <div className="md:col-span-7">
-                    <img 
-                      src={`https://xigiled.in/storage/${item.image}`} 
-                      alt={standeeDisplayData.title || "LED Standee Display"} 
-                      className="w-full h-[400px] rounded-xl drop-shadow-xl object-cover" 
-                    />
-                  </div>
-                  <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto md:h-[400px]">
-                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                      {standeeDisplayData.title || "Portable LED Displays"}
-                    </h2>
-                    <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium">
-                      {standeeDisplayData.description || "Compact and portable LED displays perfect for retail environments and events."}
-                    </p>
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </section>
-      )}
-
-      {/* Mounting Installation Section */}
-      {mountingInstallationData && (
-        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-          <div className="text-center mb-10">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-              {mountingInstallationData.title || "Mounting Options"}
-            </h2>
-            {mountingInstallationData.description && (
-              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
-                {mountingInstallationData.description}
+{/* Standee Display Section */}
+{standeeDisplayData && (
+  <section className=" pb-30 px-4 md:px-12 lg:px-20 bg-white">
+    {standeeDisplayData.images.map((item, index) => (
+      <div
+        key={index}
+        className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto items-stretch"
+      >
+        {/* Text Left, Image Right - for even indexes */}
+        {index % 2 === 0 ? (
+          <>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {standeeDisplayData.title || "Portable LED Displays"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {standeeDisplayData.description ||
+                  "Compact and portable LED displays perfect for retail environments, trade shows, and events that require flexible positioning."}
               </p>
-            )}
-          </div>
+            </div>
+            <div className="md:col-span-7">
+              <img
+                src={`https://xigiled.in/storage/${item.image}`}
+                alt={standeeDisplayData.title || "LED Standee Display"}
+                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image Left, Text Right - for odd indexes */}
+            <div className="md:col-span-7">
+              <img
+                src={`https://xigiled.in/storage/${item.image}`}
+                alt={standeeDisplayData.title || "LED Standee Display"}
+                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+              />
+            </div>
+            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                {standeeDisplayData.title || "Portable LED Displays"}
+              </h2>
+              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                {standeeDisplayData.description ||
+                  "Compact and portable LED displays perfect for retail environments, trade shows, and events that require flexible positioning."}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </section>
+)}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {mountingInstallationData.images.map((item, index) => (
-              <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
-                {/* Image with gradient overlay */}
-                <img
-                  src={`https://xigiled.in/storage/${item.image}`}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-90"></div>
-                
-                {/* Content */}
-                <div className="absolute inset-x-0 bottom-0 p-4 text-center">
-                  <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
-                    {item.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      {/* Mounting Options Section */}
+  {mountingInstallationData && (
+  <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+    <div className="text-center mb-10">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+        {mountingInstallationData.title || "Mounting & Installation"}
+      </h2>
+      {mountingInstallationData.description && (
+        <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+          {mountingInstallationData.description}
+        </p>
       )}
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {mountingInstallationData.images.map((item, index) => (
+        <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
+          {/* Image with gradient overlay */}
+          <img
+            src={`https://xigiled.in/storage/${item.image}`}
+            alt={item.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
+          
+          {/* Content */}
+          <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+            <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+              {item.title}
+            </h3>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
 
       {/* Pixel Pitch Section */}
       <PixelPitchScroll pixelPitchData={pixelPitchData} />
@@ -353,122 +378,118 @@ const Led_Standee = () => {
       {/* Showcase Section */}
       <ShowcaseSlider showcaseData={showcaseData} />
 
-      {/* Features Section */}
-      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-          Why Retailers Choose Xigi LED Standees
+{/* Features Section */}
+<section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+  <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+    Why Retailers Choose Xigi LED Standees
+  </h2>
+
+  <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+    {/* Column 1: Portable Design */}
+    <div className="space-y-6">
+      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
+        <img
+          src={PortableDesign}
+          alt="Portable Design"
+          className="w-full object-cover rounded-md mb-4"
+        />
+        <div>
+          <h3 className="text-white text-xl font-bold mb-2">Portable Design</h3>
+          <p className="text-white text-sm">
+            Lightweight and easy to move, perfect for retail environments, trade shows, and events that require flexible display positioning.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Column 2: High Brightness + Touch Screen */}
+    <div className="space-y-6">
+      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+        <img
+          src={HighBrightness}
+          alt="High Brightness"
+          className="w-full h-45 object-cover rounded-md mb-3"
+        />
+        <div>
+          <h3 className="text-white text-lg font-semibold">High Brightness</h3>
+        </div>
+      </div>
+
+      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+        <img
+          src={TouchScreen}
+          alt="Touch Screen"
+          className="w-full object-cover rounded-md mb-3 h-48"
+        />
+        <div>
+          <h3 className="text-white text-lg font-semibold">Touch Screen</h3>
+          <p className="text-white text-sm">
+            Interactive touch functionality for enhanced customer engagement and experience.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Column 3: Slim Profile + Easy Content */}
+    <div className="space-y-6">
+      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+        <img
+          src={SlimProfile}
+          alt="Slim Profile"
+          className="w-full object-cover rounded-md mb-3 h-55"
+        />
+        <div>
+          <h3 className="text-white text-lg font-semibold">Slim Profile</h3>
+        </div>
+      </div>
+
+      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+        <img
+          src={EasyContent}
+          alt="Easy Content"
+          className="w-full object-cover rounded-md mb-3 h-45"
+        />
+        <div>
+          <h3 className="text-white text-lg font-semibold">Easy Content</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ {/* CTA Section - Hardcoded */}
+<section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
+  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+    
+    {/* Left Image */}
+    <div className="w-full md:w-5/12">
+      <img
+        src={cta}
+        alt="LED Standee Display"
+        className="w-full h-full object-cover"
+      />
+    </div>
+
+    {/* Right Content */}
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
+      <div className="text-center md:text-left px-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
+          Ready to Transform Your Retail Experience?
         </h2>
+        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+          With Xigi LED Standees, you're not just getting a display – you're gaining a partner committed to elevating your customer engagement
+        </p>
+        <button
+          onClick={() => navigate('/contact')}
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+        >
+          Get Standee Design & Price
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Column 1: Portable Design */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg">
-              <img
-                src={PortableDesign}
-                alt="Portable Design"
-                className="w-full object-cover rounded-md mb-4"
-              />
-              <div>
-                <h3 className="text-white text-xl font-bold mb-2">Portable Design</h3>
-                <p className="text-white text-sm">
-                  Lightweight and easy to move, perfect for retail environments, trade shows,
-                  and events that require flexible display positioning.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 2: High Brightness + Touch Screen */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={HighBrightness}
-                alt="High Brightness"
-                className="mx-auto w-70 object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">High Brightness</h3>
-                <p className="text-white text-sm">
-                  Crystal clear visibility even in brightly lit retail environments.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={TouchScreen}
-                alt="Touch Screen"
-                className="w-full object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Touch Screen</h3>
-                <p className="text-white text-sm">
-                  Interactive touch functionality for enhanced customer engagement and experience.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 3: Slim Profile + Easy Content */}
-          <div className="space-y-6">
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={SlimProfile}
-                alt="Slim Profile"
-                className="w-66 object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Slim Profile</h3>
-                <p className="text-white text-sm">
-                  Space-saving design that fits perfectly in any retail environment.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg">
-              <img
-                src={EasyContent}
-                alt="Easy Content"
-                className="w-full object-cover rounded-md mb-3"
-              />
-              <div>
-                <h3 className="text-white text-lg font-semibold">Easy Content</h3>
-                <p className="text-white text-sm">
-                  Simple content management system for quick updates and changes.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full bg-[#f2f2fd] py-27 px-4">
-        <div className="container p-0 bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center" style={{padding:"0px !important"}}>
-          {/* Left Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[500px]">
-            <img
-              src={cta}
-              alt="LED Standee Display"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Right Content */}
-          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-3 font-['Poppins',sans-serif]">
-              Ready to Transform Your Retail Experience?
-            </h2>
-            <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] font-medium">
-              With Xigi LED Standees, you're not just getting a display – you're gaining a partner committed to elevating your customer engagement
-            </p>
-            <button onClick={() => navigate('/contact')}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
-              See Solutions for Your Products
-            </button>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
