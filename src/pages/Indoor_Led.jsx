@@ -265,6 +265,7 @@ const Indoor_Led = () => {
           </h1>
         </div>
       </div>
+      
     <div className=" pt-14  container text-sm text-gray-500 mb-10 space-y-5 md:space-y-5 lg:space-y-10">
   <span className="inline-flex items-center gap-2">
     <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">

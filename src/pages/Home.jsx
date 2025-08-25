@@ -346,7 +346,7 @@ const handleCtaClick = () => {
                 <img
                   src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
                   alt={completeRangeSection.images[0].title}
-                  className="w-full  object-cover rounded-xl h-[350px]"
+                  className="w-full  rounded-xl"
                 />
               </a>
             )}

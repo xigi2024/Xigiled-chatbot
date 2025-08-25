@@ -87,34 +87,28 @@ const ManufacturingFactories = () => {
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
 
-      {/* Hero Section */}
-      {heroSection && (
-        <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[80vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-30 px-[10px] md:px-[40px] lg:px-[40px]">
-          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Left Text Column */}
-            <div className="flex-1 text-left">
-              <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-2 font-['Poppins',sans-serif]">
-                {heroSection.title || "LED Displays for Manufacturing Factories"}
-              </h1>
+    {/* Hero Section - Simplified like Banner */}
+{heroSection && (
+  <div className="relative h-[70vh] w-full">
+    {/* Background Image from API */}
+    {heroSection.images?.[0]?.image && (
+      <img
+        src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
+        alt={heroSection.title || "LED Display"}
+        className="w-full h-full object-cover"
+      />
+    )}
 
-              <p className="text-[24px] md:text-[24px] lg:text-[18px] text-white mb-6 leading-relaxed">
-                {heroSection.description || "Brilliant LED Solutions for Manufacturing Factories"}
-              </p>
-            </div>
+    {/* Overlay Title & Description */}
+    <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex flex-col items-center justify-center text-center px-4">
+      <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white font-['Poppins',sans-serif] mb-4">
+        {heroSection.title || "LED Displays for Manufacturing Factories"}
+      </h1>
+      
+    </div>
+  </div>
+)}
 
-            {/* Right Image Column */}
-            <div className="flex-1 flex justify-center">
-              {heroSection.images?.[0]?.image && (
-                <img
-                  src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
-                  alt="LED Display"
-                  className="w-full max-w-[600px] h-[400px] object-cover drop-shadow-2xl rounded-lg"
-                />
-              )}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Excellence Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
