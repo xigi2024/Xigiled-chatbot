@@ -14,9 +14,10 @@ import EasyInstallation from '../assets/EasyInstallation.jpg'
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0) return null;
+  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0)
+    return null;
 
-  const showcaseItems = showcaseData.images.map(img => ({
+  const showcaseItems = showcaseData.images.map((img) => ({
     title: img.title,
     image: `https://xigiled.in/storage/${img.image}`,
   }));
@@ -31,20 +32,24 @@ const ShowcaseSlider = ({ showcaseData }) => {
     );
   };
 
+  // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
     }, 3000);
+
     return () => clearInterval(interval);
   }, [showcaseItems.length]);
 
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
-        <div className="flex justify-center items-center mb-8">
+        {/* Section Title */}
+        <div className="flex justify-center items-center mb-8 gap-4">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
+          {/* Optional "View All" button */}
           {/* <Link
             to="/gallery"
             className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
@@ -53,29 +58,210 @@ const ShowcaseSlider = ({ showcaseData }) => {
           </Link> */}
         </div>
 
+        {/* Slider */}
         <div className="relative rounded-2xl overflow-hidden">
           <img
             src={showcaseItems[currentIndex]?.image}
             alt={showcaseItems[currentIndex]?.title}
             className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
           />
-          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl z-10"></div>
+
+          {/* Slide title */}
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg z-20">
             {showcaseItems[currentIndex]?.title}
           </h3>
 
-          {/* Prev & Next Buttons */}
+          {/* Prev & Next buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20"
           >
             <ChevronRight size={24} />
           </button>
+
+      
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const TransparentFeaturesSection = ({ featuresData }) => {
+  // Add loading state check for the prop
+  if (!featuresData) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">Loading features...</div>
+      </section>
+    );
+  }
+
+  if (!featuresData.images || featuresData.images.length === 0) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">No features data available</div>
+      </section>
+    );
+  }
+
+  // Helper function to get full image URL
+  const getImageUrl = (imagePath) => {
+    return `https://xigiled.in/storage/${imagePath}`;
+  };
+
+  // Organize images based on your actual API data
+  const organizeFeatures = (images) => {
+    // Map the API data to match your layout structure
+    const highTransparency = images.find(img => img.title === 'High Transparency') || images[0];
+    const energyEfficient = images.find(img => img.title === 'Energy Efficient') || images[1];
+    const slimDesign = images.find(img => img.title === 'Slim Design') || images[2];
+    const wideViewing = images.find(img => img.title === 'Wide Viewing') || images[3];
+    const easyInstallation = images.find(img => img.title === 'Easy Installation') || images[4];
+
+    return {
+      highTransparency,
+      energyEfficient,
+      slimDesign,
+      wideViewing,
+      easyInstallation
+    };
+  };
+
+  const features = organizeFeatures(featuresData.images);
+
+  return (
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+        {featuresData.title || "Why Choose Transparent Displays"}
+      </h2>
+
+      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Column 1: High Transparency */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
+            <img
+              src={getImageUrl(features.highTransparency.image)}
+              alt={features.highTransparency.title}
+              className="w-full object-cover rounded-md mb-4"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-xl font-bold mb-2">
+                {features.highTransparency.title}
+              </h3>
+              {features.highTransparency.description && (
+                <p className="text-white text-sm">
+                  {features.highTransparency.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 2: Energy Efficient + Slim Design */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+            <img
+              src={getImageUrl(features.energyEfficient.image)}
+              alt={features.energyEfficient.title}
+              className="w-full h-45 object-cover rounded-md mb-3"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.energyEfficient.title}
+              </h3>
+              {features.energyEfficient.description && (
+                <p className="text-white text-sm">
+                  {features.energyEfficient.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+            <img
+              src={getImageUrl(features.slimDesign.image)}
+              alt={features.slimDesign.title}
+              className="w-full object-cover rounded-md mb-3 h-48"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.slimDesign.title}
+              </h3>
+              {features.slimDesign.description && (
+                <p className="text-white text-sm">
+                  {features.slimDesign.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3: Wide Viewing + Easy Installation */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+            <img
+              src={getImageUrl(features.wideViewing.image)}
+              alt={features.wideViewing.title}
+              className="w-full object-cover rounded-md mb-3 h-55"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.wideViewing.title}
+              </h3>
+              {features.wideViewing.description && (
+                <p className="text-white text-sm">
+                  {features.wideViewing.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+            <img
+              src={getImageUrl(features.easyInstallation.image)}
+              alt={features.easyInstallation.title}
+              className="w-full object-cover rounded-md mb-3 h-45"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.easyInstallation.title}
+              </h3>
+              {features.easyInstallation.description && (
+                <p className="text-white text-sm">
+                  {features.easyInstallation.description}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -90,13 +276,9 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   const animateScroll = () => {
     const el = scrollRef.current;
     if (el) {
-      // move right
       el.scrollLeft += scrollSpeed;
 
-      // full scrollable width minus visible width = max offset
       const maxOffset = el.scrollWidth - el.clientWidth;
-
-      // when we reach the end, jump back to start
       if (el.scrollLeft >= maxOffset) {
         el.scrollLeft = 0;
       }
@@ -105,7 +287,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   };
 
   useEffect(() => {
-    // start animation
     animationRef.current = requestAnimationFrame(animateScroll);
 
     const el = scrollRef.current;
@@ -121,7 +302,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
       el.addEventListener("mouseleave", handleMouseLeave);
     }
 
-    // cleanup
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       if (el) {
@@ -134,34 +314,38 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
 
   if (!pixelPitchData?.images?.length) return null;
 
-  // Duplicate for seamless scroll
   const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
 
   return (
-    <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+    <section className="bg-white py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-12">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+        <div className="text-center mb-10">
+          <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
         </div>
 
-        {/* Scrollable 5-item container */}
+        {/* Scrollable container */}
         <div
           ref={scrollRef}
-          className="overflow-x-hidden relative"
-          style={{ width: "1200px", margin: "0 auto" }} // 5 * (160px + gap ~8-10px)
+          className="overflow-x-hidden relative mx-auto"
+          style={{ maxWidth: "1200px" }} // ✅ fits 5 items on desktop
         >
-          <div className="flex gap-10">
+          <div className="flex gap-6 md:gap-8 lg:gap-10">
             {fullList.map((pitch, index) => (
-              <div key={index} className="flex-shrink-0 text-center w-[160px]">
+              <div
+                key={index}
+                className="flex-shrink-0 text-center 
+                           w-[140px] sm:w-[150px] md:w-[160px]"
+              >
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
-                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                  className="w-full h-[140px] sm:h-[160px] md:h-[180px] 
+                             p-4 object-cover rounded-2xl shadow-md"
                 />
-                <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
+                <p className="mt-3 text-sm md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
                   {pitch.title}
                 </p>
               </div>
@@ -173,11 +357,16 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   );
 };
 
+
 const Transparent_Led = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+   const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -281,25 +470,25 @@ const Transparent_Led = () => {
 
 {/* See Through Brilliance Section */}
 {seeThroughBrillianceData && (
-  <section className=" pb-30 px-4 md:px-12 lg:px-20 bg-white">
+  <section className="pb-30 px-4 md:px-12 lg:px-20 bg-white">
     {seeThroughBrillianceData.images.map((item, index) => (
       <div
         key={index}
-        className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto items-stretch"
+        className="container grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 mx-auto items-stretch"
       >
         {/* Text Left, Image Right - for even indexes */}
         {index % 2 === 0 ? (
           <>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {seeThroughBrillianceData.title || "See Through Brilliance"}
               </h2>
-              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {seeThroughBrillianceData.description ||
                   "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
               </p>
             </div>
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={seeThroughBrillianceData.title || "Transparent LED Display"}
@@ -310,18 +499,18 @@ const Transparent_Led = () => {
         ) : (
           <>
             {/* Image Left, Text Right - for odd indexes */}
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={seeThroughBrillianceData.title || "Transparent LED Display"}
                 className="w-full h-full rounded-xl drop-shadow-xl object-cover"
               />
             </div>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {seeThroughBrillianceData.title || "See Through Brilliance"}
               </h2>
-              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {seeThroughBrillianceData.description ||
                   "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
               </p>
@@ -333,44 +522,54 @@ const Transparent_Led = () => {
   </section>
 )}
 
-      {/* Smart Display Types Section */}
-  {smartDisplayData && (
+{/* Smart Display Types Section */}
+{smartDisplayData && (
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-    <div className="text-center mb-10">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-        {smartDisplayData.title || "Transparent Display Types"}
-      </h2>
-      {smartDisplayData.description && (
-        <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
-          {smartDisplayData.description}
-        </p>
-      )}
-    </div>
+    <div className="container mx-auto">
+      {/* Section Title + Description */}
+      <div className="text-center mb-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+          {smartDisplayData.title || "Smart Displays"}
+        </h2>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {smartDisplayData.images.map((item, index) => (
-        <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
-          {/* Image with gradient overlay */}
-          <img
-            src={`https://xigiled.in/storage/${item.image}`}
-            alt={item.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
-          
-          {/* Content */}
-          <div className="absolute inset-x-0 bottom-0 p-4 text-center">
-            <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
-              {item.title}
-            </h3>
+        {smartDisplayData.description && (
+          <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+            {smartDisplayData.description}
+          </p>
+        )}
+      </div>
+
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {smartDisplayData.images.map((item, index) => (
+          <div
+            key={index}
+            className="relative rounded-xl overflow-hidden shadow-md h-[300px] group"
+          >
+            {/* Image with gradient overlay */}
+            <img
+              src={`https://xigiled.in/storage/${item.image}`}
+              alt={item.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
+
+            {/* Content */}
+            <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+              <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+                {item.title}
+              </h3>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 )}
+
+
 
       {/* Pixel Pitch Section */}
       <PixelPitchScroll pixelPitchData={pixelPitchData} />
@@ -379,87 +578,11 @@ const Transparent_Led = () => {
       <ShowcaseSlider showcaseData={showcaseData} />
 
 {/* Features Section */}
-<section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-  <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-    Why Choose Transparent Displays
-  </h2>
+          <TransparentFeaturesSection featuresData={featuresData} />
 
-  <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-    {/* Column 1: High Transparency */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
-        <img
-          src={HighTransparency}
-          alt="High Transparency"
-          className="w-full object-cover rounded-md mb-4"
-        />
-        <div>
-          <h3 className="text-white text-xl font-bold mb-2">High Transparency</h3>
-          <p className="text-white text-sm">
-            Up to 85% transparency allows natural light to pass through while maintaining brilliant display quality for stunning visual experiences.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* Column 2: Energy Efficient + Slim Design */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={EnergyEfficient}
-          alt="Energy Efficient"
-          className="w-full h-45 object-cover rounded-md mb-3"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Energy Efficient</h3>
-        </div>
-      </div>
-
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={TailoredSolutions}
-          alt="Slim Design"
-          className="w-full object-cover rounded-md mb-3 h-48"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Slim Design</h3>
-          <p className="text-white text-sm">
-            Ultra-thin profile for seamless integration into various architectural elements.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* Column 3: Wide Viewing + Easy Installation */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={WideViewing}
-          alt="Wide Viewing"
-          className="w-full object-cover rounded-md mb-3 h-55"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Wide Viewing</h3>
-        </div>
-      </div>
-
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={EasyInstallation}
-          alt="Easy Installation"
-          className="w-full object-cover rounded-md mb-3 h-45"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Easy Installation</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* CTA Section - Hardcoded */}
+{/* CTA Section - Updated Content Only */}
 <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+  <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
     
     {/* Left Image */}
     <div className="w-full md:w-5/12">
@@ -471,16 +594,16 @@ const Transparent_Led = () => {
     </div>
 
     {/* Right Content */}
-    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-7">
       <div className="text-center md:text-left px-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Space?
         </h2>
-        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi Transparent Displays, you're not just getting technology – you're gaining a partner committed to elevating your visual experience
+        <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+          With Xigi Transparent Displays, you're not just getting technology – you're gaining a partner committed to elevating your visual experience.
         </p>
         <button
-          onClick={() => navigate('/contact')}
+  onClick={handleCtaClick}
           className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
         >
           See Transparent Solutions
@@ -489,6 +612,7 @@ const Transparent_Led = () => {
     </div>
   </div>
 </section>
+
 
 
       <Footer />

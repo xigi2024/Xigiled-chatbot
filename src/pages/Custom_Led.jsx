@@ -11,12 +11,188 @@ import PremiumQuality from '../assets/premium-quality.jpg'
 import ExpertConsultation from '../assets/expert-consultation.png'
 import EndToEndService from '../assets/end-to-end-service.webp'
 
+
+
+const CustomFeaturesSection = ({ featuresData }) => {
+  // Add loading state check for the prop
+  if (!featuresData) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">Loading features...</div>
+      </section>
+    );
+  }
+
+  if (!featuresData.images || featuresData.images.length === 0) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">No features data available</div>
+      </section>
+    );
+  }
+
+  // Helper function to get full image URL
+  const getImageUrl = (imagePath) => {
+    return `https://xigiled.in/storage/${imagePath}`;
+  };
+
+  // Organize images based on your actual API data
+  const organizeFeatures = (images) => {
+    // Map the API data to match your layout structure
+    const customDesign = images.find(img => img.title === 'Custom Design') || images[0];
+    const tailoredSolutions = images.find(img => img.title === 'Tailored Solutions') || images[1];
+    const premiumQuality = images.find(img => img.title === 'Premium Quality') || images[2];
+    const expertConsultation = images.find(img => img.title === 'Expert Consultation') || images[3];
+    const endToEndService = images.find(img => img.title === 'End-to-End Service') || images[4];
+
+    return {
+      customDesign,
+      tailoredSolutions,
+      premiumQuality,
+      expertConsultation,
+      endToEndService
+    };
+  };
+
+  const features = organizeFeatures(featuresData.images);
+
+  return (
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+        {featuresData.title || "Why Choose Custom LED Solutions"}
+      </h2>
+
+      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Column 1: Custom Design */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
+            <img
+              src={getImageUrl(features.customDesign.image)}
+              alt={features.customDesign.title}
+              className="w-full object-cover rounded-md mb-4"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-xl font-bold mb-2">
+                {features.customDesign.title}
+              </h3>
+              {features.customDesign.description && (
+                <p className="text-white text-sm">
+                  {features.customDesign.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 2: Tailored Solutions & Premium Quality */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+            <img
+              src={getImageUrl(features.tailoredSolutions.image)}
+              alt={features.tailoredSolutions.title}
+              className="w-full h-45 object-cover rounded-md mb-3"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.tailoredSolutions.title}
+              </h3>
+              {features.tailoredSolutions.description && (
+                <p className="text-white text-sm">
+                  {features.tailoredSolutions.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+            <img
+              src={getImageUrl(features.premiumQuality.image)}
+              alt={features.premiumQuality.title}
+              className="w-full object-cover rounded-md mb-3 h-48"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.premiumQuality.title}
+              </h3>
+              {features.premiumQuality.description && (
+                <p className="text-white text-sm">
+                  {features.premiumQuality.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3: Expert Consultation & End-to-End Service */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
+            <img
+              src={getImageUrl(features.expertConsultation.image)}
+              alt={features.expertConsultation.title}
+              className="w-full object-cover rounded-md mb-3 h-55"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.expertConsultation.title}
+              </h3>
+              {features.expertConsultation.description && (
+                <p className="text-white text-sm">
+                  {features.expertConsultation.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
+            <img
+              src={getImageUrl(features.endToEndService.image)}
+              alt={features.endToEndService.title}
+              className="w-full object-cover rounded-md mb-3 h-45"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.endToEndService.title}
+              </h3>
+              {features.endToEndService.description && (
+                <p className="text-white text-sm">
+                  {features.endToEndService.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0) return null;
+  if (!showcaseData || !showcaseData.images || showcaseData.images.length === 0)
+    return null;
 
-  const showcaseItems = showcaseData.images.map(img => ({
+  const showcaseItems = showcaseData.images.map((img) => ({
     title: img.title,
     image: `https://xigiled.in/storage/${img.image}`,
   }));
@@ -35,16 +211,20 @@ const ShowcaseSlider = ({ showcaseData }) => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % showcaseItems.length);
     }, 3000);
+
     return () => clearInterval(interval);
   }, [showcaseItems.length]);
 
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
+        {/* Section Title */}
         <div className="flex justify-center items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
+
+          {/* Optional "View All" button */}
           {/* <Link
             to="/gallery"
             className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
@@ -53,26 +233,32 @@ const ShowcaseSlider = ({ showcaseData }) => {
           </Link> */}
         </div>
 
+        {/* Slider */}
         <div className="relative rounded-2xl overflow-hidden">
           <img
             src={showcaseItems[currentIndex]?.image}
             alt={showcaseItems[currentIndex]?.title}
             className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
           />
-          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl z-10"></div>
+
+          {/* Slide title */}
+          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg z-20">
             {showcaseItems[currentIndex]?.title}
           </h3>
 
-          {/* Prev & Next Buttons */}
+          {/* Prev & Next buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20"
           >
             <ChevronRight size={24} />
           </button>
@@ -82,6 +268,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
   );
 };
 
+
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
   const animationRef = useRef(null);
@@ -89,56 +276,49 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
 
   const animateScroll = () => {
     const el = scrollRef.current;
-    if (el) {
-      // move right
-      el.scrollLeft += scrollSpeed;
+    if (!el) return;
 
-      // full scrollable width minus visible width = max offset
-      const maxOffset = el.scrollWidth - el.clientWidth;
+    el.scrollLeft += scrollSpeed;
 
-      // when we reach the end, jump back to start
-      if (el.scrollLeft >= maxOffset) {
-        el.scrollLeft = 0;
-      }
+    const maxOffset = el.scrollWidth - el.clientWidth;
+    if (el.scrollLeft >= maxOffset) {
+      el.scrollLeft = 0;
     }
+
     animationRef.current = requestAnimationFrame(animateScroll);
   };
 
   useEffect(() => {
-    // start animation
     animationRef.current = requestAnimationFrame(animateScroll);
 
     const el = scrollRef.current;
-    const handleMouseEnter = () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
+    if (!el) return;
+
+    const handleMouseEnter = () => cancelAnimationFrame(animationRef.current);
     const handleMouseLeave = () => {
-      animationRef.current = requestAnimationFrame(animateScroll);
+      if (!animationRef.current) {
+        animationRef.current = requestAnimationFrame(animateScroll);
+      }
     };
 
-    if (el) {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleMouseLeave);
-    }
+    el.addEventListener("mouseenter", handleMouseEnter);
+    el.addEventListener("mouseleave", handleMouseLeave);
 
-    // cleanup
     return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      if (el) {
-        el.removeEventListener("mouseenter", handleMouseEnter);
-        el.removeEventListener("mouseleave", handleMouseLeave);
-      }
+      cancelAnimationFrame(animationRef.current);
+      el.removeEventListener("mouseenter", handleMouseEnter);
+      el.removeEventListener("mouseleave", handleMouseLeave);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!pixelPitchData?.images?.length) return null;
 
-  // Duplicate for seamless scroll
+  // Duplicate list for seamless scroll
   const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
 
   return (
-    <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+    <section className="bg-white py-20 md:py-16 lg:py-24 px-4 md:px-6 lg:px-10">
       <div className="container mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
@@ -147,19 +327,24 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
           </h2>
         </div>
 
-        {/* Scrollable 5-item container */}
+        {/* Scrollable container */}
         <div
           ref={scrollRef}
-          className="overflow-x-hidden relative"
-          style={{ width: "1200px", margin: "0 auto" }} // 5 * (160px + gap ~8-10px)
+          className="overflow-x-hidden relative mx-auto"
+          style={{ maxWidth: "1200px", width: "100%" }} // ✅ responsive
         >
-          <div className="flex gap-10">
+          <div className="flex gap-8 md:gap-10">
             {fullList.map((pitch, index) => (
-              <div key={index} className="flex-shrink-0 text-center w-[160px]">
+              <div
+                key={index}
+                className="flex-shrink-0 text-center 
+                           w-[140px] sm:w-[150px] md:w-[160px]"
+              >
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
-                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                  className="w-full h-[140px] sm:h-[160px] md:h-[180px] 
+                             p-4 object-cover rounded-2xl shadow-md"
                 />
                 <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
                   {pitch.title}
@@ -178,6 +363,11 @@ const Custom_Led = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+   const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -282,25 +472,25 @@ const Custom_Led = () => {
 
 {/* Custom Solutions Section */}
 {customSolutionsData && (
-  <section className=" pb-30 px-4 md:px-12 lg:px-20 bg-white">
+  <section className="pb-30 px-4 md:px-12 lg:px-20 bg-white">
     {customSolutionsData.images.map((item, index) => (
       <div
         key={index}
-        className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto items-stretch"
+        className="container grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 mx-auto items-stretch"
       >
         {/* Text Left, Image Right - for even indexes */}
         {index % 2 === 0 ? (
           <>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {customSolutionsData.title || "Custom LED Solutions"}
               </h2>
-              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {customSolutionsData.description ||
                   "Tailor-made LED display solutions designed to meet your specific requirements and vision..."}
               </p>
             </div>
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={customSolutionsData.title || "Custom LED Solution"}
@@ -311,14 +501,14 @@ const Custom_Led = () => {
         ) : (
           <>
             {/* Image Left, Text Right - for odd indexes */}
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={customSolutionsData.title || "Custom LED Solution"}
                 className="w-full h-full rounded-xl drop-shadow-xl object-cover"
               />
             </div>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {customSolutionsData.title || "Custom LED Solutions"}
               </h2>
@@ -333,6 +523,7 @@ const Custom_Led = () => {
     ))}
   </section>
 )}
+
 
       {/* Mounting Installation Section */}
   {mountingInstallationData && (
@@ -380,86 +571,13 @@ const Custom_Led = () => {
       <ShowcaseSlider showcaseData={showcaseData} />
 
 {/* Features Section */}
-<section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-  <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-    Why Choose Custom LED Solutions
-  </h2>
 
-  <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-    {/* Column 1: Custom Design */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
-        <img
-          src={CustomDesign}
-          alt="Custom Design"
-          className="w-full object-cover rounded-md mb-4"
-        />
-        <div>
-          <h3 className="text-white text-xl font-bold mb-2">Custom Design</h3>
-          <p className="text-white text-sm">
-            Bespoke LED solutions tailored to your specific requirements, space constraints, and visual preferences for a perfect fit.
-          </p>
-        </div>
-      </div>
-    </div>
+<CustomFeaturesSection featuresData={featuresData} />
 
-    {/* Column 2: Tailored Solutions + Premium Quality */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={TailoredSolutions}
-          alt="Tailored Solutions"
-          className="w-full h-45 object-cover rounded-md mb-3"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Tailored Solutions</h3>
-        </div>
-      </div>
 
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={PremiumQuality}
-          alt="Premium Quality"
-          className="w-full object-cover rounded-md mb-3 h-48"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Premium Quality</h3>
-          <p className="text-white text-sm">
-            Highest quality components and craftsmanship for exceptional performance and durability.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* Column 3: Expert Consultation + End-to-End Service */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={ExpertConsultation}
-          alt="Expert Consultation"
-          className="w-full object-cover rounded-md mb-3 h-55"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Expert Consultation</h3>
-        </div>
-      </div>
-
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={EndToEndService}
-          alt="End-to-End Service"
-          className="w-full object-cover rounded-md mb-3 h-45"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">End-to-End Service</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 {/* CTA Section - Hardcoded */}
 <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+  <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
     
     {/* Left Image */}
     <div className="w-full md:w-5/12">
@@ -472,15 +590,15 @@ const Custom_Led = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
-      <div className="text-center md:text-left px-10">
+      <div className="text-center md:text-left px-8">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready for a Custom Solution?
         </h2>
-        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+        <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
           With Xigi Custom LED Solutions, you're not just getting a display – you're gaining a partner committed to bringing your unique vision to life
         </p>
         <button
-          onClick={() => navigate('/contact')}
+  onClick={handleCtaClick}
           className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
         >
           Request Free Custom Consult

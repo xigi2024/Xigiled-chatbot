@@ -11,6 +11,11 @@ const RetailEnvironments = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+   const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
+
   // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
@@ -170,35 +175,40 @@ const RetailEnvironments = () => {
       </section>
 
       {/* Smart Displays Section */}
-      {smartDisplaysSection && (
-        <section className="bg-white py-15">
-          <div className="container mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
-                {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
-              </h2>
-              <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
-                {smartDisplaysSection.description || "Deliver more than visuals — deliver experiences"}
+{smartDisplaysSection && (
+  <section className="bg-white py-15">
+    <div className="container mx-auto">
+      {/* Heading & Description */}
+      <div className="text-center mb-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+          {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
+        </h2>
+        <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
+          {smartDisplaysSection.description || "Deliver more than visuals — deliver experiences"}
+        </p>
+      </div>
+
+      {/* Images Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {smartDisplaysSection.images?.map((item, index) => (
+          <div key={index} className="relative rounded-xl overflow-hidden h-60 md:h-72 lg:h-80">
+            <img
+              src={`https://xigiled.in/storage/${item.image}`}
+              alt={item.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/100 to-transparent flex items-end p-4">
+              <p className="text-white text-[16px] md:text-[18px] lg:text-[20px] font-medium">
+                {item.title}
               </p>
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {smartDisplaysSection.images?.map((item, index) => (
-                <div key={index} className="relative rounded-xl overflow-hidden h-70">
-                  <img
-                    src={`https://xigiled.in/storage/${item.image}`}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/100 to-transparent flex items-end p-4">
-                    <p className="text-white text-[17px] font-medium">{item.title}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
-      )}
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
 
       {/* Smart Features Section with FAQs */}
       {smartFeaturesSection && (
@@ -209,7 +219,7 @@ const RetailEnvironments = () => {
                 {smartFeaturesSection.title || "LED Display Options"}
               </h2>
               {smartFeaturesSection.description && (
-                <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed max-w-3xl mx-auto">
+                <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
                   {smartFeaturesSection.description}
                 </p>
               )}
@@ -238,7 +248,7 @@ const RetailEnvironments = () => {
                             className="font-semibold flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50"
                             onClick={() => toggleFaq(imageIndex, faqIndex)}
                           >
-                            <span className="text-blue-700">{faq.question}</span>
+                            <span className="text-blue-700 font-['Poppins',sans-serif] text-[16px]">{faq.question}</span>
                             <ChevronRight
                               className={`w-5 h-5 text-blue-700 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''
                                 }`}
@@ -248,7 +258,7 @@ const RetailEnvironments = () => {
                           <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                             }`}>
                             <div className="px-4 pb-4 text-sm text-gray-700 leading-relaxed border-t border-gray-100">
-                              <div className="pt-3">
+                              <div className="pt-3  text-[14px] font-medium font-['Montserrat',sans-serif]">
                                 {faq.answer}
                               </div>
                             </div>
@@ -262,7 +272,7 @@ const RetailEnvironments = () => {
             </div>
 
             {/* Suggestion Note - Moved inside container */}
-            <div className="bg-[#EDF3FF] text-sm md:text-base text-gray-800 px-6 py-4 rounded-md flex items-center gap-3 mt-10 max-w-3xl mx-auto">
+            <div className="bg-[#EDF3FF] text-sm md:text-base text-black font-medium px-6 py-4 rounded-md flex items-center gap-3 mt-10 max-w-3xl mx-auto">
               <span className="text-yellow-500 text-xl">💡</span>
               <p>Suggestion: P5 to P10 is a suitable choice for applications above 50 feet.</p>
             </div>
@@ -279,7 +289,7 @@ const RetailEnvironments = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
                 {flexibleDisplaySection.title || "Flexible Display Solutions"}
               </h2>
-              <p className="text-gray-700 text-base md:text-lg mb-8 max-w-xl">
+              <p className="text-black font-medium text-base text-[14px] md:text-[17px] mb-8 max-w-xl">
                 {flexibleDisplaySection.description || "Choose from a range of ready-to-deploy formats or build a custom setup to suit your space and vision"}
               </p>
 
@@ -287,7 +297,8 @@ const RetailEnvironments = () => {
                 {flexibleDisplaySection.images?.filter(img => img.description).map((item, index) => (
                   <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md">
                     <h2 className='text-blue-700 text-[22px] mb-4 '>{item.title}</h2>
-                    <p className="text-gray-800 text-sm ">{item.description}</p>
+                    <p className="text-gray-black font-medium text-[14px] md:text-[17px] ">
+                      {item.description}</p>
                   </div>
                 ))}
               </div>
@@ -336,7 +347,7 @@ const RetailEnvironments = () => {
                   </div>
 
                   <div className="p-3">
-                    <h3 className=" mt-6 mb-3 group-hover:text-blue-700 text-[22px] font-medium  transition-colors duration-300 text-center font-['Montserrat',sans-serif]     ">
+                    <h3 className=" mt-6 mb-3 group-hover:text-blue-700 text-[20px] font-medium  transition-colors duration-300 text-center font-['Montserrat',sans-serif]     ">
                       {item.title}
                     </h3>
                   </div>
@@ -370,7 +381,7 @@ const RetailEnvironments = () => {
                   {transformSection.description || "Ready to create unforgettable shopping experiences that captivate your customers? Contact us for a custom quote."}
                 </p>
                 <button
-                  onClick={() => navigate('/contact')}
+  onClick={handleCtaClick}
                   className=" bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
     hover:from-indigo-700 hover:to-blue-700 text-white px-5 w-[300px] text-[17px]  py-3 rounded-[5px] text-sm font-medium transition-all duration-300"
                 >

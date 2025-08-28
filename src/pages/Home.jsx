@@ -46,9 +46,8 @@ const IndustrySection = ({ sectionData }) => {
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-             className={`p-3 rounded-xl transition-all transform duration-300 ease-in-out flex items-start gap-4 ${
-  activeIndex === idx ? "bg-white scale-105" : "scale-95 "
-}`}
+                  className={`p-3 rounded-xl transition-all transform duration-300 ease-in-out flex items-start gap-4 ${activeIndex === idx ? "bg-white scale-105" : "scale-95 "
+                    }`}
 
                   onMouseEnter={() => setActiveIndex(idx)}
                 >
@@ -60,10 +59,10 @@ const IndustrySection = ({ sectionData }) => {
                   />
 
                   <div className="flex flex-col">
-<h3 className="text-[22px] font-semibold text-[#0000ff]">
+                    <h3 className="text-[22px] font-semibold text-[#0000ff]">
                       {feature.title}</h3>
                     {activeIndex === idx && (
-                      <p className="text-[17px] text-gray-600 mt-2 font-[Montserrat] font-medium">
+                      <p className="text-black text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
                         {feature.desc}
                       </p>
                     )}
@@ -154,7 +153,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  
+
 
   useEffect(() => {
     const fetchHomeData = async () => {
@@ -175,13 +174,13 @@ const Home = () => {
     fetchHomeData();
   }, []);
 
-const handleCtaClick = () => {
+  const handleCtaClick = () => {
     // Navigate to contact page first
     navigate('/contact');
-    
+
     // Store the intent to scroll to form in session storage
     sessionStorage.setItem('scrollToContactForm', 'true');
-};
+  };
 
 
   const handleClick = () => {
@@ -227,7 +226,7 @@ const handleCtaClick = () => {
     );
   }
 
-  if (error) { 
+  if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-xl text-red-600">Error: {error}</div>
@@ -268,16 +267,16 @@ const handleCtaClick = () => {
             <p className="mt-4 max-w-2xl text-lg md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
               India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
             </p>
-          <a
-  href="https://wa.me/9494220622?text=Hi, I want an instant quote"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-5 bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+            <a
+              href="https://wa.me/9494220622?text=Hi, I want an instant quote"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
              hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 
              rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
->
-  Get Instant Quote
-</a>
+            >
+              Get Instant Quote
+            </a>
 
           </div>
         </div>
@@ -297,16 +296,16 @@ const handleCtaClick = () => {
                     className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
                   >
                     <div className="flex rounded-md mb-4">
-  <img
-    src={`https://xigiled.in/storage/${feature.image}`}
-    alt={feature.title}
-    className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
-  />
-</div>
+                      <img
+                        src={`https://xigiled.in/storage/${feature.image}`}
+                        alt={feature.title}
+                        className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+                      />
+                    </div>
                     <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-base md:text-[17px] text-gray-800 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                    <p className="text-base md:text-[17px] text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -325,218 +324,191 @@ const handleCtaClick = () => {
         )}
 
         {/* Complete Range Section */}
-{completeRangeSection && (
-  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#f3f7ff]">
-    <div className="container mx-auto">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
-        {completeRangeSection.title}
-      </h2>
-
-      <div className="grid grid-cols-12 gap-6">
-        {/* Left Column - Main Products */}
-        <div className="col-span-12 lg:col-span-9">
-          {/* First Row - Indoor, Outdoor, Interactive */}
-          <div className="grid grid-cols-12 gap-6 mb-6">
-            {/* Indoor LED Wall - 6 columns */}
-            {completeRangeSection.images[0] && (
-              <a
-                href="/products/indoor-led-video-walls"
-                className="block col-span-12 md:col-span-6 bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
-                  alt={completeRangeSection.images[0].title}
-                  className="w-full  rounded-xl"
-                />
-              </a>
-            )}
-
-            {/* Outdoor LED - 3 columns */}
-            {completeRangeSection.images[1] && (
-              <a 
-                href="/products/outdoor-led-video-walls" 
-                className="block col-span-12 md:col-span-3 bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[1].title}
-                />
-              </a>
-            )}
-
-            {/* Interactive Display - 3 columns */}
-            {completeRangeSection.images[2] && (
-              <a 
-                href="/products/interactive-display" 
-                className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[2].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[2].title}
-                />
-              </a>
-            )}
-          </div>
-
-          {/* Second Row - Transparent, Truck Mounted */}
-          <div className="grid grid-cols-12 gap-6 mb-6">
-            {/* Transparent LED - 5 cols */}
-            {completeRangeSection.images[4] && (
-              <a 
-                href="/products/transparent-led-display" 
-                className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[4].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[4].title}
-                />
-              </a>
-            )}
-
-            {/* Truck Mounted - 7 cols */}
-            {completeRangeSection.images[7] && (
-              <a 
-                href="/products/truck-mounted-led" 
-                className="block col-span-12 md:col-span-7 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[7].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[7].title}
-                />
-              </a>
-            )}
-          </div>
-
-          {/* Third Row - Flexible & Custom LED */}
-          <div className="grid grid-cols-12 gap-6">
-            {/* Flexible & Curved - 7 cols */}
-            {completeRangeSection.images[6] && (
-              <a 
-                href="/products/flexible-led-display" 
-                className="block col-span-12 md:col-span-7 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[6].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[6].title}
-                />
-              </a>
-            )}
-
-            {/* Custom LED - 5 cols */}
-            {completeRangeSection.images[8] && (
-              <a 
-                href="/products/custom-led-display" 
-                className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-60"
-              >
-                <img
-                  src={`https://xigiled.in/storage/${completeRangeSection.images[8].image}`}
-                  className="w-full h-full object-cover rounded-xl"
-                  alt={completeRangeSection.images[8].title}
-                />
-              </a>
-            )}
-          </div>
-        </div>
-
-        {/* Right Column - LED Standee & Rental */}
-        <div className="col-span-12 lg:col-span-3 flex flex-col gap-6">
-          {/* LED Standee */}
-          {completeRangeSection.images[3] && (
-            <a 
-              href="/products/led-standee-display" 
-              className=" rounded-xl shadow-sm hover:shadow-md transition  h-[373px] overflow-hidden  bg-white"
-            >
-              <img
-                src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
-                className="w-full h-full object-cover rounded-xl"
-                alt={completeRangeSection.images[3].title}
-              />
-            </a>
-          )}
-
-          {/* Rental & Event Display */}
-          {completeRangeSection.images[5] && (
-            <a 
-              href="/products/rental-event-display" 
-              className="rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[373px] bg-white"
-            >
-              <img
-                src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
-                className="w-full h-full object-cover rounded-xl"
-                alt={completeRangeSection.images[5].title}
-              />
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  </section>
-)}
-
-        {/* Stats Section
-        <section className="w-full py-20 px-4 bg-gradient-to-b from-white to-[#eaf1ff]">
-          <div className="max-w-[1440px] mx-auto w-full">
-            <div className="hidden md:flex w-full items-center justify-between text-left mb-12 px-20">
-              <div className="flex flex-col items-start min-w-[120px] pl-[100px]">
-                <p className="text-[36px] font-bold text-black">3000+</p>
-                <p className="text-[16px] font-semibold text-black">Installations</p>
-              </div>
-
-              <div className="flex-1 text-center px-6 ">
-                <h2 className="text-[28px] md:text-[30px] lg:text-[40px] font-medium mb-3 leading-[1.2] max-w-xl mx-auto font-['Poppins',sans-serif]">
-                  3,000+ Trusted Partnership built on Results
-                </h2>
-                <p className="text-black text-[10px] md:text-[17px] lg:text-[16px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-lg mx-auto">
-                  From retail and education to government and global brands, our work powers every sector and geography.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-end min-w-[100px] pr-[100px]">
-                <p className="text-[36px] font-bold text-black">50+</p>
-                <p className="text-[16px] font-semibold text-black">Cities</p>
-              </div>
-            </div>
-
-            <div className="md:hidden text-center mb-5 ">
-              <h2 className="text-2xl font-semibold mb-3 leading-[1.2]">
-                25,000+ Trusted Partnership built <br /> on Results
+        {completeRangeSection && (
+          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#f3f7ff]">
+            <div className="container mx-auto">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
+                {completeRangeSection.title}
               </h2>
-              <p className="text-black text-[15px] font-medium font-['Montserrat',sans-serif] leading-relaxed max-w-3xl mx-auto mb-4">
-                From retail and education to government and global brands, our work powers every sector and geography.
-              </p>
 
-              <div className="flex items-center justify-center gap-4">
-                <div className="px-4 py-4 text-center pr-20">
-                  <p className="text-[24px] font-extrabold text-black">50+</p>
-                  <p className="text-[14px] font-semibold text-black">Cities</p>
+              <div className="grid grid-cols-12 gap-6">
+                {/* Left Column - Main Products */}
+                <div className="col-span-12 lg:col-span-9">
+                  {/* First Row - Indoor, Outdoor, Interactive */}
+                  <div className="grid grid-cols-12 gap-6 mb-6">
+                    {/* Indoor LED Wall - 6 columns */}
+                    {completeRangeSection.images[0] && (
+                      <a
+                        href="/products/indoor-led-video-walls"
+                        className="block col-span-12 md:col-span-6 bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[250px] md:h-[200px] lg:h-[240px]">
+                        {/* Content here */}                <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
+                          alt={completeRangeSection.images[0].title}
+                          className="w-full object-cover h-[250px] lg:h-[240px]  md:object-cover  rounded-xl"
+                        />
+                      </a>
+                    )}
+
+                    {/* Outdoor LED - 3 columns */}
+                    {completeRangeSection.images[1] && (
+                      <a
+                        href="/products/outdoor-led-video-walls"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[260px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
+                          className="w-full h-full object-containrounded-xl"
+                          alt={completeRangeSection.images[1].title}
+                        />
+                      </a>
+                    )}
+
+                    {/* Interactive Display - 3 columns */}
+                    {completeRangeSection.images[2] && (
+                      <a
+                        href="/products/interactive-display"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[260px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[2].image}`}
+                          className="w-full h-full object-containrounded-xl"
+                          alt={completeRangeSection.images[2].title}
+                        />
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Second Row - Transparent, Truck Mounted */}
+                  <div className="grid grid-cols-12 gap-6 mb-6">
+                    {/* Transparent LED - 5 cols */}
+                    {completeRangeSection.images[4] && (
+                      <a
+                        href="/products/transparent-led-display"
+                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[4].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[4].title}
+                        />
+                      </a>
+                    )}
+
+                    {/* Truck Mounted - 7 cols */}
+                    {completeRangeSection.images[7] && (
+                      <a
+                        href="/products/truck-mounted-led"
+                        className="block col-span-12 md:col-span-7 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[7].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[7].title}
+                        />
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Third Row - Flexible & Custom LED */}
+                  <div className="grid grid-cols-12 gap-6">
+                    {/* Flexible & Curved - 7 cols */}
+                    {completeRangeSection.images[6] && (
+                      <a
+                        href="/products/flexible-led-display"
+                        className="block col-span-12 md:col-span-7 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[6].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[6].title}
+                        />
+                      </a>
+                    )}
+
+                    {/* Custom LED - 5 cols */}
+                    {completeRangeSection.images[8] && (
+                      <a
+                        href="/products/custom-led-display"
+                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[8].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[8].title}
+                        />
+                      </a>
+                    )}
+                  </div>
                 </div>
-                <div className="px-6 py-4 text-center">
-                  <p className="text-[24px] font-extrabold text-black">3000+</p>
-                  <p className="text-[14px] font-semibold text-black">Installations</p>
+
+                {/* Right Column - LED Standee & Rental */}
+                <div className="col-span-12 md:col-span-6 lg:col-span-3">
+                  {/* Mobile & Desktop: Flex Column */}
+                  <div className="flex flex-col md:hidden lg:flex gap-4 md:gap-6">
+                    {/* LED Standee */}
+                    {completeRangeSection.images[3] && (
+                      <a
+                        href="/products/led-standee-display"
+                        className="block rounded-xl shadow-sm hover:shadow-md transition h-[350px] lg:h-[373px] overflow-hidden bg-white"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[3].title}
+                        />
+                      </a>
+                    )}
+
+                    {/* Rental & Event Display */}
+                    {completeRangeSection.images[5] && (
+                      <a
+                        href="/products/rental-event-display"
+                        className="block rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[350px] lg:h-[373px] bg-white"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[5].title}
+                        />
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Tablet Only: Flex Row */}
+                  <div className="hidden md:flex lg:hidden flex-row gap-4">
+                    {/* LED Standee */}
+                    {completeRangeSection.images[3] && (
+                      <a
+                        href="/products/led-standee-display"
+                        className="block rounded-xl shadow-sm hover:shadow-md transition h-[200px] overflow-hidden bg-white flex-1"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[3].title}
+                        />
+                      </a>
+                    )}
+
+                    {/* Rental & Event Display */}
+                    {completeRangeSection.images[5] && (
+                      <a
+                        href="/products/rental-event-display"
+                        className="block rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[200px] bg-white flex-1"
+                      >
+                        <img
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[5].title}
+                        />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className="w-full px-20 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="hidden md:flex w-full md:w-auto justify-center">
-                <img src={leftImage} alt="Left Panel" className="w-[300px] h-auto" />
-              </div>
-
-              <div className="w-full md:w-auto flex justify-center px-6 md:px-12">
-                <img src={centerImage} alt="Center LED" className="w-[360px] md:w-[500px] h-auto" />
-              </div>
-
-              <div className="hidden md:flex w-full md:w-auto justify-center">
-                <img src={rightImage} alt="Right Panel" className="w-[340px] h-auto" />
-              </div>
-            </div>
-          </div>
-        </section> */}
+          </section>
+        )}
 
         {/* Industry Section */}
         {industrySection && (
@@ -558,66 +530,70 @@ const handleCtaClick = () => {
 
               </div>
 
-         <div className="w-full lg:w-8/12">
-  <div className="flex justify-center">
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
-      {industrySection.images.map((product, idx) => (
-        <div
-          key={idx}
-          onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
-          className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-50 sm:h-48 md:h-60 cursor-pointer"
-        >
-          {/* Hover Image (Second Image) */}
-          {product.image && product.image[1] && (
-            <img
-              src={`https://xigiled.in/storage/${product.image[0]}`}
-              alt={product.title + ' Hover'}
-              className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
-            />
-          )}
-          
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+              <div className="w-full lg:w-8/12">
+                <div className="flex justify-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
+                    {industrySection.images.map((product, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => navigate(`/industry/${createIndustrySlug(product.title)}`)}
+                        className="relative bg-[#E8F1FF] rounded-xl shadow flex flex-col items-center justify-center text-center p-5 font-semibold text-black text-[16px] hover:shadow-lg transition-all group overflow-hidden h-50 sm:h-48 md:h-60 cursor-pointer"
+                      >
+                        {/* Hover Image (Second Image) */}
+                        {product.image && product.image[1] && (
+                          <img
+                            src={`https://xigiled.in/storage/${product.image[0]}`}
+                            alt={product.title + ' Hover'}
+                            className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
+                          />
+                        )}
 
-          {/* Default Image (First Image) */}
-          {product.image && product.image[0] && (
-            <img
-              src={`https://xigiled.in/storage/${product.image[1]}`}
-              alt={product.title}
-              className="w-90 h-90 sm:w-14 sm:h-14 mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 "
-            />
-          )}
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
-          <span className="relative z-30 px-2 text-center text-[17px] transition-colors duration-300 group-hover:text-white">
-            {product.title}
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
+                        {/* Default Image (First Image) */}
+                        {product.image && product.image[0] && (
+                          <img
+                            src={`https://xigiled.in/storage/${product.image[1]}`}
+                            alt={product.title}
+                            className="lg:w-[50px] h-[50px] mb-3 z-30 transition-opacity duration-500 group-hover:opacity-0 "
+                          />
+                        )}
+
+                        <span className="relative z-30 px-2 text-center text-[17px] transition-colors duration-300 group-hover:text-white">
+                          {product.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         )}
 
         {/* Support Section */}
         {supportSection && (
-          <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 text-white"
+          <section
+            className="relative py-20 md:py-16 lg:py-24 px-4 md:px-6 lg:px-10 text-white"
             style={{
-              backgroundImage: supportSection.images.length > 2 && supportSection.images[2].image
-                ? `url('https://xigiled.in/storage/${supportSection.images[2].image}')`
-                : `url('../src/assets/cta.jpeg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}>
+              backgroundImage:
+                supportSection.images.length > 2 && supportSection.images[2].image
+                  ? `url('https://xigiled.in/storage/${supportSection.images[2].image}')`
+                  : `url('../src/assets/cta.jpeg')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
             <div className="absolute inset-0 bg-black/50 z-0"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
-              <div className="flex justify-between items-start mb-15 flex-wrap gap-4">
-                <h2 className="text-[28px] md:text-[32px] leading-[1.4] lg:text-[40px] font-medium max-w-2xl font-['Poppins',sans-serif]">
+              {/* Heading + Button */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+                <h2 className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.4] font-medium  font-['Poppins',sans-serif] md:w-[500px] lg:w-[800px]">
                   {supportSection.title}
                 </h2>
                 <button
-                  onClick={() => navigate('/contact')}
+  onClick={handleCtaClick}
                   className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
              hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-5 py-3 
              rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
@@ -625,20 +601,30 @@ const handleCtaClick = () => {
                   Get Product Help
                 </button>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+              {/* Cards */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {supportSection.images.slice(0, 2).map((support, index) => (
-                  <div key={index} className="bg-gradient-to-br from-[#113A79]/80 h-[300px] via-[#757575]/40 to-[#889CBC]/80 backdrop-blur-sm rounded-xl p-6 text-white">
+                  <div
+                    key={index}
+                    className="bg-gradient-to-br from-[#113A79]/80 via-[#757575]/40 to-[#889CBC]/80 
+                       backdrop-blur-sm rounded-xl p-6 text-white 
+                       h-auto md:h-[280px] lg:h-[300px]"
+                  >
                     <div className="flex flex-col items-start gap-3">
                       <div className="p-3 rounded-[10px]">
                         <img
                           src={`https://xigiled.in/storage/${support.image}`}
                           alt={support.title}
-                             className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+                          className="w-[55px] h-[55px] md:w-[60px] md:h-[60px] 
+                             bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
                         />
                       </div>
                       <div>
-                        <h3 className="text-[22px] font-medium mb-4">{support.title}</h3>
-                        <p className="text-[17px] font-['Montserrat',sans-serif] text-white/100 font-medium leading-relaxed">
+                        <h3 className="text-[20px] md:text-[22px] font-medium mb-3 md:mb-4">
+                          {support.title}
+                        </h3>
+                        <p className="text-[15px] md:text-[17px] font-['Montserrat',sans-serif] text-white font-medium leading-relaxed">
                           {support.description}
                         </p>
                       </div>
@@ -649,6 +635,7 @@ const handleCtaClick = () => {
             </div>
           </section>
         )}
+
 
         {/* Industry Applications Section */}
         {industryApplicationsSection && (
@@ -662,34 +649,31 @@ const handleCtaClick = () => {
         )} */}
 
         {/* CTA Section */}
-<section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-  <div className="rounded-xl overflow-hidden  h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
-    <div className="w-full md:w-5/12">
-      <img
-        src={cta}
-        alt="DOOH Display"
-        className="w-full h-full object-cover"
-      />
-    </div>
+        <section className="w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
+          <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
+            <div className="w-full md:w-5/12 h-64 md:h-auto">
+              <img alt="Digital billboard advertising" className="w-full h-full object-cover" src="/src/assets/cta1.jpg" />
+            </div>
+            <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
+              <div className="text-center md:text-left w-full">
+                <h2 className="text-[26px] md:text-[32px] lg:text-[40px] font-medium text-black mb-4 leading-snug font-['Poppins',sans-serif]">
+                  Ready to Transform Your Advertising?
+                </h2>
+                <p className="text-black mb-6 text-base md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                  With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand.
+                </p>
+                <button
+                  onClick={handleCtaClick}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-sm md:text-base font-medium transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
+                  aria-label="See solutions for your industry"
+                >
+                  See Solutions for Your Industry
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
-      <div className="text-center md:text-left px-10">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px]  font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
-          Ready to Transform Your Advertising?
-        </h2>
-        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand
-        </p>
-        <button
-onClick={handleCtaClick}          
-          className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
-        >
-          See Solutions for Your Industry
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
       </main>
       <Footer />
     </div>

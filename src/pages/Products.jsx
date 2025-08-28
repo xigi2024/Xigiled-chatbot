@@ -2,86 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Cpu, Activity, ShieldCheck, Link2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';import { Link } from 'react-router-dom';
 
 // Updated API base URL
 const API_BASE_URL = 'https://xigiled.in/api';
-
-// Fallback data structure
-const FALLBACK_DATA = [
-  {
-    section: "product_section1",
-    title: "XIGI LED Display",
-    description: "Brilliant LED Solutions for Every Sector",
-    images: [
-      {
-        image: "",
-        title: "Brilliant LED Solutions for Every Sector",
-        description: "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."
-      }
-    ]
-  },
-  {
-    section: "product_section2",
-    title: "Digital Impact by product",
-    description: "At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment. Our technology adapts to your unique needs, helping you connect, engage, and grow in today's fast-moving digital world.",
-    images: [
-      {
-        image: "",
-        title: null,
-        description: null
-      }
-    ]
-  },
-  {
-    section: "product_section3",
-    title: "Products & Solutions",
-    description: null,
-    images: [
-      {
-        image: "",
-        title: "Indoor Led",
-        description: "Transform Interiors—Ultra-HD Visuals, Seamless Design"
-      },
-      {
-        image: "",
-        title: "Outdoor Led",
-        description: "Rule the Outdoors—All-Weather, Daylight-Bright Displays"
-      }
-    ]
-  },
-  {
-    section: "product_section4",
-    title: "Key Features of Our LED Video Walls",
-    description: null,
-    images: [
-      {
-        image: "",
-        title: "Ultra-High Resolution & Clarity",
-        description: "Crystal-clear visuals for displaying products with sharp detail, attracting customers' attention even from a distance."
-      }
-    ]
-  },
-  {
-    section: "product_section5",
-    title: "Ready to Transform Your Advertising?",
-    description: "With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand.",
-    images: [
-      {
-        image: "",
-        title: null,
-        description: null
-      }
-    ]
-  }
-];
 
 // Helper function to construct image URL
 const getImageUrl = (imagePath) => {
   if (!imagePath) return null;
   
-  // If the path already starts with http, return as is
   if (imagePath.startsWith('http')) {
     return imagePath;
   }
@@ -142,40 +72,46 @@ const ProductSolutions = ({ sectionData }) => {
     <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
       {sectionData.title || "PRODUCT SOLUTIONS"}
     </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
-      {sectionData.images.map((item, idx) => (
-        <Link
-          to={getRouteFromTitle(item.title)}
-          key={idx}
-          className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col"
-        >
-          {/* Image with hover icon for mobile/tab */}
-          <div className="relative overflow-hidden">
-            <img
-              src={getImageUrl(item.image) || 'https://via.placeholder.com/300x200?text=Product+Image'}
-              alt={item.title || 'Product Image'}
-              className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
+    {sectionData.images.map((item, idx) => (
+  <Link
+    to={getRouteFromTitle(item.title)}
+    key={idx}
+    className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group block relative h-full flex flex-col"
+  >
+    {/* Image with hover effects */}
+    <div className="relative overflow-hidden">
+      <img
+        src={getImageUrl(item.image) || 'https://via.placeholder.com/300x200?text=Product+Image'}
+        alt={item.title || 'Product Image'}
+        className="w-full h-50 md:h-50 lg:h-62 object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
 
-          {/* Text Content */}
-          <div className="p-4 relative flex-1 flex flex-col">
-            <h3 className="text-[16px] md:text-[18px] lg:text-[20px] font-medium my-2 text-gray-900 font-['Poppins',sans-serif]">
-              {item.title || 'Product Title'}
-            </h3>
-            
-            {/* Description and icon in the same row */}
-            <div className="flex justify-between items-end">
-              <p className="text-[15px] text-gray-700 flex-1 font-medium font-['Montserrat',sans-serif] pr-2 mb-0">
-                {item.description || 'Product description not available'}
-              </p>
-              <span className="bg-[#e6ecf6] p-3 rounded-[5px] inline-flex items-center justify-center flex-shrink-0">
-                <Link2 className="h-5 w-5 text-[#3a4a6f]" />
-              </span>
-            </div>
-          </div>
-        </Link>
-      ))}
+    {/* Content Section */}
+    <div className="p-4 relative flex-1 flex flex-col">
+      {/* Category/Title in blue */}
+      <h3 className="text-[16px] text-[#0000ff] md:text-[16px] lg:text-[16px] mb-3 font-medium font-['Poppins',sans-serif]">
+        {item.title || 'Product Title'}
+      </h3>
+      
+      {/* Main description text */}
+      <p className="text-[17px] text-black font-medium font-['Montserrat',sans-serif] mb-4 flex-1">
+        {item.description || 'Product description not available'}
+      </p>
+      
+      {/* Learn More button at the bottom */}
+    
+   <div className="flex items-center text-[#0000ff] font-medium hover:text-[#0000cc] transition-colors duration-200">
+<FontAwesomeIcon 
+  icon={faLink} 
+  className="h-3 w-3 mr-2 border border-gray-300 p-[8px] rounded-[5px] bg-[#0d0dff26] text-[#0000ff]" 
+/>        <span className="text-[16px] font-['Poppins',sans-serif]">Learn More</span>
+</div>
+
+    </div>
+  </Link>
+))}
     </div>
   </div>
 </section>
@@ -214,7 +150,7 @@ const KeyFeatures = ({ sectionData }) => {
               <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
                 {feature.title}
               </h3>
-              <p className="text-gray-700 text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+              <p className="text-black text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
                 {feature.description}
               </p>
             </div>
@@ -230,6 +166,12 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+   const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
+
 
   // Fetch data from API
   useEffect(() => {
@@ -305,11 +247,11 @@ const Products = () => {
         </div>
 
         {/* Hero Image */}
-        <div className="hidden md:block w-full md:w-auto mt-10 md:mt-0">
+        <div className=" md:block w-full md:w-auto mt-10 md:mt-0">
           <img
             src={getImageUrl(heroSection?.images?.[0]?.image) || 'https://via.placeholder.com/1000x600?text=XIGI+LED+Display'}
             alt="LED Display"
-            className="w-full md:w-[700px] lg:w-[1000px] drop-shadow-2xl mx-auto"
+            className="w-full md:w-[700px] lg:w-[1000px] lg:h-[400px] drop-shadow-2xl mx-auto"
           />
         </div>
       </section>
@@ -322,7 +264,7 @@ const Products = () => {
             <img
               src={getImageUrl(digitalImpactSection?.images?.[0]?.image) || 'https://via.placeholder.com/600x400?text=Digital+Impact'}
               alt={digitalImpactSection?.title}
-              className="h-[400px] rounded-xl shadow-xl w-full max-w-md md:max-w-full"
+              className="lg:h-[400px] md:h-[300px] rounded-xl shadow-xl w-full max-w-md md:max-w-full"
             />
           </div>
 
@@ -331,11 +273,11 @@ const Products = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
               {digitalImpactSection?.title || "Digital Impact by product"}
             </h2>
-            <p className="text-gray-800 text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+            <p className="text-black text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
               {digitalImpactSection?.description || "At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment. Our technology adapts to your unique needs, helping you connect, engage, and grow in today's fast-moving digital world."}
             </p>
             <button 
-              onClick={() => navigate('/contact')} 
+  onClick={handleCtaClick}
               className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[15px] md:text-[16px] font-medium transition-all duration-300"
             >
               Get Started Today
@@ -351,7 +293,7 @@ const Products = () => {
       <KeyFeatures sectionData={keyFeaturesSection} />
 
       {/* Ready to Transform Section */}
-      <section className="bg-[#f2f2fd] py-20">
+      <section className="bg-[#e8f1ff] py-20">
         <div className="container mx-auto">
           <div
             className="h-[500px] relative rounded-3xl overflow-hidden"
@@ -373,9 +315,10 @@ const Products = () => {
                 {transformSection?.description || "With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand."}
               </p>
               <button 
-                onClick={() => navigate('/contact')}
-                className="bg-white text-[#1e2d3d] cursor-pointer hover:bg-[#e6e6ff] px-6 py-3 rounded-md shadow-md text-[16px] font-semibold transition-all duration-300 w-fit"
-              >
+  onClick={handleCtaClick}
+className={` bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+    hover:from-indigo-700 hover:to-blue-700 text-white px-5 text-[18px] py-3 rounded-[5px] w-[300px] text-sm font-medium transition-all duration-300
+`}              >
                 See Solutions for Your Products
               </button>
             </div>

@@ -130,7 +130,7 @@ const Header = () => {
                     Products
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/gallery"
                     className={`block border-b border-gray-700 pb-2 ${currentPath === '/gallery' ? 'text-blue-400' : ''}`}
@@ -138,7 +138,7 @@ const Header = () => {
                   >
                     Gallery
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to="/blog"

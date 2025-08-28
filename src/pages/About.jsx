@@ -23,7 +23,7 @@ const FAQItem = ({ question, answer, isActive, onClick }) => {
         />
       </div>
       {isActive && (
-        <div className="mt-4 text-gray-600 text-[14px] md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+        <div className="mt-4 text-gray-700 text-[14px] md:text-[16px] font-['Montserrat',sans-serif] font-medium">
           {answer}
         </div>
       )}
@@ -39,6 +39,11 @@ const About = () => {
   const [activeIndex, setActiveIndex] = useState(0);
     const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+    const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -123,14 +128,14 @@ const About = () => {
 
       {/* About Section 1 - Main Content Section */}
       {aboutSection1 && (
-        <section className="py-27 py-20 md:py-17 lg:py-28 px-4 md:px-5 lg:px-27 bg-white">
-          <div className="container mx-auto grid md:grid-cols-2 gap-20 items-center">
+        <section className="py-10  md:py-17 lg:py-20 px-4 md:px-5 lg:px-27 bg-white">
+          <div className="container mx-auto grid md:grid-cols-2 lg:gap-20 items-center">
             {/* Left Image */}
             <div className="flex justify-center">
               <img
                 src={`https://xigiled.in/storage/${aboutSection1.images[0]?.image}`}
                 alt={aboutSection1.title}
-                className="w-full h-[500px] rounded-2xl object-cover"
+                className="w-full lg:h-[500px] rounded-2xl object-cover"
               />
             </div>
 
@@ -139,10 +144,10 @@ const About = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 font-['Poppins',sans-serif]">
                 {aboutSection1.title}
               </h2>
-              <p className="text-gray-900 text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
+              <p className="text-black text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
                 {aboutSection1.description}
               </p>
-              <button onClick={() => navigate('/contact')}
+              <button   onClick={handleCtaClick}
  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
                 Connect Now
               </button>
@@ -212,7 +217,7 @@ const About = () => {
             )?.image
           }`}
           alt="Brand Power"
-          className="w-full h-64 object-cover rounded-lg mb-8"
+          className="w-full h-80 object-cover mb-8"
         />
 
         {/* Content */}
@@ -220,10 +225,10 @@ const About = () => {
           <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
             Our Value
           </h3>
-          <h4 className="text-[30px] leading-[1.3] text-gray-900 w-[488px] mb-4 font-['Poppins',sans-serif]">
+          <h4 className="text-[30px] leading-[1.3] text-gray-900 lg:w-[488px] mb-4 font-['Poppins',sans-serif]">
             Unleash the Power of Your Brand with XIGI LED
           </h4>
-          <p className="text-gray-700 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+          <p className="text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
             At XIGI LED, we uphold innovation, reliability, and customer-first
             excellence to deliver advanced LED Video wall solutions.
           </p>
@@ -245,7 +250,7 @@ const About = () => {
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4  font-['Poppins',sans-serif]">
                   {aboutSection3.title}
                 </h2>
-                <p className="text-gray-900 text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
+                <p className="text-black text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
                   {aboutSection3.description}
                 </p>
 
@@ -312,14 +317,14 @@ const About = () => {
         <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center bg-[#E8F1FF] rounded-[20px] p-6 sm:p-10 lg:p-20">
             {/* LEFT TEXT SECTION */}
-            <div className='ms-10'>
+            <div className='lg:ml-[20px]'>
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-[#000] mb-4 leading-tight font-['Poppins',sans-serif]">
                 {aboutSection5.title}
               </h2>
-              <p className="text-gray-700 text-base md:text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
+              <p className="text-black text-base md:text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
                 {aboutSection5.description}
               </p>
-              <button onClick={() => navigate('/contact')} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
+              <button onClick={handleCtaClick} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
                 Contact now
               </button>
             </div>
@@ -343,7 +348,7 @@ const About = () => {
 
       {/* About Section 6 - Promise Section */}
       {aboutSection6 && (
-        <div className='bg-[#EAF1FF] py-2'>
+        <div className='bg-[#EAF1FF] py-20'>
         <section className=" container">
           <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif]">
             {aboutSection6.title}
@@ -456,11 +461,11 @@ const About = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.3] text-black mb-4 font-['Poppins',sans-serif]">
               Ready to Transform Your Advertising?
             </h2>
-            <p className="font-['Montserrat',sans-serif] text-gray-700 mb-6 leading-relaxed text-base md:text-[17px] w-[90%] font-medium">
+            <p className="font-['Montserrat',sans-serif] text-black mb-6 leading-relaxed text-base md:text-[17px] w-[90%] font-medium">
               With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
             </p>
             <button 
-              onClick={() => navigate('/contact')}
+onClick={handleCtaClick}
               className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 cursor-pointer hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
             >
               Contact Us

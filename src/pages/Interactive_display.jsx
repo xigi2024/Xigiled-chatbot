@@ -19,6 +19,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
   const showcaseItems = showcaseData.images.map(img => ({
     title: img.title,
     image: `https://xigiled.in/storage/${img.image}`,
+    description: img.description // Add description here
   }));
 
   const nextSlide = () => {
@@ -42,15 +43,9 @@ const ShowcaseSlider = ({ showcaseData }) => {
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
         <div className="flex justify-center items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
-          {/* <Link
-            to="/gallery"
-            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
-          >
-            View All
-          </Link> */}
         </div>
 
         <div className="relative rounded-2xl overflow-hidden">
@@ -59,9 +54,21 @@ const ShowcaseSlider = ({ showcaseData }) => {
             alt={showcaseItems[currentIndex]?.title}
             className="w-full h-[500px] md:h-[550px] object-cover rounded-2xl"
           />
-          <h3 className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-xl md:text-2xl font-semibold drop-shadow-lg ">
-            {showcaseItems[currentIndex]?.title}
-          </h3>
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-90 rounded-2xl"></div>
+
+          {/* Title + Description */}
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center text-white z-20 px-4">
+            <h3 className="text-xl md:text-2xl font-semibold drop-shadow-lg">
+              {showcaseItems[currentIndex]?.title}
+            </h3>
+            {showcaseItems[currentIndex]?.description && (
+              <p className="mt-2 text-sm md:text-base drop-shadow-md">
+                {showcaseItems[currentIndex]?.description}
+              </p>
+            )}
+          </div>
 
           {/* Prev & Next Buttons */}
           <button
@@ -82,6 +89,161 @@ const ShowcaseSlider = ({ showcaseData }) => {
   );
 };
 
+
+
+const FeaturesSection = ({ featuresData }) => {
+  
+  if (!featuresData) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">Loading features...</div>
+      </section>
+    );
+  }
+
+  if (!featuresData.images || featuresData.images.length === 0) {
+    return (
+      <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+        <div className="text-center">No features data available</div>
+      </section>
+    );
+  }
+
+  // Helper function to get full image URL
+  const getImageUrl = (imagePath) => {
+    return `https://xigiled.in/storage/${imagePath}`;
+  };
+
+  // Organize images based on your layout requirements
+  const organizeFeatures = (images) => {
+    // Map the API data to match your current layout structure
+    const touchResponse = images.find(img => img.title.includes('Touch Response')) || images[0];
+    const multiTouch = images.find(img => img.title.includes('Multi-Touch')) || images[1];
+    const highBrightness = images.find(img => img.title.includes('High Brightness')) || images[2];
+    const lowLatency = images.find(img => img.title.includes('Low Latency')) || images[3];
+    const durableSurface = images.find(img => img.title.includes('Durable Surface')) || images[4];
+
+    return {
+      touchResponse,
+      multiTouch,
+      highBrightness,
+      lowLatency,
+      durableSurface
+    };
+  };
+
+  const features = organizeFeatures(featuresData.images);
+
+  return (
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+        {featuresData.title || "Why Choose Xigi LED?"}
+      </h2>
+
+      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Column 1: Touch Response */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] lg:h-[605px] md:h-[450px] h-[400px] p-5 flex flex-col justify-between shadow-lg">
+            <img
+              src={getImageUrl(features.touchResponse.image)}
+              alt={features.touchResponse.title}
+              className="w-full h-105 object-cover rounded-md mb-4"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-xl font-bold mb-2">
+                {features.touchResponse.title}
+              </h3>
+              {features.touchResponse.description && (
+                <p className="text-white text-sm">
+                  {features.touchResponse.description}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 2: High Brightness + Multi-Touch */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[303px] md:h-[203px] lg:h-[303px] p-5 shadow-lg">
+            <img
+              src={getImageUrl(features.highBrightness.image)}
+              alt={features.highBrightness.title}
+              className="mx-auto w-70 object-cover h-55 lg:h-50 md:h-30 rounded-md mb-4"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.highBrightness.title}
+              </h3>
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[278px] lg:h-[278px] md:h-[220px] p-5 shadow-lg">
+            <img
+              src={getImageUrl(features.multiTouch.image)}
+              alt={features.multiTouch.title}
+              className="w-full object-cover h-50 lg:h-50 md:h-35 rounded-md mb-3"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.multiTouch.title}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3: Low Latency + Durable Surface */}
+        <div className="space-y-6">
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[278px] lg:h-[278px] md:h-[220px] p-5 shadow-lg">
+            <img
+              src={getImageUrl(features.lowLatency.image)}
+              alt={features.lowLatency.title}
+              className="w-66 h-45 lg:h-50 md:h-38 object-cover rounded-md mb-3"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.lowLatency.title}
+              </h3>
+            </div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] h-[303px] md:h-[203px] lg:h-[303px] p-5 shadow-lg">
+            <img
+              src={getImageUrl(features.durableSurface.image)}
+              alt={features.durableSurface.title}
+              className="w-full object-cover rounded-md mb-3"
+              onError={(e) => {
+                console.error('Image failed to load:', e.target.src);
+                e.target.style.display = 'none';
+              }}
+            />
+            <div>
+              <h3 className="text-white text-lg font-semibold">
+                {features.durableSurface.title}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
   const animationRef = useRef(null);
@@ -90,13 +252,8 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   const animateScroll = () => {
     const el = scrollRef.current;
     if (el) {
-      // move right
       el.scrollLeft += scrollSpeed;
-
-      // full scrollable width minus visible width = max offset
       const maxOffset = el.scrollWidth - el.clientWidth;
-
-      // when we reach the end, jump back to start
       if (el.scrollLeft >= maxOffset) {
         el.scrollLeft = 0;
       }
@@ -105,7 +262,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   };
 
   useEffect(() => {
-    // start animation
     animationRef.current = requestAnimationFrame(animateScroll);
 
     const el = scrollRef.current;
@@ -121,7 +277,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
       el.addEventListener("mouseleave", handleMouseLeave);
     }
 
-    // cleanup
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       if (el) {
@@ -134,7 +289,6 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
 
   if (!pixelPitchData?.images?.length) return null;
 
-  // Duplicate for seamless scroll
   const fullList = [...pixelPitchData.images, ...pixelPitchData.images];
 
   return (
@@ -147,21 +301,23 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
           </h2>
         </div>
 
-        {/* Scrollable 5-item container */}
+        {/* Scrollable container */}
         <div
           ref={scrollRef}
-          className="overflow-x-hidden relative"
-          style={{ width: "1200px", margin: "0 auto" }} // 5 * (160px + gap ~8-10px)
+          className="overflow-x-hidden relative w-full" // ✅ responsive width
         >
-          <div className="flex gap-10">
+          <div className="flex gap-6 sm:gap-8 md:gap-10">
             {fullList.map((pitch, index) => (
-              <div key={index} className="flex-shrink-0 text-center w-[160px]">
+              <div
+                key={index}
+                className="flex-shrink-0 text-center w-[120px] sm:w-[140px] md:w-[160px]"
+              >
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
-                  className="w-full h-[180px] p-5 object-cover rounded-2xl shadow-md"
+                  className="w-full h-[120px] sm:h-[150px] md:h-[180px] p-3 sm:p-4 md:p-5 object-cover rounded-2xl shadow-md"
                 />
-                <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
+                <p className="mt-3 text-[13px] sm:text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
                   {pitch.title}
                 </p>
               </div>
@@ -178,6 +334,11 @@ const Interactive_display = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+    const handleCtaClick = () => {
+    navigate('/contact');
+    sessionStorage.setItem('scrollToContactForm', 'true');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -282,25 +443,25 @@ const Interactive_display = () => {
 
 {/* Transform Interiors Section */}
 {transformInteriorsData && (
-  <section className=" pb-30 px-4 md:px-12 lg:px-20 bg-white">
+  <section className="pb-30 px-4 md:px-12 lg:px-20 bg-white">
     {transformInteriorsData.images.map((item, index) => (
       <div
         key={index}
-        className="container grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-5 lg:gap-10 mx-auto items-stretch"
+        className="container grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 mx-auto items-stretch"
       >
         {/* Text Left, Image Right - for even indexes */}
         {index % 2 === 0 ? (
           <>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {transformInteriorsData.title || "Interactive LED Displays"}
               </h2>
-              <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {transformInteriorsData.description ||
                   "Engage your audience with cutting-edge interactive LED displays that respond to touch and gestures..."}
               </p>
             </div>
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={transformInteriorsData.title || "Interactive LED Display"}
@@ -311,14 +472,14 @@ const Interactive_display = () => {
         ) : (
           <>
             {/* Image Left, Text Right - for odd indexes */}
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7 h-auto">
               <img
                 src={`https://xigiled.in/storage/${item.image}`}
                 alt={transformInteriorsData.title || "Interactive LED Display"}
                 className="w-full h-full rounded-xl drop-shadow-xl object-cover"
               />
             </div>
-            <div className="bg-[#F1F5F9] md:col-span-5 rounded-xl p-8 flex flex-col justify-center">
+            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {transformInteriorsData.title || "Interactive LED Displays"}
               </h2>
@@ -334,44 +495,54 @@ const Interactive_display = () => {
   </section>
 )}
 
-      {/* Smart Display Types Section */}
-  {smartDisplayData && (
+{/* Smart Display Types Section */}
+{smartDisplayData && (
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-    <div className="text-center mb-10">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-        {smartDisplayData.title || "Interactive Solutions"}
-      </h2>
-      {smartDisplayData.description && (
-        <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
-          {smartDisplayData.description}
-        </p>
-      )}
-    </div>
+    <div className="container mx-auto">
+      {/* Section Title + Description */}
+      <div className="text-center mb-10">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+          {smartDisplayData.title || "Smart Displays"}
+        </h2>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {smartDisplayData.images.map((item, index) => (
-        <div key={index} className="relative rounded-xl overflow-hidden shadow-md h-[300px] group">
-          {/* Image with gradient overlay */}
-          <img
-            src={`https://xigiled.in/storage/${item.image}`}
-            alt={item.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
-          
-          {/* Content */}
-          <div className="absolute inset-x-0 bottom-0 p-4 text-center">
-            <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
-              {item.title}
-            </h3>
+        {smartDisplayData.description && (
+          <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+            {smartDisplayData.description}
+          </p>
+        )}
+      </div>
+
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:px-4">
+        {smartDisplayData.images.map((item, index) => (
+          <div
+            key={index}
+            className="relative rounded-xl overflow-hidden shadow-md h-[300px] group"
+          >
+            {/* Image with gradient overlay */}
+            <img
+              src={`https://xigiled.in/storage/${item.image}`}
+              alt={item.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
+
+            {/* Content */}
+            <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+              <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+                {item.title}
+              </h3>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 )}
+
+
 
       {/* Pixel Pitch Section */}
       <PixelPitchScroll pixelPitchData={pixelPitchData} />
@@ -379,87 +550,11 @@ const Interactive_display = () => {
       {/* Showcase Section */}
       <ShowcaseSlider showcaseData={showcaseData} />
 
-{/* Features Section */}
-<section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-  <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
-    Why Choose Interactive Displays
-  </h2>
+<FeaturesSection featuresData={featuresData} />
 
-  <div className="container grid grid-cols-1 md:grid-cols-3 gap-6">
-    {/* Column 1: Touch Response */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 h-full flex flex-col justify-between shadow-lg h-[581px]">
-        <img
-          src={TouchResponse}
-          alt="Touch Response"
-          className="w-full object-cover rounded-md mb-4"
-        />
-        <div>
-          <h3 className="text-white text-xl font-bold mb-2">Touch Response</h3>
-          <p className="text-white text-sm">
-            Instant, accurate touch response for seamless interaction. Our displays recognize even the lightest touches with precision.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* Column 2: Multi-Touch + High Brightness */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={MultiTouch}
-          alt="Multi-Touch"
-          className="w-full h-45 object-cover rounded-md mb-3"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Multi-Touch</h3>
-        </div>
-      </div>
-
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={HighBrightness}
-          alt="High Brightness"
-          className="w-full object-cover rounded-md mb-3 h-48"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">High Brightness</h3>
-          <p className="text-white text-sm">
-            Crystal clear visibility even in brightly lit environments.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* Column 3: Low Latency + Durable Surface */}
-    <div className="space-y-6">
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[307px]">
-        <img
-          src={LowLatency}
-          alt="Low Latency"
-          className="w-full object-cover rounded-md mb-3 h-55"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Low Latency</h3>
-        </div>
-      </div>
-
-      <div className="relative rounded-xl overflow-hidden bg-[#1E2D3D] p-5 shadow-lg h-[250px]">
-        <img
-          src={DurableSurface}
-          alt="Durable Surface"
-          className="w-full object-cover rounded-md mb-3 h-45"
-        />
-        <div>
-          <h3 className="text-white text-lg font-semibold">Durable Surface</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 {/* CTA Section - Hardcoded */}
 <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-  <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch">
+  <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row items-stretch h-auto md:h-[450px] lg:h-[480px]">
     
     {/* Left Image */}
     <div className="w-full md:w-5/12">
@@ -471,16 +566,16 @@ const Interactive_display = () => {
     </div>
 
     {/* Right Content */}
-    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
-      <div className="text-center md:text-left px-10">
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-8">
+      <div className="text-center md:text-left px-5">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Displays?
         </h2>
-        <p className="text-gray-700 mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+        <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
           With Xigi Interactive Displays, you're not just getting technology – you're gaining a partner committed to elevating your interactive experience
         </p>
         <button
-          onClick={() => navigate('/contact')}
+  onClick={handleCtaClick}
           className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
         >
           Book Free Interactive Demo
