@@ -3,7 +3,7 @@ import '../styles/Home.css';
 import banner from '../assets/videos/XIGI Led Banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import cta from '../assets/cta1.jpg';
+import ctaImage from '../assets/cta1.jpg'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -282,34 +282,34 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Why Choose Section */}
-        {whyChooseSection && (
-          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
-     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 md:gap-5 lg:gap-7">
-  {whyChooseSection.images.map((feature, index) => (
-    <div
-      key={index}
-      className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
-    >
-      <div className="flex rounded-md mb-4">
-        <img
-          src={`https://xigiled.in/storage/${feature.image}`}
-          alt={feature.title}
-          className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
-        />
-      </div>
-      <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
-        {feature.title}
-      </h3>
-      <p className="text-base md:text-[17px] text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
-        {feature.description}
-      </p>
+      {/* Why Choose Section */}
+{whyChooseSection && (
+  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
+      {whyChooseSection.images.map((feature, index) => (
+        <div
+          key={index}
+          className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
+        >
+          <div className="flex rounded-md mb-4">
+            <img
+              src={`https://xigiled.in/storage/${feature.image}`}
+              alt={feature.title}
+              className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+            />
+          </div>
+          <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
+            {feature.title}
+          </h3>
+          <p className="text-base md:text-[17px] text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
+  </section>
+)}
 
-          </section>
-        )}
 
         {/* Complete Range Section */}
         {completeRangeSection && (
@@ -640,7 +640,7 @@ const Home = () => {
         <section className="w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
           <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
             <div className="w-full md:w-5/12 h-64 md:h-auto">
-              <img alt="Digital billboard advertising" className="w-full h-full object-cover" src="/src/assets/cta1.jpg" />
+      <img src={ctaImage} alt="Digital billboard advertising" className="w-full h-full object-cover" />
             </div>
             <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
               <div className="text-left md:text-left w-full">
