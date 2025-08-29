@@ -69,7 +69,7 @@ const ProductSolutions = ({ sectionData }) => {
   return (
 <section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
   <div className="container mx-auto">
-    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+    <h2 className="text-[28px] md:text-[32px] lg:text-[40px]  font-medium  text-left md:text-center mb-10 font-['Poppins',sans-serif]">
       {sectionData.title || "PRODUCT SOLUTIONS"}
     </h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
@@ -96,7 +96,7 @@ const ProductSolutions = ({ sectionData }) => {
       </h3>
       
       {/* Main description text */}
-      <p className="text-[17px] text-black font-medium font-['Montserrat',sans-serif] mb-4 flex-1">
+      <p className="text-[16px] text-black font-medium font-['Montserrat',sans-serif] mb-4 flex-1">
         {item.description || 'Product description not available'}
       </p>
       
@@ -125,7 +125,7 @@ const KeyFeatures = ({ sectionData }) => {
   return (
     <section className="bg-white py-16 md:py-16 lg:py-24">
       <div className="container mx-auto">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
           {sectionData.title || 'Key Features of Our LED Video Walls'}
         </h2>
 
@@ -147,10 +147,10 @@ const KeyFeatures = ({ sectionData }) => {
                   )}
                 </div>
               </div>
-              <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
+              <h3 className="text-[20px] md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
                 {feature.title}
               </h3>
-              <p className="text-black text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+              <p className="text-black text-[16px] md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
                 {feature.description}
               </p>
             </div>
@@ -233,7 +233,7 @@ const Products = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] pr-[100px]  bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] lg:pr-[100px]  bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
       
@@ -251,7 +251,7 @@ const Products = () => {
           <img
             src={getImageUrl(heroSection?.images?.[0]?.image) || 'https://via.placeholder.com/1000x600?text=XIGI+LED+Display'}
             alt="LED Display"
-            className="w-full md:w-[700px] lg:w-[1000px] lg:h-[400px] drop-shadow-2xl mx-auto"
+            className="w-full p-3 md:w-[700px] lg:w-[1000px] lg:h-[400px] drop-shadow-2xl mx-auto"
           />
         </div>
       </section>
@@ -273,7 +273,7 @@ const Products = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
               {digitalImpactSection?.title || "Digital Impact by product"}
             </h2>
-            <p className="text-black text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+            <p className="text-black text-[16px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
               {digitalImpactSection?.description || "At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment. Our technology adapts to your unique needs, helping you connect, engage, and grow in today's fast-moving digital world."}
             </p>
             <button 
@@ -311,7 +311,7 @@ const Products = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
                 {transformSection?.title || "Ready to Transform Your Advertising?"}
               </h2>
-              <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+              <p className="mb-6 text-[16px] md:text-[17px] font-medium text-white">
                 {transformSection?.description || "With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand."}
               </p>
               <button 

@@ -44,7 +44,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
-        <div className="flex justify-center items-center mb-8">
+        <div className="flex md:justify-center items-center mb-8">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
@@ -143,8 +143,8 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+<div className="text-left md:text-center mb-12">          
+  <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
         </div>
@@ -196,8 +196,9 @@ const FeaturesSection = ({ featuresData }) => {
   const images = featuresData.images;
 
   return (
-    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col w-full py-16 md:py-20 lg:py-24 p
+x-4 md:px-8 lg:px-28">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
         {featuresData.title || "Why Outdoor Advertisers Choose Xigi LED"}
       </h2>
 
@@ -462,7 +463,7 @@ const Outdoor_Led = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {ruleOutdoorsData.title || "Rule the Outdoors"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black font-medium font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black font-medium font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {ruleOutdoorsData.description ||
                   "Outdoor LED displays designed for maximum visibility and durability..."}
               </p>
@@ -509,7 +510,7 @@ const Outdoor_Led = () => {
 {/* Smart Display Types Section */}
 {smartDisplayData && (
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-    <div className="text-center mb-10">
+    <div className="text-left md:text-center mb-10">
       <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
         {smartDisplayData.title || "Smart Displays"}
       </h2>
@@ -560,8 +561,7 @@ const Outdoor_Led = () => {
 <FeaturesSection featuresData={featuresData} />
 
 {/* CTA Section */}
-<section className="w-full py-16 md:py-20 lg:py-24 p
-x-4 md:px-8 lg:px-28">
+<section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
   <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
 
     {/* Left Image */}
@@ -574,13 +574,13 @@ x-4 md:px-8 lg:px-28">
     </div>
 
     {/* Right Content */}
-    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
-      <div className="text-center md:text-left w-full">
+    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex  p-6 md:p-10 lg:p-12">
+      <div className="text-left w-full">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Advertising?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+          With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand
         </p>
         <button
   onClick={handleCtaClick}

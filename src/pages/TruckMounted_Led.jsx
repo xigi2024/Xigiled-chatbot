@@ -5,12 +5,6 @@ import cta from '../assets/cta3.jpg';
 import truck from '../assets/truck.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import Weatherproof from '../assets/weatherproof.jpg'
-import BrightDisplay from '../assets/HighBrightness.jpeg'
-import EnergyEfficient from '../assets/energy-efficient.avif'
-import RemoteControl from '../assets/RemoteControl.jpg'
-import DurableDesign from '../assets/SlimProfile.webp'
-
 
 const TruckFeaturesSection = ({ featuresData }) => {
   // Add loading state check for the prop
@@ -56,8 +50,8 @@ const TruckFeaturesSection = ({ featuresData }) => {
   const features = organizeFeatures(featuresData.images);
 
   return (
-    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col md:items-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
         {featuresData.title || "Why Choose Truck-Mounted LED Displays"}
       </h2>
 
@@ -215,9 +209,9 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   return (
     <section className="bg-[#EAF1FF] py-22">
-      <div className="container mx-auto text-center px-4">
-        <div className="flex justify-center items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-start md:justify-center items-center mb-8">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 text-left md:text-center font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
         </div>
@@ -315,8 +309,8 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-12 sm:py-16 lg:py-20 px-4 md:px-6 lg:px-12">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-[24px] sm:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+        <div className="text-left md:text-center mb-8 sm:mb-12">
+          <h2 className="text-[24px] sm:text-[32px] lg:text-[40px] font-medium text-black text-left md:text-center font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
         </div>
@@ -474,7 +468,7 @@ const TruckMounted_Led = () => {
                     <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                       {takeMessageData.title || "Take Your Message Anywhere"}
                     </h2>
-                    <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                    <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                       {takeMessageData.description ||
                         "Mobile LED advertising solutions that bring your message directly to your audience. Perfect for events, campaigns, and outdoor advertising."}
                     </p>
@@ -517,7 +511,7 @@ const TruckMounted_Led = () => {
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
     <div className="container mx-auto">
       {/* Section Title + Description */}
-      <div className="text-center mb-10">
+      <div className="text-left md:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
           {mountingInstallationData.title || "Mounting Installation"}
         </h2>
@@ -571,7 +565,7 @@ const TruckMounted_Led = () => {
 
       {/* CTA Section */}
       <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-        <div className="rounded-xl overflow-hidden h-[450px] shadow-lg bg-white flex flex-col md:flex-row items-stretch  h-auto md:h-[450px] lg:h-[480px]">
+        <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row items-stretch h-auto md:h-[450px] lg:h-[480px]">
 
           {/* Left Image */}
           <div className="w-full md:w-5/12">
@@ -584,16 +578,16 @@ const TruckMounted_Led = () => {
 
           {/* Right Content */}
           <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-8">
-            <div className="text-center md:text-left px-5">
+            <div className="text-left md:text-left md:px-5">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
                 Ready to Transform Your Mobile Advertising?
               </h2>
               <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-                With Xigi Truck-Mounted Displays, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+                With Xigi Truck-Mounted Displays, you're not just getting ad space. you're gaining a partner committed to elevating your brand
               </p>
               <button
                 onClick={handleCtaClick}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white text-left px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
               >
                 Request Truck Campaign Demo
               </button>

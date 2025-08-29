@@ -144,7 +144,7 @@ const About = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 font-['Poppins',sans-serif]">
                 {aboutSection1.title}
               </h2>
-              <p className="text-black text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
+              <p className="text-black text-[17px] md:text-[17px] mb-6 leading-relaxed font-['Montserrat',sans-serif] font-medium">
                 {aboutSection1.description}
               </p>
               <button   onClick={handleCtaClick}
@@ -159,7 +159,7 @@ const About = () => {
 {/* About Section 2 - Values Section */}
 {aboutSection2 && (
   <section className="bg-[#E8F1FF] py-16 md:py-12 lg:py-16 px-4 md:px-5 lg:px-16">
-    <div className="text-center mb-10">
+    <div className="text-left md:text-center mb-10">
       <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
         {aboutSection2.title}
       </h2>
@@ -217,7 +217,7 @@ const About = () => {
             )?.image
           }`}
           alt="Brand Power"
-          className="w-full h-80 object-cover mb-8"
+          className="w-full md:h-80 h-50 object-cover mb-8"
         />
 
         {/* Content */}
@@ -250,7 +250,7 @@ const About = () => {
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4  font-['Poppins',sans-serif]">
                   {aboutSection3.title}
                 </h2>
-                <p className="text-black text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
+                <p className="text-black text-[16px] md:text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
                   {aboutSection3.description}
                 </p>
 
@@ -289,8 +289,8 @@ const About = () => {
       {/* About Section 4 - Services Section */}
       {aboutSection4 && (
         <section className="bg-[#E8F1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-          <div className="text-center mb-10">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-snug font-['Poppins',sans-serif]">
+          <div className="text-left md:text-center mb-10">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black  leading-snug font-['Poppins',sans-serif]">
               {aboutSection4.title}
             </h2>
           </div>
@@ -426,7 +426,7 @@ const About = () => {
      {/* FAQ Section */}
       {faqSection && (
         <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
-          <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+          <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
             {faqSection.title}
           </h2>
           <div className="max-w-4xl mx-auto">
@@ -457,7 +457,7 @@ const About = () => {
           </div>
 
           {/* Right Content */}
-          <div className="w-full md:w-1/2 p-8 md:p-12 text-center md:text-left">
+          <div className="w-full md:w-1/2 p-8 md:p-12 text-left">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.3] text-black mb-4 font-['Poppins',sans-serif]">
               Ready to Transform Your Advertising?
             </h2>

@@ -41,7 +41,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
   return (
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
-        <div className="flex justify-center items-center mb-8">
+        <div className="flex md:justify-center items-center mb-8">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
@@ -131,8 +131,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+<div className="text-left md:text-center mb-12">          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
@@ -299,7 +298,7 @@ const Indoor_Led = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {transformInteriorsData.title || "Indoor Video Walls"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black font-medium mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black font-medium mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {transformInteriorsData.description ||
                   "Indoor LED video walls bring life to interiors with ultra-HD visuals and seamless design..."}
               </p>
@@ -342,7 +341,7 @@ const Indoor_Led = () => {
 {/* Smart Display Types Section */}
 {smartDisplayData && (
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-    <div className="text-center mb-10">
+    <div className="text-left md:text-center mb-10">
       <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
         {smartDisplayData.title || "Smart Displays"}
       </h2>
@@ -391,11 +390,11 @@ const Indoor_Led = () => {
       <ShowcaseSlider showcaseData={showcaseData} />
 
       {/* Features Section */}
-  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center  font-['Poppins',sans-serif]">
+  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col ">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium md:text-center  font-['Poppins',sans-serif]">
           Why Event Planners Choose Xigi LED  
         </h2>
-                      <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] mb-10 font-medium max-w-2xl mt-4">
+                      <p className="text-gray-900 text-[17px] md:text-center text-left font-['Montserrat',sans-serif] mb-10 font-medium max-w-2xl mt-4">
        Bright visuals, seamless event impact
         </p>
 
@@ -489,12 +488,12 @@ const Indoor_Led = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-8">
-      <div className="text-center md:text-left px-5">
+      <div className="text-left md:px-5">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Advertising?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] font-medium font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi DOOH, you're not just getting ad space – you're gaining a partner committed to elevating your brand
+          With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand
         </p>
         <button
           onClick={handleCtaClick}

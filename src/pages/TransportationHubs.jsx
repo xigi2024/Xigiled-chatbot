@@ -153,7 +153,7 @@ const TransportationHubs = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
               {excellenceSection?.title || "LED Displays for Transportation Hubs"}
             </h2>
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
+            <p className="text-black text-[16px] font-medium text-base md:text-lgmb-6 leading-relaxed max-w-3xl">
               {excellenceSection?.description || 
                 "At transportation hubs, delivering clear and timely information is critical. Your passengers demand reliable guidance, real-time updates, and seamless navigation through complex transit environments."}
             </p>
@@ -166,7 +166,7 @@ const TransportationHubs = () => {
   <section className="bg-white py-15">
     <div className="container mx-auto">
       {/* Heading & Description */}
-      <div className="text-center mb-10">
+      <div className="text-left lg:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
           {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
         </h2>
@@ -201,7 +201,7 @@ const TransportationHubs = () => {
       {smartFeaturesSection && (
         <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-left lg:text-center mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
                 {smartFeaturesSection.title || "LED Display Options"}
               </h2>
@@ -309,7 +309,7 @@ const TransportationHubs = () => {
       {chooseXigiSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-left lg:text-center mb-12">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {chooseXigiSection.title || "Why Transit Operators Choose Xigi LED"}
               </h2>

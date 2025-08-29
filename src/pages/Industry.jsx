@@ -236,7 +236,7 @@ const Industry = () => {
       <Header />
       
       {/* Hero Section - FIXED */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] pr-[100px] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] md:pr-[100px] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
            
@@ -255,7 +255,7 @@ const Industry = () => {
             <img
               src={getImageUrl(heroSection.images[0].image)}
               alt={heroSection.images[0].title || "LED Display"}
-              className="w-full md:w-[700px] lg:w-[1000px] ml-[20px] drop-shadow-2xl lg:h-[400px] md:h-[300px] mx-auto"
+              className="w-full p-3 md:w-[700px] lg:w-[1000px] md:ml-[20px] drop-shadow-2xl lg:h-[400px] md:h-[300px] mx-auto"
               loading="lazy"
               onError={(e) => {
                 console.error('Image failed to load:', e.target.src);
@@ -286,7 +286,7 @@ const Industry = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 leading-snug text-gray-900 font-['Poppins',sans-serif]">
               {digitalImpactSection?.title || 'Digital Impact by Industry'}
             </h2>
-            <p className="text-black text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
+            <p className="text-black text-[16px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
               {digitalImpactSection?.description || 'At XIGI Tech, we deliver tailored digital solutions across a wide range of industries — from retail and real estate to education and entertainment.'}
             </p>
             <button 
@@ -304,7 +304,7 @@ const Industry = () => {
       <section className="bg-[#e8f1ff] py-16 md:py-16 lg:py-24">
         <div className="container mx-auto">
           {/* Section Title */}
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
             {industrySection?.title || 'INDUSTRY SOLUTIONS'}
           </h2>
 
@@ -339,7 +339,7 @@ const Industry = () => {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[17px] text-black font-medium font-['Montserrat',sans-serif] mb-4 flex-1">
+                    <p className="text-[16px] md:text-[17px] text-black font-medium font-['Montserrat',sans-serif] mb-4 flex-1">
                       {cleanDescription}
                     </p>
 
@@ -363,7 +363,7 @@ const Industry = () => {
       {keyFeaturesSection && (
         <section className="bg-white py-16 md:py-16 lg:py-24">
           <div className="container mx-auto">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
               {keyFeaturesSection.title || 'Key Features of Our LED Video Walls'}
             </h2>
 
@@ -385,10 +385,10 @@ const Industry = () => {
                       )}
                     </div>
                   </div>
-                  <h3 className="text-md md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
+                  <h3 className=" text-[20px] md:text-[20px] font-medium text-[#000] mb-2 font-['Poppins',sans-serif]">
                     {feature.title}
                   </h3>
-                  <p className="text-black text-sm md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                  <p className="text-black md:text-[17px] text-[16px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
                     {feature.description}
                   </p>
                 </div>
@@ -418,7 +418,7 @@ const Industry = () => {
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
                   {transformSection.title || 'Ready to Transform Your Advertising?'}
                 </h2>
-                <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+                <p className="mb-6 text-[16px] md:text-[17px] font-medium text-white">
                   {transformSection.description || 'With Xigi DOOH, you\'re not just getting ad space – you\'re gaining a partner committed to elevating your brand.'}
                 </p>
                 <button 

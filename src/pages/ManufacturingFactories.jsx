@@ -148,7 +148,7 @@ const ManufacturingFactories = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
               {excellenceSection?.title || "LED Displays for Manufacturing Factories"}
             </h2>
-            <p className="text-black font-medium text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
+            <p className="text-black font-medium text-[16px] md:text-lg mb-6 leading-relaxed max-w-3xl">
               {excellenceSection?.description || 
                 "Our LED displays are built to perform in demanding manufacturing settings, providing clear visibility and reliable operation in industrial environments."}
             </p>
@@ -161,7 +161,7 @@ const ManufacturingFactories = () => {
   <section className="bg-white py-15">
     <div className="container mx-auto">
       {/* Heading & Description */}
-      <div className="text-center mb-10">
+      <div className="text-left lg:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
           {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
         </h2>
@@ -196,7 +196,7 @@ const ManufacturingFactories = () => {
       {smartFeaturesSection && (
         <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-left md:text-center mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
                 {smartFeaturesSection.title || "LED Display Options"}
               </h2>
@@ -271,7 +271,7 @@ const ManufacturingFactories = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
                 {flexibleDisplaySection.title || "Flexible Display Solutions"}
               </h2>
-              <p className="text-black font-medium text-base text-[14px] md:text-[17px] mb-8 max-w-xl">
+              <p className="text-black font-medium text-base text-[16px] md:text-[17px] mb-8 max-w-xl">
                 {flexibleDisplaySection.description || "Choose from a range of ready-to-deploy formats or build a custom setup to suit your manufacturing environment"}
               </p>
 
@@ -304,7 +304,7 @@ const ManufacturingFactories = () => {
       {chooseXigiSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-left md:text-center mb-12">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {chooseXigiSection.title || "Why Manufacturers Choose Xigi LED"}
               </h2>

@@ -50,3 +50,9 @@ p {
    
   }
 }
+
+@media (max-width: 576px) {
+  .sidebar {
+  border-right: 1px solid #ddd;
+  }
+}

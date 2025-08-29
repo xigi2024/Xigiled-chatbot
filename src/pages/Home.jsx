@@ -35,7 +35,7 @@ const IndustrySection = ({ sectionData }) => {
   return (
     <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white text-gray-900">
       <div className="container mx-auto">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center mx-auto  font-medium mb-15 leading-[1.2] font-['Poppins',sans-serif]">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] md:text-center text-left leading-[40px]  font-medium mb-15 leading-[1.2] font-['Poppins',sans-serif]">
           {sectionData.title}
         </h2>
         <div className="flex flex-col md:flex-row  gap-10">
@@ -261,22 +261,23 @@ const Home = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-black/70 z-10"></div>
 
           <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4 bg-transparent">
-            <h1 className="text-5xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
+            <h1 className="lg:text-5xl text-4xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
               Brighten Every Space
             </h1>
-            <p className="mt-4 max-w-2xl text-lg md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
+            <p className="mt-4 max-w-2xl text-[16px] lg:text-[16px] md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
               India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
             </p>
-            <a
-              href="https://wa.me/9494220622?text=Hi, I want an instant quote"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
+         <a
+  href="https://wa.me/9494220622?text=Hi, I want an instant quote"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-5 bg-gradient-to-r from-blue-600 to-indigo-600 
              hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 
-             rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
-            >
-              Get Instant Quote
-            </a>
+             rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300
+             text-left md:text-center"
+>
+  Get Instant Quote
+</a>
 
           </div>
         </div>
@@ -284,42 +285,29 @@ const Home = () => {
         {/* Why Choose Section */}
         {whyChooseSection && (
           <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 md:px-8 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
-            <div className="container mx-auto text-center">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-                {whyChooseSection.title}
-              </h2>
+     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 md:gap-5 lg:gap-7">
+  {whyChooseSection.images.map((feature, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
+    >
+      <div className="flex rounded-md mb-4">
+        <img
+          src={`https://xigiled.in/storage/${feature.image}`}
+          alt={feature.title}
+          className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+        />
+      </div>
+      <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
+        {feature.title}
+      </h3>
+      <p className="text-base md:text-[17px] text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
+        {feature.description}
+      </p>
+    </div>
+  ))}
+</div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
-                {whyChooseSection.images.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-xl shadow-md p-6 text-left hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="flex rounded-md mb-4">
-                      <img
-                        src={`https://xigiled.in/storage/${feature.image}`}
-                        alt={feature.title}
-                        className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
-                      />
-                    </div>
-                    <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-base md:text-[17px] text-black font-['Montserrat',sans-serif] font-medium leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10">
-                {/* <button
-                  className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 rounded-md shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
-                  onClick={handleClick}>
-                  See Our Client Stories
-                </button> */}
-              </div>
-            </div>
           </section>
         )}
 
@@ -353,7 +341,7 @@ const Home = () => {
                     {completeRangeSection.images[1] && (
                       <a
                         href="/products/outdoor-led-video-walls"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[260px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[340px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
@@ -367,7 +355,7 @@ const Home = () => {
                     {completeRangeSection.images[2] && (
                       <a
                         href="/products/interactive-display"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[260px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[340px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[2].image}`}
@@ -384,7 +372,7 @@ const Home = () => {
                     {completeRangeSection.images[4] && (
                       <a
                         href="/products/transparent-led-display"
-                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[208px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[4].image}`}
@@ -429,7 +417,7 @@ const Home = () => {
                     {completeRangeSection.images[8] && (
                       <a
                         href="/products/custom-led-display"
-                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-5 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[250px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[8].image}`}
@@ -449,7 +437,7 @@ const Home = () => {
                     {completeRangeSection.images[3] && (
                       <a
                         href="/products/led-standee-display"
-                        className="block rounded-xl shadow-sm hover:shadow-md transition h-[350px] lg:h-[373px] overflow-hidden bg-white"
+                        className="block rounded-xl shadow-sm hover:shadow-md transition h-[400px] lg:h-[373px] overflow-hidden bg-white"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
@@ -655,7 +643,7 @@ const Home = () => {
               <img alt="Digital billboard advertising" className="w-full h-full object-cover" src="/src/assets/cta1.jpg" />
             </div>
             <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
-              <div className="text-center md:text-left w-full">
+              <div className="text-left md:text-left w-full">
                 <h2 className="text-[26px] md:text-[32px] lg:text-[40px] font-medium text-black mb-4 leading-snug font-['Poppins',sans-serif]">
                   Ready to Transform Your Advertising?
                 </h2>

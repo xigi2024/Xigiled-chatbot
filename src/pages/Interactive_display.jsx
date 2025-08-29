@@ -41,9 +41,9 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   return (
     <section className="bg-[#EAF1FF] py-22">
-      <div className="container mx-auto text-center px-4">
-        <div className="flex justify-center items-center mb-8">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-start md:justify-center items-center mb-8">
+          <h2 className="text-left md:text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
         </div>
@@ -136,7 +136,7 @@ const FeaturesSection = ({ featuresData }) => {
 
   return (
     <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      <h2 className="text-left md:text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif] w-full container">
         {featuresData.title || "Why Choose Xigi LED?"}
       </h2>
 
@@ -295,7 +295,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-12">
+        <div className="text-left md:text-center mb-12">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
@@ -453,10 +453,10 @@ const Interactive_display = () => {
         {index % 2 === 0 ? (
           <>
             <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+              <h2 className="text-left md:text-left lg:text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {transformInteriorsData.title || "Interactive LED Displays"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {transformInteriorsData.description ||
                   "Engage your audience with cutting-edge interactive LED displays that respond to touch and gestures..."}
               </p>
@@ -480,7 +480,7 @@ const Interactive_display = () => {
               />
             </div>
             <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+              <h2 className="text-left md:text-left lg:text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {transformInteriorsData.title || "Interactive LED Displays"}
               </h2>
               <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
@@ -500,7 +500,7 @@ const Interactive_display = () => {
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
     <div className="container mx-auto">
       {/* Section Title + Description */}
-      <div className="text-center mb-10">
+      <div className="text-left md:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
           {smartDisplayData.title || "Smart Displays"}
         </h2>
@@ -567,12 +567,12 @@ const Interactive_display = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-8">
-      <div className="text-center md:text-left px-5">
+      <div className="text-left md:text-left md:px-5">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Displays?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi Interactive Displays, you're not just getting technology – you're gaining a partner committed to elevating your interactive experience
+          With Xigi Interactive Displays, you're not just getting technology. you're gaining a partner committed to elevating your interactive experience
         </p>
         <button
   onClick={handleCtaClick}

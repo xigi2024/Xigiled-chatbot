@@ -152,11 +152,11 @@ const HealthcareFacilities = () => {
             </h2>
             
             {/* Description */}
-            <p className="text-gray-700 text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
+            <p className="text-black font-medium text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
               {excellenceSection?.description || "At healthcare facilities, delivering clear and reliable communication is essential for patient care and safety."}
             </p>
 
-                   <div className="space-y-6">
+                   <div className="space-y-6 text-black font-medium">
               {/* Show image titles as bullet points if they exist */}
               {excellenceSection?.images?.filter(img => img.title).map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -178,8 +178,7 @@ const HealthcareFacilities = () => {
   <section className="bg-white py-15">
     <div className="container mx-auto">
       {/* Heading & Description */}
-      <div className="text-center mb-10">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+<div className="text-left lg:text-center mb-10">        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
           {smartDisplaysSection.title || "Smart Displays for Healthcare"}
         </h2>
         <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
@@ -213,8 +212,7 @@ const HealthcareFacilities = () => {
       {smartFeaturesSection && (
         <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
+<div className="text-left lg:text-center mb-10">              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
                 {smartFeaturesSection.title || "LED Display Options"}
               </h2>
               {smartFeaturesSection.description && (
@@ -288,7 +286,7 @@ const HealthcareFacilities = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 leading-tight mb-4 font-['Poppins',sans-serif]">
                 {flexibleDisplaySection.title || "Flexible Display Solutions"}
               </h2>
-              <p className="text-black font-medium text-base text-[14px] md:text-[17px] mb-8 max-w-xl">
+              <p className="text-black font-medium text-base text-[16px] md:text-[17px] mb-8 max-w-xl">
                 {flexibleDisplaySection.description || "Choose from a range of ready-to-deploy formats or build a custom setup to suit your space and vision"}
               </p>
 
@@ -296,7 +294,7 @@ const HealthcareFacilities = () => {
                 {flexibleDisplaySection.images?.filter(img => img.description).map((item, index) => (
                   <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md">
                     <h2 className='text-blue-700 text-[22px] mb-4 '>{item.title}</h2>
-                    <p className="text-gray-black font-medium text-[14px] md:text-[17px] ">
+                    <p className="text-black font-medium text-[16px] md:text-[17px] ">
                       {item.description}</p>
                   </div>
                 ))}
@@ -321,8 +319,7 @@ const HealthcareFacilities = () => {
       {chooseXigiSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+<div className="text-left lg:text-center mb-12">              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {chooseXigiSection.title || "Why Healthcare Facilities Choose Xigi LED"}
               </h2>
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
@@ -376,7 +373,7 @@ const HealthcareFacilities = () => {
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-white mb-4 leading-tight font-['Poppins',sans-serif]">
                   {transformSection.title || "Ready to Transform Your Healthcare Facility?"}
                 </h2>
-                <p className="mb-6 text-[17px] md:text-[17px] font-medium text-white">
+                <p className="mb-6 text-[16px] md:text-[17px] font-medium text-white">
                   {transformSection.description || "Ready to enhance patient communication and facility management? Contact us for a custom quote."}
                 </p>
                 <button

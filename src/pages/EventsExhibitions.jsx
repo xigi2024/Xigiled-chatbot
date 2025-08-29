@@ -144,7 +144,7 @@ const EventsExhibitions = () => {
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
               {excellenceSection.title || "LED Displays for Events & Exhibitions"}
             </h2>
-            <p className="text-dark text-[17px] mx-auto font-medium  font-['Montserrat',sans-serif] leading-relaxed ">
+            <p className="text-dark text-[16px] mx-auto font-medium  font-['Montserrat',sans-serif] leading-relaxed ">
               {excellenceSection.description ||
                 "At events and exhibitions, delivering clear and impactful communication is critical. Your audience demands vivid visuals, seamless presentations, and reliable technology that performs flawlessly"}
             </p>
@@ -159,7 +159,7 @@ const EventsExhibitions = () => {
       {smartDisplaysSection && (
         <section className="bg-white py-15">
           <div className="container mx-auto">
-            <div className="text-center mb-10">
+            <div className="md:text-center text-left mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {smartDisplaysSection.title || "Smart Features. Smooth Operation."}
               </h2>
@@ -190,7 +190,7 @@ const EventsExhibitions = () => {
       {smartFeaturesSection && (
         <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            <div className="text-center mb-10">
+            <div className="md:text-center text-left mb-10">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
                 {smartFeaturesSection.title || "LED Display Options"}
               </h2>
@@ -300,7 +300,7 @@ const EventsExhibitions = () => {
       {chooseXigiSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="lg:text-center text-left mb-12">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
                 {chooseXigiSection.title || "Why Event Planners Choose Xigi LED"}
               </h2>

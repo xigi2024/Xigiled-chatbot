@@ -5,11 +5,6 @@ import cta from '../assets/cta9.jpg';
 import transparent from '../assets/transparent.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import HighTransparency from '../assets/high-transparency.png'
-import EnergyEfficient from '../assets/energy-efficient.avif'
-import TailoredSolutions from '../assets/tailored-solutions.jpg'
-import WideViewing from '../assets/wide-viewing.jpg'
-import EasyInstallation from '../assets/EasyInstallation.jpg'
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,19 +38,12 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   return (
     <section className="bg-[#EAF1FF] py-22">
-      <div className="container mx-auto text-center px-4">
+      <div className="container mx-auto px-4">
         {/* Section Title */}
-        <div className="flex justify-center items-center mb-8 gap-4">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
+        <div className="flex justify-start md:justify-center items-center mb-8 gap-4">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-left md:text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
-          {/* Optional "View All" button */}
-          {/* <Link
-            to="/gallery"
-            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
-          >
-            View All
-          </Link> */}
         </div>
 
         {/* Slider */}
@@ -87,8 +75,6 @@ const ShowcaseSlider = ({ showcaseData }) => {
           >
             <ChevronRight size={24} />
           </button>
-
-      
         </div>
       </div>
     </section>
@@ -139,8 +125,8 @@ const TransparentFeaturesSection = ({ featuresData }) => {
   const features = organizeFeatures(featuresData.images);
 
   return (
-    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+    <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[EAF1FF] flex flex-col items-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
         {featuresData.title || "Why Choose Transparent Displays"}
       </h2>
 
@@ -320,8 +306,8 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-12">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-10">
-          <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+        <div className="text-left md:text-center mb-10">
+          <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-medium text-black text-left md:text-center font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
         </div>
@@ -330,7 +316,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
         <div
           ref={scrollRef}
           className="overflow-x-hidden relative mx-auto"
-          style={{ maxWidth: "1200px" }} // ✅ fits 5 items on desktop
+          style={{ maxWidth: "1200px" }}
         >
           <div className="flex gap-6 md:gap-8 lg:gap-10">
             {fullList.map((pitch, index) => (
@@ -363,7 +349,8 @@ const Transparent_Led = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-   const handleCtaClick = () => {
+  
+  const handleCtaClick = () => {
     navigate('/contact');
     sessionStorage.setItem('scrollToContactForm', 'true');
   };
@@ -441,7 +428,7 @@ const Transparent_Led = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
  
-      {/* Banner Section - Keep as hardcoded */}
+      {/* Banner Section */}
       <div className="relative h-[70vh] w-full">
         <img
           src={transparent}
@@ -454,7 +441,8 @@ const Transparent_Led = () => {
           </h1>
         </div>
       </div>
-            <div className=" pt-14  container text-sm text-gray-500 mb-10 space-y-5 md:space-y-5 lg:space-y-10">
+      
+      <div className="pt-14 container text-sm text-gray-500 mb-10 space-y-5 md:space-y-5 lg:space-y-10">
         <span className="inline-flex items-center gap-2">
           <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
             🏠 Home
@@ -468,108 +456,106 @@ const Transparent_Led = () => {
         </span>
       </div>
 
-{/* See Through Brilliance Section */}
-{seeThroughBrillianceData && (
-  <section className="pb-30 px-4 md:px-12 lg:px-20 bg-white">
-    {seeThroughBrillianceData.images.map((item, index) => (
-      <div
-        key={index}
-        className="container grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 mx-auto items-stretch"
-      >
-        {/* Text Left, Image Right - for even indexes */}
-        {index % 2 === 0 ? (
-          <>
-            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                {seeThroughBrillianceData.title || "See Through Brilliance"}
+      {/* See Through Brilliance Section */}
+      {seeThroughBrillianceData && (
+        <section className="pb-30 px-4 md:px-12 lg:px-20 bg-white">
+          {seeThroughBrillianceData.images.map((item, index) => (
+            <div
+              key={index}
+              className="container grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 mx-auto items-stretch"
+            >
+              {/* Text Left, Image Right - for even indexes */}
+              {index % 2 === 0 ? (
+                <>
+                  <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {seeThroughBrillianceData.title || "See Through Brilliance"}
+                    </h2>
+                    <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                      {seeThroughBrillianceData.description ||
+                        "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
+                    </p>
+                  </div>
+                  <div className="lg:col-span-7 h-auto">
+                    <img
+                      src={`https://xigiled.in/storage/${item.image}`}
+                      alt={seeThroughBrillianceData.title || "Transparent LED Display"}
+                      className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Image Left, Text Right - for odd indexes */}
+                  <div className="lg:col-span-7 h-auto">
+                    <img
+                      src={`https://xigiled.in/storage/${item.image}`}
+                      alt={seeThroughBrillianceData.title || "Transparent LED Display"}
+                      className="w-full h-full rounded-xl drop-shadow-xl object-cover"
+                    />
+                  </div>
+                  <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
+                    <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+                      {seeThroughBrillianceData.title || "See Through Brilliance"}
+                    </h2>
+                    <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+                      {seeThroughBrillianceData.description ||
+                        "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Smart Display Types Section */}
+      {smartDisplayData && (
+        <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
+          <div className="container mx-auto">
+            {/* Section Title + Description */}
+            <div className="text-left md:text-center mb-10">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
+                {smartDisplayData.title || "Smart Displays"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
-                {seeThroughBrillianceData.description ||
-                  "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
-              </p>
+
+              {smartDisplayData.description && (
+                <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
+                  {smartDisplayData.description}
+                </p>
+              )}
             </div>
-            <div className="lg:col-span-7 h-auto">
-              <img
-                src={`https://xigiled.in/storage/${item.image}`}
-                alt={seeThroughBrillianceData.title || "Transparent LED Display"}
-                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Image Left, Text Right - for odd indexes */}
-            <div className="lg:col-span-7 h-auto">
-              <img
-                src={`https://xigiled.in/storage/${item.image}`}
-                alt={seeThroughBrillianceData.title || "Transparent LED Display"}
-                className="w-full h-full rounded-xl drop-shadow-xl object-cover"
-              />
-            </div>
-            <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
-                {seeThroughBrillianceData.title || "See Through Brilliance"}
-              </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
-                {seeThroughBrillianceData.description ||
-                  "Experience crystal-clear transparency with stunning visual clarity that seamlessly integrates into any environment..."}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-    ))}
-  </section>
-)}
 
-{/* Smart Display Types Section */}
-{smartDisplayData && (
-  <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
-    <div className="container mx-auto">
-      {/* Section Title + Description */}
-      <div className="text-center mb-10">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
-          {smartDisplayData.title || "Smart Displays"}
-        </h2>
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {smartDisplayData.images.map((item, index) => (
+                <div
+                  key={index}
+                  className="relative rounded-xl overflow-hidden shadow-md h-[300px] group"
+                >
+                  {/* Image with gradient overlay */}
+                  <img
+                    src={`https://xigiled.in/storage/${item.image}`}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
 
-        {smartDisplayData.description && (
-          <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl mt-4">
-            {smartDisplayData.description}
-          </p>
-        )}
-      </div>
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
 
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {smartDisplayData.images.map((item, index) => (
-          <div
-            key={index}
-            className="relative rounded-xl overflow-hidden shadow-md h-[300px] group"
-          >
-            {/* Image with gradient overlay */}
-            <img
-              src={`https://xigiled.in/storage/${item.image}`}
-              alt={item.title}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent opacity-90"></div>
-
-            {/* Content */}
-            <div className="absolute inset-x-0 bottom-0 p-4 text-center">
-              <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
-                {item.title}
-              </h3>
+                  {/* Content */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+                    <h3 className="text-white text-xl font-['Montserrat',sans-serif] font-medium">
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
-
+        </section>
+      )}
 
       {/* Pixel Pitch Section */}
       <PixelPitchScroll pixelPitchData={pixelPitchData} />
@@ -577,43 +563,41 @@ const Transparent_Led = () => {
       {/* Showcase Section */}
       <ShowcaseSlider showcaseData={showcaseData} />
 
-{/* Features Section */}
-          <TransparentFeaturesSection featuresData={featuresData} />
+      {/* Features Section */}
+      <TransparentFeaturesSection featuresData={featuresData} />
 
-{/* CTA Section - Updated Content Only */}
-<section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
-  <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
-    
-    {/* Left Image */}
-    <div className="w-full md:w-5/12">
-      <img
-        src={cta}
-        alt="Transparent LED Display"
-        className="w-full h-full object-cover"
-      />
-    </div>
+      {/* CTA Section */}
+      <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">
+        <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
+          
+          {/* Left Image */}
+          <div className="w-full md:w-5/12">
+            <img
+              src={cta}
+              alt="Transparent LED Display"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-    {/* Right Content */}
-    <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-7">
-      <div className="text-center md:text-left px-10">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
-          Ready to Transform Your Space?
-        </h2>
-        <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi Transparent Displays, you're not just getting technology – you're gaining a partner committed to elevating your visual experience.
-        </p>
-        <button
-  onClick={handleCtaClick}
-          className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
-        >
-          See Transparent Solutions
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+          {/* Right Content */}
+          <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-7">
+            <div className="text-left md:px-5">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
+                Ready to Transform Your Space?
+              </h2>
+              <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
+                With Xigi Transparent Displays, you're not just getting technology. you're gaining a partner committed to elevating your visual experience.
+              </p>
+              <button
+                onClick={handleCtaClick}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 cursor-pointer hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
+              >
+                See Transparent Solutions
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

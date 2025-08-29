@@ -43,9 +43,9 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   return (
     <section className="bg-[#EAF1FF] py-22">
-      <div className="container mx-auto text-center px-4">
+      <div className="container mx-auto text-left md:text-center px-4">
         {/* Section Title */}
-        <div className="flex justify-center items-center mb-8 gap-4">
+        <div className="flex justify-start md:justify-center items-center mb-8 gap-4">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
@@ -149,7 +149,7 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-20 md:py-16 lg:py-24 px-4 md:px-6 lg:px-10">
       <div className="container mx-auto">
         {/* Title */}
-        <div className="text-center mb-12">
+        <div className="text-left md:text-center mb-12">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
@@ -189,7 +189,7 @@ const RentalFeaturesSection = ({ featuresData }) => {
   if (!featuresData) {
     return (
       <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-        <div className="text-center">Loading features...</div>
+        <div className="text-left md:text-center">Loading features...</div>
       </section>
     );
   }
@@ -197,7 +197,7 @@ const RentalFeaturesSection = ({ featuresData }) => {
   if (!featuresData.images || featuresData.images.length === 0) {
     return (
       <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-        <div className="text-center">No features data available</div>
+        <div className="text-left md:text-center">No features data available</div>
       </section>
     );
   }
@@ -229,7 +229,7 @@ const RentalFeaturesSection = ({ featuresData }) => {
 
   return (
     <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      <h2 className="text-left md:text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif] w-full">
         {featuresData.title || "Why Event Planners Choose Xigi Rental Displays"}
       </h2>
 
@@ -447,7 +447,7 @@ const Rental_Event_display = () => {
           alt="Rental & Event Series"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center  justify-center px-4">
           <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center font-['Poppins',sans-serif]">
             Rental & Event Series
           </h1>
@@ -479,10 +479,10 @@ const Rental_Event_display = () => {
         {index % 2 === 0 ? (
           <>
             <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+              <h2 className="text-left md:text-left lg:text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {rentalEventData.title || "Rental & Event Solutions"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {rentalEventData.description ||
                   "Professional rental displays for events, concerts, extext-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxedhibitions, and corporate functions with fast setup and teardown..."}
               </p>
@@ -506,7 +506,7 @@ const Rental_Event_display = () => {
               />
             </div>
             <div className="bg-[#F1F5F9] lg:col-span-5 rounded-xl p-8 flex flex-col justify-center h-auto">
-              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
+              <h2 className="text-left md:text-left lg:text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {rentalEventData.title || "Rental & Event Solutions"}
               </h2>
               <p className="text-sm md:text-[17px] text-gray-700 mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
@@ -526,7 +526,7 @@ const Rental_Event_display = () => {
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
     <div className="container mx-auto">
       {/* Section Title + Description */}
-      <div className="text-center mb-10">
+      <div className="text-left md:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
           {mountingInstallationData.title || "Mounting & Installation"}
         </h2>
@@ -595,12 +595,12 @@ const Rental_Event_display = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-8">
-      <div className="text-center md:text-left ">
+      <div className="text-left md:text-left ">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready to Transform Your Event?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi Rental & Event Displays, you're not just getting equipment – you're gaining a partner committed to making your event unforgettable.
+          With Xigi Rental & Event Displays, you're not just getting equipment. you're gaining a partner committed to making your event unforgettable.
         </p>
         <button
   onClick={handleCtaClick}

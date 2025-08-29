@@ -5,13 +5,6 @@ import cta from '../assets/cta7.jpg';
 import standee from '../assets/standee.jpg';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import PortableDesign from '../assets/PortableDesign.webp'
-import HighBrightness from '../assets/HighBrightness.jpeg'
-import TouchScreen from '../assets/multi-touch.jpg'
-import SlimProfile from '../assets/SlimProfile.webp'
-import EasyContent from '../assets/DurableConstruction.png'
-
-
 
 const StandeeFeaturesSection = ({ featuresData }) => {
   // Add loading state check for the prop
@@ -58,7 +51,7 @@ const StandeeFeaturesSection = ({ featuresData }) => {
 
   return (
     <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
         {featuresData.title === "Features" ? "Why Retailers Choose Xigi LED Standees" : featuresData.title}
       </h2>
 
@@ -219,19 +212,12 @@ const ShowcaseSlider = ({ showcaseData }) => {
 
   return (
     <section className="bg-[#EAF1FF] py-22">
-      <div className="container mx-auto text-center px-4">
+      <div className="container mx-auto px-4">
         {/* Section Title */}
-        <div className="flex justify-center items-center mb-8 gap-4">
-          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
+        <div className="flex justify-start md:justify-center items-center mb-8 gap-4">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] text-left md:text-center font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
-          {/* Optional "View All" button */}
-          {/* <Link
-            to="/gallery"
-            className="inline-block bg-blue-900 text-white px-4 py-2 rounded-lg font-medium text-sm"
-          >
-            View All
-          </Link> */}
         </div>
 
         {/* Slider */}
@@ -322,8 +308,8 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
     <section className="bg-white py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-12">
       <div className="container mx-auto">
         {/* Heading */}
-        <div className="text-center mb-10">
-          <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-medium text-black font-['Poppins',sans-serif]">
+        <div className="text-left md:text-center mb-10">
+          <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-medium text-black text-left md:text-center font-['Poppins',sans-serif]">
             {pixelPitchData.title}
           </h2>
         </div>
@@ -483,7 +469,7 @@ const Led_Standee = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {standeeDisplayData.title || "Portable LED Displays"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {standeeDisplayData.description ||
                   "Compact and portable LED displays perfect for retail environments, trade shows, and events that require flexible positioning."}
               </p>
@@ -527,7 +513,7 @@ const Led_Standee = () => {
   <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
     <div className="container mx-auto">
       {/* Section Title + Description */}
-      <div className="text-center mb-10">
+      <div className="text-left md:text-center mb-10">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
           {mountingInstallationData.title || "Mounting Installation"}
         </h2>
@@ -576,8 +562,7 @@ const Led_Standee = () => {
       {/* Showcase Section */}
       <ShowcaseSlider showcaseData={showcaseData} />
 
-           <StandeeFeaturesSection  featuresData={featuresData} />
-
+      <StandeeFeaturesSection featuresData={featuresData} />
 
 {/* CTA Section - Updated Content Only */}
 <section className="w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
@@ -594,15 +579,15 @@ const Led_Standee = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
-      <div className="text-center md:text-left w-full">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-black mb-4 leading-snug font-['Poppins',sans-serif]">
+      <div className="text-left w-full">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-4 leading-snug font-['Poppins',sans-serif]">
           Ready to Transform Your Retail Experience?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
-          With Xigi LED Standees, you're not just getting a display – you're gaining a partner committed to elevating your customer engagement.
+          With Xigi LED Standees, you're not just getting a display. you're gaining a partner committed to elevating your customer engagement.
         </p>
         <button
-  onClick={handleCtaClick}
+          onClick={handleCtaClick}
           className="bg-gradient-to-r from-blue-600 cursor-pointer to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-7 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300"
         >
           Get Standee Design & Price

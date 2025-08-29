@@ -58,7 +58,7 @@ const CustomFeaturesSection = ({ featuresData }) => {
 
   return (
     <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#EAF1FF] flex flex-col items-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-center mb-10 font-['Poppins',sans-serif]">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-left md:text-center mb-10 font-['Poppins',sans-serif]">
         {featuresData.title || "Why Choose Custom LED Solutions"}
       </h2>
 
@@ -219,7 +219,7 @@ const ShowcaseSlider = ({ showcaseData }) => {
     <section className="bg-[#EAF1FF] py-22">
       <div className="container mx-auto text-center px-4">
         {/* Section Title */}
-        <div className="flex justify-center items-center mb-8">
+        <div className="flex md:justify-center items-center mb-8">
           <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 font-['Poppins',sans-serif]">
             {showcaseData.title || "For Showcase"}
           </h2>
@@ -338,13 +338,13 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
               <div
                 key={index}
                 className="flex-shrink-0 text-center 
-                           w-[140px] sm:w-[150px] md:w-[160px]"
+                          w-[140px] sm:w-[150px] md:w-[160px]"
               >
                 <img
                   src={`https://xigiled.in/storage/${pitch.image}`}
                   alt={pitch.title}
                   className="w-full h-[140px] sm:h-[160px] md:h-[180px] 
-                             p-4 object-cover rounded-2xl shadow-md"
+                            p-4 object-cover rounded-2xl shadow-md"
                 />
                 <p className="mt-3 text-[15px] md:text-lg text-black font-['Montserrat',sans-serif] font-medium">
                   {pitch.title}
@@ -364,7 +364,7 @@ const Custom_Led = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-   const handleCtaClick = () => {
+  const handleCtaClick = () => {
     navigate('/contact');
     sessionStorage.setItem('scrollToContactForm', 'true');
   };
@@ -441,7 +441,7 @@ const Custom_Led = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
- 
+
       {/* Banner Section - Keep as hardcoded */}
       <div className="relative h-[70vh] w-full">
         <img
@@ -485,7 +485,7 @@ const Custom_Led = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-5 md:mb-7 font-['Poppins',sans-serif]">
                 {customSolutionsData.title || "Custom LED Solutions"}
               </h2>
-              <p className="text-sm md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
+              <p className="text-[16px] md:text-[17px] text-black mb-5 md:mb-7 font-['Montserrat',sans-serif] font-medium leading-relaxed">
                 {customSolutionsData.description ||
                   "Tailor-made LED display solutions designed to meet your specific requirements and vision..."}
               </p>
@@ -590,12 +590,12 @@ const Custom_Led = () => {
 
     {/* Right Content */}
     <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-8 md:p-12">
-      <div className="text-center md:text-left px-8">
+      <div className="text-left md:px-8">
         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-black mb-5 font-['Poppins',sans-serif] leading-[1.3]">
           Ready for a Custom Solution?
         </h2>
         <p className="text-black mb-6 text-base md:text-[17px] font-['Montserrat',sans-serif] leading-relaxed font-medium">
-          With Xigi Custom LED Solutions, you're not just getting a display – you're gaining a partner committed to bringing your unique vision to life
+          With Xigi Custom LED Solutions, you're not just getting a display. you're gaining a partner committed to bringing your unique vision to life
         </p>
         <button
   onClick={handleCtaClick}
