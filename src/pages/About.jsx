@@ -23,7 +23,7 @@ const FAQItem = ({ question, answer, isActive, onClick }) => {
         />
       </div>
       {isActive && (
-        <div className="mt-4 text-gray-700 text-[14px] md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
           {answer}
         </div>
       )}
@@ -250,7 +250,7 @@ const About = () => {
                 <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-4  font-['Poppins',sans-serif]">
                   {aboutSection3.title}
                 </h2>
-                <p className="text-black text-[16px] md:text-[17px] mb-4 font-['Montserrat',sans-serif] font-medium">
+                <p className="text-black text-[16px] md:text-[17px] mb-4 leading-relaxed font-['Montserrat',sans-serif] font-medium">
                   {aboutSection3.description}
                 </p>
 
@@ -321,7 +321,7 @@ const About = () => {
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-[#000] mb-4 leading-tight font-['Poppins',sans-serif]">
                 {aboutSection5.title}
               </h2>
-              <p className="text-black text-base md:text-[17px] mb-6 font-['Montserrat',sans-serif] font-medium">
+              <p className="text-black text-base md:text-[17px] leading-relaxed mb-6 font-['Montserrat',sans-serif] font-medium">
                 {aboutSection5.description}
               </p>
               <button onClick={handleCtaClick} className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-[16px] font-medium transition-all duration-300">
@@ -347,80 +347,72 @@ const About = () => {
       )}
 
       {/* About Section 6 - Promise Section */}
-      {aboutSection6 && (
-        <div className='bg-[#EAF1FF] py-20'>
-        <section className=" container">
-          <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif]">
-            {aboutSection6.title}
-          </h2>
+{aboutSection6 && (
+  <div className="bg-[#EAF1FF] py-20">
+    <section className="container">
+      <h2 className="text-center text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 font-['Poppins',sans-serif]">
+        {aboutSection6?.title}
+      </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-            {/* Left Image Block */}
-            {aboutSection6.images?.[0] && (
-              <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[0].image})` }}
-                ></div>
-                {/* Bottom overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-                {/* Text content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <p className="text-[18px] sm:text-[20px] py-3 font-['Montserrat',sans-serif] font-medium mb-2">
-                    {aboutSection6.images[0].title}
-                  </p>
-                </div>
-              </div>
-            )}
-
-      {/* Center Icon Grid */}
-<div className="grid grid-cols-2 gap-4 justify-center">
-  {/* Find and display the specific icons in order */}
-  {aboutSection6.images
-    ?.filter(icon => 
-      ["impact", "reliability", "ROI", "performance"].includes(icon.title)
-    )
-    .sort((a, b) => {
-      // Sort them in the specific order we want
-      const order = ["impact", "reliability", "ROI", "performance"];
-      return order.indexOf(a.title) - order.indexOf(b.title);
-    })
-    .map((icon, index) => (
-      <div key={index} className="bg-white rounded-xl p-6 md:p-10 flex flex-col items-center justify-center text-center shadow">
-        <img 
-          src={`https://xigiled.in/storage/${icon.image}`} 
-          alt={icon.title} 
-          className="w-16 h-16 md:w-20 md:h-20 mb-2" 
-        />
-        <p className="text-black text-md font-['Montserrat',sans-serif] font-medium">
-          {icon.title}
-        </p>
-      </div>
-    ))
-  }
-</div>
-
-            {/* Right Image Block */}
-            {aboutSection6.images?.[5] && (
-              <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[5].image})` }}
-                ></div>
-                {/* Bottom overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-                {/* Text content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <p className="text-[18px] font-['Montserrat',sans-serif] font-medium">
-                    {aboutSection6.images[5].title}
-                  </p>
-                </div>
-              </div>
-            )}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        
+        {/* Left Image Block → First item */}
+        {aboutSection6?.images?.length > 0 && (
+          <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[0].image})` }}
+            ></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <p className="text-[18px] sm:text-[20px] py-3 font-['Montserrat',sans-serif] font-medium mb-2">
+                {aboutSection6.images[0].title}
+              </p>
+            </div>
           </div>
-        </section>
+        )}
+
+        {/* Center Icon Grid → Middle items (except first & last) */}
+        <div className="grid grid-cols-2 gap-4 justify-center">
+          {aboutSection6?.images
+            ?.slice(1, -1) // auto pick between first & last
+            .map((icon, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 md:p-10 flex flex-col items-center justify-center text-center shadow"
+              >
+                <img
+                  src={`https://xigiled.in/storage/${icon.image}`}
+                  alt={icon.title}
+                  className="w-16 h-16 md:w-20 md:h-20 mb-2"
+                />
+                <p className="text-black text-md font-['Montserrat',sans-serif] font-medium">
+                  {icon.title}
+                </p>
+              </div>
+            ))}
         </div>
-      )}
+
+        {/* Right Image Block → Last item */}
+        {aboutSection6?.images?.length > 1 && (
+          <div className="relative bg-cover bg-center rounded-xl overflow-hidden h-[300px] md:h-[350px] lg:h-[400px] shadow">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(https://xigiled.in/storage/${aboutSection6.images[aboutSection6.images.length - 1].image})` }}
+            ></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <p className="text-[18px] font-['Montserrat',sans-serif] font-medium">
+                {aboutSection6.images[aboutSection6.images.length - 1].title}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+)}
+
 
       {/* FAQ Section */}
      {/* FAQ Section */}
@@ -445,8 +437,10 @@ const About = () => {
         </section>
       )}
       {/* CTA Section - Keep as hardcoded */}
-      <section className="w-full bg-[#f2f2fd] py-27 px-4 md:px-5 lg:px-29">
-        <div className="mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+      <section className="  w-full bg-[#E8f1ff] py-27 px-4 md:px-5 lg:px-29">
+        <div className='container'>
+        <div className=" mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+
           {/* Left Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[550px] lg:h-[500px]">
             <img
@@ -471,6 +465,7 @@ onClick={handleCtaClick}
               Contact Us
             </button>
           </div>
+        </div>
         </div>
       </section>
 

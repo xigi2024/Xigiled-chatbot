@@ -370,7 +370,7 @@ const TransportationHubs = () => {
                 <button
   onClick={handleCtaClick}
                   className=" bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
-    hover:from-indigo-700 hover:to-blue-700 text-white px-5 w-[300px] text-[17px]  py-3 rounded-[5px] text-sm font-medium transition-all duration-300"
+    hover:from-indigo-700 hover:to-blue-700 text-white px-5 md:w-[300px] w-[250px] text-[17px]  py-3 rounded-[5px] text-sm font-medium transition-all duration-300"
                 >
                  See Transport Solutions
                 </button>

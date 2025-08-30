@@ -231,34 +231,37 @@ const Products = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] lg:pr-[100px]  bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
-        <div className="container mx-auto">
-          <div className="flex-1 text-left">
-      
-            <h1 className="text-[30px] md:text-[35px] lg:text-[50px] text-white mb-6 leading-tight font-medium font-['Poppins',sans-serif]">
-              {heroSection?.title || "Brilliant LED Solutions for Every Sector"}
-            </h1>
-            <p className="text-white/100 text-lg md:text-[15px] lg:text-xl max-w-2xl mb-4 leading-[30px]">
-              {heroSection?.images?.[0]?.description || "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."}
-            </p>
-          </div>
-        </div>
 
-        {/* Hero Image */}
-        <div className=" md:block w-full md:w-auto mt-10 md:mt-0">
-          <img
-            src={getImageUrl(heroSection?.images?.[0]?.image) || 'https://via.placeholder.com/1000x600?text=XIGI+LED+Display'}
-            alt="LED Display"
-            className="w-full p-3 md:w-[700px] lg:w-[1000px] lg:h-[400px] drop-shadow-2xl mx-auto"
-          />
-        </div>
-      </section>
+{/* Hero Section */}
+<section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 px-4 md:px-10 lg:px-24">
+  <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+    
+    {/* Left Content */}
+    <div className="col-span-1 text-left">
+      <h1 className="text-[30px] md:text-[35px] lg:text-[50px] text-white mb-6 leading-tight font-medium font-['Poppins',sans-serif]">
+        {heroSection?.title || "Brilliant LED Solutions for Every Sector"}
+      </h1>
+      <p className="text-white/100 text-lg md:text-[15px] lg:text-xl max-w-2xl mb-4 leading-[30px]">
+        {heroSection?.images?.[0]?.description || "Discover LED display solutions tailored for every industry—retail, education, hospitality, corporate, and more."}
+      </p>
+    </div>
+
+    {/* Right Image */}
+    <div className="col-span-1">
+      <img
+        src={getImageUrl(heroSection?.images?.[0]?.image) || 'https://via.placeholder.com/1000x600?text=XIGI+LED+Display'}
+        alt="LED Display"
+        className="w-full p-3 md:w-[700px] lg:w-[1000px] lg:h-[450px] drop-shadow-2xl mx-auto"
+      />
+    </div>
+    
+  </div>
+</section>
+
 
       {/* Digital Impact by Product Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left Image */}
           <div className="flex justify-center">
             <img

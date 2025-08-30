@@ -76,7 +76,7 @@ const IndustrySection = ({ sectionData }) => {
           </div>
 
           {/* Right: Image */}
-          <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center">
+          <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center items-center">
             {rightSideImage ? (
               <img
                 src={`https://xigiled.in/storage/${rightSideImage.image}`}
@@ -261,7 +261,7 @@ const Home = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-black/70 z-10"></div>
 
           <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4 bg-transparent">
-            <h1 className="lg:text-5xl text-4xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
+            <h1 className="text-4xl md:text-6xl font-semibold py-2 from-blue-300 via-white to-blue-300 bg-clip-text text-white font-['Poppins',sans-serif]">
               Brighten Every Space
             </h1>
             <p className="mt-4 max-w-2xl text-[16px] lg:text-[16px] md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
@@ -284,7 +284,8 @@ const Home = () => {
 
       {/* Why Choose Section */}
 {whyChooseSection && (
-  <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
+  
+  <section className="container py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
       {whyChooseSection.images.map((feature, index) => (
         <div
@@ -313,7 +314,8 @@ const Home = () => {
 
         {/* Complete Range Section */}
         {completeRangeSection && (
-          <section className="py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#f3f7ff]">
+          <section className="
+          py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-[#f3f7ff]">
             <div className="container mx-auto">
               <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
                 {completeRangeSection.title}
@@ -341,7 +343,7 @@ const Home = () => {
                     {completeRangeSection.images[1] && (
                       <a
                         href="/products/outdoor-led-video-walls"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[340px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
@@ -355,7 +357,7 @@ const Home = () => {
                     {completeRangeSection.images[2] && (
                       <a
                         href="/products/interactive-display"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[340px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[2].image}`}
@@ -637,7 +639,7 @@ const Home = () => {
         )} */}
 
         {/* CTA Section */}
-        <section className="w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
+        <section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
           <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
             <div className="w-full md:w-5/12 h-64 md:h-auto">
       <img src={ctaImage} alt="Digital billboard advertising" className="w-full h-full object-cover" />

@@ -255,7 +255,7 @@ const Industry = () => {
             <img
               src={getImageUrl(heroSection.images[0].image)}
               alt={heroSection.images[0].title || "LED Display"}
-              className="w-full p-3 md:w-[700px] lg:w-[1000px] md:ml-[20px] drop-shadow-2xl lg:h-[400px] md:h-[300px] mx-auto"
+              className="w-full p-3 md:w-[700px] lg:w-[1000px] md:ml-[20px] drop-shadow-2xl lg:h-[450px] md:h-[300px] mx-auto"
               loading="lazy"
               onError={(e) => {
                 console.error('Image failed to load:', e.target.src);
