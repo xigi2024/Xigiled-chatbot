@@ -236,7 +236,7 @@ const Industry = () => {
       <Header />
       
       {/* Hero Section - FIXED */}
-      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] md:pr-[100px] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[70vh] md:pr-[100px] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 pl-[10px] md:pl-[40px] lg:pl-[100px] flex flex-col md:flex-row items-center justify-between">
         <div className="container mx-auto">
           <div className="flex-1 text-left">
            

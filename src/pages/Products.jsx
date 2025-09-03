@@ -233,7 +233,7 @@ const Products = () => {
       <Header />
 
 {/* Hero Section */}
-<section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[90vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 px-4 md:px-10 lg:px-24">
+<section className="relative min-h-[40vh] md:min-h-[60vh] lg:min-h-[70vh] bg-gradient-to-br from-[#000000] via-[#010150] to-[#000000] py-24 px-4 md:px-10 lg:px-24">
   <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
     
     {/* Left Content */}

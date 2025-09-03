@@ -3,14 +3,33 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/cta4.jpg';
 import customize from '../assets/customize.webp';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
-import CustomDesign from '../assets/custom-design.avif'
-import TailoredSolutions from '../assets/tailored-solutions.jpg'
-import PremiumQuality from '../assets/premium-quality.jpg'
-import ExpertConsultation from '../assets/expert-consultation.png'
-import EndToEndService from '../assets/end-to-end-service.webp'
 
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            isActive ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
 
 
 const CustomFeaturesSection = ({ featuresData }) => {
@@ -362,6 +381,8 @@ const Custom_Led = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const navigate = useNavigate();
 
   const handleCtaClick = () => {
@@ -373,7 +394,7 @@ const Custom_Led = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://xigiled.in/api/custom-led-solutions');
+        const response = await fetch('http://127.0.0.1:8000/api/custom-led-solutions');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -437,6 +458,8 @@ const Custom_Led = () => {
   const pixelPitchData = getSectionData('custom_led_solution_section3');
   const showcaseData = getSectionData('custom_led_solution_section4');
   const featuresData = getSectionData('custom_led_solution_section5');
+  const faqSection = getSectionData('custom_led_solution_faq_section');
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -573,6 +596,28 @@ const Custom_Led = () => {
 {/* Features Section */}
 
 <CustomFeaturesSection featuresData={featuresData} />
+
+{/* FAQ Section */}
+{faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 lg:px-20 md:px-10">
+    <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-5xl mx-auto md:w-[680px] lg:w-[1000px]">
+      {faqSection.faq_entries.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={activeIndex === index}
+          onClick={() =>
+            setActiveIndex(activeIndex === index ? null : index)
+          }
+        />
+      ))}
+    </div>
+  </section>
+)}
 
 
 {/* CTA Section - Hardcoded */}

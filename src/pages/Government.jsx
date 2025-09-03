@@ -233,6 +233,11 @@ const Government = () => {
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
                   )}
+                   {imageItem.title && (
+              <h3 className="text-center text-lg md:text-xl font-semibold text-gray-900 py-3 border-b border-gray-200 font-['Poppins',sans-serif]">
+                {imageItem.title}
+              </h3>
+            )}
                   <div className="space-y-3 p-3">
                     {imageItem.faqs?.map((faq, faqIndex) => {
                       const key = `${imageIndex}-${faqIndex}`;

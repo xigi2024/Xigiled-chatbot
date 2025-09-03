@@ -15,7 +15,7 @@ const Footer = () => {
               <img 
                 src={logo}
                 alt="XIGI LED" 
-                className="h-16 mb-4" 
+                className="h-24 mb-4" 
               />
             </a>
             <p className="text-white text-sm md:text-base font-['Montserrat',sans-serif]">

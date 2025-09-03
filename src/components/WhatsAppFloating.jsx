@@ -9,7 +9,7 @@ const WhatsAppFloating = () => {
       href={`https://wa.me/${phoneNumber}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-[100px] right-[30px] z-50 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+      className="fixed lg:bottom-[100px] md:bottom-[180px] bottom-[150px] right-[30px] z-50 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
       title="Chat with us on WhatsApp"
     >
       <FaWhatsapp size={28} />

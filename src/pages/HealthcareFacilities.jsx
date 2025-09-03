@@ -4,17 +4,44 @@ import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight } from "lucide-react"; 
 
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            isActive ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const HealthcareFacilities = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openFaqs, setOpenFaqs] = useState(null);
   const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const navigate = useNavigate();
 
    const handleCtaClick = () => {
     navigate('/contact');
     sessionStorage.setItem('scrollToContactForm', 'true');
   };
+
   // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +116,8 @@ const HealthcareFacilities = () => {
   const flexibleDisplaySection = getSectionData('hospitality_section6');
   const chooseXigiSection = getSectionData('hospitality_section7');
   const transformSection = getSectionData('hospitality_section8');
+  const faqSection = getSectionData('hospitality_faq_section');
+
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
@@ -232,6 +261,11 @@ const HealthcareFacilities = () => {
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
                   )}
+                   {imageItem.title && (
+              <h3 className="text-center text-lg md:text-xl font-semibold text-gray-900 py-3 border-b border-gray-200 font-['Poppins',sans-serif]">
+                {imageItem.title}
+              </h3>
+            )}
                   <div className="space-y-3 p-3">
                     {imageItem.faqs?.map((faq, faqIndex) => {
                       const key = `${imageIndex}-${faqIndex}`;
@@ -353,6 +387,28 @@ const HealthcareFacilities = () => {
           </div>
         </section>
       )}
+
+{/* FAQ Section */}
+{faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+    <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-4xl mx-auto">
+      {faqSection.faq_entries.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={activeIndex === index}
+          onClick={() =>
+            setActiveIndex(activeIndex === index ? null : index)
+          }
+        />
+      ))}
+    </div>
+  </section>
+)}
 
       {/* Transform Section */}
       {transformSection && (

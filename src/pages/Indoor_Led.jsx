@@ -3,13 +3,15 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/indoor.jpg';
 import display from '../assets/display.jpg';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link,useNavigate } from 'react-router-dom';
 import Highdefinition from '../assets/industry/High-definition.png'
 import seamless from '../assets/industry/seamless.png'
 import vibrantColor from '../assets/industry/vibrantColor.png'
 import WideAngle from '../assets/industry/WideAngle.png'
 import ultraThin from '../assets/industry/ultraThin.png'
+
+
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -167,18 +169,45 @@ const PixelPitchScroll = ({ pixelPitchData }) => {
   );
 };
 
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            isActive ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
+
 
 const Indoor_Led = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://xigiled.in/api/indoor-led');
+        const response = await fetch('http://127.0.0.1:8000/api/indoor-led');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -251,6 +280,8 @@ const Indoor_Led = () => {
   const pixelPitchData = getSectionData('indoor_led_section3');
   const showcaseData = getSectionData('indoor_led_section4');
   const featuresData = getSectionData('indoor_led_section5');
+const faqSection = getSectionData('indoor_led_faq_section');
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -472,6 +503,27 @@ const Indoor_Led = () => {
           </div>
       </section>
 
+{/* FAQ Section */}
+{faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 lg:px-20 md:px-10">
+    <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-5xl mx-auto md:w-[680px] lg:w-[1000px]">
+      {faqSection.faq_entries.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={activeIndex === index}
+          onClick={() =>
+            setActiveIndex(activeIndex === index ? null : index)
+          }
+        />
+      ))}
+    </div>
+  </section>
+)}
  
 {/* CTA Section - Updated with handleCtaClick */}
 <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">

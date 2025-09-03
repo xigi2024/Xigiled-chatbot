@@ -35,7 +35,7 @@ const IndustrySection = ({ sectionData }) => {
   return (
     <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white text-gray-900">
       <div className="container mx-auto">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] md:text-center text-left leading-[40px]  font-medium mb-15 leading-[1.2] font-['Poppins',sans-serif]">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] md:text-center text-left leading-[40px]  font-medium md:mb-15 mb-8 leading-[1.2] font-['Poppins',sans-serif]">
           {sectionData.title}
         </h2>
         <div className="flex flex-col md:flex-row  gap-10">
@@ -59,7 +59,7 @@ const IndustrySection = ({ sectionData }) => {
                   />
 
                   <div className="flex flex-col">
-                    <h3 className="text-[22px] font-semibold text-[#0000ff]">
+                    <h3 className="text-[22px] mb-3 font-semibold text-[#0000ff]">
                       {feature.title}</h3>
                     {activeIndex === idx && (
                       <p className="text-black text-[14px] md:text-[17px] lg:text-[17px] font-medium font-['Montserrat',sans-serif] mb-6 leading-relaxed">
@@ -81,7 +81,7 @@ const IndustrySection = ({ sectionData }) => {
               <img
                 src={`https://xigiled.in/storage/${rightSideImage.image}`}
                 alt={sectionData.title}
-                className="w-[90%] h-[400px] object-cover rounded-2xl"
+                className="md:w-[90%] h-[400px] w-[100%] object-cover rounded-2xl"
               />
             ) : validImages.length > 0 ? (
               <img
@@ -285,7 +285,7 @@ const Home = () => {
       {/* Why Choose Section */}
 {whyChooseSection && (
   
-  <section className="container py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-gradient-to-r from-white via-white to-[#f8f9fc]">
+  <section className="container py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-white">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
       {whyChooseSection.images.map((feature, index) => (
         <div
@@ -639,8 +639,9 @@ const Home = () => {
         )} */}
 
         {/* CTA Section */}
-        <section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28">
-          <div className="rounded-xl overflow-hidden shadow-lg bg-white flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
+        <div style={{backgroundColor:"#F3F7FF"}}>
+        <section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28" >
+          <div className="rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
             <div className="w-full md:w-5/12 h-64 md:h-auto">
       <img src={ctaImage} alt="Digital billboard advertising" className="w-full h-full object-cover" />
             </div>
@@ -663,7 +664,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-
+</div>
       </main>
       <Footer />
     </div>

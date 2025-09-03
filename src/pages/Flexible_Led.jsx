@@ -3,13 +3,33 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/cta5.jpg';
 import flexible from '../assets/flexible.jpeg';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
-import CurvedDesign from '../assets/CurvedDesign.jpg'
-import FlexibleBending from '../assets/FlexibleBending.jpg'
-import SeamlessIntegration from '../assets/SeamlessIntegration.webp'
-import HighResolution from '../assets/HighResolution.webp'
-import CustomShapes from '../assets/CustomShapes.jpg'
+
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            isActive ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -94,8 +114,6 @@ const ShowcaseSlider = ({ showcaseData }) => {
     </section>
   );
 };
-
-
 
 const PixelPitchScroll = ({ pixelPitchData }) => {
   const scrollRef = useRef(null);
@@ -362,6 +380,8 @@ const FlexibleLed = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const navigate = useNavigate();
    const handleCtaClick = () => {
     navigate('/contact');
@@ -372,7 +392,7 @@ const FlexibleLed = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://xigiled.in/api/flexible-curved-led-walls');
+        const response = await fetch('http://127.0.0.1:8000/api/flexible-curved-led-walls');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -436,6 +456,8 @@ const FlexibleLed = () => {
   const pixelPitchData = getSectionData('flexible_curved_wall_section3');
   const showcaseData = getSectionData('flexible_curved_wall_section4');
   const featuresData = getSectionData('flexible_curved_wall_section5');
+  const faqSection = getSectionData('flexible_curved_wall_faq_section');
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -579,7 +601,27 @@ const FlexibleLed = () => {
 
       <FlexibleFeaturesSection featuresData={featuresData} />
 
-
+{/* FAQ Section */}
+{faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 lg:px-20 md:px-10">
+    <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-5xl mx-auto md:w-[680px] lg:w-[1000px]">
+      {faqSection.faq_entries.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={activeIndex === index}
+          onClick={() =>
+            setActiveIndex(activeIndex === index ? null : index)
+          }
+        />
+      ))}
+    </div>
+  </section>
+)}
 
 {/* CTA Section - Updated Content Only */}
 <section className="w-full py-20 md:py-17 container lg:py-27 px-4 md:px-5 lg:px-28">

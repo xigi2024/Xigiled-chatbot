@@ -2,13 +2,39 @@ import React, { useRef, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronDown } from "lucide-react";
+
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${
+            isActive ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const EducationInstitutions = () => {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [openFaqs, setOpenFaqs] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const navigate = useNavigate();
 
    const handleCtaClick = () => {
@@ -87,6 +113,7 @@ const EducationInstitutions = () => {
   const flexibleDisplaySection = getSectionData('education_section6');
   const chooseXigiSection = getSectionData('education_section7');
   const transformSection = getSectionData('education_section8');
+  const faqSection = getSectionData('education_faq_section');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
@@ -115,47 +142,62 @@ const EducationInstitutions = () => {
 
 
 
-      {/* Excellence Section */}
-      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-        {/* Breadcrumb */}
-        <div className="container text-sm text-gray-500 mb-10">
-          <span className="inline-flex items-center gap-2">
-            <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
-              🏠 Home
-            </Link>
-            <span>›</span>
-            <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
-              Industry
-            </Link>
-            <span>›</span>
-            <span className="text-blue-600 text-decoration-none font-medium">Education Institutions</span>
-          </span>
-        </div>
+  {/* Excellence Section */}
+<section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
+  {/* Breadcrumb */}
+  <div className="container text-sm text-gray-500 mb-10">
+    <span className="inline-flex items-center gap-2">
+      <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+        🏠 Home
+      </Link>
+      <span>›</span>
+      <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+        Industry
+      </Link>
+      <span>›</span>
+      <span className="text-blue-600 text-decoration-none font-medium">Education Institutions</span>
+    </span>
+  </div>
 
-        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
-          {/* Left Image */}
-          <div className="flex justify-center w-full">
-            {excellenceSection?.images?.[0]?.image && (
-              <img
-                src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
-                alt="LED Display for Education"
-                className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-              />
-            )}
-          </div>
+  <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
+    {/* Left Image */}
+    <div className="flex justify-center w-full">
+      {excellenceSection?.images?.[0]?.image && (
+        <img
+          src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
+          alt="LED Display for Education"
+          className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+        />
+      )}
+    </div>
 
-          {/* Right Content */}
-          <div className="w-full  flex flex-col justify-center">
-            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-              {excellenceSection?.title || "LED Displays for Education Institutions"}
-            </h2>
-            <p className="text-black font-medium  text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
-              {excellenceSection?.description || 
-                "Our LED displays are built to enhance learning environments, providing clear visibility and engaging educational content for students and educators."}
+    {/* Right Content */}
+    <div className="w-full flex flex-col justify-center">
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+        {excellenceSection?.title || "LED Displays for Education Institutions"}
+      </h2>
+      <p className="text-black font-medium text-base md:text-lg mb-6 leading-relaxed max-w-3xl">
+        {excellenceSection?.description || 
+          "Our LED displays are built to enhance learning environments, providing clear visibility and engaging educational content for students and educators."}
+      </p>
+
+      {/* Bullet Points Section */}
+      <div className="space-y-6 text-black font-medium">
+        {excellenceSection?.images?.filter(img => img.title).map((item, index) => (
+          <div key={index} className="flex items-start gap-3">
+            <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+              ✓
+            </div>
+            <p className="text-gray-900 text-base leading-relaxed">
+              {item.title}
             </p>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
 
     {/* Smart Displays Section */}
 {smartDisplaysSection && (
@@ -218,6 +260,11 @@ const EducationInstitutions = () => {
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
                   )}
+                   {imageItem.title && (
+              <h3 className="text-center text-lg md:text-xl font-semibold text-gray-900 py-3 border-b border-gray-200 font-['Poppins',sans-serif]">
+                {imageItem.title}
+              </h3>
+            )}
                   <div className="space-y-3 p-3">
                     {imageItem.faqs?.map((faq, faqIndex) => {
                       const key = `${imageIndex}-${faqIndex}`;
@@ -340,6 +387,28 @@ const EducationInstitutions = () => {
           </div>
         </section>
       )}
+
+      {/* FAQ Section */}
+{faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+  <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+    <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+      {faqSection.title}
+    </h2>
+    <div className="max-w-4xl mx-auto">
+      {faqSection.faq_entries.map((faq, index) => (
+        <FAQItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isActive={activeIndex === index}
+          onClick={() =>
+            setActiveIndex(activeIndex === index ? null : index)
+          }
+        />
+      ))}
+    </div>
+  </section>
+)}
 
       {/* Transform Section */}
       {transformSection && (

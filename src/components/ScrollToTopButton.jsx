@@ -38,7 +38,7 @@ const ScrollToTopButton = () => {
           : 'opacity-0 translate-y-5 pointer-events-none'
       }`}
     >
-      <div className="relative w-16 h-16 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_0_20px_4px_rgba(99,102,241,0.5)] transition-all duration-300">
+      <div className="relative w-16 h-16 rounded-full bottom-[55px] md:bottom-[5px] backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_0_20px_4px_rgba(99,102,241,0.5)] transition-all duration-300">
         {/* SVG Progress Ring */}
         <svg
           height={radius * 2}
