@@ -386,7 +386,7 @@ const Transparent_Led = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/api/transparent-led-displays');
+        const response = await fetch('https://xigiled.in/api/transparent-led-displays');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

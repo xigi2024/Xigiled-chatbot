@@ -57,7 +57,7 @@ const getRouteFromTitle = (title) => {
     return '/industry/HospitalityAndHotels';
   }
   if (titleLower.includes('government') && titleLower.includes('civic')) {
-    return '/industry/GovernmentCivicSpaces';
+    return '/industry/GovernmentAndCivicSpaces';
   }
   if (titleLower.includes('education') && titleLower.includes('institutions')) {
     return '/industry/EducationAndInstitutions';

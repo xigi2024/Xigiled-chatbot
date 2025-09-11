@@ -11,8 +11,6 @@ import vibrantColor from '../assets/industry/vibrantColor.png'
 import WideAngle from '../assets/industry/WideAngle.png'
 import ultraThin from '../assets/industry/ultraThin.png'
 
-
-
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -207,7 +205,7 @@ const Indoor_Led = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/api/indoor-led');
+        const response = await fetch('https://xigiled.in/api/indoor-led');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

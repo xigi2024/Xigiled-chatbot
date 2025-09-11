@@ -48,7 +48,7 @@ function App() {
 
 /* industry routes/*
 <Route path="/industry/:slug" element={<Industry />} />
-<Route path="/industry/GovernmentPublicSpaces" element={<Government />} />
+<Route path="/industry/GovernmentAndCivicSpaces" element={<Government />} />
 <Route path="/industry/EventsAndExhibitions" element={<EventsExhibitions />} />
 <Route path="/industry/Retail" element={<RetailEnvironments />} />
 <Route path="/industry/CorporateOffice" element={<CorporateOffices />} />

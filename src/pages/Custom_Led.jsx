@@ -394,7 +394,7 @@ const Custom_Led = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/api/custom-led-solutions');
+        const response = await fetch('https://xigiled.in/api/custom-led-solutions');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

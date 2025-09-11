@@ -384,7 +384,7 @@ const [activeIndex, setActiveIndex] = useState(null);
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/api/truck-mounted-led');
+        const response = await fetch('https://xigiled.in/api/truck-mounted-led');
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
