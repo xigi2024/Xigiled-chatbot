@@ -9,6 +9,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 
 const IndustrySection = ({ sectionData }) => {
@@ -149,6 +151,7 @@ const MemberConnect = ({ testimonialsSection }) => {
 
 
 const Home = () => {
+
   const [homeData, setHomeData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -243,7 +246,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+<SEOMetaTags pageType="home" />
+
+      <Header />  
       <main className="flex-grow">
         {/* Hero Section */}
         <div className="relative h-screen w-full overflow-hidden">

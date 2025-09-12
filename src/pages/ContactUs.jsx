@@ -9,6 +9,8 @@ import bgImage from '../assets/heroimg.png';
 import contact from '../assets/contact.jpg';
 import Footer from '../components/Footer';
 import emailjs from '@emailjs/browser';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 // ContactSection component now accepts contactFormRef as a prop
 const ContactSection = ({ contactFormRef }) => {
@@ -61,7 +63,9 @@ const ContactSection = ({ contactFormRef }) => {
     ];
 
     return (
+        
         <section className='bg-[#F6F6F6] w-full'>
+            <SEOMetaTags pageType="contact" />
             <div 
                 className="mx-auto w-full bg-cover bg-gray-200 bg-center object-top min-h-[200px] md:min-h-[250px] flex items-center justify-center py-10 px-4"
                 style={{ backgroundImage: `url(${backgroundImage})` }}

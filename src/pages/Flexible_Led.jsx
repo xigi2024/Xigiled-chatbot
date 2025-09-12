@@ -5,6 +5,7 @@ import cta from '../assets/cta5.jpg';
 import flexible from '../assets/flexible.jpeg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (

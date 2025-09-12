@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import cta from '../assets/about cta.jpeg';
 import about from '../assets/about img.jpg';
+import SEOMetaTags from '../components/SEOMetaTags';
 import { useNavigate } from 'react-router-dom';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -110,6 +111,8 @@ const About = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="about" />
+
       <Header />
       
       {/* Banner Section - Keep as hardcoded */}

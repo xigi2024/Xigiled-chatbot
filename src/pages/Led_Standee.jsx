@@ -5,6 +5,8 @@ import cta from '../assets/cta7.jpg';
 import standee from '../assets/standee.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -455,6 +457,8 @@ const Led_Standee = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="led-standee-display" />
+
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

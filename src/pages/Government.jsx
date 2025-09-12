@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight } from "lucide-react";
+import SEOMetaTags from '../components/SEOMetaTags';
 
 // Government Component in EventsExhibitions Style
 const Government = () => {
@@ -94,6 +95,8 @@ const Government = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
+<SEOMetaTags pageType="industries" subPage="GovernmentAndCivicSpaces" />
+
       <Header />
 
   {/* Hero Section - Government & Public Spaces Banner Style */}

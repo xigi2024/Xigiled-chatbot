@@ -5,6 +5,8 @@ import cta from '../assets/cta8.jpg';
 import rental from '../assets/rental.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -420,7 +422,10 @@ const Rental_Event_display = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOMetaTags pageType="products" subPage="rental-event-display" />
+
         <Header />
+        
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>

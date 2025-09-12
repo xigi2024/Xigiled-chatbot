@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import SEOMetaTags from '../components/SEOMetaTags'; // Add this import
 
 const API_BASE_URL = 'https://xigiled.in/api';
 
@@ -176,6 +177,8 @@ const Industry = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-[#f8faff]">
+              <SEOMetaTags pageType="industries" />
+
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">

@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, ChevronDown } from "lucide-react";
+import SEOMetaTags from '../components/SEOMetaTags';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -122,6 +123,8 @@ const [activeIndex, setActiveIndex] = useState(null);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
+<SEOMetaTags pageType="industries" subPage="Retail" />
+
       <Header />
 {/* Hero Section - Retail Environments Banner Style */}
 {heroSection && (

@@ -10,6 +10,8 @@ import seamless from '../assets/industry/seamless.png'
 import vibrantColor from '../assets/industry/vibrantColor.png'
 import WideAngle from '../assets/industry/WideAngle.png'
 import ultraThin from '../assets/industry/ultraThin.png'
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const ShowcaseSlider = ({ showcaseData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -241,6 +243,7 @@ const Indoor_Led = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
+        
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -283,6 +286,8 @@ const faqSection = getSectionData('indoor_led_faq_section');
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="indoor-led-video-walls" />
+
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

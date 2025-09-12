@@ -5,6 +5,8 @@ import cta from '../assets/cta9.jpg';
 import transparent from '../assets/transparent.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -375,7 +377,6 @@ const Transparent_Led = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(null);
-
   
   const handleCtaClick = () => {
     navigate('/contact');
@@ -455,6 +456,8 @@ const Transparent_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="transparent-led-display" />
+
       <Header />
  
       {/* Banner Section */}

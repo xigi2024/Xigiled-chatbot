@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight, ChevronDown } from "lucide-react"; // Added ChevronDown import
+import { ChevronRight, ChevronDown } from "lucide-react"; 
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -116,6 +118,8 @@ const EventsExhibitions = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
+      <SEOMetaTags pageType="industries" subPage="EventsAndExhibitions" />
+
       <Header />
 {/* Banner Section - Dynamic with API data */}
 {heroSection && (
@@ -279,7 +283,7 @@ const EventsExhibitions = () => {
                           <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                             }`}>
 
-                            <div className="px-4 pb-4  leading-relaxed border-t border-gray-100">
+                            <div className="px-4 pb-4 leading-relaxed border-t border-gray-100">
                               <div className="pt-3  text-[14px] font-medium font-['Montserrat',sans-serif]">
                                 {faq.answer}
                               </div>

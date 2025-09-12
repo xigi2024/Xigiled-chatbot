@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import cta from '../assets/cta2.jpg';
 import outdoor from '../assets/outdoor led display.png';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
+import SEOMetaTags from '../components/SEOMetaTags';
 import { Link, useNavigate } from 'react-router-dom';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -442,6 +443,8 @@ const Outdoor_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="outdoor-led-video-walls" />
+
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

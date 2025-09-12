@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import cta from '../assets/cta6.jpeg';
 import display from '../assets/interactive.webp';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
+import SEOMetaTags from '../components/SEOMetaTags';
 import { Link, useNavigate } from 'react-router-dom';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -356,7 +357,6 @@ const Interactive_display = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(null);
 
-
     const handleCtaClick = () => {
     navigate('/contact');
     sessionStorage.setItem('scrollToContactForm', 'true');
@@ -435,6 +435,8 @@ const Interactive_display = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="interactive-displays" />
+
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

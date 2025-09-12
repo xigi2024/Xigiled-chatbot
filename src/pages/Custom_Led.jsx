@@ -5,6 +5,8 @@ import cta from '../assets/cta4.jpg';
 import customize from '../assets/customize.webp';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -463,6 +465,8 @@ const Custom_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="custom-led-display" />
+
       <Header />
 
       {/* Banner Section - Keep as hardcoded */}

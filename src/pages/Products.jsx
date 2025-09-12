@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';import { Link } from 'react-router-dom';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
 
 // Updated API base URL
 const API_BASE_URL = 'https://xigiled.in/api';
@@ -210,6 +212,7 @@ const Products = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-[#f8faff]">
+              <SEOMetaTags pageType="products" />
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">

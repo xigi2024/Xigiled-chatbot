@@ -5,6 +5,8 @@ import cta from '../assets/cta3.jpg';
 import truck from '../assets/truck.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SEOMetaTags from '../components/SEOMetaTags';
+
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -453,6 +455,8 @@ const [activeIndex, setActiveIndex] = useState(null);
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" subPage="truck-mounted-displays" />
+
       <Header />
 
       {/* Banner Section - Keep as hardcoded */}
