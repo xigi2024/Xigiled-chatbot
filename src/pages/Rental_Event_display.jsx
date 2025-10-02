@@ -6,6 +6,8 @@ import rental from '../assets/rental.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -422,7 +424,9 @@ const Rental_Event_display = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
-        <SEOMetaTags pageType="products" subPage="rental-event-display" />
+<SEOMetaTags pageType="products" pageName="rental" />
+<FAQSchema faqData={faqData.product["rental-led-display"]} />
+
 
         <Header />
         

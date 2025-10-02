@@ -2,8 +2,10 @@ import React, { useRef, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight, ChevronDown } from "lucide-react"; 
+import { ChevronRight, ChevronDown } from "lucide-react";
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -17,9 +19,8 @@ const FAQItem = ({ question, answer, isActive, onClick }) => {
           {question}
         </p>
         <ChevronDown
-          className={`w-5 h-5 text-gray-500 transform transition-transform ${
-            isActive ? "rotate-180" : ""
-          }`}
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${isActive ? "rotate-180" : ""
+            }`}
         />
       </div>
       {isActive && (
@@ -39,7 +40,7 @@ const EventsExhibitions = () => {
   const [activeIndex, setActiveIndex] = useState(null); // Added missing state
   const navigate = useNavigate();
 
-   const handleCtaClick = () => {
+  const handleCtaClick = () => {
     navigate('/contact');
     sessionStorage.setItem('scrollToContactForm', 'true');
   };
@@ -118,84 +119,91 @@ const EventsExhibitions = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
-      <SEOMetaTags pageType="industries" subPage="EventsAndExhibitions" />
+<SEOMetaTags pageType="industry" pageName="events" />
+<FAQSchema faqData={faqData.industry["events-and-exhibition"]} />
 
       <Header />
-{/* Banner Section - Dynamic with API data */}
-{heroSection && (
-  <div className="relative h-[70vh] w-full">
-    {/* Background Image */}
-    {heroSection.images?.[0]?.image && (
-      <img
-        src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
-        alt={heroSection.title || "LED Display"}
-        className="w-full h-full object-cover"
-      />
-    )}
-
-    {/* Overlay + Text */}
-    <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
-      <h1 className="text-[28px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center font-['Poppins',sans-serif]">
-        {heroSection.title || "Indoor LED Wall Display"}
-      </h1>
-    </div>
-  </div>
-)}
-
-  <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-  {/* Breadcrumb */}
-  <div className="container text-sm text-gray-500 mb-10">
-    <span className="inline-flex items-center gap-2">
-      <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
-        🏠 Home
-      </Link>
-      <span>›</span>
-      <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
-        Industry
-      </Link>
-      <span>›</span>
-      <span className="text-blue-600 text-decoration-none font-medium">Events & Exhibitions</span>
-    </span>
-  </div>
-
-  <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
-    {/* Left Image */}
-    <div className="flex justify-center w-full">
-      {excellenceSection?.images?.[0]?.image && (
-        <img
-          src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
-          alt="LED Display for Events"
-          className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
-        />
+      {/* Banner Section - Dynamic with API data */}
+      {heroSection && (
+        <div className="relative h-[70vh] w-full">
+          {/* Background Image */}
+          {heroSection.images?.[0]?.image && (
+            <img
+              src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
+              alt={heroSection.title || "LED Display"}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
       )}
-    </div>
 
-    {/* Right Content */}
-    <div className="w-full flex flex-col justify-center">
-      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
-        {excellenceSection?.title || "LED Displays for Events & Exhibitions"}
-      </h2>
-      <p className="text-dark text-[16px] mx-auto font-medium font-['Montserrat',sans-serif] leading-relaxed mb-6">
-        {excellenceSection?.description ||
-          "At events and exhibitions, delivering clear and impactful communication is critical. Your audience demands vivid visuals, seamless presentations, and reliable technology that performs flawlessly"}
-      </p>
-
-      {/* Bullet Points Section */}
-      <div className="space-y-6 text-black font-medium">
-        {excellenceSection?.images?.filter(img => img.title).map((item, index) => (
-          <div key={index} className="flex items-start gap-3">
-            <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
-              ✓
-            </div>
-            <p className="text-gray-900 text-base leading-relaxed">
-              {item.title}
-            </p>
-          </div>
-        ))}
+      {/* Breadcrumb */}
+      <div className="container text-sm text-gray-500 my-5">
+        <span className="inline-flex items-center gap-2">
+          <Link to="/" className="inline-flex items-center gap-1 text-decoration-none text-black hover:underline">
+            🏠 Home
+          </Link>
+          <span>›</span>
+          <Link to="/industry" className="text-gray-500 text-decoration-none hover:text-blue-600 hover:underline">
+            Industry
+          </Link>
+          <span>›</span>
+          <span className="text-blue-600 text-decoration-none font-medium">Events & Exhibitions</span>
+        </span>
       </div>
-    </div>
-  </div>
-</section>
+
+      {/* Banner Content Section (Below Banner) */}
+      {heroSection && (
+        <div className="container mx-auto px-4 md:px-8 lg:px-20 pb-12 pt-5 text-center">
+          <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-5 text-center text-gray-900 font-['Poppins',sans-serif]">
+            {heroSection.title}
+          </h2>
+          <p className="text-gray-800 text-[16px] mx-auto font-medium font-['Montserrat',sans-serif] leading-relaxed mb-6">
+            {heroSection.description}
+          </p>
+        </div>
+      )}
+
+      <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
+
+        <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
+          {/* Left Image */}
+          <div className="flex justify-center w-full">
+            {excellenceSection?.images?.[0]?.image && (
+              <img
+                src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
+                alt="LED Display for Events"
+                className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
+              />
+            )}
+          </div>
+
+          {/* Right Content */}
+          <div className="w-full flex flex-col justify-center">
+            <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-4 text-gray-900 leading-tight font-['Poppins',sans-serif]">
+              {excellenceSection?.title || "LED Displays for Events & Exhibitions"}
+            </h2>
+            <p className="text-dark text-[16px] mx-auto font-medium font-['Montserrat',sans-serif] leading-relaxed mb-6">
+              {excellenceSection?.description ||
+                "At events and exhibitions, delivering clear and impactful communication is critical. Your audience demands vivid visuals, seamless presentations, and reliable technology that performs flawlessly"}
+            </p>
+
+            {/* Bullet Points Section */}
+            <div className="space-y-6 text-black font-medium">
+              {excellenceSection?.images?.filter(img => img.title).map((item, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
+                    ✓
+                  </div>
+                  <p className="text-gray-900 text-base leading-relaxed">
+                    {item.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
@@ -210,20 +218,20 @@ const EventsExhibitions = () => {
               </p>
             </div>
 
-    <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-  {smartDisplaysSection.images?.map((item, index) => (
-    <div key={index} className="relative rounded-xl overflow-hidden h-70">
-      <img
-        src={`https://xigiled.in/storage/${item.image}`}
-        alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/100 to-transparent flex items-end p-4">
-        <p className="text-white lg:text-[20px] md:text-[18px] text-[18px] font-medium">{item.title}</p>
-      </div>
-    </div>
-  ))}
-</div>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {smartDisplaysSection.images?.map((item, index) => (
+                <div key={index} className="relative rounded-xl overflow-hidden h-70">
+                  <img
+                    src={`https://xigiled.in/storage/${item.image}`}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/100 to-transparent flex items-end p-4">
+                    <p className="text-white lg:text-[20px] md:text-[18px] text-[18px] font-medium">{item.title}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
@@ -253,11 +261,11 @@ const EventsExhibitions = () => {
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
                   )}
-                   {imageItem.title && (
-              <h3 className="text-center text-lg md:text-xl font-semibold text-gray-900 py-3 border-b border-gray-200 font-['Poppins',sans-serif]">
-                {imageItem.title}
-              </h3>
-            )}
+                  {imageItem.title && (
+                    <h3 className="text-center text-lg md:text-xl font-semibold text-gray-900 py-3 border-b border-gray-200 font-['Poppins',sans-serif]">
+                      {imageItem.title}
+                    </h3>
+                  )}
                   <div className="space-y-3 p-3">
                     {imageItem.faqs?.map((faq, faqIndex) => {
                       const key = `${imageIndex}-${faqIndex}`;
@@ -384,27 +392,27 @@ const EventsExhibitions = () => {
         </section>
       )}
 
-  {/* FAQ Section - FIXED */}
-  {faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
-    <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
-      <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
-        {faqSection.title}
-      </h2>
-      <div className="max-w-4xl mx-auto">
-        {faqSection.faq_entries.map((faq, index) => (
-          <FAQItem
-            key={index}
-            question={faq.question}
-            answer={faq.answer}
-            isActive={activeIndex === index}
-            onClick={() =>
-              setActiveIndex(activeIndex === index ? null : index)
-            }
-          />
-        ))}
-      </div>
-    </section>
-  )}
+      {/* FAQ Section - FIXED */}
+      {faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+        <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+          <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+            {faqSection.title}
+          </h2>
+          <div className="max-w-4xl mx-auto">
+            {faqSection.faq_entries.map((faq, index) => (
+              <FAQItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isActive={activeIndex === index}
+                onClick={() =>
+                  setActiveIndex(activeIndex === index ? null : index)
+                }
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Transform Section */}
       {transformSection && (
@@ -429,7 +437,7 @@ const EventsExhibitions = () => {
                   {transformSection.description || "Ready to create unforgettable experiences that captivate your audience? Contact us for a custom quote."}
                 </p>
                 <button
-  onClick={handleCtaClick}
+                  onClick={handleCtaClick}
                   className=" bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
     hover:from-indigo-700 hover:to-blue-700 text-white px-5 w-[250px] md:w-[300px] text-[17px]  py-3 rounded-[5px] text-sm font-medium transition-all duration-300"
                 >

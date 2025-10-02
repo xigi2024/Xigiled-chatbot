@@ -3,7 +3,7 @@ import '../styles/Home.css';
 import banner from '../assets/videos/XIGI Led Banner.mp4';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ctaImage from '../assets/cta1.jpg'; 
+import ctaImage from '../assets/cta1.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -246,9 +246,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-<SEOMetaTags pageType="home" />
+      <SEOMetaTags pageType="home" />
 
-      <Header />  
+      <Header />
       <main className="flex-grow">
         {/* Hero Section */}
         <div className="relative h-screen w-full overflow-hidden">
@@ -272,25 +272,30 @@ const Home = () => {
             <p className="mt-4 max-w-2xl text-[16px] lg:text-[16px] md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
               India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
             </p>
-         <a
-  href="https://wa.me/9494220622?text=Hi, I want an instant quote"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-5 bg-gradient-to-r from-blue-600 to-indigo-600 
+            <a
+              href="https://wa.me/9494220622?text=Hi, I want an instant quote"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 bg-gradient-to-r from-blue-600 to-indigo-600 
              hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-7 py-3 
              rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300
              text-left md:text-center"
->
-  Get Instant Quote
-</a>
+            >
+              Get Instant Quote
+            </a>
 
           </div>
         </div>
 
-      {/* Why Choose Section */}
+   {/* Why Choose Section */}
 {whyChooseSection && (
-  
   <section className="container py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-28 bg-white">
+    <div className='choose-head text-center mb-12'>
+      <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-10 text-center text-gray-900 font-['Poppins',sans-serif]">
+        {whyChooseSection.title}
+      </h2>
+    </div>
+
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-5 lg:gap-7">
       {whyChooseSection.images.map((feature, index) => (
         <div
@@ -315,6 +320,7 @@ const Home = () => {
     </div>
   </section>
 )}
+
 
 
         {/* Complete Range Section */}
@@ -588,7 +594,7 @@ const Home = () => {
                   {supportSection.title}
                 </h2>
                 <button
-  onClick={handleCtaClick}
+                  onClick={handleCtaClick}
                   className="bg-gradient-to-r cursor-pointer from-blue-600 to-indigo-600 
              hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-5 py-3 
              rounded shadow-md text-sm md:text-[15px] font-medium transition-all duration-300"
@@ -644,32 +650,32 @@ const Home = () => {
         )} */}
 
         {/* CTA Section */}
-        <div style={{backgroundColor:"#F3F7FF"}}>
-        <section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28" >
-          <div className="rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
-            <div className="w-full md:w-5/12 h-64 md:h-auto">
-      <img src={ctaImage} alt="Digital billboard advertising" className="w-full h-full object-cover" />
-            </div>
-            <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
-              <div className="text-left md:text-left w-full">
-                <h2 className="text-[26px] md:text-[32px] lg:text-[40px] font-medium text-black mb-4 leading-snug font-['Poppins',sans-serif]">
-                  Ready to Transform Your Advertising?
-                </h2>
-                <p className="text-black mb-6 text-base md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
-                  With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand.
-                </p>
-                <button
-                  onClick={handleCtaClick}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-sm md:text-base font-medium transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
-                  aria-label="See solutions for your industry"
-                >
-                  See Solutions for Your Industry
-                </button>
+        <div style={{ backgroundColor: "#F3F7FF" }}>
+          <section className="container w-full py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-28" >
+            <div className="rounded-xl overflow-hidden shadow-lg flex flex-col md:flex-row h-auto md:h-[450px] lg:h-[480px]">
+              <div className="w-full md:w-5/12 h-64 md:h-auto">
+                <img src={ctaImage} alt="Digital billboard advertising" className="w-full h-full object-cover" />
+              </div>
+              <div className="w-full md:w-7/12 bg-[#E8F1FF] flex items-center p-6 md:p-10 lg:p-12">
+                <div className="text-left md:text-left w-full">
+                  <h2 className="text-[26px] md:text-[32px] lg:text-[40px] font-medium text-black mb-4 leading-snug font-['Poppins',sans-serif]">
+                    Ready to Transform Your Advertising?
+                  </h2>
+                  <p className="text-black mb-6 text-base md:text-[17px] leading-relaxed font-medium font-['Montserrat',sans-serif]">
+                    With Xigi DOOH, you're not just getting ad space. you're gaining a partner committed to elevating your brand.
+                  </p>
+                  <button
+                    onClick={handleCtaClick}
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-md shadow-md text-sm md:text-base font-medium transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
+                    aria-label="See solutions for your industry"
+                  >
+                    See Solutions for Your Industry
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-</div>
+          </section>
+        </div>
       </main>
       <Footer />
     </div>

@@ -160,15 +160,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      {/* Add bottom padding to body content on mobile/tablet to prevent content from being hidden behind bottom nav */}
-      <style jsx>{`
-        @media (max-width: 1023px) {
-          body {
-            padding-bottom: 70px;
-          }
-        }
-      `}</style>
     </>
   );
 };

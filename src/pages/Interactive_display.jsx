@@ -5,6 +5,8 @@ import cta from '../assets/cta6.jpeg';
 import display from '../assets/interactive.webp';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 import { Link, useNavigate } from 'react-router-dom';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -435,7 +437,9 @@ const Interactive_display = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="interactive-displays" />
+<SEOMetaTags pageType="products" pageName="interactive" />
+<FAQSchema faqData={faqData.product["interactive-led-display"]} />
+
 
       <Header />
  

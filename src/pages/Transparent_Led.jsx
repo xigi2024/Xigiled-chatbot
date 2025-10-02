@@ -6,6 +6,8 @@ import transparent from '../assets/transparent.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -456,7 +458,9 @@ const Transparent_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="transparent-led-display" />
+<SEOMetaTags pageType="products" pageName="transparent" />
+<FAQSchema faqData={faqData.product["transparent-led-display"]} />
+
 
       <Header />
  

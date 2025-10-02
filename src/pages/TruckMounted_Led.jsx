@@ -6,6 +6,8 @@ import truck from '../assets/truck.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -452,10 +454,9 @@ const [activeIndex, setActiveIndex] = useState(null);
   const featuresData = getSectionData('truck_led_section5');
   const faqSection = getSectionData('truck_led_faq_section');
 
-
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="truck-mounted-displays" />
+<SEOMetaTags pageType="products" pageName="truck" />
 
       <Header />
 

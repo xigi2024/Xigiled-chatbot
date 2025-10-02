@@ -6,6 +6,8 @@ import flexible from '../assets/flexible.jpeg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -462,6 +464,10 @@ const FlexibleLed = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMetaTags pageType="products" pageName="flexible" />
+      <FAQSchema faqData={faqData.product["flexible-led-display-and-curved-led"]} />
+
+
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

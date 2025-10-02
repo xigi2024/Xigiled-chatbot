@@ -6,6 +6,8 @@ import outdoor from '../assets/outdoor led display.png';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import SEOMetaTags from '../components/SEOMetaTags';
 import { Link, useNavigate } from 'react-router-dom';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -443,7 +445,9 @@ const Outdoor_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="outdoor-led-video-walls" />
+<SEOMetaTags pageType="products" pageName="outdoor" />
+<FAQSchema faqData={faqData.product["outdoor-led"]} />
+
 
       <Header />
  

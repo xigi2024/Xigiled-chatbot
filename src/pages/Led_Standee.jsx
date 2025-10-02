@@ -6,6 +6,8 @@ import standee from '../assets/standee.jpg';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -457,8 +459,8 @@ const Led_Standee = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="led-standee-display" />
-
+<SEOMetaTags pageType="products" pageName="standee" />
+<FAQSchema faqData={faqData.product["standee"]} />
       <Header />
  
       {/* Banner Section - Keep as hardcoded */}

@@ -6,6 +6,8 @@ import customize from '../assets/customize.webp';
 import { ChevronRight, ChevronDown ,ChevronLeft} from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
@@ -465,7 +467,9 @@ const Custom_Led = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="custom-led-display" />
+<SEOMetaTags pageType="products" pageName="custom" />
+<FAQSchema faqData={faqData.product["custom-led-display"]} />
+
 
       <Header />
 

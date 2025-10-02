@@ -11,6 +11,8 @@ import vibrantColor from '../assets/industry/vibrantColor.png'
 import WideAngle from '../assets/industry/WideAngle.png'
 import ultraThin from '../assets/industry/ultraThin.png'
 import SEOMetaTags from '../components/SEOMetaTags';
+import FAQSchema from '../components/FAQSchema'; // Add this import
+import { faqData } from '../data/faqData'; // Add this import
 
 
 const ShowcaseSlider = ({ showcaseData }) => {
@@ -286,7 +288,11 @@ const faqSection = getSectionData('indoor_led_faq_section');
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SEOMetaTags pageType="products" subPage="indoor-led-video-walls" />
+
+<SEOMetaTags pageType="products" pageName="indoor" />
+
+<FAQSchema faqData={faqData.product["indoor-led"]} />
+
 
       <Header />
  

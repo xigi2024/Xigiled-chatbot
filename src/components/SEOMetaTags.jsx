@@ -1,11 +1,11 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const SEOMetaTags = ({ pageType, pageName }) => {
   // Define all meta data based on your document
   const metaData = {
     home: {
-      title: "India's #1 LED Display & Video Wall Experts | Xigi LED",
+      title: "India's leading LED Display & Video Wall Experts | Xigi LED",
       description: "Custom LED display solutions for retail, events & more. Fast delivery, 24/7 support & certified quality from India's top provider."
     },
     about: {
@@ -16,7 +16,7 @@ const SEOMetaTags = ({ pageType, pageName }) => {
       title: "Premium LED Displays & Video Walls | Custom Solutions",
       description: "Explore our range of high-quality LED displays. Custom sizes, flexible options, fast delivery & 24/7 support to fit every need."
     },
-    industries: {
+    industry: {
       title: "LED Display Solutions for Every Industry | Xigi LED",
       description: "Custom LED display solutions for retail, events, corporate & more. Boost engagement with vibrant visuals tailored to your industry needs."
     },

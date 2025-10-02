@@ -212,7 +212,6 @@ const Products = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-[#f8faff]">
-              <SEOMetaTags pageType="products" />
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -233,6 +232,8 @@ const Products = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
+      <SEOMetaTags pageType="products" />
+
       <Header />
 
 {/* Hero Section */}
