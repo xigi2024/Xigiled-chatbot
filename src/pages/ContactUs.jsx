@@ -11,7 +11,6 @@ import Footer from '../components/Footer';
 import emailjs from '@emailjs/browser';
 import SEOMetaTags from '../components/SEOMetaTags';
 
-
 // ContactSection component now accepts contactFormRef as a prop
 const ContactSection = ({ contactFormRef }) => {
     const form = useRef();

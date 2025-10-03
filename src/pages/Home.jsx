@@ -270,7 +270,7 @@ const Home = () => {
               Brighten Every Space
             </h1>
             <p className="mt-4 max-w-2xl text-[16px] lg:text-[16px] md:text-[16px] font-['Montserrat',sans-serif] font-medium text-white">
-              India's No.1 LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
+              India's leading LED Video Wall & Display Experts. From retail stores to moving trucks, stadiums to auditoriums, events to government.Xigi LED powers your brand, message, and experience everywhere.
             </p>
             <a
               href="https://wa.me/9494220622?text=Hi, I want an instant quote"
