@@ -446,8 +446,7 @@ const Outdoor_Led = () => {
   return (
     <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="outdoor" />
-<FAQSchema faqData={faqData.product["outdoor-led"]} />
-
+<FAQSchema faqData={faqData.product["outdoor-led"].faqs} />
 
       <Header />
  

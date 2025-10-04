@@ -438,8 +438,7 @@ const Interactive_display = () => {
   return (
     <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="interactive" />
-<FAQSchema faqData={faqData.product["interactive-led-display"]} />
-
+<FAQSchema faqData={faqData.product["interactive-led-display"].faqs} />
 
       <Header />
  

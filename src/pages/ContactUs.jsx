@@ -5,6 +5,8 @@ import { Mail, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import theniImg from "../assets/theniImg.jpeg";
 import chennaiImg from "../assets/chennaiImg.jpeg";
 import bangaloreImg from "../assets/bangaloreImg.jpeg";
+import bangaloreImgs from "../assets/bangaloreImgs.jpeg";
+
 import bgImage from '../assets/heroimg.png';
 import contact from '../assets/contact.jpg';
 import Footer from '../components/Footer';
@@ -59,6 +61,7 @@ const ContactSection = ({ contactFormRef }) => {
         { name: "Theni", img: theniImg },
         { name: "Chennai", img: chennaiImg },
         { name: "Bangalore", img: bangaloreImg },
+        { name: "Coimbatore", img: bangaloreImgs },
     ];
 
     return (

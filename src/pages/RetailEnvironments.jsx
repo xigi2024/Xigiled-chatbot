@@ -125,8 +125,7 @@ const RetailEnvironments = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="Retail" />
-<FAQSchema faqData={faqData.industry["retail"]} />
-
+<FAQSchema faqData={faqData.industry["retail"].faqs} />
 
       <Header />
       {/* Hero Section - Retail Environments Banner + Content Below */}

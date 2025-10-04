@@ -465,8 +465,7 @@ const FlexibleLed = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEOMetaTags pageType="products" pageName="flexible" />
-      <FAQSchema faqData={faqData.product["flexible-led-display-and-curved-led"]} />
-
+<FAQSchema faqData={faqData.product["flexible-led-display-and-curved-led"].faqs} />
 
       <Header />
  

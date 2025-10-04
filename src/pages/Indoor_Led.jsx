@@ -291,8 +291,7 @@ const faqSection = getSectionData('indoor_led_faq_section');
 
 <SEOMetaTags pageType="products" pageName="indoor" />
 
-<FAQSchema faqData={faqData.product["indoor-led"]} />
-
+<FAQSchema faqData={faqData.product["indoor-led"].faqs} />
 
       <Header />
  

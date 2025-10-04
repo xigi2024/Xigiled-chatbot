@@ -460,8 +460,7 @@ const Led_Standee = () => {
   return (
     <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="standee" />
-<FAQSchema faqData={faqData.product["standee"]} />
-      <Header />
+<FAQSchema faqData={faqData.product["standee"].faqs} />      <Header />
  
       {/* Banner Section - Keep as hardcoded */}
       <div className="relative h-[70vh] w-full">

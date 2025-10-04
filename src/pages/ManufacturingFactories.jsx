@@ -121,8 +121,7 @@ const ManufacturingFactories = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="manufacturing" />
-<FAQSchema faqData={faqData.industry["manufacturing-and-factories"]} />
-
+<FAQSchema faqData={faqData.industry["manufacturing-and-factories"].faqs} />
 
       <Header />
 

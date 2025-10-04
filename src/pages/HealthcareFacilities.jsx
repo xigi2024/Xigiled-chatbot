@@ -124,8 +124,7 @@ const HealthcareFacilities = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="hospitality" />
-<FAQSchema faqData={faqData.industry["restaurants-and-hotels"]} />
-
+<FAQSchema faqData={faqData.industry["restaurants-and-hotels"].faqs} />
       <Header />
 
 

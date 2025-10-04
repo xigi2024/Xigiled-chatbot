@@ -125,8 +125,7 @@ const TransportationHubs = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="transport" />
-<FAQSchema faqData={faqData.industry["transport-and-public-venue"]} />
-
+<FAQSchema faqData={faqData.industry["transport-and-public-venue"].faqs} />
       <Header />
 
       {/* Hero Section - Banner + Content Below for Transportation Hubs */}

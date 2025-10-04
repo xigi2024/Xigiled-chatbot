@@ -121,8 +121,7 @@ const EducationInstitutions = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="education" />
-<FAQSchema faqData={faqData.industry["education-institution"]} />
-
+<FAQSchema faqData={faqData.industry["education-institution"].faqs} />
 
       <Header />
       {/* Hero Section - Banner + Content Below */}

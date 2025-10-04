@@ -120,8 +120,7 @@ const EventsExhibitions = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="events" />
-<FAQSchema faqData={faqData.industry["events-and-exhibition"]} />
-
+<FAQSchema faqData={faqData.industry["events-and-exhibition"].faqs} />
       <Header />
       {/* Banner Section - Dynamic with API data */}
       {heroSection && (

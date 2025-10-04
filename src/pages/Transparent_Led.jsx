@@ -459,8 +459,7 @@ const Transparent_Led = () => {
   return (
     <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="transparent" />
-<FAQSchema faqData={faqData.product["transparent-led-display"]} />
-
+<FAQSchema faqData={faqData.product["transparent-led-display"].faqs} />
 
       <Header />
  

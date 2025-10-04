@@ -98,8 +98,7 @@ const Government = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
 <SEOMetaTags pageType="industry" pageName="government" />
-<FAQSchema faqData={faqData.industry["government-and-civics-spaces"]} />
-
+<FAQSchema faqData={faqData.industry["government-and-civics-spaces"].faqs} />
 
       <Header />
 

@@ -468,8 +468,7 @@ const Custom_Led = () => {
   return (
     <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="custom" />
-<FAQSchema faqData={faqData.product["custom-led-display"]} />
-
+<FAQSchema faqData={faqData.product["custom-led-display"].faqs} />
 
       <Header />
 

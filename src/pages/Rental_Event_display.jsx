@@ -425,8 +425,7 @@ const Rental_Event_display = () => {
     return (
       <div className="min-h-screen flex flex-col">
 <SEOMetaTags pageType="products" pageName="rental" />
-<FAQSchema faqData={faqData.product["rental-led-display"]} />
-
+<FAQSchema faqData={faqData.product["rental-led-display"].faqs} />
 
         <Header />
         
