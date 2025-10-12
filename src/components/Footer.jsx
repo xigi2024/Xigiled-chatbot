@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
 import logo from '../assets/Xigilogo.png';
 
 const Footer = () => {
@@ -77,7 +77,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-
+              
               {/* Social Links - Full width below on mobile, third column on tablet+ */}
               <div className="col-span-2 md:col-span-1">
                 <h3 className="text-lg font-semibold mb-4 text-white">Social Links</h3>
@@ -93,9 +93,8 @@ const Footer = () => {
                   >
                     <Facebook size={20} />
                   </a>
-
                   <a
-                    href="https://www.youtube.com/@Xigitech"
+                    href="https://www.youtube.com/@XIGILED"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 p-2 rounded-md"
@@ -110,15 +109,6 @@ const Footer = () => {
                     className="text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 p-2 rounded-md"
                   >
                     <Instagram size={20} />
-                  </a>
-
-                  <a
-                    href="https://www.linkedin.com/company/xigi/?originalSubdomain=in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 p-2 rounded-md"
-                  >
-                    <Linkedin size={20} />
                   </a>
                 </div>
               </div>

@@ -11,16 +11,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import SEOMetaTags from '../components/SEOMetaTags';
 
-
-
 const IndustrySection = ({ sectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
-
   if (!sectionData || !sectionData.images) {
     return <div>Loading...</div>;
   }
-
   // Filter out images without titles for the features list
   const validImages = sectionData.images.filter(img => img.title);
 
@@ -32,8 +28,6 @@ const IndustrySection = ({ sectionData }) => {
     desc: item.description || "Enhanced functionality and performance for your business needs.",
     image: item.image
   }));
-
-
   return (
     <section className="relative py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27 bg-white text-gray-900">
       <div className="container mx-auto">
@@ -50,7 +44,6 @@ const IndustrySection = ({ sectionData }) => {
                   key={idx}
                   className={`p-3 rounded-xl transition-all transform duration-300 ease-in-out flex items-start gap-4 ${activeIndex === idx ? "bg-white scale-105" : "scale-95 "
                     }`}
-
                   onMouseEnter={() => setActiveIndex(idx)}
                 >
                   {/* Image Left */}
@@ -73,8 +66,6 @@ const IndustrySection = ({ sectionData }) => {
 
               ))}
             </div>
-
-
           </div>
 
           {/* Right: Image */}
@@ -100,55 +91,149 @@ const IndustrySection = ({ sectionData }) => {
 };
 
 const MemberConnect = ({ testimonialsSection }) => {
+  const navigate = useNavigate();
+  
+  // Function to create SEO-friendly slug
+  const createClientSlug = (clientName) => {
+    if (!clientName) return 'client';
+    
+    return clientName
+      .toLowerCase()
+      .replace(/&/g, 'and')
+      .replace(/[^a-zA-Z0-9 ]/g, '')
+      .replace(/\s+/g, '-')
+      .trim();
+  };
+
   if (!testimonialsSection?.images) return null;
 
-  // Client details + image mapping
-  const testimonials = testimonialsSection.images.map((testimonial) => ({
+  // Create client data from existing fields
+  const testimonials = testimonialsSection.images.map((testimonial, index) => ({
+    id: index + 1,
     name: testimonial.client_name?.trim() || "Client",
-    title: testimonial.title || "Client",
-    feedback: testimonial.description || "Great service!",
+    position: testimonial.title || "Project Manager",
+    testimonial: testimonial.description || "Great service!",
     image: `https://xigiled.in/storage/${testimonial.image}`,
+    company: testimonial.company || `${testimonial.client_name}'s Company`,
+    industry: testimonial.industry || "Various Industries",
+    location: testimonial.location || "Tamil Nadu",
+    slug: createClientSlug(testimonial.client_name || `client-${index + 1}`)
   }));
+
+  // Handle client logo click
+  const handleClientClick = (client) => {
+    navigate(`/clients/${client.slug}`, { state: { client } });
+  };
+
+  // Calculate if we have enough slides for loop mode
+  // Swiper requires at least 2 * slidesPerView slides for loop to work properly
+  const getSlidesPerView = (breakpoint = 'desktop') => {
+    const breakpointConfig = {
+      mobile: Math.min(2, testimonials.length),
+      tablet: Math.min(3, testimonials.length),
+      desktop: Math.min(5, testimonials.length)
+    };
+    return breakpointConfig[breakpoint] || breakpointConfig.desktop;
+  };
+
+  const desktopSlidesPerView = getSlidesPerView('desktop');
+  const hasEnoughSlidesForLoop = testimonials.length >= desktopSlidesPerView * 2;
 
   return (
     <section className="py-10 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-bold text-center mb-6">Trusted Clients</h2>
+        <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-bold text-center mb-6">
+          {testimonialsSection.title || "Trusted Clients"}
+        </h2>
 
         <Swiper
           modules={[Autoplay]}
           spaceBetween={20}
-          slidesPerView={4}
-          centeredSlides={true} // ✅ Slides center la varum
-          loop={true}
-          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          slidesPerView={desktopSlidesPerView}
+          centeredSlides={testimonials.length > 2}
+          loop={hasEnoughSlidesForLoop}
+          autoplay={{ 
+            delay: 2000, 
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            // Disable autoplay if not enough slides for smooth loop
+            stopOnLastSlide: !hasEnoughSlidesForLoop
+          }}
           breakpoints={{
-            320: { slidesPerView: 2, centeredSlides: true },
-            640: { slidesPerView: 3, centeredSlides: true },
-            1024: { slidesPerView: 5, centeredSlides: true },
+            // Mobile: show 1-2 slides based on available testimonials
+            320: { 
+              slidesPerView: getSlidesPerView('mobile'),
+              centeredSlides: testimonials.length > 1,
+              // Disable loop on mobile if not enough slides
+              loop: testimonials.length >= getSlidesPerView('mobile') * 2
+            },
+            // Tablet: show 2-3 slides based on available testimonials
+            640: { 
+              slidesPerView: getSlidesPerView('tablet'),
+              centeredSlides: testimonials.length > 2,
+              // Disable loop on tablet if not enough slides
+              loop: testimonials.length >= getSlidesPerView('tablet') * 2
+            },
+            // Desktop: show 3-5 slides based on available testimonials
+            1024: { 
+              slidesPerView: desktopSlidesPerView,
+              centeredSlides: testimonials.length > 3,
+              loop: hasEnoughSlidesForLoop
+            },
+          }}
+          // Add warning suppression for development
+          on={{
+            init: function (swiper) {
+              if (!hasEnoughSlidesForLoop && swiper.params.loop) {
+                console.warn('Swiper: Not enough slides for loop mode, disabling loop');
+                swiper.params.loop = false;
+                swiper.destroyLoop();
+                swiper.reinit();
+              }
+            }
           }}
         >
           {testimonials.map((item, idx) => (
             <SwiperSlide key={idx}>
               <div className="flex flex-col items-center">
-                {/* Logo in Circle */}
-                <div className="flex justify-center items-center bg-white rounded-full shadow-sm overflow-hidden h-40 w-40 mx-auto mb-3">
+                {/* Clickable Logo in Circle */}
+                <div 
+                  className="flex justify-center items-center bg-white rounded-full shadow-sm overflow-hidden h-32 w-32 md:h-40 md:w-40 mx-auto mb-3 cursor-pointer transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                  onClick={() => handleClientClick(item)}
+                  title={`View ${item.name} case study`}
+                >
                   <img
                     src={item.image}
                     alt={item.name}
                     className="object-cover h-full w-full"
                   />
                 </div>
+                
+                {/* Client Info */}
+                <div className="text-center mt-2">
+                  <p className="font-semibold text-gray-800 text-sm">{item.name}</p>
+                  <p className="text-gray-600 text-xs mt-1">{item.position}</p>
+                  {item.company && (
+                    <p className="text-gray-500 text-xs mt-1">{item.company}</p>
+                  )}
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Show message if very few testimonials */}
+        {testimonials.length <= 2 && (
+          <div className="text-center mt-8">
+            <p className="text-gray-500 text-sm">
+              More client testimonials coming soon...
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
 };
-
-
 
 const Home = () => {
 
@@ -643,11 +728,11 @@ const Home = () => {
           <IndustrySection sectionData={industryApplicationsSection} />
         )}
 
-        {/* {testimonialsSection && (
+        {testimonialsSection && (
           <div id="testimonials-section">
             <MemberConnect testimonialsSection={testimonialsSection} />
           </div>
-        )} */}
+        )}
 
         {/* CTA Section */}
         <div style={{ backgroundColor: "#F3F7FF" }}>

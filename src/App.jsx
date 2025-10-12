@@ -28,6 +28,7 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
+import ClientDetail from './pages/ClientDetail';
 import WhatsAppFloating from './components/WhatsAppFloating'
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/clients/:clientSlug" element={<ClientDetail />} />
         <Route path="/industry" element={<Industry />} />
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />

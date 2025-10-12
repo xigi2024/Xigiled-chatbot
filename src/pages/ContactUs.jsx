@@ -132,7 +132,7 @@ const ContactSection = ({ contactFormRef }) => {
                                    className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow flex-shrink-0">
                                     <Facebook size={20} />
                                 </a>
-                                <a href="https://www.youtube.com/@Xigitech"
+                                <a href="https://www.youtube.com/@XIGILED"
                                    target="_blank"
                                    rel="noopener noreferrer"
                                    className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow flex-shrink-0">
@@ -144,12 +144,7 @@ const ContactSection = ({ contactFormRef }) => {
                                    className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow flex-shrink-0">
                                     <Instagram size={20} />
                                 </a>
-                                <a href="https://www.linkedin.com/company/xigi/"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   className="cursor-pointer p-2 rounded-md bg-white hover:bg-blue-600 hover:text-white text-blue-600 border transition-colors shadow flex-shrink-0">
-                                    <Linkedin size={20} />
-                                </a>
+                               
                             </div>
                         </div>
                     </div>

@@ -93,6 +93,12 @@ const Header = () => {
               >
                 Products
               </Link>
+                 <Link
+                to="/gallery"
+                className={`text-[18px] transition-colors ${currentPath === '/products' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+              >
+                Gallery
+              </Link>
               <Link
                 to="/blog"
                 className={`text-[18px] transition-colors ${currentPath === '/blog' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
