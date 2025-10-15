@@ -39,12 +39,11 @@ const generateSlug = (title) => {
     .trim();
 };
 
-// Helper function to map title to route
 const getRouteFromTitle = (title) => {
   if (!title) return '/products';
-  
+
   const titleLower = title.toLowerCase();
-  
+
   // Map specific titles to routes
   if (titleLower.includes('indoor') && titleLower.includes('led')) {
     return '/products/indoor-led-video-walls';
@@ -58,7 +57,15 @@ const getRouteFromTitle = (title) => {
   if (titleLower.includes('truck') && titleLower.includes('mounted')) {
     return '/products/truck-mounted-displays';
   }
-  
+
+  // 🆕 Correct route for Flexible Curved LED Display
+if (
+  (titleLower.includes('flexible') && titleLower.includes('curved')) ||
+  (titleLower.includes('flexible') && titleLower.includes('led'))
+) {
+  return '/products/flexible-curved-led-walls';
+}
+
   // Default: generate route from title
   const slug = generateSlug(title);
   return `/products/${slug}`;

@@ -242,7 +242,6 @@ const Home = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
@@ -500,7 +499,7 @@ const Home = () => {
                     {/* Flexible & Curved - 7 cols */}
                     {completeRangeSection.images[6] && (
                       <a
-                        href="/products/flexible-led-display"
+                        href="/products/flexible-curved-led-walls"
                         className="block col-span-12 md:col-span-7 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[180px] md:h-[200px] lg:h-[240px]"
                       >
                         <img

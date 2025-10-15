@@ -66,7 +66,7 @@ function App() {
 <Route path='/products/led-standee-display' element={<Led_Standee />} />
 <Route path='/products/interactive-displays' element={<Interactive_display />} />
 <Route path='/products/transparent-led-display' element={<Transparent_Led />} />
-<Route path='/products/flexibile-curved-led-walls' element={<FlexibleLed />} />
+<Route path='/products/flexible-curved-led-walls' element={<FlexibleLed />} />
 <Route path='/products/rental-event-display' element={<Rental_Event_display />} />
 <Route path='/products/custom-led-display' element={<Custom_Led />} />
 

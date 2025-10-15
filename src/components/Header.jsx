@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Menu, X, Home, Building2, Package, FileText, Users } from 'lucide-react';
-import logo from '../assets/Xigilogo.png';
+import logo from '../assets/xigi_led_logo.png';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,7 +50,7 @@ const Header = () => {
           <div className="flex justify-between items-center">
             {/* Logo on the left */}
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="XIGI LED Logo" className="h-[50px] md:h-[70px] w-auto" />
+              <img src={logo} alt="XIGI LED Logo" className="h-[50px] md:h-[80px] w-auto" />
             </Link>
 
             {/* Contact Button on the right */}
@@ -70,44 +70,44 @@ const Header = () => {
           <div className="flex justify-between items-center">
             {/* Logo */}
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="XIGI LED Logo" className="h-[50px] md:h-[70px] w-auto" />
+              <img src={logo} alt="XIGI LED Logo" className="h-[50px] md:h-[70px] py-1 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
             <div className="flex items-center gap-8 relative">
               <Link
                 to="/"
-                className={`text-[18px] transition-colors ${currentPath === '/' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors ${currentPath === '/' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
               >
                 Home
               </Link>
               <button
-                className={`text-[18px] transition-colors focus:outline-none cursor-pointer ${currentPath === '/industry' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors focus:outline-none cursor-pointer ${currentPath === '/industry' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
                 onClick={() => navigate('/industry')}
               >
                 Industry
               </button>
               <Link
                 to="/products"
-                className={`text-[18px] transition-colors ${currentPath === '/products' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors ${currentPath === '/products' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
               >
                 Products
               </Link>
                  <Link
                 to="/gallery"
-                className={`text-[18px] transition-colors ${currentPath === '/products' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors ${currentPath === '/products' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
               >
                 Gallery
               </Link>
               <Link
                 to="/blog"
-                className={`text-[18px] transition-colors ${currentPath === '/blog' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors ${currentPath === '/blog' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
               >
                 Blog
               </Link>
               <Link
                 to="/about"
-                className={`text-[18px] transition-colors ${currentPath === '/about' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
+                className={`text-[20px] transition-colors ${currentPath === '/about' ? 'text-blue-400' : 'text-white'} hover:text-blue-400`}
               >
                 About
               </Link>
