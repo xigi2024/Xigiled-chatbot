@@ -23,9 +23,6 @@ p {
 .Visionimg{
   background-image: url(../src/assets/heroimg.png);
 }
-.conback{
-  background-image: url(/assets/backgroundcon.png);
-}
 .container {
   width: 1320px;
   margin-left: auto;

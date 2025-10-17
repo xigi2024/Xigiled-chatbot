@@ -7,7 +7,6 @@ import SEOMetaTags from '../components/SEOMetaTags';
 import FAQSchema from '../components/FAQSchema'; // Add this import
 import { faqData } from '../data/faqData'; // Add this import
 
-
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
     <div
@@ -121,11 +120,10 @@ const TransportationHubs = () => {
   const transformSection = getSectionData('transport_public_venue_section8');
   const faqSection = getSectionData('transport_public_venue_faq_section');
 
-
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
-<SEOMetaTags pageType="industry" pageName="transport" />
-<FAQSchema faqData={faqData.industry["transport-and-public-venue"].faqs} />
+      <SEOMetaTags pageType="industry" pageName="transport" />
+      <FAQSchema faqData={faqData.industry["transport-and-public-venue"].faqs} />
       <Header />
 
       {/* Hero Section - Banner + Content Below for Transportation Hubs */}
@@ -134,15 +132,14 @@ const TransportationHubs = () => {
           {/* Banner Image (No Overlay) */}
           <div className="relative h-[70vh] w-full">
             {/* Background Image */}
-            {heroSection.images?.[0]?.image && (
+            {heroSection.images?.[0]?.url && (
               <img
-                src={`https://xigiled.in/storage/${heroSection.images[0].image}`}
+                src={heroSection.images[0].url}
                 alt={heroSection.title || "LED Display"}
                 className="w-full h-full object-cover"
               />
             )}
             <div className="absolute inset-0 bg-black/45"></div>
-
           </div>
 
           {/* Breadcrumb */}
@@ -160,7 +157,6 @@ const TransportationHubs = () => {
             </span>
           </div>
 
-
           {/* Content Section Below Banner */}
           <div className="container mx-auto px-4 md:px-8 lg:px-20 pb-12 pt-5 text-center">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-5 text-gray-900 font-['Poppins',sans-serif]">
@@ -173,16 +169,14 @@ const TransportationHubs = () => {
         </>
       )}
 
-
       {/* Excellence Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-
         <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
           {/* Left Image */}
           <div className="flex justify-center w-full">
-            {excellenceSection?.images?.[0]?.image && (
+            {excellenceSection?.images?.[0]?.url && (
               <img
-                src={`https://xigiled.in/storage/${excellenceSection.images[0].image}`}
+                src={excellenceSection.images[0].url}
                 alt="LED Display for Transportation"
                 className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
               />
@@ -216,7 +210,6 @@ const TransportationHubs = () => {
         </div>
       </section>
 
-
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
         <section className="bg-white py-15">
@@ -236,7 +229,7 @@ const TransportationHubs = () => {
               {smartDisplaysSection.images?.map((item, index) => (
                 <div key={index} className="relative rounded-xl overflow-hidden h-70">
                   <img
-                    src={`https://xigiled.in/storage/${item.image}`}
+                    src={item.url}
                     alt={item.title}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -251,7 +244,6 @@ const TransportationHubs = () => {
           </div>
         </section>
       )}
-
 
       {/* Smart Features Section with FAQs */}
       {smartFeaturesSection && (
@@ -271,9 +263,9 @@ const TransportationHubs = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {smartFeaturesSection.images?.map((imageItem, imageIndex) => (
                 <div key={imageIndex} className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
-                  {imageItem.image && (
+                  {imageItem.url && (
                     <img
-                      src={`https://xigiled.in/storage/${imageItem.image}`}
+                      src={imageItem.url}
                       alt={imageItem.title || "LED Display"}
                       className="w-full object-cover h-[400px] mb-4 rounded-t-xl"
                     />
@@ -354,9 +346,9 @@ const TransportationHubs = () => {
 
             {/* Right Image */}
             <div>
-              {flexibleDisplaySection.images?.find(img => img.image) && (
+              {flexibleDisplaySection.images?.find(img => img.url) && (
                 <img
-                  src={`https://xigiled.in/storage/${flexibleDisplaySection.images.find(img => img.image).image}`}
+                  src={flexibleDisplaySection.images.find(img => img.url).url}
                   alt="Flexible Display"
                   className="rounded-xl w-full h-[400px] object-cover"
                 />
@@ -387,7 +379,7 @@ const TransportationHubs = () => {
                 >
                   <div className="h-60 overflow-hidden relative">
                     <img
-                      src={`https://xigiled.in/storage/${item.image}`}
+                      src={item.url}
                       alt={item.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
@@ -435,8 +427,8 @@ const TransportationHubs = () => {
             <div
               className="h-[500px] relative rounded-3xl overflow-hidden"
               style={{
-                backgroundImage: transformSection.images?.[0]?.image
-                  ? `url(https://xigiled.in/storage/${transformSection.images[0].image})`
+                backgroundImage: transformSection.images?.[0]?.url
+                  ? `url(${transformSection.images[0].url})`
                   : 'linear-gradient(to bottom right, #000000, #010150, #000000)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

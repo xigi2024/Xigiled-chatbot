@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
-import logo from '../assets/Xigilogo.png';
+import logo from '../assets/xigi_led_logo.png';
 
 const Footer = () => {
   return (

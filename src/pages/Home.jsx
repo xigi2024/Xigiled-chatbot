@@ -726,12 +726,12 @@ const Home = () => {
         {industryApplicationsSection && (
           <IndustrySection sectionData={industryApplicationsSection} />
         )}
-
+{/* 
         {testimonialsSection && (
           <div id="testimonials-section">
             <MemberConnect testimonialsSection={testimonialsSection} />
           </div>
-        )}
+        )} */}
 
         {/* CTA Section */}
         <div style={{ backgroundColor: "#F3F7FF" }}>

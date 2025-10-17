@@ -2,10 +2,34 @@ import React, { useRef, useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronDown } from "lucide-react"; // Added ChevronDown import
 import SEOMetaTags from '../components/SEOMetaTags';
-import FAQSchema from '../components/FAQSchema'; // Add this import
-import { faqData } from '../data/faqData'; // Add this import
+import FAQSchema from '../components/FAQSchema';
+import { faqData } from '../data/faqData';
+
+const FAQItem = ({ question, answer, isActive, onClick }) => {
+  return (
+    <div
+      className="bg-[#EAF1FF] rounded-lg p-4 mb-4 shadow cursor-pointer transition-all"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center">
+        <p className="text-black text-[15px] md:text-[17px] font-['Montserrat',sans-serif] font-medium">
+          {question}
+        </p>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-500 transform transition-transform ${isActive ? "rotate-180" : ""
+            }`}
+        />
+      </div>
+      {isActive && (
+        <div className="mt-4 text-gray-700 text-[14px] leading-relaxed md:text-[16px] font-['Montserrat',sans-serif] font-medium">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+};
 
 // Government Component in EventsExhibitions Style
 const Government = () => {
@@ -13,6 +37,7 @@ const Government = () => {
   const [loading, setLoading] = useState(true);
   const [openFaqs, setOpenFaqs] = useState(null);
   const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const navigate = useNavigate();
 
   const handleCtaClick = () => {
@@ -94,11 +119,12 @@ const Government = () => {
   const flexibleDisplaySection = getSectionData('government_public_space_section6');
   const eventPlannersSection = getSectionData('government_public_space_section7');
   const transformSection = getSectionData('government_public_space_section8');
+  const faqSection = getSectionData('government_public_space_faq_section');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
-<SEOMetaTags pageType="industry" pageName="government" />
-<FAQSchema faqData={faqData.industry["government-and-civics-spaces"].faqs} />
+      <SEOMetaTags pageType="industry" pageName="government" />
+      <FAQSchema faqData={faqData.industry["government-and-civics-spaces"].faqs} />
 
       <Header />
 
@@ -116,9 +142,7 @@ const Government = () => {
               />
             )}
             <div className="absolute inset-0 bg-black/45"></div>
-
           </div>
-
 
           <div className="container text-sm text-gray-500 my-5">
             <span className="inline-flex items-center gap-2">
@@ -133,6 +157,7 @@ const Government = () => {
               <span className="text-blue-600 text-decoration-none font-medium">Government & Public Spaces</span>
             </span>
           </div>
+          
           {/* Content Section Below Banner */}
           <div className="container mx-auto px-4 md:px-8 lg:px-20 pb-12 pt-5 text-center">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-5 text-gray-900 font-['Poppins',sans-serif]">
@@ -145,11 +170,8 @@ const Government = () => {
         </>
       )}
 
-
       {/* Visibility & Versatility Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-
-
         <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10">
           {/* Left Image */}
           <div className="flex justify-center w-full">
@@ -174,13 +196,13 @@ const Government = () => {
             {/* List items without tick icons */}
             <div className="space-y-4 text-black font-medium text-[16px]">
               {visibilitySection?.images
-                ?.filter(item => item.title) // Only show items with titles
+                ?.filter(item => item.title)
                 .map((item, index) => (
-                  <div className="flex items-start gap-3">
+                  <div key={index} className="flex items-start gap-3"> {/* Added key prop */}
                     <div className="py-1 px-2 rounded-md bg-blue-100 text-blue-700">
                       ✓
                     </div>
-                    <p key={index} className="text-gray-900 text-base leading-relaxed">
+                    <p className="text-gray-900 text-base leading-relaxed">
                       {item.title}
                     </p>
                   </div>
@@ -189,6 +211,7 @@ const Government = () => {
           </div>
         </div>
       </section>
+
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
         <section className="bg-white py-15">
@@ -206,7 +229,7 @@ const Government = () => {
             {/* Images Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {smartDisplaysSection.images?.map((item, index) => (
-                <div key={index} className="relative rounded-xl overflow-hidden h-60 md:h-72 lg:h-80">
+                <div key={index} className="relative rounded-xl overflow-hidden h-60 md:h-72 lg:h-80"> {/* Added key prop */}
                   <img
                     src={`https://xigiled.in/storage/${item.image}`}
                     alt={item.title}
@@ -228,9 +251,10 @@ const Government = () => {
       {smartFeaturesSection && (
         <section className="bg-[#f8faff] py-20">
           <div className="container mx-auto">
-            <div className="text-left lg:text-center mb-10">              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
-              {smartFeaturesSection.title || "LED Display Options"}
-            </h2>
+            <div className="text-left lg:text-center mb-10">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium text-gray-900 mb-3 font-['Poppins',sans-serif]">
+                {smartFeaturesSection.title || "LED Display Options"}
+              </h2>
               {smartFeaturesSection.description && (
                 <p className="text-black text-[16px] font-medium md:text-lg mb-6 leading-relaxed max-w-3xl mx-auto">
                   {smartFeaturesSection.description}
@@ -240,7 +264,7 @@ const Government = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {smartFeaturesSection.images?.map((imageItem, imageIndex) => (
-                <div key={imageIndex} className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden">
+                <div key={imageIndex} className="bg-[#F4F6FA] rounded-xl shadow-md overflow-hidden"> {/* Added key prop */}
                   {imageItem.image && (
                     <img
                       src={`https://xigiled.in/storage/${imageItem.image}`}
@@ -259,7 +283,7 @@ const Government = () => {
                       const isOpen = openFaqs === key;
                       return (
                         <div
-                          key={faqIndex}
+                          key={faqIndex} // Added key prop
                           className="rounded-md overflow-hidden transition-all duration-200 hover:shadow-md"
                         >
                           <div
@@ -313,7 +337,7 @@ const Government = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-md">
                 {flexibleDisplaySection.images?.filter(img => img.description).map((item, index) => (
-                  <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md">
+                  <div key={index} className="bg-[#EAF1FF] hover:bg-[#dce8ff] transition rounded-xl p-5 shadow-md"> {/* Added key prop */}
                     <h2 className='text-blue-700 text-[22px] mb-4 '>{item.title}</h2>
                     <p className="text-gray-black font-medium text-[16px] md:text-[17px] ">
                       {item.description}</p>
@@ -340,9 +364,10 @@ const Government = () => {
       {eventPlannersSection && (
         <section className="bg-[#EAF1FF] py-20 md:py-17 lg:py-27 px-4 md:px-5 lg:px-27">
           <div className="container mx-auto">
-            <div className="text-left lg:text-center mb-12">              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
-              {eventPlannersSection.title || "Why Government Agencies Choose Xigi LED"}
-            </h2>
+            <div className="text-left lg:text-center mb-12">
+              <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-3 font-['Poppins',sans-serif]">
+                {eventPlannersSection.title || "Why Government Agencies Choose Xigi LED"}
+              </h2>
               <p className="text-gray-900 text-[17px] mx-auto font-['Montserrat',sans-serif] font-medium max-w-2xl">
                 {eventPlannersSection.description || "Trusted solutions for government and public spaces"}
               </p>
@@ -351,7 +376,7 @@ const Government = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {eventPlannersSection.images?.map((item, index) => (
                 <div
-                  key={index}
+                  key={index} // Added key prop
                   className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100"
                 >
                   <div className="h-60 overflow-hidden relative">
@@ -371,6 +396,28 @@ const Government = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ Section */}
+      {faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
+        <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
+          <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
+            {faqSection.title}
+          </h2>
+          <div className="max-w-4xl mx-auto">
+            {faqSection.faq_entries.map((faq, index) => (
+              <FAQItem
+                key={index} // Added key prop
+                question={faq.question}
+                answer={faq.answer}
+                isActive={activeIndex === index}
+                onClick={() =>
+                  setActiveIndex(activeIndex === index ? null : index)
+                }
+              />
+            ))}
           </div>
         </section>
       )}

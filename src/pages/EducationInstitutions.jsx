@@ -4,9 +4,8 @@ import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, ChevronDown } from "lucide-react";
 import SEOMetaTags from '../components/SEOMetaTags';
-import FAQSchema from '../components/FAQSchema'; // Add this import
-import { faqData } from '../data/faqData'; // Add this import
-
+import FAQSchema from '../components/FAQSchema';
+import { faqData } from '../data/faqData';
 
 const FAQItem = ({ question, answer, isActive, onClick }) => {
   return (
@@ -66,7 +65,6 @@ const EducationInstitutions = () => {
 
   const toggleFaq = (imageIndex, faqIndex) => {
     const key = `${imageIndex}-${faqIndex}`;
-    const isOpen = openFaqs === key;
     setOpenFaqs(prev => (prev === key ? null : key));
   };
 
@@ -116,14 +114,15 @@ const EducationInstitutions = () => {
   const flexibleDisplaySection = getSectionData('education_section6');
   const chooseXigiSection = getSectionData('education_section7');
   const transformSection = getSectionData('education_section8');
-  const faqSection = getSectionData('education_faq_section');
+  const faqSection = getSectionData('manufacturing_factory_faq_section'); // This is the correct section name from your API
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8faff]">
-<SEOMetaTags pageType="industry" pageName="education" />
-<FAQSchema faqData={faqData.industry["education-institution"].faqs} />
+      <SEOMetaTags pageType="industry" pageName="education" />
+      <FAQSchema faqData={faqData.industry["education-institution"].faqs} />
 
       <Header />
+      
       {/* Hero Section - Banner + Content Below */}
       {heroSection && (
         <>
@@ -138,8 +137,8 @@ const EducationInstitutions = () => {
               />
             )}
             <div className="absolute inset-0 bg-black/45"></div>
-
           </div>
+          
           {/* Breadcrumb */}
           <div className="container text-sm text-gray-500 my-5">
             <span className="inline-flex items-center gap-2">
@@ -155,7 +154,6 @@ const EducationInstitutions = () => {
             </span>
           </div>
 
-
           {/* Content Section Below Banner */}
           <div className="container mx-auto px-4 md:px-8 lg:px-20 pb-12 pt-5 text-center">
             <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-5 text-gray-900 font-['Poppins',sans-serif]">
@@ -168,11 +166,8 @@ const EducationInstitutions = () => {
         </>
       )}
 
-
-
       {/* Excellence Section */}
       <section className="bg-white rounded-t-[2.5rem] md:rounded-t-[3rem] -mt-10 z-20 relative py-16 md:py-20 lg:py-24">
-
         <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-10 ">
           {/* Left Image */}
           <div className="flex justify-center w-full">
@@ -183,7 +178,6 @@ const EducationInstitutions = () => {
                 className="w-full max-w-[800px] h-80 md:h-100 lg:h-120 rounded-2xl shadow-lg object-cover"
               />
             )}
-
           </div>
 
           {/* Right Content */}
@@ -221,11 +215,9 @@ const EducationInstitutions = () => {
                   </div>
                 ))}
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* Smart Displays Section */}
       {smartDisplaysSection && (
@@ -261,7 +253,6 @@ const EducationInstitutions = () => {
           </div>
         </section>
       )}
-
 
       {/* Smart Features Section with FAQs */}
       {smartFeaturesSection && (
@@ -328,8 +319,8 @@ const EducationInstitutions = () => {
                 </div>
               ))}
             </div>
-
-            {/* Suggestion Note - Moved inside container */}
+          
+            {/* Suggestion Note */}
             <div className="bg-[#EDF3FF] text-sm md:text-base text-black font-medium px-6 py-4 rounded-md flex items-center gap-3 mt-10 max-w-3xl mx-auto">
               <span className="text-yellow-500 text-xl">💡</span>
               <p>Suggestion: P5 to P10 is a suitable choice for educational applications above 50 feet.</p>
@@ -420,7 +411,7 @@ const EducationInstitutions = () => {
       {faqSection && faqSection.faq_entries && faqSection.faq_entries.length > 0 && (
         <section className="bg-[#fff] py-10 md:py-27 px-4 md:px-20">
           <h2 className="md:text-center text-left text-[28px] md:text-[32px] lg:text-[40px] font-medium mb-8 md:mb-10 font-['Poppins',sans-serif]">
-            {faqSection.title}
+            {faqSection.title || "Frequently Asked Questions"}
           </h2>
           <div className="max-w-4xl mx-auto">
             {faqSection.faq_entries.map((faq, index) => (

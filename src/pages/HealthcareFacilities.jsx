@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronDown } from "lucide-react";
 import SEOMetaTags from '../components/SEOMetaTags';
 import FAQSchema from '../components/FAQSchema'; // Add this import
 import { faqData } from '../data/faqData'; // Add this import
