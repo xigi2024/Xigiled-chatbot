@@ -30,11 +30,17 @@ import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
 import ClientDetail from './pages/ClientDetail';
 import WhatsAppFloating from './components/WhatsAppFloating'
+import ChatbotFloating from './components/ChatbotFloating'
+import AIChatAssistant from './pages/chatbot'
+import Dashboard from './pages/Dashboard'
+
+
 function App() {
   return (
 
     <Router>
       <WhatsAppFloating />
+      <ChatbotFloating />
       <ScrollToTopButton />
       <ScrollToTop />
       <Routes>
@@ -69,6 +75,10 @@ function App() {
 <Route path='/products/flexible-curved-led-walls' element={<FlexibleLed />} />
 <Route path='/products/rental-event-display' element={<Rental_Event_display />} />
 <Route path='/products/custom-led-display' element={<Custom_Led />} />
+<Route path='/chatbot' element={<AIChatAssistant />} />
+<Route path='/dashboard' element={<Dashboard />} />
+
+
 
 </Routes>
 </Router>
