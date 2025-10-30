@@ -38,7 +38,7 @@ const AIChatAssistant = () => {
       try {
         console.log('Making axios request...');
         // Call your Django backend
-        const response = await axios.post("http://localhost:8000/api/alexa/chat/", {
+        const response = await axios.post("http://localhost:8000/api/alexa/", {
           session_id: sessionId,
           message: msgToSend
         });
