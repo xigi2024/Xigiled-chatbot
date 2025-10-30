@@ -45,7 +45,7 @@ const ChatbotFloating = () => {
     setIsTyping(true);
     setTimeout(async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/alexa/chat/", {
+        const response = await fetch("http://localhost:8000/api/alexa/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
