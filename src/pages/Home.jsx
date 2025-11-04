@@ -419,14 +419,14 @@ const Home = () => {
               <div className="grid grid-cols-12 gap-6">
                 {/* Left Column - Main Products */}
                 <div className="col-span-12 lg:col-span-9">
-                  {/* First Row - Indoor, Outdoor, Interactive */}
+                  {/* First Row - Indoor, Outdoor, Rental */}
                   <div className="grid grid-cols-12 gap-6 mb-6">
-                    {/* Indoor LED Wall - 6 columns */}
+                    {/* Indoor LED Wall - 4 columns */}
                     {completeRangeSection.images[0] && (
                       <a
                         href="/products/indoor-led-video-walls"
-                        className="block col-span-12 md:col-span-6 bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[250px] md:h-[200px] lg:h-[240px]">
-                        {/* Content here */}                <img
+                        className="block col-span-12 md:col-span-4 bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[250px] md:h-[200px] lg:h-[240px]">
+                        <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
                           alt={completeRangeSection.images[0].title}
                           className="w-full object-cover h-[250px] lg:h-[240px]  md:object-cover  rounded-xl"
@@ -434,30 +434,30 @@ const Home = () => {
                       </a>
                     )}
 
-                    {/* Outdoor LED - 3 columns */}
+                    {/* Outdoor LED - 4 columns */}
                     {completeRangeSection.images[1] && (
                       <a
                         href="/products/outdoor-led-video-walls"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
+                        className="block col-span-12 md:col-span-4 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
                           src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
-                          className="w-full h-full object-containrounded-xl"
+                          className="w-full h-full object-contain rounded-xl"
                           alt={completeRangeSection.images[1].title}
                         />
                       </a>
                     )}
 
-                    {/* Interactive Display - 3 columns */}
-                    {completeRangeSection.images[2] && (
+                    {/* Rental & Event Display - 4 columns */}
+                    {completeRangeSection.images[5] && (
                       <a
-                        href="/products/interactive-display"
-                        className="block col-span-12 md:col-span-3 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
+                        href="/products/rental-event-display"
+                        className="block col-span-12 md:col-span-4 rounded-xl shadow-sm hover:shadow-md transition overflow-hidden h-[300px] md:h-[200px] lg:h-[240px]"
                       >
                         <img
-                          src={`https://xigiled.in/storage/${completeRangeSection.images[2].image}`}
-                          className="w-full h-full object-containrounded-xl"
-                          alt={completeRangeSection.images[2].title}
+                          src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
+                          className="w-full h-full object-cover rounded-xl"
+                          alt={completeRangeSection.images[5].title}
                         />
                       </a>
                     )}

@@ -7,6 +7,64 @@ const AIChatAssistant = () => {
   const [sessionId] = useState(`session-${Date.now()}`); // Unique session for each user
   const [isTyping, setIsTyping] = useState(false);
 
+  const renderMessage = (text) => {
+    if (!text) return text;
+    const lines = text.split(/\r?\n/);
+    // Find the start of the table (first line starting with '+')
+    let tableStart = -1;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim().startsWith('+') && lines[i].trim().endsWith('+')) {
+        tableStart = i;
+        break;
+      }
+    }
+    if (tableStart === -1) {
+      return <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{text}</pre>;
+    }
+    // Extract table lines
+    const tableLines = lines.slice(tableStart);
+    const tableRows = [];
+    for (const line of tableLines) {
+      const trimmedLine = line.trim();
+      if (trimmedLine.startsWith('|') && trimmedLine.endsWith('|')) {
+        const cells = trimmedLine.split('|').slice(1, -1).map(cell => cell.trim());
+        if (cells.length === 2) {
+          tableRows.push(
+            <tr key={tableRows.length}>
+              <td style={{ padding: '4px 8px', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
+              <td style={{ padding: '4px 8px', border: '1px solid #ccc' }}>{cells[1]}</td>
+            </tr>
+          );
+        } else if (cells.length === 1) {
+          tableRows.push(
+            <tr key={tableRows.length}>
+              <td colSpan="2" style={{ padding: '4px 8px', textAlign: 'center', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
+            </tr>
+          );
+        }
+      } else if (trimmedLine.startsWith('+') && trimmedLine.endsWith('+')) {
+        // Separator line, add a thin border row
+        tableRows.push(
+          <tr key={tableRows.length}>
+            <td colSpan="2" style={{ padding: '2px', borderTop: '2px solid #000', borderLeft: '1px solid #ccc', borderRight: '1px solid #ccc' }}></td>
+          </tr>
+        );
+      }
+    }
+    // Render the text before the table as pre, and the table as HTML
+    const preText = lines.slice(0, tableStart).join('\n');
+    return (
+      <div>
+        {preText && <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{preText}</pre>}
+        {tableRows.length > 0 && (
+          <table style={{ borderCollapse: 'collapse', width: '100%', fontFamily: 'Arial, sans-serif', fontSize: '14px', border: '1px solid #000', marginTop: '10px' }}>
+            <tbody>{tableRows}</tbody>
+          </table>
+        )}
+      </div>
+    );
+  };
+
   useEffect(() => {
     const fullText = "Hey 👋 I'm XIGI Assistant! Ready to explore LED panels?";
     let index = 0;
@@ -76,7 +134,7 @@ const AIChatAssistant = () => {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto" }}>
+    <div style={{ maxWidth: "100%", margin: "auto" }}>
       <div
         style={{
           border: "1px solid #ccc",
@@ -129,7 +187,7 @@ const AIChatAssistant = () => {
                 </div>
               </div>
             ) : (
-              <span
+              <div
                 style={{
                   display: "inline-block",
                   padding: "8px 12px",
@@ -137,8 +195,8 @@ const AIChatAssistant = () => {
                   backgroundColor: msg.type === "user" ? "#cce5ff" : "#e2e3e5"
                 }}
               >
-                {msg.text}
-              </span>
+                {renderMessage(msg.text)}
+              </div>
             )}
           </div>
         ))}

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaRobot, FaTimes } from "react-icons/fa";
+import ReactMarkdown from 'react-markdown';
 
 const ChatbotFloating = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,7 @@ const ChatbotFloating = () => {
       setIsTyping(true);
       const typingInterval = setInterval(() => {
         if (index < fullText.length) {
-          setMessages([{ sender: "bot", text: fullText.slice(0, index + 1), buttons: index === fullText.length - 1 ? ["Indoor Panels", "Outdoor Panels"] : [] }]);
+          setMessages([{ sender: "bot", text: fullText.slice(0, index + 1), buttons: index === fullText.length - 1 ? ["Indoor Panels", "Outdoor Panels", "Rental Panels"] : [] }]);
           index++;
         } else {
           clearInterval(typingInterval);
@@ -45,7 +46,7 @@ const ChatbotFloating = () => {
     setIsTyping(true);
     setTimeout(async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/alexa/", {
+        const response = await fetch("/api/alexa/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -110,7 +111,15 @@ const ChatbotFloating = () => {
                       : "bg-gray-100 text-left"
                   }`}
                 >
-                  {msg.text}
+                  {msg.sender === "bot" ? (
+                    <div className="prose prose-sm max-w-none">
+                      <ReactMarkdown>
+                        {msg.text}
+                      </ReactMarkdown>
+                    </div>
+                  ) : (
+                    msg.text
+                  )}
                 </div>
                 {msg.buttons && (
                   <div className="flex flex-wrap gap-2 mt-2">
