@@ -21,7 +21,7 @@ const ChatbotFloating = () => {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const fullText = "Hey 👋 I'm XIGI Assistant! Ready to explore LED panels?";
+      const fullText = "Hey 👋 I'm XIGI Assistant!  Ready to explore LED panels?";
       let index = 0;
       setIsTyping(true);
       const typingInterval = setInterval(() => {

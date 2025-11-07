@@ -47,11 +47,12 @@ const IndustrySection = ({ sectionData }) => {
                   onMouseEnter={() => setActiveIndex(idx)}
                 >
                   {/* Image Left */}
-                  <img
-                    src={`https://xigiled.in/storage/${feature.image}`}
-                    alt={feature.title}
-                    className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
-                  />
+          <img
+            src={`http://xigiled.in/storage/${feature.image}`}
+            alt={feature.title}
+            className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
 
                   <div className="flex flex-col">
                     <h3 className="text-[22px] mb-3 font-semibold text-[#0000ff]">
@@ -72,13 +73,13 @@ const IndustrySection = ({ sectionData }) => {
           <div className="w-full md:w-6/12 order-1 md:order-2 flex justify-center items-center">
             {rightSideImage ? (
               <img
-                src={`https://xigiled.in/storage/${rightSideImage.image}`}
+                src={`http://xigiled.in/storage/${rightSideImage.image}`}
                 alt={sectionData.title}
                 className="md:w-[90%] h-[400px] w-[100%] object-cover rounded-2xl"
               />
             ) : validImages.length > 0 ? (
               <img
-                src={`https://xigiled.in/storage/${validImages[0].image}`}
+                src={`http://xigiled.in/storage/${validImages[0].image}`}
                 alt={sectionData.title}
                 className="w-full h-auto object-cover rounded-2xl"
               />
@@ -113,7 +114,7 @@ const MemberConnect = ({ testimonialsSection }) => {
     name: testimonial.client_name?.trim() || "Client",
     position: testimonial.title || "Project Manager",
     testimonial: testimonial.description || "Great service!",
-    image: `https://xigiled.in/storage/${testimonial.image}`,
+    image: `http://xigiled.in/storage/${testimonial.image}`,
     company: testimonial.company || `${testimonial.client_name}'s Company`,
     industry: testimonial.industry || "Various Industries",
     location: testimonial.location || "Tamil Nadu",
@@ -245,7 +246,7 @@ const Home = () => {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch('https://xigiled.in/api/home');
+        const response = await fetch('/api/home');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -320,6 +321,14 @@ const Home = () => {
       </div>
     );
   }
+
+  if (!Array.isArray(homeData)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl text-red-600">Error: Invalid data format from API</div>
+      </div>
+    );
+  }
   // Get sections by their identifiers
   const whyChooseSection = homeData.find(section => section.section === 'home_section1');
   const completeRangeSection = homeData.find(section => section.section === 'home_section2');
@@ -391,6 +400,7 @@ const Home = () => {
               src={`https://xigiled.in/storage/${feature.image}`}
               alt={feature.title}
               className="w-[60px] h-[60px] bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+              onError={(e) => { e.target.style.display = 'none'; }}
             />
           </div>
           <h3 className="font-semibold text-xl md:text-[22px] text-gray-900 mb-3">
@@ -430,6 +440,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[0].image}`}
                           alt={completeRangeSection.images[0].title}
                           className="w-full object-cover h-[250px] lg:h-[240px]  md:object-cover  rounded-xl"
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -444,6 +455,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[1].image}`}
                           className="w-full h-full object-contain rounded-xl"
                           alt={completeRangeSection.images[1].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -458,6 +470,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[5].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -475,6 +488,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[4].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[4].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -489,6 +503,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[7].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[7].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -506,6 +521,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[6].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[6].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -520,6 +536,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[8].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[8].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -540,6 +557,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[3].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -554,6 +572,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[5].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[5].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -571,6 +590,7 @@ const Home = () => {
                           src={`https://xigiled.in/storage/${completeRangeSection.images[3].image}`}
                           className="w-full h-full object-cover rounded-xl"
                           alt={completeRangeSection.images[3].title}
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </a>
                     )}
@@ -701,8 +721,9 @@ const Home = () => {
                         <img
                           src={`https://xigiled.in/storage/${support.image}`}
                           alt={support.title}
-                          className="w-[55px] h-[55px] md:w-[60px] md:h-[60px] 
+                          className="w-[55px] h-[55px] md:w-[60px] md:h-[60px]
                              bg-[#e8f1ff] p-2.5 rounded-[5px] object-contain"
+                          onError={(e) => { e.target.style.display = 'none'; }}
                         />
                       </div>
                       <div>
