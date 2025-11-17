@@ -21,12 +21,12 @@ const ChatbotFloating = () => {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const fullText = "Hey 👋 I'm XIGI Assistant!  Ready to explore LED panels?";
+      const fullText = "Hey 👋 I'm XIGI AI Assistant! Ready to explore LED panels?";
       let index = 0;
       setIsTyping(true);
       const typingInterval = setInterval(() => {
         if (index < fullText.length) {
-          setMessages([{ sender: "bot", text: fullText.slice(0, index + 1), buttons: index === fullText.length - 1 ? ["Indoor Panels", "Outdoor Panels", "Rental Panels"] : [] }]);
+          setMessages([{ sender: "bot", text: fullText.slice(0, index + 1), buttons: index === fullText.length - 1 ? ["Indoor Panels", "Outdoor Panels", "Rental Panels", "Standee Panels"] : [] }]);
           index++;
         } else {
           clearInterval(typingInterval);
@@ -36,12 +36,13 @@ const ChatbotFloating = () => {
     }
   }, [isOpen]);
 
-  const handleSend = async () => {
-    if (!userMessage.trim()) return;
+  const handleSend = async (messageText = null) => {
+    const msgToSend = messageText || userMessage.trim();
+    if (!msgToSend) return;
 
-    const newMessages = [...messages, { sender: "user", text: userMessage }];
+    const newMessages = [...messages, { sender: "user", text: msgToSend }];
     setMessages(newMessages);
-    setUserMessage("");
+    if (!messageText) setUserMessage("");
 
     setIsTyping(true);
     setTimeout(async () => {
@@ -51,7 +52,7 @@ const ChatbotFloating = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             session_id: "frontend-session",
-            message: userMessage,
+            message: msgToSend,
           }),
         });
 
@@ -126,10 +127,7 @@ const ChatbotFloating = () => {
                     {msg.buttons.map((button, btnIndex) => (
                       <button
                         key={btnIndex}
-                        onClick={() => {
-                          setUserMessage(button);
-                          setTimeout(() => handleSend(), 0);
-                        }}
+                        onClick={() => handleSend(button)}
                         className="bg-blue-500 text-white px-3 py-1 rounded-lg text-xs hover:bg-blue-600"
                       >
                         {button}
@@ -142,7 +140,7 @@ const ChatbotFloating = () => {
             {isTyping && (
               <div className="flex items-center space-x-2 text-gray-500 text-sm">
                 <div className="bg-gray-100 p-2 rounded-xl">
-                  XIGI Assistant is typing...
+                  XIGI AI Assistant is typing...
                 </div>
               </div>
             )}

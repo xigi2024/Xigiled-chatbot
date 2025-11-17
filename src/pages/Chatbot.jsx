@@ -7,7 +7,8 @@ const AIChatAssistant = () => {
   const [sessionId] = useState(`session-${Date.now()}`); // Unique session for each user
   const [isTyping, setIsTyping] = useState(false);
 
-  const renderMessage = (text) => {
+  const renderMessage = (msg) => {
+    const text = msg.text || msg.reply || msg;
     if (!text) return text;
     const lines = text.split(/\r?\n/);
     // Find the start of the table (first line starting with '+')
@@ -18,67 +19,105 @@ const AIChatAssistant = () => {
         break;
       }
     }
+    let content;
     if (tableStart === -1) {
-      return <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{text}</pre>;
-    }
-    // Extract table lines
-    const tableLines = lines.slice(tableStart);
-    const tableRows = [];
-    for (const line of tableLines) {
-      const trimmedLine = line.trim();
-      if (trimmedLine.startsWith('|') && trimmedLine.endsWith('|')) {
-        const cells = trimmedLine.split('|').slice(1, -1).map(cell => cell.trim());
-        if (cells.length === 2) {
+      content = <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{text}</pre>;
+    } else {
+      // Extract table lines
+      const tableLines = lines.slice(tableStart);
+      const tableRows = [];
+      for (const line of tableLines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine.startsWith('|') && trimmedLine.endsWith('|')) {
+          const cells = trimmedLine.split('|').slice(1, -1).map(cell => cell.trim());
+          if (cells.length === 2) {
+            tableRows.push(
+              <tr key={tableRows.length}>
+                <td style={{ padding: '4px 8px', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
+                <td style={{ padding: '4px 8px', border: '1px solid #ccc' }}>{cells[1]}</td>
+              </tr>
+            );
+          } else if (cells.length === 1) {
+            tableRows.push(
+              <tr key={tableRows.length}>
+                <td colSpan="2" style={{ padding: '4px 8px', textAlign: 'center', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
+              </tr>
+            );
+          }
+        } else if (trimmedLine.startsWith('+') && trimmedLine.endsWith('+')) {
+          // Separator line, add a thin border row
           tableRows.push(
             <tr key={tableRows.length}>
-              <td style={{ padding: '4px 8px', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
-              <td style={{ padding: '4px 8px', border: '1px solid #ccc' }}>{cells[1]}</td>
-            </tr>
-          );
-        } else if (cells.length === 1) {
-          tableRows.push(
-            <tr key={tableRows.length}>
-              <td colSpan="2" style={{ padding: '4px 8px', textAlign: 'center', fontWeight: 'bold', border: '1px solid #ccc' }}>{cells[0]}</td>
+              <td colSpan="2" style={{ padding: '2px', borderTop: '2px solid #000', borderLeft: '1px solid #ccc', borderRight: '1px solid #ccc' }}></td>
             </tr>
           );
         }
-      } else if (trimmedLine.startsWith('+') && trimmedLine.endsWith('+')) {
-        // Separator line, add a thin border row
-        tableRows.push(
-          <tr key={tableRows.length}>
-            <td colSpan="2" style={{ padding: '2px', borderTop: '2px solid #000', borderLeft: '1px solid #ccc', borderRight: '1px solid #ccc' }}></td>
-          </tr>
-        );
       }
+      // Render the text before the table as pre, and the table as HTML
+      const preText = lines.slice(0, tableStart).join('\n');
+      content = (
+        <div>
+          {preText && <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{preText}</pre>}
+          {tableRows.length > 0 && (
+            <table style={{ borderCollapse: 'collapse', width: '100%', fontFamily: 'Arial, sans-serif', fontSize: '14px', border: '1px solid #000', marginTop: '10px' }}>
+              <tbody>{tableRows}</tbody>
+            </table>
+          )}
+        </div>
+      );
     }
-    // Render the text before the table as pre, and the table as HTML
-    const preText = lines.slice(0, tableStart).join('\n');
-    return (
-      <div>
-        {preText && <pre style={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap', margin: 0 }}>{preText}</pre>}
-        {tableRows.length > 0 && (
-          <table style={{ borderCollapse: 'collapse', width: '100%', fontFamily: 'Arial, sans-serif', fontSize: '14px', border: '1px solid #000', marginTop: '10px' }}>
-            <tbody>{tableRows}</tbody>
-          </table>
-        )}
-      </div>
-    );
+
+    if (msg.type === "buttons" && msg.buttons && msg.buttons.length > 0) {
+      return (
+        <div>
+          {content}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "5px" }}>
+            {msg.buttons.map((button, btnIdx) => (
+              <button
+                key={button}
+                type="button"
+                onClick={() => sendMessage(button)}
+                style={{
+                  padding: "8px 16px",
+                  border: "none",
+                  borderRadius: "6px",
+                  backgroundColor: "#007bff",
+                  color: "#fff",
+                  cursor: "pointer",
+                  fontSize: "14px"
+                }}
+              >
+                {button}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      return content;
+    }
   };
 
   useEffect(() => {
-    const fullText = "Hey 👋 I'm XIGI Assistant! Ready to explore LED panels?";
-    let index = 0;
-    setIsTyping(true);
-    const typingInterval = setInterval(() => {
-      if (index < fullText.length) {
-        setMessages([{ type: "buttons", reply: fullText.slice(0, index + 1), buttons: index === fullText.length - 1 ? ["Indoor Panels", "Outdoor Panels"] : [] }]);
-        index++;
-      } else {
-        clearInterval(typingInterval);
-        setIsTyping(false);
+    // Initial call to backend for greeting
+    const initializeChat = async () => {
+      setIsTyping(true);
+      try {
+        const response = await axios.post("http://localhost:8000/api/alexa/", {
+          session_id: sessionId,
+          message: ""
+        });
+        if (response.data && response.data.buttons) {
+          setMessages([{ type: "buttons", reply: response.data.reply, buttons: response.data.buttons }]);
+        }
+      } catch (error) {
+        console.error("Error initializing chat:", error);
+        setMessages([{ type: "system", text: "Error connecting to AI assistant." }]);
       }
-    }, 50); // Adjust speed as needed
-  }, []);
+      setIsTyping(false);
+    };
+    initializeChat();
+  }, [sessionId]);
 
   const sendMessage = async (messageText = null) => {
     console.log('sendMessage called with:', messageText);
@@ -104,7 +143,7 @@ const AIChatAssistant = () => {
         console.log('Response data:', response.data);
 
         if (response.data) {
-          if (response.data.type === "buttons") {
+          if (response.data.buttons) {
             setMessages(prev => [
               ...prev,
               { type: "buttons", reply: response.data.reply, buttons: response.data.buttons }
@@ -195,7 +234,7 @@ const AIChatAssistant = () => {
                   backgroundColor: msg.type === "user" ? "#cce5ff" : "#e2e3e5"
                 }}
               >
-                {renderMessage(msg.text)}
+                {renderMessage(msg)}
               </div>
             )}
           </div>
@@ -211,7 +250,7 @@ const AIChatAssistant = () => {
                 color: "#666"
               }}
             >
-              XIGI Assistant is typing...
+              XIGI AI Assistant is typing...
             </span>
           </div>
         )}
